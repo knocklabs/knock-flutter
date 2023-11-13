@@ -1,0 +1,3 @@
+class ApiClient {
+  void dispose() {}
+}

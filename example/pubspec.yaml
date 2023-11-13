@@ -1,0 +1,26 @@
+name: knock_flutter_example
+description: Knock Flutter example app
+publish_to: 'none'
+
+version: 1.0.0+1
+
+environment:
+  sdk: '>=3.1.5 <4.0.0'
+
+dependencies:
+  flutter:
+    sdk: flutter
+
+  knock_flutter:
+    # We reference the SDK in the parent directory for the example app.
+    # In your app you will want to reference a released version.
+    path: ..
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+
+  flutter_lints: ^2.0.0
+
+flutter:
+  uses-material-design: true
