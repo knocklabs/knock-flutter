@@ -70,7 +70,7 @@ class Knock {
         """);
     }
 
-    return _apiClient ??= ApiClient();
+    return _apiClient ??= ApiClient(this);
   }
 
   /// Releases any connected resources used by this this instance.
