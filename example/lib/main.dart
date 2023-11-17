@@ -1,3 +1,5 @@
+import 'dart:developer' as developer;
+
 import 'package:flutter/material.dart';
 import 'package:knock_flutter/knock_flutter.dart';
 
@@ -29,7 +31,7 @@ class KnockPage extends StatefulWidget {
 }
 
 class _KnockPageState extends State<KnockPage> {
-  Knock? _knock;
+  late Knock _knock;
 
   @override
   void initState() {
@@ -51,11 +53,44 @@ class _KnockPageState extends State<KnockPage> {
     /// https://codewithandrea.com/articles/flutter-api-keys-dart-define-env-files/#new-in-flutter-37-use---dart-define-from-file
     /// to learn more about this approach.
     _knock = Knock(const String.fromEnvironment("KNOCK_API_KEY"));
+    _knock.authenticate('1');
+  }
+
+  // ignore: unused_element
+  void _getAllPreferences() async {
+    final List<PreferenceSet> all = await _knock.preferences.getAll();
+    developer.log(all.toString());
+  }
+
+  // ignore: unused_element
+  void _getPreferences() async {
+    final PreferenceSet preferences = await _knock.preferences.get();
+    developer.log(preferences.toString());
+  }
+
+  // ignore: unused_element
+  void _setPreferences() async {
+    final PreferenceSet preferences = await _knock.preferences.set(
+      SetPreferencesProperties(
+        categories: {
+          'dinosaur-proximity': WorkflowPreferenceSetting.workflow(true),
+        },
+        workflows: {
+          'unix-servers': WorkflowPreferenceSetting.channelTypePreferences({
+            ChannelType.inAppFeed: true,
+          }),
+        },
+        channelTypes: {
+          ChannelType.email: false,
+        },
+      ),
+    );
+    developer.log(preferences.toString());
   }
 
   @override
   void dispose() {
-    _knock?.dispose();
+    _knock.dispose();
     super.dispose();
   }
 

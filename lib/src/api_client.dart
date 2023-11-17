@@ -1,5 +1,11 @@
+import 'dart:developer' as developer;
+
 import 'package:http/http.dart' as http;
+
 import 'package:knock_flutter/knock_flutter.dart';
+import 'package:knock_flutter/src/model/api_response.dart';
+
+typedef ApiRequestBuilder = Future<http.Response> Function();
 
 class ApiClient extends http.BaseClient {
   final Knock knock;
@@ -9,8 +15,6 @@ class ApiClient extends http.BaseClient {
     this.knock, {
     http.Client? client,
   }) : _client = client ?? http.Client();
-
-  Uri path(String path) => Uri.parse('${knock.host}/$path');
 
   @override
   Future<http.StreamedResponse> send(http.BaseRequest request) {
@@ -25,6 +29,34 @@ class ApiClient extends http.BaseClient {
 
     return _client.send(request);
   }
+
+  Future<ApiResponse> doGet(String path) async {
+    return _doRequest(() => get(_usingPath(path)));
+  }
+
+  Future<ApiResponse> doPut(String path, {Object? body}) async {
+    return _doRequest(() => put(_usingPath(path), body: body));
+  }
+
+  Future<ApiResponse> _doRequest(ApiRequestBuilder requestBuilder) async {
+    try {
+      final response = await requestBuilder();
+      final status = response.statusCode;
+      final statusCode = status < 300 ? StatusCode.ok : StatusCode.error;
+      final body = response.body;
+      return ApiResponse(status: status, statusCode: statusCode, body: body);
+    } catch (error) {
+      developer.log('Failed API request', error: error);
+
+      return ApiResponse(
+        status: 500,
+        statusCode: StatusCode.error,
+        error: error,
+      );
+    }
+  }
+
+  Uri _usingPath(String path) => Uri.parse('${knock.host}$path');
 
   void dispose() {
     _client.close();
