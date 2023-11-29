@@ -96,9 +96,9 @@ void main() {
               "archived_at": null,
               "blocks": [
                 {
-                    "content": "Hey **{{ recipient.name | split: ' ' | first }}** 👋 - {{ actor.name }} added a new comment.",
+                    "content": "Hey **{{ recipient.name | split: ' ' | first }}** - {{ actor.name }} added a new comment.",
                     "name": "body",
-                    "rendered": "<p>Hey <strong>Ellie</strong> 👋 - John Hammond added a new comment.</p>",
+                    "rendered": "<p>Hey <strong>Ellie</strong> - John Hammond added a new comment.</p>",
                     "type": "markdown"
                 },
                 {
@@ -165,11 +165,12 @@ void main() {
         ),
       );
       expect(feed.networkStatus, NetworkStatus.ready);
-      expect(feed.items.length, 1);
 
+      // Check feed items
+      expect(feed.items.length, 1);
       final item = feed.items[0];
 
-      // We will check activities, actors, and blocks next
+      // Start with the top level data...will check activities, actors, and blocks next
       expect(
         item.copyWith(activities: [], actors: [], blocks: []),
         const FeedItem(
@@ -195,42 +196,71 @@ void main() {
         ),
       );
 
+      // Check feed item activities
       expect(item.activities.length, 1);
-      final activity = item.activities[0];
-
-      final expectedRecipient = Recipient.user(User(
-        id: '2',
-        name: 'Ellie Sattler',
-        email: 'esattler@ingen.net',
-        updatedAt: '2023-11-27T22:08:30.739Z',
-      ).setCreatedAt(null).set('__typename', 'User'));
-      expect(activity.recipient, expectedRecipient);
-
-      final expectedActor = Recipient.user(User(
-        id: '1',
-        name: 'John Hammond',
-        email: 'jhammond@ingen.net',
-        updatedAt: '2023-11-17T22:46:39.020Z',
-      ).setCreatedAt(null).set('__typename', 'User'));
-      expect(activity.actor, expectedActor);
-
       expect(
-        activity,
+        item.activities[0],
         Activity(
           id: '2YmFaQ1DBIl0Km6TyGgpforc1KP',
           insertedAt: '2023-11-27T22:08:30.795658Z',
           updatedAt: '2023-11-27T22:08:30.795658Z',
-          recipient: expectedRecipient,
-          actor: expectedActor,
+          recipient: Recipient.user(
+            User(
+              id: '2',
+              name: 'Ellie Sattler',
+              email: 'esattler@ingen.net',
+              updatedAt: '2023-11-27T22:08:30.739Z',
+            ).setCreatedAt(null).set('__typename', 'User'),
+          ),
+          actor: Recipient.user(
+            User(
+              id: '1',
+              name: 'John Hammond',
+              email: 'jhammond@ingen.net',
+              updatedAt: '2023-11-17T22:46:39.020Z',
+            ).setCreatedAt(null).set('__typename', 'User'),
+          ),
           data: {
             'project_name': 'My Project',
           },
         ),
       );
 
+      // Check feed item actors
       expect(item.actors.length, 1);
+      expect(
+        item.actors,
+        [
+          Recipient.user(
+            User(
+              id: '1',
+              name: 'John Hammond',
+              email: 'jhammond@ingen.net',
+              updatedAt: '2023-11-17T22:46:39.020Z',
+            ).setCreatedAt(null).set('__typename', 'User'),
+          )
+        ],
+      );
 
       expect(item.blocks.length, 2);
+      expect(
+        item.blocks,
+        const [
+          ContentBlock(
+            content: 'Hey **{{ recipient.name | split: \' \' | first }}** - {{ actor.name }} added a new comment.',
+            name: 'body',
+            rendered:
+                '<p>Hey <strong>Ellie</strong> - John Hammond added a new comment.</p>',
+            type: ContentBlockType.markdown,
+          ),
+          ContentBlock(
+            content: '{{ vars.app_url }}',
+            name: 'action_url',
+            rendered: '',
+            type: ContentBlockType.text,
+          ),
+        ],
+      );
     });
   });
 }
