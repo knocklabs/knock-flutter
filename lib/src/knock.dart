@@ -1,6 +1,5 @@
-import 'dart:developer' as developer;
-
 import 'package:knock_flutter/src/api_client.dart';
+import 'package:knock_flutter/src/preferences_client.dart';
 
 // Default endpoint that the Knock SDK will use.
 const _defaultHost = "https://api.knock.app";
@@ -24,6 +23,7 @@ class Knock {
   String? _userId;
   String? _userToken;
   ApiClient? _apiClient;
+  PreferencesClient? _preferencesClient;
 
   Knock(this.apiKey, {KnockOptions? options})
       : host = options?.host ?? _defaultHost {
@@ -59,9 +59,9 @@ class Knock {
     return (userId?.isNotEmpty ?? false);
   }
 
-  ApiClient client() {
+  void _assertAuthenticated() {
     if (!isAuthenticated()) {
-      developer.log("""
+      throw StateError("""
         [Knock] You must call authenticate(userId, userToken) first before 
         trying to make a request. Typically you'll see this message when 
         you're creating a feed instance before having called authenticate with 
@@ -69,8 +69,18 @@ class Knock {
         to Knock on behalf of.
         """);
     }
+  }
 
-    return _apiClient ??= ApiClient();
+  ApiClient client() {
+    _assertAuthenticated();
+
+    return _apiClient ??= ApiClient(this);
+  }
+
+  PreferencesClient get preferences {
+    _assertAuthenticated();
+
+    return _preferencesClient ??= PreferencesClient(this, client());
   }
 
   /// Releases any connected resources used by this this instance.

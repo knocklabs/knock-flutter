@@ -45,5 +45,15 @@ void main() {
       expect(knock.userToken, isNull);
       expect(knock.isAuthenticated(checkUserToken: true), false);
     });
+
+    test('is required before using the client', () {
+      final knock = Knock("api_key");
+      expect(() => knock.client(), throwsStateError);
+    });
+
+    test('is required before using the preferences client', () {
+      final knock = Knock("api_key");
+      expect(() => knock.client(), throwsStateError);
+    });
   });
 }
