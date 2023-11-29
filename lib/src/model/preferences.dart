@@ -1,6 +1,6 @@
-import 'package:equatable/equatable.dart';
-import 'package:json_annotation/json_annotation.dart';
+import 'package:freezed_annotation/freezed_annotation.dart';
 
+part 'preferences.freezed.dart';
 part 'preferences.g.dart';
 
 enum ChannelType {
@@ -17,119 +17,83 @@ typedef ChannelTypePreferences = Map<ChannelType, bool>;
 
 // This class is only used for JSON encoding/decoding. The channel_types value
 // is what will be exposed in the public SDK.
-@JsonSerializable()
-class _ChannelTypesJson {
-  @JsonKey(name: 'channel_types')
-  final ChannelTypePreferences channelTypes;
-
-  const _ChannelTypesJson({
-    required this.channelTypes,
-  });
+@freezed
+class _ChannelTypesJson with _$ChannelTypesJson {
+  @JsonSerializable(explicitToJson: true)
+  const factory _ChannelTypesJson({
+    @JsonKey(name: 'channel_types')
+    required ChannelTypePreferences channelTypes,
+  }) = __ChannelTypesJson;
 
   factory _ChannelTypesJson.fromJson(Map<String, dynamic> json) =>
       _$ChannelTypesJsonFromJson(json);
-
-  Map<String, dynamic> toJson() => _$ChannelTypesJsonToJson(this);
 }
 
-class WorkflowPreferenceSetting extends Equatable {
-  final bool _isWorkflow;
-  final bool? _workflow;
-  final ChannelTypePreferences? _channelPreferences;
-
+@freezed
+class WorkflowPreferenceSetting with _$WorkflowPreferenceSetting {
   factory WorkflowPreferenceSetting.workflow(bool workflow) =>
-      WorkflowPreferenceSetting._(true, workflow, null);
+      WorkflowPreferenceSetting._(
+        isWorkflow: true,
+        workflow: workflow,
+        channelPreferences: null,
+      );
 
   factory WorkflowPreferenceSetting.channelTypePreferences(
           ChannelTypePreferences channelTypePreferences) =>
-      WorkflowPreferenceSetting._(false, null, channelTypePreferences);
+      WorkflowPreferenceSetting._(
+        isWorkflow: false,
+        workflow: null,
+        channelPreferences: channelTypePreferences,
+      );
 
-  const WorkflowPreferenceSetting._(
-      this._isWorkflow, this._workflow, this._channelPreferences);
-
-  bool get isWorkflow => _isWorkflow;
-
-  bool get workflow => _workflow!;
-
-  ChannelTypePreferences get channelPreferences => _channelPreferences!;
-
-  @override
-  String toString() {
-    return 'WorkflowPreferenceSetting{_isWorkflow=$_isWorkflow, _workflow=$_workflow, _channelPreferences=$_channelPreferences}';
-  }
-
-  @override
-  List<Object?> get props => [_isWorkflow, _workflow, _channelPreferences];
+  const factory WorkflowPreferenceSetting._({
+    required bool isWorkflow,
+    required bool? workflow,
+    required ChannelTypePreferences? channelPreferences,
+  }) = _WorkflowPreferenceSetting;
 }
 
 typedef WorkflowPreferences = Map<String, WorkflowPreferenceSetting>;
 
-@JsonSerializable()
-class SetPreferencesProperties extends Equatable {
-  @JsonKey(name: 'channel_types')
-  final ChannelTypePreferences? channelTypes;
+@freezed
+class SetPreferencesProperties with _$SetPreferencesProperties {
+  @JsonSerializable(explicitToJson: true)
+  const factory SetPreferencesProperties({
+    @JsonKey(name: 'channel_types')
+    required ChannelTypePreferences? channelTypes,
+    @JsonKey(
+        toJson: _workflowPreferencesToJson,
+        fromJson: _workflowPreferencesFromJson)
+    required WorkflowPreferences? workflows,
+    @JsonKey(
+        toJson: _workflowPreferencesToJson,
+        fromJson: _workflowPreferencesFromJson)
+    required WorkflowPreferences? categories,
+  }) = _SetPreferencesProperties;
 
-  @JsonKey(
-      toJson: _workflowPreferencesToJson,
-      fromJson: _workflowPreferencesFromJson)
-  final WorkflowPreferences? workflows;
-
-  @JsonKey(
-      toJson: _workflowPreferencesToJson,
-      fromJson: _workflowPreferencesFromJson)
-  final WorkflowPreferences? categories;
-
-  const SetPreferencesProperties({
-    this.channelTypes,
-    this.workflows,
-    this.categories,
-  });
-
-  Map<String, dynamic> toJson() => _$SetPreferencesPropertiesToJson(this);
-
-  @override
-  List<Object?> get props => [channelTypes, workflows, categories];
-
-  @override
-  String toString() {
-    return 'SetPreferencesProperties{channelTypes=$channelTypes, workflows=$workflows, categories=$categories}';
-  }
+  factory SetPreferencesProperties.fromJson(Map<String, dynamic> json) =>
+      _$SetPreferencesPropertiesFromJson(json);
 }
 
-@JsonSerializable(createToJson: false)
-class PreferenceSet extends Equatable {
-  final String id;
-
-  @JsonKey(name: 'channel_types')
-  final ChannelTypePreferences? channelTypes;
-
-  @JsonKey(
-      toJson: _workflowPreferencesToJson,
-      fromJson: _workflowPreferencesFromJson)
-  final WorkflowPreferences? workflows;
-
-  @JsonKey(
-      toJson: _workflowPreferencesToJson,
-      fromJson: _workflowPreferencesFromJson)
-  final WorkflowPreferences? categories;
-
-  const PreferenceSet({
-    required this.id,
-    required this.channelTypes,
-    required this.workflows,
-    required this.categories,
-  });
+@freezed
+class PreferenceSet with _$PreferenceSet {
+  @JsonSerializable(explicitToJson: true)
+  const factory PreferenceSet({
+    required String id,
+    @JsonKey(name: 'channel_types')
+    required ChannelTypePreferences? channelTypes,
+    @JsonKey(
+        toJson: _workflowPreferencesToJson,
+        fromJson: _workflowPreferencesFromJson)
+    required WorkflowPreferences? workflows,
+    @JsonKey(
+        toJson: _workflowPreferencesToJson,
+        fromJson: _workflowPreferencesFromJson)
+    required WorkflowPreferences? categories,
+  }) = _PreferenceSet;
 
   factory PreferenceSet.fromJson(Map<String, dynamic> json) =>
       _$PreferenceSetFromJson(json);
-
-  @override
-  List<Object?> get props => [id, channelTypes, workflows, categories];
-
-  @override
-  String toString() {
-    return 'PreferenceSet{id=$id, channelTypes=$channelTypes, workflows=$workflows, categories=$categories}';
-  }
 }
 
 dynamic _workflowPreferencesToJson(WorkflowPreferences? value) {
@@ -148,9 +112,9 @@ WorkflowPreferences? _workflowPreferencesFromJson(Map<String, dynamic>? json) {
 
 dynamic _workflowPreferenceSettingToJson(WorkflowPreferenceSetting value) {
   if (value.isWorkflow) {
-    return value.workflow;
+    return value.workflow!;
   } else {
-    return _ChannelTypesJson(channelTypes: value.channelPreferences).toJson();
+    return _ChannelTypesJson(channelTypes: value.channelPreferences!).toJson();
   }
 }
 

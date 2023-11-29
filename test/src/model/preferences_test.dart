@@ -118,7 +118,11 @@ void main() {
   group('SetPreferencesProperties serializes', () {
     test('correctly when no properties are used', () async {
       expect(
-        const SetPreferencesProperties().toJson(),
+        const SetPreferencesProperties(
+          categories: null,
+          workflows: null,
+          channelTypes: null,
+        ).toJson(),
         {
           'categories': null,
           'workflows': null,
