@@ -16,7 +16,18 @@ final _privateConstructorUsedError = UnsupportedError(
 
 /// @nodoc
 mixin _$User {
-  Map<String, dynamic> get fields => throw _privateConstructorUsedError;
+  String get id => throw _privateConstructorUsedError;
+  String? get email => throw _privateConstructorUsedError;
+  String? get name => throw _privateConstructorUsedError;
+  @JsonKey(name: 'phone_number')
+  String? get phoneNumber => throw _privateConstructorUsedError;
+  String? get avatar => throw _privateConstructorUsedError;
+  @JsonKey(name: 'updated_at')
+  String get updatedAt => throw _privateConstructorUsedError;
+  @JsonKey(name: 'created_at')
+  String? get createdAt => throw _privateConstructorUsedError;
+  @JsonKey(includeToJson: false, includeFromJson: false)
+  Map<String, dynamic>? get properties => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
   $UserCopyWith<User> get copyWith => throw _privateConstructorUsedError;
@@ -27,7 +38,16 @@ abstract class $UserCopyWith<$Res> {
   factory $UserCopyWith(User value, $Res Function(User) then) =
       _$UserCopyWithImpl<$Res, User>;
   @useResult
-  $Res call({Map<String, dynamic> fields});
+  $Res call(
+      {String id,
+      String? email,
+      String? name,
+      @JsonKey(name: 'phone_number') String? phoneNumber,
+      String? avatar,
+      @JsonKey(name: 'updated_at') String updatedAt,
+      @JsonKey(name: 'created_at') String? createdAt,
+      @JsonKey(includeToJson: false, includeFromJson: false)
+      Map<String, dynamic>? properties});
 }
 
 /// @nodoc
@@ -43,13 +63,48 @@ class _$UserCopyWithImpl<$Res, $Val extends User>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? fields = null,
+    Object? id = null,
+    Object? email = freezed,
+    Object? name = freezed,
+    Object? phoneNumber = freezed,
+    Object? avatar = freezed,
+    Object? updatedAt = null,
+    Object? createdAt = freezed,
+    Object? properties = freezed,
   }) {
     return _then(_value.copyWith(
-      fields: null == fields
-          ? _value.fields
-          : fields // ignore: cast_nullable_to_non_nullable
-              as Map<String, dynamic>,
+      id: null == id
+          ? _value.id
+          : id // ignore: cast_nullable_to_non_nullable
+              as String,
+      email: freezed == email
+          ? _value.email
+          : email // ignore: cast_nullable_to_non_nullable
+              as String?,
+      name: freezed == name
+          ? _value.name
+          : name // ignore: cast_nullable_to_non_nullable
+              as String?,
+      phoneNumber: freezed == phoneNumber
+          ? _value.phoneNumber
+          : phoneNumber // ignore: cast_nullable_to_non_nullable
+              as String?,
+      avatar: freezed == avatar
+          ? _value.avatar
+          : avatar // ignore: cast_nullable_to_non_nullable
+              as String?,
+      updatedAt: null == updatedAt
+          ? _value.updatedAt
+          : updatedAt // ignore: cast_nullable_to_non_nullable
+              as String,
+      createdAt: freezed == createdAt
+          ? _value.createdAt
+          : createdAt // ignore: cast_nullable_to_non_nullable
+              as String?,
+      properties: freezed == properties
+          ? _value.properties
+          : properties // ignore: cast_nullable_to_non_nullable
+              as Map<String, dynamic>?,
     ) as $Val);
   }
 }
@@ -61,7 +116,16 @@ abstract class _$$UserImplCopyWith<$Res> implements $UserCopyWith<$Res> {
       __$$UserImplCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({Map<String, dynamic> fields});
+  $Res call(
+      {String id,
+      String? email,
+      String? name,
+      @JsonKey(name: 'phone_number') String? phoneNumber,
+      String? avatar,
+      @JsonKey(name: 'updated_at') String updatedAt,
+      @JsonKey(name: 'created_at') String? createdAt,
+      @JsonKey(includeToJson: false, includeFromJson: false)
+      Map<String, dynamic>? properties});
 }
 
 /// @nodoc
@@ -74,35 +138,100 @@ class __$$UserImplCopyWithImpl<$Res>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? fields = null,
+    Object? id = null,
+    Object? email = freezed,
+    Object? name = freezed,
+    Object? phoneNumber = freezed,
+    Object? avatar = freezed,
+    Object? updatedAt = null,
+    Object? createdAt = freezed,
+    Object? properties = freezed,
   }) {
     return _then(_$UserImpl(
-      fields: null == fields
-          ? _value._fields
-          : fields // ignore: cast_nullable_to_non_nullable
-              as Map<String, dynamic>,
+      id: null == id
+          ? _value.id
+          : id // ignore: cast_nullable_to_non_nullable
+              as String,
+      email: freezed == email
+          ? _value.email
+          : email // ignore: cast_nullable_to_non_nullable
+              as String?,
+      name: freezed == name
+          ? _value.name
+          : name // ignore: cast_nullable_to_non_nullable
+              as String?,
+      phoneNumber: freezed == phoneNumber
+          ? _value.phoneNumber
+          : phoneNumber // ignore: cast_nullable_to_non_nullable
+              as String?,
+      avatar: freezed == avatar
+          ? _value.avatar
+          : avatar // ignore: cast_nullable_to_non_nullable
+              as String?,
+      updatedAt: null == updatedAt
+          ? _value.updatedAt
+          : updatedAt // ignore: cast_nullable_to_non_nullable
+              as String,
+      createdAt: freezed == createdAt
+          ? _value.createdAt
+          : createdAt // ignore: cast_nullable_to_non_nullable
+              as String?,
+      properties: freezed == properties
+          ? _value._properties
+          : properties // ignore: cast_nullable_to_non_nullable
+              as Map<String, dynamic>?,
     ));
   }
 }
 
 /// @nodoc
 
+@JsonSerializable(createFieldMap: true)
 class _$UserImpl extends _User {
-  _$UserImpl({required final Map<String, dynamic> fields})
-      : _fields = fields,
+  _$UserImpl(
+      {required this.id,
+      this.email,
+      this.name,
+      @JsonKey(name: 'phone_number') this.phoneNumber,
+      this.avatar,
+      @JsonKey(name: 'updated_at') required this.updatedAt,
+      @JsonKey(name: 'created_at') this.createdAt,
+      @JsonKey(includeToJson: false, includeFromJson: false)
+      final Map<String, dynamic>? properties})
+      : _properties = properties,
         super._();
 
-  final Map<String, dynamic> _fields;
   @override
-  Map<String, dynamic> get fields {
-    if (_fields is EqualUnmodifiableMapView) return _fields;
+  final String id;
+  @override
+  final String? email;
+  @override
+  final String? name;
+  @override
+  @JsonKey(name: 'phone_number')
+  final String? phoneNumber;
+  @override
+  final String? avatar;
+  @override
+  @JsonKey(name: 'updated_at')
+  final String updatedAt;
+  @override
+  @JsonKey(name: 'created_at')
+  final String? createdAt;
+  final Map<String, dynamic>? _properties;
+  @override
+  @JsonKey(includeToJson: false, includeFromJson: false)
+  Map<String, dynamic>? get properties {
+    final value = _properties;
+    if (value == null) return null;
+    if (_properties is EqualUnmodifiableMapView) return _properties;
     // ignore: implicit_dynamic_type
-    return EqualUnmodifiableMapView(_fields);
+    return EqualUnmodifiableMapView(value);
   }
 
   @override
   String toString() {
-    return 'User._internal(fields: $fields)';
+    return 'User(id: $id, email: $email, name: $name, phoneNumber: $phoneNumber, avatar: $avatar, updatedAt: $updatedAt, createdAt: $createdAt, properties: $properties)';
   }
 
   @override
@@ -110,12 +239,31 @@ class _$UserImpl extends _User {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$UserImpl &&
-            const DeepCollectionEquality().equals(other._fields, _fields));
+            (identical(other.id, id) || other.id == id) &&
+            (identical(other.email, email) || other.email == email) &&
+            (identical(other.name, name) || other.name == name) &&
+            (identical(other.phoneNumber, phoneNumber) ||
+                other.phoneNumber == phoneNumber) &&
+            (identical(other.avatar, avatar) || other.avatar == avatar) &&
+            (identical(other.updatedAt, updatedAt) ||
+                other.updatedAt == updatedAt) &&
+            (identical(other.createdAt, createdAt) ||
+                other.createdAt == createdAt) &&
+            const DeepCollectionEquality()
+                .equals(other._properties, _properties));
   }
 
   @override
-  int get hashCode =>
-      Object.hash(runtimeType, const DeepCollectionEquality().hash(_fields));
+  int get hashCode => Object.hash(
+      runtimeType,
+      id,
+      email,
+      name,
+      phoneNumber,
+      avatar,
+      updatedAt,
+      createdAt,
+      const DeepCollectionEquality().hash(_properties));
 
   @JsonKey(ignore: true)
   @override
@@ -125,11 +273,38 @@ class _$UserImpl extends _User {
 }
 
 abstract class _User extends User {
-  factory _User({required final Map<String, dynamic> fields}) = _$UserImpl;
+  factory _User(
+      {required final String id,
+      final String? email,
+      final String? name,
+      @JsonKey(name: 'phone_number') final String? phoneNumber,
+      final String? avatar,
+      @JsonKey(name: 'updated_at') required final String updatedAt,
+      @JsonKey(name: 'created_at') final String? createdAt,
+      @JsonKey(includeToJson: false, includeFromJson: false)
+      final Map<String, dynamic>? properties}) = _$UserImpl;
   _User._() : super._();
 
   @override
-  Map<String, dynamic> get fields;
+  String get id;
+  @override
+  String? get email;
+  @override
+  String? get name;
+  @override
+  @JsonKey(name: 'phone_number')
+  String? get phoneNumber;
+  @override
+  String? get avatar;
+  @override
+  @JsonKey(name: 'updated_at')
+  String get updatedAt;
+  @override
+  @JsonKey(name: 'created_at')
+  String? get createdAt;
+  @override
+  @JsonKey(includeToJson: false, includeFromJson: false)
+  Map<String, dynamic>? get properties;
   @override
   @JsonKey(ignore: true)
   _$$UserImplCopyWith<_$UserImpl> get copyWith =>

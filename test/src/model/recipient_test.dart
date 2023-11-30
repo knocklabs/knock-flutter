@@ -54,13 +54,19 @@ void main() {
 
   group('Recipient serializes', () {
     test('user recipients', () {
-      final recipient = Recipient.user(User.fromJson({
-        'id': '123',
-        "updated_at": "2023-11-28T15:00:00Z",
-      }));
+      final recipient = Recipient.user(User(
+        id: '123',
+        updatedAt: '2023-11-28T15:00:00Z',
+      ).set('extra', 'value'));
       expect(recipient.toJson(), {
         'id': '123',
-        "updated_at": "2023-11-28T15:00:00Z",
+        'email': null,
+        'name': null,
+        'phone_number': null,
+        'avatar': null,
+        'updated_at': "2023-11-28T15:00:00Z",
+        'created_at': null,
+        'extra': 'value',
       });
     });
 

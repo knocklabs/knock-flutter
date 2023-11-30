@@ -1,84 +1,66 @@
-import 'dart:collection';
-
 import 'package:freezed_annotation/freezed_annotation.dart';
 
 part 'user.freezed.dart';
+part 'user.g.dart';
 
-@Freezed(fromJson: false, toJson: false)
+@freezed
 class User with _$User {
   User._();
 
+  @JsonSerializable(createFieldMap: true)
   factory User({
     required String id,
     String? email,
     String? name,
-    String? phoneNumber,
+    @JsonKey(name: 'phone_number') String? phoneNumber,
     String? avatar,
-    required String updatedAt,
-    String? createdAt,
+    @JsonKey(name: 'updated_at') required String updatedAt,
+    @JsonKey(name: 'created_at') String? createdAt,
+    @JsonKey(includeToJson: false, includeFromJson: false)
     Map<String, dynamic>? properties,
-    bool includeNulls = false,
-  }) {
-    final Map<String, dynamic> fields = Map.from(properties ?? {});
-    fields['id'] = id;
-    fields['email'] = email;
-    fields['name'] = name;
-    fields['phone_number'] = phoneNumber;
-    fields['avatar'] = avatar;
-    fields['updated_at'] = updatedAt;
-    fields['created_at'] = createdAt;
-    if (!includeNulls) {
-      fields.removeWhere((key, value) => value == null);
-    }
+  }) = _User;
 
-    return User._internal(fields: fields);
+  factory User.fromJson(Map<String, dynamic> json) {
+    return const UserConverter().fromJson(json);
   }
 
-  factory User._internal({required Map<String, dynamic> fields}) {
-    final sorted = SplayTreeMap<String, dynamic>.from(fields);
-    return  _User(fields: sorted);
+  Map<String, dynamic> toJson() {
+    return const UserConverter().toJson(this);
   }
 
-  String get id => get('id');
-
-  String? get email => get('email');
-
-  User setEmail(String? value) => set('email', value);
-
-  String? get name => get('name');
-
-  User setName(String? value) => set('name', value);
-
-  String? get phoneNumber => get('phone_number');
-
-  User setPhoneNumber(String? value) => set('phone_number', value);
-
-  String? get avatar => get('avatar');
-
-  User setAvatar(String? value) => set('avatar', value);
-
-  String get updatedAt => get('updated_at');
-
-  User setUpdatedAt(String? value) => set('updated_at', value);
-
-  String? get createdAt => get('created_at');
-
-  User setCreatedAt(String? value) => set('created_at', value);
-
-  dynamic get(String name) => fields[name];
+  dynamic get(String name) => properties?[name];
 
   User set(String name, dynamic value) {
     if (name == 'id') {
       throw ArgumentError('User id can not be changed once created');
     }
 
-    final copy = Map<String, dynamic>.from(fields);
+    final copy = Map<String, dynamic>.from(properties ?? {});
     copy[name] = value;
-    return copyWith(fields: copy);
+    return copyWith(properties: copy);
+  }
+}
+
+class UserConverter implements JsonConverter<User, Map<String, dynamic>> {
+  const UserConverter();
+
+  @override
+  User fromJson(Map<String, dynamic> json) {
+    final user = _$$UserImplFromJson(json);
+    final keys = _$$UserImplFieldMap.values;
+    json.removeWhere((key, value) => keys.contains(key));
+    return user.copyWith(properties: json.isEmpty ? null : json);
   }
 
-  factory User.fromJson(Map<String, dynamic> json) =>
-      User._internal(fields: json);
-
-  Map<String, dynamic> toJson() => fields;
+  @override
+  Map<String, dynamic> toJson(User object) {
+    if (object is _$UserImpl) {
+      final json = _$$UserImplToJson(object);
+      json.addAll(object.properties ?? {});
+      return json;
+    } else {
+      throw StateError(
+          'Trying to convert an unexpected User object to json: $object');
+    }
+  }
 }

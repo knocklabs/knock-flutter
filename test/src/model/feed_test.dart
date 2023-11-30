@@ -45,7 +45,8 @@ void main() {
           email: 'jhammond@ingen.net',
           name: 'John Hammond',
           updatedAt: '2023-11-17T22:46:39.020Z',
-        ).setCreatedAt(null).set('__typename', 'User'))),
+          properties: {'__typename': 'User'},
+        ))),
       );
     });
 
@@ -210,7 +211,8 @@ void main() {
               name: 'Ellie Sattler',
               email: 'esattler@ingen.net',
               updatedAt: '2023-11-27T22:08:30.739Z',
-            ).setCreatedAt(null).set('__typename', 'User'),
+              properties: {'__typename': 'User'},
+            ),
           ),
           actor: Recipient.user(
             User(
@@ -218,7 +220,8 @@ void main() {
               name: 'John Hammond',
               email: 'jhammond@ingen.net',
               updatedAt: '2023-11-17T22:46:39.020Z',
-            ).setCreatedAt(null).set('__typename', 'User'),
+              properties: {'__typename': 'User'},
+            ),
           ),
           data: {
             'project_name': 'My Project',
@@ -237,7 +240,8 @@ void main() {
               name: 'John Hammond',
               email: 'jhammond@ingen.net',
               updatedAt: '2023-11-17T22:46:39.020Z',
-            ).setCreatedAt(null).set('__typename', 'User'),
+              properties: {'__typename': 'User'},
+            ),
           )
         ],
       );
@@ -247,7 +251,8 @@ void main() {
         item.blocks,
         const [
           ContentBlock(
-            content: 'Hey **{{ recipient.name | split: \' \' | first }}** - {{ actor.name }} added a new comment.',
+            content:
+                'Hey **{{ recipient.name | split: \' \' | first }}** - {{ actor.name }} added a new comment.',
             name: 'body',
             rendered:
                 '<p>Hey <strong>Ellie</strong> - John Hammond added a new comment.</p>',
