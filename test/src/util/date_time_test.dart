@@ -1,5 +1,5 @@
 import 'package:flutter_test/flutter_test.dart';
-import 'package:knock_flutter/src/util/date_time_extension.dart';
+import 'package:knock_flutter/src/util/date_time.dart';
 
 void main() {
   test('DateTimeExtension formats timestamps to ISO 8601', () {

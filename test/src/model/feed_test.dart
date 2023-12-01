@@ -25,6 +25,36 @@ void main() {
     );
   });
 
+  test('Feed knows when it has an inflight request', () {
+    expect(
+      Feed.initialState()
+          .copyWith(networkStatus: NetworkStatus.ready)
+          .requestInFlight,
+      false,
+    );
+
+    expect(
+      Feed.initialState()
+          .copyWith(networkStatus: NetworkStatus.error)
+          .requestInFlight,
+      false,
+    );
+
+    expect(
+      Feed.initialState()
+          .copyWith(networkStatus: NetworkStatus.loading)
+          .requestInFlight,
+      true,
+    );
+
+    expect(
+      Feed.initialState()
+          .copyWith(networkStatus: NetworkStatus.fetchMore)
+          .requestInFlight,
+      true,
+    );
+  });
+
   group('Feed deserializes', () {
     test('user recipients correctly', () {
       final json = jsonDecode('''
@@ -55,7 +85,7 @@ void main() {
         {
           "entries": [
             {
-              "__cursor": "g3QAAAABZAALaW5zZXJ0ZWRfYXR0AAAADWQACl9fc3RydWN0X19kAA9FbGl4aXIuRGF0ZVRpbWVkAAhjYWxlbmRhcmQAE0VsaXhpci5DYWxlbmRhci5JU09kAANkYXlhG2QABGhvdXJhFmQAC21pY3Jvc2Vjb25kaAJiAAx3AWEGZAAGbWludXRlYQhkAAVtb250aGELZAAGc2Vjb25kYR5kAApzdGRfb2Zmc2V0YQBkAAl0aW1lX3pvbmVtAAAAB0V0Yy9VVENkAAp1dGNfb2Zmc2V0YQBkAAR5ZWFyYgAAB-dkAAl6b25lX2FiYnJtAAAAA1VUQw==",
+              "__cursor": "long_value",
               "__typename": "FeedItem",
               "activities": [
                 {
@@ -174,13 +204,14 @@ void main() {
       // Start with the top level data...will check activities, actors, and blocks next
       expect(
         item.copyWith(activities: [], actors: [], blocks: []),
-        const FeedItem(
+        FeedItem(
+          knockInternalCursor: 'long_value',
           id: '2YmFaQ8EGs2p1T4usnQW5TzTQlA',
           activities: [],
           actors: [],
           blocks: [],
-          insertedAt: '2023-11-27T22:08:30.816897Z',
-          updatedAt: '2023-11-27T22:24:35.547189Z',
+          insertedAt: DateTime.parse('2023-11-27T22:08:30.816897Z'),
+          updatedAt: DateTime.parse('2023-11-27T22:24:35.547189Z'),
           seenAt: null,
           readAt: null,
           archivedAt: null,
@@ -189,7 +220,7 @@ void main() {
           data: {
             'project_name': 'My Project',
           },
-          source: NotificationSource(
+          source: const NotificationSource(
             key: 'new-comment',
             versionId: '3da6b2de-8d09-470d-8d24-076055696f64',
           ),
@@ -203,8 +234,8 @@ void main() {
         item.activities[0],
         Activity(
           id: '2YmFaQ1DBIl0Km6TyGgpforc1KP',
-          insertedAt: '2023-11-27T22:08:30.795658Z',
-          updatedAt: '2023-11-27T22:08:30.795658Z',
+          insertedAt: DateTime.parse('2023-11-27T22:08:30.795658Z'),
+          updatedAt: DateTime.parse('2023-11-27T22:08:30.795658Z'),
           recipient: Recipient.user(
             User(
               id: '2',
