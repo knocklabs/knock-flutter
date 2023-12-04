@@ -62,17 +62,24 @@ void main() {
       final feed = testFeed().copyWith(items: [
         testFeedItem('1'),
         testFeedItem('2'),
-      ]);
+      ]).correctTestMetadata();
       final updatedFeed = feed.markAsSeen(['2'], testNow());
 
       expect(
         updatedFeed,
-        Feed.initialState().copyWith(items: [
-          testFeedItem('1'),
-          testFeedItem('2').copyWith(
-            seenAt: DateTime.parse('2023-11-29T19:30:45.100Z'),
+        Feed.initialState().copyWith(
+          items: [
+            testFeedItem('1'),
+            testFeedItem('2').copyWith(
+              seenAt: DateTime.parse('2023-11-29T19:30:45.100Z'),
+            ),
+          ],
+          metadata: const FeedMetadata(
+            totalCount: 2,
+            unreadCount: 2,
+            unseenCount: 1,
           ),
-        ]),
+        ),
       );
     });
 
@@ -81,15 +88,22 @@ void main() {
         testFeedItem('1'),
         testFeedItem('2')
             .copyWith(seenAt: DateTime.parse('2023-11-29T19:30:45.100Z')),
-      ]);
+      ]).correctTestMetadata();
       final updatedFeed = feed.markAsUnseen(['2']);
 
       expect(
         updatedFeed,
-        Feed.initialState().copyWith(items: [
-          testFeedItem('1'),
-          testFeedItem('2'),
-        ]),
+        Feed.initialState().copyWith(
+          items: [
+            testFeedItem('1'),
+            testFeedItem('2'),
+          ],
+          metadata: const FeedMetadata(
+            totalCount: 2,
+            unreadCount: 2,
+            unseenCount: 2,
+          ),
+        ),
       );
     });
 
@@ -97,17 +111,24 @@ void main() {
       final feed = testFeed().copyWith(items: [
         testFeedItem('1'),
         testFeedItem('2'),
-      ]);
+      ]).correctTestMetadata();
       final updatedFeed = feed.markAsRead(['2'], testNow());
 
       expect(
         updatedFeed,
-        Feed.initialState().copyWith(items: [
-          testFeedItem('1'),
-          testFeedItem('2').copyWith(
-            readAt: DateTime.parse('2023-11-29T19:30:45.100Z'),
+        Feed.initialState().copyWith(
+          items: [
+            testFeedItem('1'),
+            testFeedItem('2').copyWith(
+              readAt: DateTime.parse('2023-11-29T19:30:45.100Z'),
+            ),
+          ],
+          metadata: const FeedMetadata(
+            totalCount: 2,
+            unreadCount: 1,
+            unseenCount: 2,
           ),
-        ]),
+        ),
       );
     });
 
@@ -117,33 +138,69 @@ void main() {
         testFeedItem('2').copyWith(
           readAt: DateTime.parse('2023-11-29T19:30:45.100Z'),
         ),
-      ]);
+      ]).correctTestMetadata();
       final updatedFeed = feed.markAsUnread(['2']);
 
       expect(
         updatedFeed,
-        Feed.initialState().copyWith(items: [
-          testFeedItem('1'),
-          testFeedItem('2'),
-        ]),
+        Feed.initialState().copyWith(
+          items: [
+            testFeedItem('1'),
+            testFeedItem('2'),
+          ],
+          metadata: const FeedMetadata(
+            totalCount: 2,
+            unreadCount: 2,
+            unseenCount: 2,
+          ),
+        ),
       );
     });
 
-    test('marks items as archived', () {
+    test('marks items as archived when filtering for unarchived', () {
       final feed = testFeed().copyWith(items: [
         testFeedItem('1'),
         testFeedItem('2'),
-      ]);
-      final updatedFeed = feed.markAsArchived(['2'], testNow());
+      ]).correctTestMetadata();
+      final updatedFeed = feed.markAsArchived(['2'], testNow(), true);
 
       expect(
         updatedFeed,
-        Feed.initialState().copyWith(items: [
-          testFeedItem('1'),
-          testFeedItem('2').copyWith(
-            archivedAt: DateTime.parse('2023-11-29T19:30:45.100Z'),
+        Feed.initialState().copyWith(
+          items: [
+            testFeedItem('1'),
+          ],
+          metadata: const FeedMetadata(
+            totalCount: 1,
+            unreadCount: 1,
+            unseenCount: 1,
           ),
-        ]),
+        ),
+      );
+    });
+
+    test('marks items as archived when not filtering for unarchived', () {
+      final feed = testFeed().copyWith(items: [
+        testFeedItem('1'),
+        testFeedItem('2'),
+      ]).correctTestMetadata();
+      final updatedFeed = feed.markAsArchived(['2'], testNow(), false);
+
+      expect(
+        updatedFeed,
+        Feed.initialState().copyWith(
+          items: [
+            testFeedItem('1'),
+            testFeedItem('2').copyWith(
+              archivedAt: DateTime.parse('2023-11-29T19:30:45.100Z'),
+            ),
+          ],
+          metadata: const FeedMetadata(
+            totalCount: 2,
+            unreadCount: 2,
+            unseenCount: 2,
+          ),
+        ),
       );
     });
 
@@ -153,15 +210,154 @@ void main() {
         testFeedItem('2').copyWith(
           archivedAt: DateTime.parse('2023-11-29T19:30:45.100Z'),
         ),
-      ]);
+      ]).correctTestMetadata();
       final updatedFeed = feed.markAsUnarchived(['2']);
 
       expect(
         updatedFeed,
-        Feed.initialState().copyWith(items: [
-          testFeedItem('1'),
-          testFeedItem('2'),
-        ]),
+        Feed.initialState().copyWith(
+          items: [
+            testFeedItem('1'),
+            testFeedItem('2'),
+          ],
+          metadata: const FeedMetadata(
+            totalCount: 2,
+            unreadCount: 2,
+            unseenCount: 2,
+          ),
+        ),
+      );
+    });
+
+    test('marks all items as seen when filtering for unseen', () {
+      final feed = testFeed().copyWith(items: [
+        testFeedItem('1'),
+        testFeedItem('2'),
+      ]).correctTestMetadata();
+      final updatedFeed = feed.markAllAsSeen(
+        testNow(),
+        true,
+        () => Feed.initialState(),
+      );
+
+      expect(
+        updatedFeed,
+        Feed.initialState(),
+      );
+    });
+
+    test('marks all items as seen when not filtering for unseen', () {
+      final feed = testFeed().copyWith(items: [
+        testFeedItem('1'),
+        testFeedItem('2'),
+      ]).correctTestMetadata();
+      final updatedFeed = feed.markAllAsSeen(
+        testNow(),
+        false,
+        () => Feed.initialState(),
+      );
+
+      expect(
+        updatedFeed,
+        Feed.initialState().copyWith(
+          items: [
+            testFeedItem('1').copyWith(seenAt: testNow()),
+            testFeedItem('2').copyWith(seenAt: testNow()),
+          ],
+          metadata: const FeedMetadata(
+            totalCount: 2,
+            unreadCount: 2,
+            unseenCount: 0,
+          ),
+        ),
+      );
+    });
+
+    test('marks all items as read when filtering for unread', () {
+      final feed = testFeed().copyWith(items: [
+        testFeedItem('1'),
+        testFeedItem('2'),
+      ]).correctTestMetadata();
+      final updatedFeed = feed.markAllAsRead(
+        testNow(),
+        true,
+        () => Feed.initialState(),
+      );
+
+      expect(
+        updatedFeed,
+        Feed.initialState(),
+      );
+    });
+
+    test('marks all items as read when not filtering for unread', () {
+      final feed = testFeed().copyWith(items: [
+        testFeedItem('1'),
+        testFeedItem('2'),
+      ]).correctTestMetadata();
+      final updatedFeed = feed.markAllAsRead(
+        testNow(),
+        false,
+        () => Feed.initialState(),
+      );
+
+      expect(
+        updatedFeed,
+        Feed.initialState().copyWith(
+          items: [
+            testFeedItem('1').copyWith(readAt: testNow()),
+            testFeedItem('2').copyWith(readAt: testNow()),
+          ],
+          metadata: const FeedMetadata(
+            totalCount: 2,
+            unreadCount: 0,
+            unseenCount: 2,
+          ),
+        ),
+      );
+    });
+
+    test('marks all items as archived when filtering for unarchived', () {
+      final feed = testFeed().copyWith(items: [
+        testFeedItem('1'),
+        testFeedItem('2'),
+      ]).correctTestMetadata();
+      final updatedFeed = feed.markAllAsArchived(
+        testNow(),
+        true,
+        () => Feed.initialState(),
+      );
+
+      expect(
+        updatedFeed,
+        Feed.initialState(),
+      );
+    });
+
+    test('marks all items as archived when not filtering for unarchived', () {
+      final feed = testFeed().copyWith(items: [
+        testFeedItem('1'),
+        testFeedItem('2'),
+      ]).correctTestMetadata();
+      final updatedFeed = feed.markAllAsArchived(
+        testNow(),
+        false,
+        () => Feed.initialState(),
+      );
+
+      expect(
+        updatedFeed,
+        Feed.initialState().copyWith(
+          items: [
+            testFeedItem('1').copyWith(archivedAt: testNow()),
+            testFeedItem('2').copyWith(archivedAt: testNow()),
+          ],
+          metadata: const FeedMetadata(
+            totalCount: 2,
+            unreadCount: 2,
+            unseenCount: 2,
+          ),
+        ),
       );
     });
 
@@ -269,4 +465,19 @@ void main() {
       });
     });
   });
+}
+
+extension _TestFeedExtension on Feed {
+  Feed correctTestMetadata() {
+    final totalCount = items.length;
+    final unreadCount = items.where((item) => item.readAt == null).length;
+    final unseenCount = items.where((item) => item.seenAt == null).length;
+    return copyWith(
+      metadata: FeedMetadata(
+        totalCount: totalCount,
+        unreadCount: unreadCount,
+        unseenCount: unseenCount,
+      ),
+    );
+  }
 }
