@@ -215,6 +215,7 @@ void main() {
           seenAt: null,
           readAt: null,
           archivedAt: null,
+          interactedAt: null,
           totalActivities: 1,
           totalActors: 1,
           data: {

@@ -18,6 +18,7 @@ void main() {
         seenAt: null,
         readAt: null,
         archivedAt: null,
+        interactedAt: null,
         totalActivities: 0,
         totalActors: 0,
         data: null,
@@ -151,6 +152,30 @@ void main() {
           metadata: const FeedMetadata(
             totalCount: 2,
             unreadCount: 2,
+            unseenCount: 2,
+          ),
+        ),
+      );
+    });
+
+    test('marks items as interacted', () {
+      final feed = testFeed().copyWith(
+          items: [testFeedItem('1'), testFeedItem('2')]).correctTestMetadata();
+      final updatedFeed = feed.markAsInteracted(['2'], testNow());
+
+      expect(
+        updatedFeed,
+        Feed.initialState().copyWith(
+          items: [
+            testFeedItem('1'),
+            testFeedItem('2').copyWith(
+              readAt: testNow(),
+              interactedAt: testNow(),
+            ),
+          ],
+          metadata: const FeedMetadata(
+            totalCount: 2,
+            unreadCount: 1,
             unseenCount: 2,
           ),
         ),

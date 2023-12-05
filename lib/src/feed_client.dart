@@ -295,8 +295,7 @@ class FeedClient {
   void markAsInteracted(List<FeedItem> items) {
     items.action((ids) {
       _makeStatusUpdates(_FeedItemApiStatus.interacted, ids);
-      // TODO - Question about if `interacted_at` should be part of the model on FeedItem?
-      //_feed = _feed.markAsInteracted(ids);
+      _currentFeed = _currentFeed.markAsInteracted(ids, DateTime.now());
     });
   }
 

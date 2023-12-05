@@ -294,6 +294,9 @@ mixin _$FeedItem {
   @ISO8601DateTimeConverter()
   @JsonKey(name: 'archived_at')
   DateTime? get archivedAt => throw _privateConstructorUsedError;
+  @ISO8601DateTimeConverter()
+  @JsonKey(name: 'interacted_at')
+  DateTime? get interactedAt => throw _privateConstructorUsedError;
   @JsonKey(name: 'total_activities')
   int get totalActivities => throw _privateConstructorUsedError;
   @JsonKey(name: 'total_actors')
@@ -330,6 +333,9 @@ abstract class $FeedItemCopyWith<$Res> {
       @ISO8601DateTimeConverter()
       @JsonKey(name: 'archived_at')
       DateTime? archivedAt,
+      @ISO8601DateTimeConverter()
+      @JsonKey(name: 'interacted_at')
+      DateTime? interactedAt,
       @JsonKey(name: 'total_activities') int totalActivities,
       @JsonKey(name: 'total_actors') int totalActors,
       Map<String, dynamic>? data,
@@ -362,6 +368,7 @@ class _$FeedItemCopyWithImpl<$Res, $Val extends FeedItem>
     Object? seenAt = freezed,
     Object? readAt = freezed,
     Object? archivedAt = freezed,
+    Object? interactedAt = freezed,
     Object? totalActivities = null,
     Object? totalActors = null,
     Object? data = freezed,
@@ -408,6 +415,10 @@ class _$FeedItemCopyWithImpl<$Res, $Val extends FeedItem>
       archivedAt: freezed == archivedAt
           ? _value.archivedAt
           : archivedAt // ignore: cast_nullable_to_non_nullable
+              as DateTime?,
+      interactedAt: freezed == interactedAt
+          ? _value.interactedAt
+          : interactedAt // ignore: cast_nullable_to_non_nullable
               as DateTime?,
       totalActivities: null == totalActivities
           ? _value.totalActivities
@@ -466,6 +477,9 @@ abstract class _$$FeedItemImplCopyWith<$Res>
       @ISO8601DateTimeConverter()
       @JsonKey(name: 'archived_at')
       DateTime? archivedAt,
+      @ISO8601DateTimeConverter()
+      @JsonKey(name: 'interacted_at')
+      DateTime? interactedAt,
       @JsonKey(name: 'total_activities') int totalActivities,
       @JsonKey(name: 'total_actors') int totalActors,
       Map<String, dynamic>? data,
@@ -497,6 +511,7 @@ class __$$FeedItemImplCopyWithImpl<$Res>
     Object? seenAt = freezed,
     Object? readAt = freezed,
     Object? archivedAt = freezed,
+    Object? interactedAt = freezed,
     Object? totalActivities = null,
     Object? totalActors = null,
     Object? data = freezed,
@@ -543,6 +558,10 @@ class __$$FeedItemImplCopyWithImpl<$Res>
       archivedAt: freezed == archivedAt
           ? _value.archivedAt
           : archivedAt // ignore: cast_nullable_to_non_nullable
+              as DateTime?,
+      interactedAt: freezed == interactedAt
+          ? _value.interactedAt
+          : interactedAt // ignore: cast_nullable_to_non_nullable
               as DateTime?,
       totalActivities: null == totalActivities
           ? _value.totalActivities
@@ -593,6 +612,9 @@ class _$FeedItemImpl implements _FeedItem {
       @ISO8601DateTimeConverter()
       @JsonKey(name: 'archived_at')
       required this.archivedAt,
+      @ISO8601DateTimeConverter()
+      @JsonKey(name: 'interacted_at')
+      required this.interactedAt,
       @JsonKey(name: 'total_activities') required this.totalActivities,
       @JsonKey(name: 'total_actors') required this.totalActors,
       required final Map<String, dynamic>? data,
@@ -656,6 +678,10 @@ class _$FeedItemImpl implements _FeedItem {
   @JsonKey(name: 'archived_at')
   final DateTime? archivedAt;
   @override
+  @ISO8601DateTimeConverter()
+  @JsonKey(name: 'interacted_at')
+  final DateTime? interactedAt;
+  @override
   @JsonKey(name: 'total_activities')
   final int totalActivities;
   @override
@@ -678,7 +704,7 @@ class _$FeedItemImpl implements _FeedItem {
 
   @override
   String toString() {
-    return 'FeedItem(knockInternalCursor: $knockInternalCursor, id: $id, activities: $activities, actors: $actors, blocks: $blocks, insertedAt: $insertedAt, updatedAt: $updatedAt, seenAt: $seenAt, readAt: $readAt, archivedAt: $archivedAt, totalActivities: $totalActivities, totalActors: $totalActors, data: $data, source: $source, tenant: $tenant)';
+    return 'FeedItem(knockInternalCursor: $knockInternalCursor, id: $id, activities: $activities, actors: $actors, blocks: $blocks, insertedAt: $insertedAt, updatedAt: $updatedAt, seenAt: $seenAt, readAt: $readAt, archivedAt: $archivedAt, interactedAt: $interactedAt, totalActivities: $totalActivities, totalActors: $totalActors, data: $data, source: $source, tenant: $tenant)';
   }
 
   @override
@@ -701,6 +727,8 @@ class _$FeedItemImpl implements _FeedItem {
             (identical(other.readAt, readAt) || other.readAt == readAt) &&
             (identical(other.archivedAt, archivedAt) ||
                 other.archivedAt == archivedAt) &&
+            (identical(other.interactedAt, interactedAt) ||
+                other.interactedAt == interactedAt) &&
             (identical(other.totalActivities, totalActivities) ||
                 other.totalActivities == totalActivities) &&
             (identical(other.totalActors, totalActors) ||
@@ -724,6 +752,7 @@ class _$FeedItemImpl implements _FeedItem {
       seenAt,
       readAt,
       archivedAt,
+      interactedAt,
       totalActivities,
       totalActors,
       const DeepCollectionEquality().hash(_data),
@@ -766,6 +795,9 @@ abstract class _FeedItem implements FeedItem {
       @ISO8601DateTimeConverter()
       @JsonKey(name: 'archived_at')
       required final DateTime? archivedAt,
+      @ISO8601DateTimeConverter()
+      @JsonKey(name: 'interacted_at')
+      required final DateTime? interactedAt,
       @JsonKey(name: 'total_activities') required final int totalActivities,
       @JsonKey(name: 'total_actors') required final int totalActors,
       required final Map<String, dynamic>? data,
@@ -806,6 +838,10 @@ abstract class _FeedItem implements FeedItem {
   @ISO8601DateTimeConverter()
   @JsonKey(name: 'archived_at')
   DateTime? get archivedAt;
+  @override
+  @ISO8601DateTimeConverter()
+  @JsonKey(name: 'interacted_at')
+  DateTime? get interactedAt;
   @override
   @JsonKey(name: 'total_activities')
   int get totalActivities;

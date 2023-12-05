@@ -90,6 +90,21 @@ extension FeedModifiersExtension on Feed {
     );
   }
 
+  Feed markAsInteracted(Iterable<String> ids, DateTime at) {
+    final unreadCount = items._count(ids, (item) => item.readAt == null);
+    return copyWith(
+      items: items._filteredMap(ids, (item) {
+        return item.copyWith(
+          readAt: at,
+          interactedAt: at,
+        );
+      }),
+      metadata: metadata.copyWith(
+        unreadCount: max(0, metadata.unreadCount - unreadCount),
+      ),
+    );
+  }
+
   Feed markAsArchived(
     Iterable<String> ids,
     DateTime at,
