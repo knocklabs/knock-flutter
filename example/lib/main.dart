@@ -79,7 +79,10 @@ class _KnockPageState extends State<_KnockPage> {
       ),
       _PreferencesWidget(
         knock: knock,
-      )
+      ),
+      _UserWidget(
+        knock: knock,
+      ),
     ];
 
     return Scaffold(
@@ -104,11 +107,89 @@ class _KnockPageState extends State<_KnockPage> {
             icon: Icon(Icons.settings),
             label: 'Preferences',
           ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.person),
+            label: 'User',
+          ),
         ],
         currentIndex: _selectedTabIndex,
         onTap: (index) => setState(() => _selectedTabIndex = index),
       ),
       body: tabPages[_selectedTabIndex],
+    );
+  }
+}
+
+class _UserWidget extends StatefulWidget {
+  final Knock knock;
+
+  const _UserWidget({required this.knock});
+
+  @override
+  State<_UserWidget> createState() => _UserWidgetState();
+}
+
+class _UserWidgetState extends State<_UserWidget> {
+  User? _user;
+
+  final _nameController = TextEditingController();
+
+  @override
+  void initState() {
+    super.initState();
+    WidgetsBinding.instance.addPostFrameCallback((_) async {
+      // Knock: Getting the current user
+      final user = await widget.knock.user().get();
+      setState(() => _user = user);
+      _nameController.text = user.name ?? '';
+    });
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+    _nameController.dispose();
+  }
+
+  void _onChangeName() async {
+    String name = _nameController.text;
+
+    // Knock: Updating defined and custom user properties
+    final user = await widget.knock.user().identify(
+      name: name,
+      properties: {
+        'timeZoneName': DateTime.now().timeZoneName,
+      },
+    );
+    setState(() => _user = user);
+    _nameController.text = user.name ?? '';
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.all(8.0),
+      child: Column(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          Row(
+            children: [
+              Expanded(
+                child: TextField(
+                  controller: _nameController,
+                ),
+              ),
+              const SizedBox(width: 16),
+              OutlinedButton(
+                onPressed: _onChangeName,
+                child: const Text('Change Name'),
+              ),
+            ],
+          ),
+          const SizedBox(height: 16),
+          Text(_user?.toString() ?? 'null'),
+        ],
+      ),
     );
   }
 }

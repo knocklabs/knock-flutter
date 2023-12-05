@@ -23,6 +23,7 @@ class Knock {
   String? _userToken;
   ApiClient? _apiClient;
   PreferencesClient? _preferencesClient;
+  UserClient? _userClient;
 
   Knock(this.apiKey, {KnockOptions? options})
       : host = options?.host ?? _defaultHost {
@@ -81,6 +82,11 @@ class Knock {
   ApiClient client() {
     _assertAuthenticated();
     return _apiClient ??= ApiClient(this);
+  }
+
+  UserClient user() {
+    _assertAuthenticated();
+    return _userClient ??= UserClient(this);
   }
 
   PreferencesClient preferences({

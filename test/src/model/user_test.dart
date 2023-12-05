@@ -27,8 +27,8 @@ void main() {
               name: 'Dennis Nedry',
               phoneNumber: '123-456-7890',
               avatar: 'biosyn.jpg',
-              createdAt: '2023-11-28T12:00:00Z',
-              updatedAt: '2023-11-28T15:00:00Z'));
+              createdAt: DateTime.parse('2023-11-28T12:00:00Z'),
+              updatedAt: DateTime.parse('2023-11-28T15:00:00Z')));
     });
 
     test('correctly when no known fields are present', () {
@@ -49,7 +49,7 @@ void main() {
               phoneNumber: null,
               avatar: null,
               createdAt: null,
-              updatedAt: '2023-11-28T15:00:00Z'));
+              updatedAt: DateTime.parse('2023-11-28T15:00:00Z')));
     });
 
     test('correctly when extra fields are present', () {
@@ -82,8 +82,8 @@ void main() {
         name: 'Dennis Nedry',
         phoneNumber: '123-456-7890',
         avatar: 'biosyn.jpg',
-        updatedAt: '2023-11-28T15:00:00Z',
-        createdAt: '2023-11-28T12:00:00Z',
+        updatedAt: DateTime.parse('2023-11-28T15:00:00Z'),
+        createdAt: DateTime.parse('2023-11-28T12:00:00Z'),
       ).toJson();
 
       expect(
@@ -94,8 +94,8 @@ void main() {
           'name': 'Dennis Nedry',
           'phone_number': '123-456-7890',
           'avatar': 'biosyn.jpg',
-          'updated_at': '2023-11-28T15:00:00Z',
-          'created_at': '2023-11-28T12:00:00Z',
+          'updated_at': '2023-11-28T15:00:00.000Z',
+          'created_at': '2023-11-28T12:00:00.000Z',
         },
       );
     });
@@ -103,7 +103,7 @@ void main() {
     test('correctly when no known fields are present', () {
       final json = User(
         id: '123',
-        updatedAt: '2023-11-28T15:00:00Z',
+        updatedAt: DateTime.parse('2023-11-28T15:00:00Z'),
       ).toJson();
 
       expect(
@@ -114,7 +114,7 @@ void main() {
           'name': null,
           'phone_number': null,
           'avatar': null,
-          'updated_at': '2023-11-28T15:00:00Z',
+          'updated_at': '2023-11-28T15:00:00.000Z',
           'created_at': null,
         },
       );
@@ -123,7 +123,7 @@ void main() {
     test('correctly when extra fields are present', () {
       final json = User(
         id: '123',
-        updatedAt: '2023-11-28T15:00:00Z',
+        updatedAt: DateTime.parse('2023-11-28T15:00:00Z'),
       )
           .set('extra_number', 13)
           .set('extra_string', 'some string')
@@ -137,7 +137,7 @@ void main() {
           'name': null,
           'phone_number': null,
           'avatar': null,
-          'updated_at': '2023-11-28T15:00:00Z',
+          'updated_at': '2023-11-28T15:00:00.000Z',
           'created_at': null,
           'extra_number': 13,
           'extra_string': 'some string',
@@ -151,7 +151,7 @@ void main() {
     test('does not allow mutating the user id', () {
       final user = User(
         id: '123',
-        updatedAt: '2023-11-28T15:00:00Z',
+        updatedAt: DateTime.parse('2023-11-28T15:00:00Z'),
       );
       expect(() => user.set('id', 'not going to happen'), throwsArgumentError);
     });

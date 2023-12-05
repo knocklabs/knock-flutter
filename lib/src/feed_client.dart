@@ -198,7 +198,7 @@ class FeedClient {
     if (response.statusCode == StatusCode.error) {
       _currentFeed = currentFeed.copyWith(networkStatus: NetworkStatus.error);
     } else {
-      final json = _decodeResponse(response);
+      final json = response.decodeResponse();
       final updatedFeed = Feed.fromJson(json);
 
       Feed mergedFeed;
@@ -431,15 +431,6 @@ class FeedClient {
           hasTenant: options.hasTenant,
           tenants: tenants,
         ).toJson()));
-  }
-
-  dynamic _decodeResponse(ApiResponse response) {
-    if (response.statusCode == StatusCode.error) {
-      throw Exception(response);
-    } else {
-      final body = response.body!;
-      return jsonDecode(body);
-    }
   }
 
   void _assertNotDisposed() {
