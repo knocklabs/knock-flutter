@@ -55,16 +55,27 @@ class ApiClient extends http.BaseClient {
     return _client.send(request);
   }
 
-  Future<ApiResponse> doGet(String path) async {
-    return _doRequest(() => get(_usingPath(path)));
+  Future<ApiResponse> doGet(
+    String path, {
+    Map<String, dynamic>? queryParams,
+  }) async {
+    return _doRequest(() => get(_buildUri(path, queryParams)));
   }
 
-  Future<ApiResponse> doPut(String path, {Object? body}) async {
-    return _doRequest(() => put(_usingPath(path), body: body));
+  Future<ApiResponse> doPut(
+    String path, {
+    Map<String, dynamic>? queryParams,
+    Object? body,
+  }) async {
+    return _doRequest(() => put(_buildUri(path, queryParams), body: body));
   }
 
-  Future<ApiResponse> doPost(String path, {Object? body}) async {
-    return _doRequest(() => post(_usingPath(path), body: body));
+  Future<ApiResponse> doPost(
+    String path, {
+    Map<String, dynamic>? queryParams,
+    Object? body,
+  }) async {
+    return _doRequest(() => post(_buildUri(path, queryParams), body: body));
   }
 
   Future<ApiResponse> _doRequest(ApiRequestBuilder requestBuilder) async {
@@ -85,7 +96,21 @@ class ApiClient extends http.BaseClient {
     }
   }
 
-  Uri _usingPath(String path) => Uri.parse('$_host$path');
+  Uri _buildUri(String path, Map<String, dynamic>? queryParams) {
+    final uri = Uri.parse('$_host$path');
+    final cleanParams = Map<String, dynamic>.from(queryParams ?? {})
+        .map((key, value) => MapEntry(key, value?.toString()));
+    cleanParams.removeWhere((key, value) => value == null);
+
+    return Uri(
+        scheme: uri.scheme,
+        userInfo: uri.userInfo,
+        host: uri.host,
+        port: uri.port == 0 ? null : uri.port,
+        pathSegments: uri.pathSegments,
+        queryParameters: cleanParams,
+        fragment: uri.fragment);
+  }
 
   void dispose() {
     _client.close();

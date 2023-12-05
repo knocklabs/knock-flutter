@@ -84,7 +84,7 @@ class Knock {
 
   FeedClient feed(
     String feedChannelId, {
-    FeedOptions options = const FeedOptions(),
+    FeedOptions? options,
   }) {
     _assertAuthenticated();
     return FeedClient(this, client(), feedChannelId, options);

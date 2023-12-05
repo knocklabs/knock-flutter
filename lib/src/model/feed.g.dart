@@ -36,6 +36,7 @@ const _$NetworkStatusEnumMap = {
 
 _$FeedItemImpl _$$FeedItemImplFromJson(Map<String, dynamic> json) =>
     _$FeedItemImpl(
+      knockInternalCursor: json['__cursor'] as String,
       id: json['id'] as String,
       activities: (json['activities'] as List<dynamic>)
           .map((e) => Activity.fromJson(e as Map<String, dynamic>))
@@ -46,11 +47,16 @@ _$FeedItemImpl _$$FeedItemImplFromJson(Map<String, dynamic> json) =>
       blocks: (json['blocks'] as List<dynamic>)
           .map((e) => ContentBlock.fromJson(e as Map<String, dynamic>))
           .toList(),
-      insertedAt: json['inserted_at'] as String,
-      updatedAt: json['updated_at'] as String,
-      seenAt: json['seen_at'] as String?,
-      readAt: json['read_at'] as String?,
-      archivedAt: json['archived_at'] as String?,
+      insertedAt: const ISO8601DateTimeConverter()
+          .fromJson(json['inserted_at'] as String),
+      updatedAt: const ISO8601DateTimeConverter()
+          .fromJson(json['updated_at'] as String),
+      seenAt: _$JsonConverterFromJson<String, DateTime>(
+          json['seen_at'], const ISO8601DateTimeConverter().fromJson),
+      readAt: _$JsonConverterFromJson<String, DateTime>(
+          json['read_at'], const ISO8601DateTimeConverter().fromJson),
+      archivedAt: _$JsonConverterFromJson<String, DateTime>(
+          json['archived_at'], const ISO8601DateTimeConverter().fromJson),
       totalActivities: json['total_activities'] as int,
       totalActors: json['total_actors'] as int,
       data: json['data'] as Map<String, dynamic>?,
@@ -61,15 +67,20 @@ _$FeedItemImpl _$$FeedItemImplFromJson(Map<String, dynamic> json) =>
 
 Map<String, dynamic> _$$FeedItemImplToJson(_$FeedItemImpl instance) =>
     <String, dynamic>{
+      '__cursor': instance.knockInternalCursor,
       'id': instance.id,
       'activities': instance.activities.map((e) => e.toJson()).toList(),
       'actors': instance.actors.map((e) => e.toJson()).toList(),
       'blocks': instance.blocks.map((e) => e.toJson()).toList(),
-      'inserted_at': instance.insertedAt,
-      'updated_at': instance.updatedAt,
-      'seen_at': instance.seenAt,
-      'read_at': instance.readAt,
-      'archived_at': instance.archivedAt,
+      'inserted_at':
+          const ISO8601DateTimeConverter().toJson(instance.insertedAt),
+      'updated_at': const ISO8601DateTimeConverter().toJson(instance.updatedAt),
+      'seen_at': _$JsonConverterToJson<String, DateTime>(
+          instance.seenAt, const ISO8601DateTimeConverter().toJson),
+      'read_at': _$JsonConverterToJson<String, DateTime>(
+          instance.readAt, const ISO8601DateTimeConverter().toJson),
+      'archived_at': _$JsonConverterToJson<String, DateTime>(
+          instance.archivedAt, const ISO8601DateTimeConverter().toJson),
       'total_activities': instance.totalActivities,
       'total_actors': instance.totalActors,
       'data': instance.data,
@@ -77,11 +88,25 @@ Map<String, dynamic> _$$FeedItemImplToJson(_$FeedItemImpl instance) =>
       'tenant': instance.tenant,
     };
 
+Value? _$JsonConverterFromJson<Json, Value>(
+  Object? json,
+  Value? Function(Json json) fromJson,
+) =>
+    json == null ? null : fromJson(json as Json);
+
+Json? _$JsonConverterToJson<Json, Value>(
+  Value? value,
+  Json? Function(Value value) toJson,
+) =>
+    value == null ? null : toJson(value);
+
 _$ActivityImpl _$$ActivityImplFromJson(Map<String, dynamic> json) =>
     _$ActivityImpl(
       id: json['id'] as String,
-      insertedAt: json['inserted_at'] as String,
-      updatedAt: json['updated_at'] as String,
+      insertedAt: const ISO8601DateTimeConverter()
+          .fromJson(json['inserted_at'] as String),
+      updatedAt: const ISO8601DateTimeConverter()
+          .fromJson(json['updated_at'] as String),
       recipient: Recipient.fromJson(json['recipient'] as Map<String, dynamic>),
       actor: json['actor'] == null
           ? null
@@ -92,8 +117,9 @@ _$ActivityImpl _$$ActivityImplFromJson(Map<String, dynamic> json) =>
 Map<String, dynamic> _$$ActivityImplToJson(_$ActivityImpl instance) =>
     <String, dynamic>{
       'id': instance.id,
-      'inserted_at': instance.insertedAt,
-      'updated_at': instance.updatedAt,
+      'inserted_at':
+          const ISO8601DateTimeConverter().toJson(instance.insertedAt),
+      'updated_at': const ISO8601DateTimeConverter().toJson(instance.updatedAt),
       'recipient': instance.recipient.toJson(),
       'actor': instance.actor?.toJson(),
       'data': instance.data,

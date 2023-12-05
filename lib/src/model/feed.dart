@@ -1,5 +1,6 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:knock_flutter/src/model/recipient.dart';
+import 'package:knock_flutter/src/util/date_time.dart';
 
 part 'feed.freezed.dart';
 part 'feed.g.dart';
@@ -51,6 +52,8 @@ enum BindableFeedEvent {
 
 @freezed
 class Feed with _$Feed {
+  const Feed._();
+
   factory Feed.initialState() {
     return const Feed(
       items: [],
@@ -74,21 +77,37 @@ class Feed with _$Feed {
   }) = _Feed;
 
   factory Feed.fromJson(Map<String, dynamic> json) => _$FeedFromJson(json);
+
+  bool get requestInFlight {
+    return networkStatus == NetworkStatus.loading ||
+        networkStatus == NetworkStatus.fetchMore;
+  }
 }
 
 @freezed
 class FeedItem with _$FeedItem {
   @JsonSerializable(explicitToJson: true)
   const factory FeedItem({
+    @JsonKey(name: '__cursor') required String knockInternalCursor,
     required String id,
     required List<Activity> activities,
     required List<Recipient> actors,
     required List<ContentBlock> blocks,
-    @JsonKey(name: 'inserted_at') required String insertedAt,
-    @JsonKey(name: 'updated_at') required String updatedAt,
-    @JsonKey(name: 'seen_at') required String? seenAt,
-    @JsonKey(name: 'read_at') required String? readAt,
-    @JsonKey(name: 'archived_at') required String? archivedAt,
+    @ISO8601DateTimeConverter()
+    @JsonKey(name: 'inserted_at')
+    required DateTime insertedAt,
+    @ISO8601DateTimeConverter()
+    @JsonKey(name: 'updated_at')
+    required DateTime updatedAt,
+    @ISO8601DateTimeConverter()
+    @JsonKey(name: 'seen_at')
+    required DateTime? seenAt,
+    @ISO8601DateTimeConverter()
+    @JsonKey(name: 'read_at')
+    required DateTime? readAt,
+    @ISO8601DateTimeConverter()
+    @JsonKey(name: 'archived_at')
+    required DateTime? archivedAt,
     @JsonKey(name: 'total_activities') required int totalActivities,
     @JsonKey(name: 'total_actors') required int totalActors,
     required Map<String, dynamic>? data,
@@ -105,8 +124,12 @@ class Activity with _$Activity {
   @JsonSerializable(explicitToJson: true)
   const factory Activity({
     required String id,
-    @JsonKey(name: 'inserted_at') required String insertedAt,
-    @JsonKey(name: 'updated_at') required String updatedAt,
+    @ISO8601DateTimeConverter()
+    @JsonKey(name: 'inserted_at')
+    required DateTime insertedAt,
+    @ISO8601DateTimeConverter()
+    @JsonKey(name: 'updated_at')
+    required DateTime updatedAt,
     required Recipient recipient,
     required Recipient? actor,
     required Map<String, dynamic>? data,

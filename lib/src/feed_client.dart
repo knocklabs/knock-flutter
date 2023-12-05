@@ -9,7 +9,7 @@ import 'package:knock_flutter/src/model/feed_response.dart';
 import 'package:knock_flutter/src/util/value_notifier_extension.dart';
 import 'package:phoenix_socket/phoenix_socket.dart';
 
-enum Status {
+enum _FeedItemApiStatus {
   seen('seen'),
   unseen('unseen'),
   read('read'),
@@ -18,13 +18,19 @@ enum Status {
   unarchived('unarchived'),
   interacted('interacted');
 
-  final String value;
+  final String apiValue;
 
-  const Status(this.value);
+  const _FeedItemApiStatus(this.apiValue);
 }
 
-class FeedOptions {
-  const FeedOptions();
+enum _BulkFeedItemApiStatus {
+  seen('seen'),
+  read('read'),
+  archive('archive');
+
+  final String apiValue;
+
+  const _BulkFeedItemApiStatus(this.apiValue);
 }
 
 class FeedClient {
@@ -40,15 +46,19 @@ class FeedClient {
   StreamSubscription? _socketClosedSubscription;
 
   PhoenixChannel? _channel;
-  final _channelMessageNotifier = ValueNotifier<Message?>(null);
+  final _eventNotifier = ValueNotifier<FeedEvent?>(null);
   StreamSubscription? _channelMessagesSubscription;
 
   FeedClient(
     this._knock,
     this._api,
     this.feedChannelId,
-    this.options,
-  );
+    FeedOptions? options,
+  ) : options = FeedOptions.defaultOptions().merge(options);
+
+  Feed get _currentFeed => _feedNotifier.value;
+
+  set _currentFeed(Feed feed) => _feedNotifier.value = feed;
 
   Stream<Feed> get feed {
     final controller = _feedController ?? _buildFeedController();
@@ -60,18 +70,22 @@ class FeedClient {
       onListen: () {
         final socket = _api.socket;
         _socketClosedSubscription = socket.closeStream.listen((event) {
-          // TODO
+          // TODO KNO-4703 error handling
         });
 
         _socketOpenSubscription = socket.openStream.listen((event) {
           final userFeedId = 'feeds:$feedChannelId:${_knock.userId}';
-          _channel = socket.addChannel(topic: userFeedId);
+          _channel = socket.addChannel(
+            topic: userFeedId,
+            parameters: options.toJson(),
+          );
           _channel?.join();
-          _channelMessagesSubscription = _channel?.messages.listen((message) {
-            _channelMessageNotifier.value = message;
-          });
 
-          _on('new-message').listen(_onNewMessageReceived);
+          _channelMessagesSubscription = _channel?.messages.listen((message) {
+            if (message.event.value == 'new-message') {
+              _onNewMessageReceived(message);
+            }
+          });
 
           _fetch();
         });
@@ -89,12 +103,12 @@ class FeedClient {
     );
   }
 
-  Stream<Message> on(BindableFeedEvent event) => _on(event.value);
-
-  Stream<Message> _on(String eventName) {
-    return _channelMessageNotifier.asStreamController().stream.where((message) {
-      return message != null && message.event.value == eventName;
-    }).cast();
+  Stream<FeedEvent> on(BindableFeedEvent event) {
+    return _eventNotifier
+        .asStreamController()
+        .stream
+        .where((message) => message != null)
+        .cast();
   }
 
   void _onNewMessageReceived(Message message) {
@@ -102,105 +116,163 @@ class FeedClient {
     if (payload != null) {
       final response = OnNewMessageResponse.fromJson(payload);
 
-      final feed = _feedNotifier.value;
-      _feedNotifier.value = feed.updateMetadata(response.metadata);
+      _currentFeed = _currentFeed.updateMetadata(response.metadata);
 
-      _fetch();
+      final before = _currentFeed.items.firstOrNull?.knockInternalCursor;
+      _fetch(fetchOptions: FeedOptions(before: before));
     }
   }
 
-  void _fetch() async {
+  void _fetch({
+    FeedOptions? fetchOptions,
+    NetworkStatus? networkStatus,
+  }) async {
+    // Do nothing if there is an active request
+    final currentFeed = _currentFeed;
+    if (currentFeed.requestInFlight) {
+      return;
+    }
+
+    _currentFeed = currentFeed.copyWith(networkStatus: NetworkStatus.loading);
+
     final response = await _api.doGet(
       '/v1/users/${_knock.userId}/feeds/$feedChannelId',
+      queryParams: options.merge(fetchOptions).toJson(),
     );
+    if (response.statusCode == StatusCode.error) {
+      _currentFeed = currentFeed.copyWith(networkStatus: NetworkStatus.error);
+    } else {
+      final json = _decodeResponse(response);
+      final updatedFeed = Feed.fromJson(json);
 
-    final json = _decodeResponse(response);
-    final feed = Feed.fromJson(json);
-    _feedNotifier.value = feed;
+      Feed mergedFeed;
+      if (fetchOptions?.before != null) {
+        mergedFeed = _currentFeed.merge(
+          updatedFeed,
+          shouldSetPage: false,
+          shouldAppend: true,
+        );
+      } else if (fetchOptions?.after != null) {
+        mergedFeed = _currentFeed.merge(
+          updatedFeed,
+          shouldAppend: true,
+        );
+      } else {
+        mergedFeed = _currentFeed.merge(updatedFeed);
+      }
+
+      _currentFeed = mergedFeed.copyWith(networkStatus: NetworkStatus.ready);
+    }
   }
 
-  void fetchNextPage() {}
+  void fetchNextPage() {
+    // Do nothing if there is nothing else to fetch
+    final after = _currentFeed.pageInfo.after;
+    if (after == null) {
+      return;
+    }
 
-  void markAsSeen(FeedItem item) => markAllAsSeen([item]);
+    _fetch(
+      fetchOptions: FeedOptions(after: after),
+      networkStatus: NetworkStatus.fetchMore,
+    );
+  }
 
-  void markAllAsSeen(Iterable<FeedItem> items) {
+  void markAsSeen(List<FeedItem> items) {
     items.action((ids) {
-      _makeStatusUpdates(Status.seen, ids);
-      
-      _feedNotifier.value = _feedNotifier.value.markAsSeen(
-        ids,
-        DateTime.now(),
-      );
+      _makeStatusUpdates(_FeedItemApiStatus.seen, ids);
+      _currentFeed = _currentFeed.markAsSeen(ids, DateTime.now());
     });
   }
 
-  void markAsUnseen(FeedItem item) => markAllAsUnseen([item]);
-
-  void markAllAsUnseen(Iterable<FeedItem> items) {
+  void markAsUnseen(List<FeedItem> items) {
     items.action((ids) {
-      _makeStatusUpdates(Status.unseen, ids);
-
-      _feedNotifier.value = _feedNotifier.value.markAsUnseen(ids);
+      _makeStatusUpdates(_FeedItemApiStatus.unseen, ids);
+      _currentFeed = _currentFeed.markAsUnseen(ids);
     });
   }
 
-  void markAsRead(FeedItem item) => markAllAsRead([item]);
-
-  void markAllAsRead(Iterable<FeedItem> items) {
+  void markAsRead(List<FeedItem> items) {
     items.action((ids) {
-      _makeStatusUpdates(Status.read, ids);
-
-      _feedNotifier.value = _feedNotifier.value.markAsRead(
-        ids,
-        DateTime.now(),
-      );
+      _makeStatusUpdates(_FeedItemApiStatus.read, ids);
+      _currentFeed = _currentFeed.markAsRead(ids, DateTime.now());
     });
   }
 
-  void markAsUnread(FeedItem item) => markAllAsUnread([item]);
-
-  void markAllAsUnread(Iterable<FeedItem> items) {
+  void markAsUnread(List<FeedItem> items) {
     items.action((ids) {
-      _makeStatusUpdates(Status.unread, ids);
-
-      _feedNotifier.value = _feedNotifier.value.markAsUnread(ids);
+      _makeStatusUpdates(_FeedItemApiStatus.unread, ids);
+      _currentFeed = _currentFeed.markAsUnread(ids);
     });
   }
 
-  void markAsArchived(FeedItem item) => markAllAsArchived([item]);
-
-  void markAllAsArchived(Iterable<FeedItem> items) {
+  void markAsArchived(List<FeedItem> items) {
     items.action((ids) {
-      _makeStatusUpdates(Status.archived, ids);
-
-      _feedNotifier.value = _feedNotifier.value.markAsArchived(
-        ids,
-        DateTime.now(),
-      );
+      _makeStatusUpdates(_FeedItemApiStatus.archived, ids);
+      _currentFeed = _currentFeed.markAsArchived(ids, DateTime.now());
     });
   }
 
-  void markAsUnarchived(FeedItem item) => markAllAsUnarchived([item]);
-
-  void markAllAsUnarchived(Iterable<FeedItem> items) {
+  void markAsUnarchived(List<FeedItem> items) {
     items.action((ids) {
-      _makeStatusUpdates(Status.unarchived, ids);
-
-      _feedNotifier.value = _feedNotifier.value.markAsUnarchived(ids);
+      _makeStatusUpdates(_FeedItemApiStatus.unarchived, ids);
+      _currentFeed = _currentFeed.markAsUnarchived(ids);
     });
   }
 
-  void _makeStatusUpdates(Status type, Iterable<String> ids) async {
+  void markAsInteracted(List<FeedItem> items) {
+    items.action((ids) {
+      _makeStatusUpdates(_FeedItemApiStatus.interacted, ids);
+      _currentFeed = _currentFeed.markAsUnarchived(ids);
+    });
+  }
+
+  void markAllAsSeen() {
+    _makeBulkStatusUpdate(_BulkFeedItemApiStatus.seen);
+    _currentFeed = _currentFeed.markAllAsSeen(DateTime.now());
+  }
+
+  void markAllAsRead() {
+    _makeBulkStatusUpdate(_BulkFeedItemApiStatus.read);
+    _currentFeed = _currentFeed.markAllAsRead(DateTime.now());
+  }
+
+  void markAllAsArchived() {
+    _makeBulkStatusUpdate(_BulkFeedItemApiStatus.archive);
+    _currentFeed = _currentFeed.markAllAsArchived(DateTime.now());
+  }
+
+  void _makeStatusUpdates(_FeedItemApiStatus type, Iterable<String> ids) async {
     if (ids.isEmpty) {
       return;
     }
 
-    final body = jsonEncode({
-      'message_ids': ids,
-    });
+    // TODO KNO-4773 error handling
     final response = await _api.doPost(
-      '/v1/messages/batch/${type.value}',
-      body: body,
+      '/v1/messages/batch/${type.apiValue}',
+      body: jsonEncode({
+        'message_ids': ids,
+      }),
+    );
+  }
+
+  void _makeBulkStatusUpdate(_BulkFeedItemApiStatus type) async {
+    final options = this.options;
+
+    final engagementStatus =
+        options.status != FeedOptionsStatus.all ? options.status : null;
+    final tenants = options.tenant != null ? [options.tenant] : null;
+
+    // TODO KNO-4773 error handling
+    final response = await _api.doPost(
+      '/v1/channels/$feedChannelId/messages/bulk/${type.apiValue}',
+      body: jsonEncode({
+        'user_ids': [_knock.userId],
+        'engagement_status': engagementStatus,
+        'archived': options.archived,
+        'has_tenant': options.hasTenant,
+        'tenants': tenants,
+      }),
     );
   }
 
@@ -211,5 +283,20 @@ class FeedClient {
       final body = response.body!;
       return jsonDecode(body);
     }
+  }
+}
+
+extension _FeedOptionsExtension on FeedOptions {
+  FeedOptions merge(FeedOptions? other) {
+    return FeedOptions(
+      before: other?.before ?? before,
+      after: other?.after ?? after,
+      pageSize: other?.pageSize ?? pageSize,
+      status: other?.status ?? status,
+      tenant: other?.tenant ?? tenant,
+      hasTenant: other?.hasTenant ?? hasTenant,
+      archived: other?.archived ?? archived,
+      triggerData: other?.triggerData ?? triggerData,
+    );
   }
 }

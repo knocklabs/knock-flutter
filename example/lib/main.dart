@@ -2,6 +2,7 @@ import 'dart:async';
 import 'dart:developer' as developer;
 
 import 'package:flutter/material.dart';
+import 'package:flutter_html/flutter_html.dart';
 import 'package:knock_flutter/knock_flutter.dart';
 
 // Knock: Example user and feed data
@@ -176,19 +177,33 @@ class _FeedWidget extends StatefulWidget {
 
 class _FeedWidgetState extends State<_FeedWidget> {
   late final FeedClient _feedClient;
-
   StreamSubscription? _subscription;
+
+  final _scrollController = ScrollController();
 
   @override
   void initState() {
     super.initState();
-    _feedClient = widget.knock.feed(widget.feedChannelId);
+    _feedClient = widget.knock.feed(
+      widget.feedChannelId,
+      options: const FeedOptions(
+        pageSize: 5,
+      ),
+    );
 
     // Knock: You can listen to a stream of specific events.
     _subscription = _feedClient.on(BindableFeedEvent.itemsSeen).listen((event) {
       ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
         content: Text('Items seen'),
       ));
+    });
+
+    _scrollController.addListener(() {
+      final position = _scrollController.position;
+      if (position.pixels == position.maxScrollExtent) {
+        // Knock: Loading the next set of feed items, in this case in an infinite list
+        _feedClient.fetchNextPage();
+      }
     });
   }
 
@@ -197,6 +212,7 @@ class _FeedWidgetState extends State<_FeedWidget> {
     super.dispose();
     // Knock: Make sure to cancel any event streams you are listening to!
     _subscription?.cancel();
+    _scrollController.dispose();
   }
 
   @override
@@ -219,17 +235,15 @@ class _FeedWidgetState extends State<_FeedWidget> {
                 _FeedActionsWidget(
                   feed: feed,
                   // Knock: Batch operations on feed items are supported.
-                  onAllSeen: () => _feedClient.markAllAsSeen(items),
-                  onAllUnseen: () => _feedClient.markAllAsUnseen(items),
-                  onAllRead: () => _feedClient.markAllAsRead(items),
-                  onAllUnread: () => _feedClient.markAllAsUnread(items),
-                  onAllArchived: () => _feedClient.markAllAsArchived(items),
-                  onAllUnarchived: () => _feedClient.markAllAsUnarchived(items),
+                  onAllSeen: () => _feedClient.markAllAsSeen(),
+                  onAllRead: () => _feedClient.markAllAsRead(),
+                  onAllArchived: () => _feedClient.markAllAsArchived(),
                 ),
               ],
             ),
             Expanded(
               child: ListView.separated(
+                controller: _scrollController,
                 padding: const EdgeInsets.symmetric(vertical: 8.0),
                 separatorBuilder: (_, __) => const Divider(),
                 itemCount: items.length,
@@ -241,12 +255,12 @@ class _FeedWidgetState extends State<_FeedWidget> {
                     child: _FeedItemWidget(
                       item: item,
                       // Knock: Singular operations on feed items are supported.
-                      onSeen: () => _feedClient.markAsSeen(item),
-                      onUnseen: () => _feedClient.markAsUnseen(item),
-                      onRead: () => _feedClient.markAsRead(item),
-                      onUnread: () => _feedClient.markAsUnread(item),
-                      onArchived: () => _feedClient.markAsArchived(item),
-                      onUnarchived: () => _feedClient.markAsUnarchived(item),
+                      onSeen: () => _feedClient.markAsSeen([item]),
+                      onUnseen: () => _feedClient.markAsUnseen([item]),
+                      onRead: () => _feedClient.markAsRead([item]),
+                      onUnread: () => _feedClient.markAsUnread([item]),
+                      onArchived: () => _feedClient.markAsArchived([item]),
+                      onUnarchived: () => _feedClient.markAsUnarchived([item]),
                     ),
                   );
                 },
@@ -284,6 +298,15 @@ class _FeedMetadataWidget extends StatelessWidget {
             'Unseen: ${feed.metadata.unseenCount}',
             textAlign: TextAlign.end,
           ),
+          if (feed.requestInFlight)
+            const Padding(
+              padding: EdgeInsets.symmetric(horizontal: 16.0),
+              child: SizedBox(
+                height: 16.0,
+                width: 16.0,
+                child: CircularProgressIndicator(),
+              ),
+            ),
         ],
       ),
     );
@@ -293,20 +316,14 @@ class _FeedMetadataWidget extends StatelessWidget {
 class _FeedActionsWidget extends StatelessWidget {
   final Feed feed;
   final VoidCallback onAllSeen;
-  final VoidCallback onAllUnseen;
   final VoidCallback onAllRead;
-  final VoidCallback onAllUnread;
   final VoidCallback onAllArchived;
-  final VoidCallback onAllUnarchived;
 
   const _FeedActionsWidget({
     required this.feed,
     required this.onAllSeen,
-    required this.onAllUnseen,
     required this.onAllRead,
-    required this.onAllUnread,
     required this.onAllArchived,
-    required this.onAllUnarchived,
   });
 
   @override
@@ -322,28 +339,13 @@ class _FeedActionsWidget extends StatelessWidget {
           ),
           const SizedBox(width: 8),
           OutlinedButton(
-            onPressed: onAllUnseen,
-            child: const Text('Mark All Unseen'),
-          ),
-          const SizedBox(width: 8),
-          OutlinedButton(
             onPressed: onAllRead,
             child: const Text('Mark All Read'),
           ),
           const SizedBox(width: 8),
           OutlinedButton(
-            onPressed: onAllUnread,
-            child: const Text('Mark All Unread'),
-          ),
-          const SizedBox(width: 8),
-          OutlinedButton(
             onPressed: onAllArchived,
             child: const Text('Mark All Archived'),
-          ),
-          const SizedBox(width: 8),
-          OutlinedButton(
-            onPressed: onAllUnarchived,
-            child: const Text('Mark All Unarchived'),
           ),
           const SizedBox(width: 8),
         ],
@@ -374,9 +376,45 @@ class _FeedItemWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
       mainAxisSize: MainAxisSize.min,
       children: [
-        Text(item.toString()),
+        Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            Text('ID: ${item.id}'),
+            for (var activity in item.activities) ...[
+              activity.recipient.when(
+                user: (user) => Text(
+                  'User Recipient: ${user.id} / ${user.email} / ${user.name}',
+                ),
+                knockObject: (object) => Text(
+                  'Knock Object Recipient: ${activity.recipient.toString()}',
+                ),
+              ),
+              if (activity.actor != null)
+                activity.actor!.when(
+                  user: (user) => Text(
+                    'User Actor: ${user.id} / ${user.email} / ${user.name}',
+                  ),
+                  knockObject: (object) => Text(
+                    'Knock Object Actor: ${activity.recipient.toString()}',
+                  ),
+                ),
+            ],
+            Text('Inserted at: ${item.insertedAt}'),
+            for (var block in item.blocks)
+              if (block.rendered.isNotEmpty)
+                Html(
+                  data: block.rendered,
+                  style: {
+                    'body': Style(margin: Margins.zero),
+                    'p': Style(padding: HtmlPaddings.zero, margin: Margins.zero)
+                  },
+                ),
+          ],
+        ),
         Row(
           children: [
             if (item.seenAt == null)

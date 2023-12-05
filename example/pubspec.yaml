@@ -1,11 +1,11 @@
 name: knock_flutter_example
 description: Knock Flutter example app
-publish_to: 'none'
+publish_to: "none"
 
 version: 1.0.0+1
 
 environment:
-  sdk: '>=3.1.5 <4.0.0'
+  sdk: ">=3.1.5 <4.0.0"
 
 dependencies:
   flutter:
@@ -15,6 +15,8 @@ dependencies:
     # We reference the SDK in the parent directory for the example app.
     # In your app you will want to reference a released version.
     path: ..
+
+  flutter_html: 3.0.0-beta.2
 
 dev_dependencies:
   flutter_test:

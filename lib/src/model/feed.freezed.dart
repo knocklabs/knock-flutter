@@ -164,14 +164,15 @@ class __$$FeedImplCopyWithImpl<$Res>
 /// @nodoc
 
 @JsonSerializable(explicitToJson: true)
-class _$FeedImpl implements _Feed {
+class _$FeedImpl extends _Feed {
   const _$FeedImpl(
       {@JsonKey(name: 'entries') required final List<FeedItem> items,
       @JsonKey(name: 'page_info') required this.pageInfo,
       @JsonKey(name: 'meta') required this.metadata,
       @JsonKey(includeFromJson: true, defaultValue: NetworkStatus.ready)
       required this.networkStatus})
-      : _items = items;
+      : _items = items,
+        super._();
 
   factory _$FeedImpl.fromJson(Map<String, dynamic> json) =>
       _$$FeedImplFromJson(json);
@@ -237,13 +238,14 @@ class _$FeedImpl implements _Feed {
   }
 }
 
-abstract class _Feed implements Feed {
+abstract class _Feed extends Feed {
   const factory _Feed(
       {@JsonKey(name: 'entries') required final List<FeedItem> items,
       @JsonKey(name: 'page_info') required final PageInfo pageInfo,
       @JsonKey(name: 'meta') required final FeedMetadata metadata,
       @JsonKey(includeFromJson: true, defaultValue: NetworkStatus.ready)
       required final NetworkStatus networkStatus}) = _$FeedImpl;
+  const _Feed._() : super._();
 
   factory _Feed.fromJson(Map<String, dynamic> json) = _$FeedImpl.fromJson;
 
@@ -271,20 +273,27 @@ FeedItem _$FeedItemFromJson(Map<String, dynamic> json) {
 
 /// @nodoc
 mixin _$FeedItem {
+  @JsonKey(name: '__cursor')
+  String get knockInternalCursor => throw _privateConstructorUsedError;
   String get id => throw _privateConstructorUsedError;
   List<Activity> get activities => throw _privateConstructorUsedError;
   List<Recipient> get actors => throw _privateConstructorUsedError;
   List<ContentBlock> get blocks => throw _privateConstructorUsedError;
+  @ISO8601DateTimeConverter()
   @JsonKey(name: 'inserted_at')
-  String get insertedAt => throw _privateConstructorUsedError;
+  DateTime get insertedAt => throw _privateConstructorUsedError;
+  @ISO8601DateTimeConverter()
   @JsonKey(name: 'updated_at')
-  String get updatedAt => throw _privateConstructorUsedError;
+  DateTime get updatedAt => throw _privateConstructorUsedError;
+  @ISO8601DateTimeConverter()
   @JsonKey(name: 'seen_at')
-  String? get seenAt => throw _privateConstructorUsedError;
+  DateTime? get seenAt => throw _privateConstructorUsedError;
+  @ISO8601DateTimeConverter()
   @JsonKey(name: 'read_at')
-  String? get readAt => throw _privateConstructorUsedError;
+  DateTime? get readAt => throw _privateConstructorUsedError;
+  @ISO8601DateTimeConverter()
   @JsonKey(name: 'archived_at')
-  String? get archivedAt => throw _privateConstructorUsedError;
+  DateTime? get archivedAt => throw _privateConstructorUsedError;
   @JsonKey(name: 'total_activities')
   int get totalActivities => throw _privateConstructorUsedError;
   @JsonKey(name: 'total_actors')
@@ -305,15 +314,22 @@ abstract class $FeedItemCopyWith<$Res> {
       _$FeedItemCopyWithImpl<$Res, FeedItem>;
   @useResult
   $Res call(
-      {String id,
+      {@JsonKey(name: '__cursor') String knockInternalCursor,
+      String id,
       List<Activity> activities,
       List<Recipient> actors,
       List<ContentBlock> blocks,
-      @JsonKey(name: 'inserted_at') String insertedAt,
-      @JsonKey(name: 'updated_at') String updatedAt,
-      @JsonKey(name: 'seen_at') String? seenAt,
-      @JsonKey(name: 'read_at') String? readAt,
-      @JsonKey(name: 'archived_at') String? archivedAt,
+      @ISO8601DateTimeConverter()
+      @JsonKey(name: 'inserted_at')
+      DateTime insertedAt,
+      @ISO8601DateTimeConverter()
+      @JsonKey(name: 'updated_at')
+      DateTime updatedAt,
+      @ISO8601DateTimeConverter() @JsonKey(name: 'seen_at') DateTime? seenAt,
+      @ISO8601DateTimeConverter() @JsonKey(name: 'read_at') DateTime? readAt,
+      @ISO8601DateTimeConverter()
+      @JsonKey(name: 'archived_at')
+      DateTime? archivedAt,
       @JsonKey(name: 'total_activities') int totalActivities,
       @JsonKey(name: 'total_actors') int totalActors,
       Map<String, dynamic>? data,
@@ -336,6 +352,7 @@ class _$FeedItemCopyWithImpl<$Res, $Val extends FeedItem>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
+    Object? knockInternalCursor = null,
     Object? id = null,
     Object? activities = null,
     Object? actors = null,
@@ -352,6 +369,10 @@ class _$FeedItemCopyWithImpl<$Res, $Val extends FeedItem>
     Object? tenant = freezed,
   }) {
     return _then(_value.copyWith(
+      knockInternalCursor: null == knockInternalCursor
+          ? _value.knockInternalCursor
+          : knockInternalCursor // ignore: cast_nullable_to_non_nullable
+              as String,
       id: null == id
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
@@ -371,23 +392,23 @@ class _$FeedItemCopyWithImpl<$Res, $Val extends FeedItem>
       insertedAt: null == insertedAt
           ? _value.insertedAt
           : insertedAt // ignore: cast_nullable_to_non_nullable
-              as String,
+              as DateTime,
       updatedAt: null == updatedAt
           ? _value.updatedAt
           : updatedAt // ignore: cast_nullable_to_non_nullable
-              as String,
+              as DateTime,
       seenAt: freezed == seenAt
           ? _value.seenAt
           : seenAt // ignore: cast_nullable_to_non_nullable
-              as String?,
+              as DateTime?,
       readAt: freezed == readAt
           ? _value.readAt
           : readAt // ignore: cast_nullable_to_non_nullable
-              as String?,
+              as DateTime?,
       archivedAt: freezed == archivedAt
           ? _value.archivedAt
           : archivedAt // ignore: cast_nullable_to_non_nullable
-              as String?,
+              as DateTime?,
       totalActivities: null == totalActivities
           ? _value.totalActivities
           : totalActivities // ignore: cast_nullable_to_non_nullable
@@ -429,15 +450,22 @@ abstract class _$$FeedItemImplCopyWith<$Res>
   @override
   @useResult
   $Res call(
-      {String id,
+      {@JsonKey(name: '__cursor') String knockInternalCursor,
+      String id,
       List<Activity> activities,
       List<Recipient> actors,
       List<ContentBlock> blocks,
-      @JsonKey(name: 'inserted_at') String insertedAt,
-      @JsonKey(name: 'updated_at') String updatedAt,
-      @JsonKey(name: 'seen_at') String? seenAt,
-      @JsonKey(name: 'read_at') String? readAt,
-      @JsonKey(name: 'archived_at') String? archivedAt,
+      @ISO8601DateTimeConverter()
+      @JsonKey(name: 'inserted_at')
+      DateTime insertedAt,
+      @ISO8601DateTimeConverter()
+      @JsonKey(name: 'updated_at')
+      DateTime updatedAt,
+      @ISO8601DateTimeConverter() @JsonKey(name: 'seen_at') DateTime? seenAt,
+      @ISO8601DateTimeConverter() @JsonKey(name: 'read_at') DateTime? readAt,
+      @ISO8601DateTimeConverter()
+      @JsonKey(name: 'archived_at')
+      DateTime? archivedAt,
       @JsonKey(name: 'total_activities') int totalActivities,
       @JsonKey(name: 'total_actors') int totalActors,
       Map<String, dynamic>? data,
@@ -459,6 +487,7 @@ class __$$FeedItemImplCopyWithImpl<$Res>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
+    Object? knockInternalCursor = null,
     Object? id = null,
     Object? activities = null,
     Object? actors = null,
@@ -475,6 +504,10 @@ class __$$FeedItemImplCopyWithImpl<$Res>
     Object? tenant = freezed,
   }) {
     return _then(_$FeedItemImpl(
+      knockInternalCursor: null == knockInternalCursor
+          ? _value.knockInternalCursor
+          : knockInternalCursor // ignore: cast_nullable_to_non_nullable
+              as String,
       id: null == id
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
@@ -494,23 +527,23 @@ class __$$FeedItemImplCopyWithImpl<$Res>
       insertedAt: null == insertedAt
           ? _value.insertedAt
           : insertedAt // ignore: cast_nullable_to_non_nullable
-              as String,
+              as DateTime,
       updatedAt: null == updatedAt
           ? _value.updatedAt
           : updatedAt // ignore: cast_nullable_to_non_nullable
-              as String,
+              as DateTime,
       seenAt: freezed == seenAt
           ? _value.seenAt
           : seenAt // ignore: cast_nullable_to_non_nullable
-              as String?,
+              as DateTime?,
       readAt: freezed == readAt
           ? _value.readAt
           : readAt // ignore: cast_nullable_to_non_nullable
-              as String?,
+              as DateTime?,
       archivedAt: freezed == archivedAt
           ? _value.archivedAt
           : archivedAt // ignore: cast_nullable_to_non_nullable
-              as String?,
+              as DateTime?,
       totalActivities: null == totalActivities
           ? _value.totalActivities
           : totalActivities // ignore: cast_nullable_to_non_nullable
@@ -540,15 +573,26 @@ class __$$FeedItemImplCopyWithImpl<$Res>
 @JsonSerializable(explicitToJson: true)
 class _$FeedItemImpl implements _FeedItem {
   const _$FeedItemImpl(
-      {required this.id,
+      {@JsonKey(name: '__cursor') required this.knockInternalCursor,
+      required this.id,
       required final List<Activity> activities,
       required final List<Recipient> actors,
       required final List<ContentBlock> blocks,
-      @JsonKey(name: 'inserted_at') required this.insertedAt,
-      @JsonKey(name: 'updated_at') required this.updatedAt,
-      @JsonKey(name: 'seen_at') required this.seenAt,
-      @JsonKey(name: 'read_at') required this.readAt,
-      @JsonKey(name: 'archived_at') required this.archivedAt,
+      @ISO8601DateTimeConverter()
+      @JsonKey(name: 'inserted_at')
+      required this.insertedAt,
+      @ISO8601DateTimeConverter()
+      @JsonKey(name: 'updated_at')
+      required this.updatedAt,
+      @ISO8601DateTimeConverter()
+      @JsonKey(name: 'seen_at')
+      required this.seenAt,
+      @ISO8601DateTimeConverter()
+      @JsonKey(name: 'read_at')
+      required this.readAt,
+      @ISO8601DateTimeConverter()
+      @JsonKey(name: 'archived_at')
+      required this.archivedAt,
       @JsonKey(name: 'total_activities') required this.totalActivities,
       @JsonKey(name: 'total_actors') required this.totalActors,
       required final Map<String, dynamic>? data,
@@ -562,6 +606,9 @@ class _$FeedItemImpl implements _FeedItem {
   factory _$FeedItemImpl.fromJson(Map<String, dynamic> json) =>
       _$$FeedItemImplFromJson(json);
 
+  @override
+  @JsonKey(name: '__cursor')
+  final String knockInternalCursor;
   @override
   final String id;
   final List<Activity> _activities;
@@ -589,20 +636,25 @@ class _$FeedItemImpl implements _FeedItem {
   }
 
   @override
+  @ISO8601DateTimeConverter()
   @JsonKey(name: 'inserted_at')
-  final String insertedAt;
+  final DateTime insertedAt;
   @override
+  @ISO8601DateTimeConverter()
   @JsonKey(name: 'updated_at')
-  final String updatedAt;
+  final DateTime updatedAt;
   @override
+  @ISO8601DateTimeConverter()
   @JsonKey(name: 'seen_at')
-  final String? seenAt;
+  final DateTime? seenAt;
   @override
+  @ISO8601DateTimeConverter()
   @JsonKey(name: 'read_at')
-  final String? readAt;
+  final DateTime? readAt;
   @override
+  @ISO8601DateTimeConverter()
   @JsonKey(name: 'archived_at')
-  final String? archivedAt;
+  final DateTime? archivedAt;
   @override
   @JsonKey(name: 'total_activities')
   final int totalActivities;
@@ -626,7 +678,7 @@ class _$FeedItemImpl implements _FeedItem {
 
   @override
   String toString() {
-    return 'FeedItem(id: $id, activities: $activities, actors: $actors, blocks: $blocks, insertedAt: $insertedAt, updatedAt: $updatedAt, seenAt: $seenAt, readAt: $readAt, archivedAt: $archivedAt, totalActivities: $totalActivities, totalActors: $totalActors, data: $data, source: $source, tenant: $tenant)';
+    return 'FeedItem(knockInternalCursor: $knockInternalCursor, id: $id, activities: $activities, actors: $actors, blocks: $blocks, insertedAt: $insertedAt, updatedAt: $updatedAt, seenAt: $seenAt, readAt: $readAt, archivedAt: $archivedAt, totalActivities: $totalActivities, totalActors: $totalActors, data: $data, source: $source, tenant: $tenant)';
   }
 
   @override
@@ -634,6 +686,8 @@ class _$FeedItemImpl implements _FeedItem {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$FeedItemImpl &&
+            (identical(other.knockInternalCursor, knockInternalCursor) ||
+                other.knockInternalCursor == knockInternalCursor) &&
             (identical(other.id, id) || other.id == id) &&
             const DeepCollectionEquality()
                 .equals(other._activities, _activities) &&
@@ -660,6 +714,7 @@ class _$FeedItemImpl implements _FeedItem {
   @override
   int get hashCode => Object.hash(
       runtimeType,
+      knockInternalCursor,
       id,
       const DeepCollectionEquality().hash(_activities),
       const DeepCollectionEquality().hash(_actors),
@@ -691,15 +746,26 @@ class _$FeedItemImpl implements _FeedItem {
 
 abstract class _FeedItem implements FeedItem {
   const factory _FeedItem(
-      {required final String id,
+      {@JsonKey(name: '__cursor') required final String knockInternalCursor,
+      required final String id,
       required final List<Activity> activities,
       required final List<Recipient> actors,
       required final List<ContentBlock> blocks,
-      @JsonKey(name: 'inserted_at') required final String insertedAt,
-      @JsonKey(name: 'updated_at') required final String updatedAt,
-      @JsonKey(name: 'seen_at') required final String? seenAt,
-      @JsonKey(name: 'read_at') required final String? readAt,
-      @JsonKey(name: 'archived_at') required final String? archivedAt,
+      @ISO8601DateTimeConverter()
+      @JsonKey(name: 'inserted_at')
+      required final DateTime insertedAt,
+      @ISO8601DateTimeConverter()
+      @JsonKey(name: 'updated_at')
+      required final DateTime updatedAt,
+      @ISO8601DateTimeConverter()
+      @JsonKey(name: 'seen_at')
+      required final DateTime? seenAt,
+      @ISO8601DateTimeConverter()
+      @JsonKey(name: 'read_at')
+      required final DateTime? readAt,
+      @ISO8601DateTimeConverter()
+      @JsonKey(name: 'archived_at')
+      required final DateTime? archivedAt,
       @JsonKey(name: 'total_activities') required final int totalActivities,
       @JsonKey(name: 'total_actors') required final int totalActors,
       required final Map<String, dynamic>? data,
@@ -710,6 +776,9 @@ abstract class _FeedItem implements FeedItem {
       _$FeedItemImpl.fromJson;
 
   @override
+  @JsonKey(name: '__cursor')
+  String get knockInternalCursor;
+  @override
   String get id;
   @override
   List<Activity> get activities;
@@ -718,20 +787,25 @@ abstract class _FeedItem implements FeedItem {
   @override
   List<ContentBlock> get blocks;
   @override
+  @ISO8601DateTimeConverter()
   @JsonKey(name: 'inserted_at')
-  String get insertedAt;
+  DateTime get insertedAt;
   @override
+  @ISO8601DateTimeConverter()
   @JsonKey(name: 'updated_at')
-  String get updatedAt;
+  DateTime get updatedAt;
   @override
+  @ISO8601DateTimeConverter()
   @JsonKey(name: 'seen_at')
-  String? get seenAt;
+  DateTime? get seenAt;
   @override
+  @ISO8601DateTimeConverter()
   @JsonKey(name: 'read_at')
-  String? get readAt;
+  DateTime? get readAt;
   @override
+  @ISO8601DateTimeConverter()
   @JsonKey(name: 'archived_at')
-  String? get archivedAt;
+  DateTime? get archivedAt;
   @override
   @JsonKey(name: 'total_activities')
   int get totalActivities;
@@ -757,10 +831,12 @@ Activity _$ActivityFromJson(Map<String, dynamic> json) {
 /// @nodoc
 mixin _$Activity {
   String get id => throw _privateConstructorUsedError;
+  @ISO8601DateTimeConverter()
   @JsonKey(name: 'inserted_at')
-  String get insertedAt => throw _privateConstructorUsedError;
+  DateTime get insertedAt => throw _privateConstructorUsedError;
+  @ISO8601DateTimeConverter()
   @JsonKey(name: 'updated_at')
-  String get updatedAt => throw _privateConstructorUsedError;
+  DateTime get updatedAt => throw _privateConstructorUsedError;
   Recipient get recipient => throw _privateConstructorUsedError;
   Recipient? get actor => throw _privateConstructorUsedError;
   Map<String, dynamic>? get data => throw _privateConstructorUsedError;
@@ -778,8 +854,12 @@ abstract class $ActivityCopyWith<$Res> {
   @useResult
   $Res call(
       {String id,
-      @JsonKey(name: 'inserted_at') String insertedAt,
-      @JsonKey(name: 'updated_at') String updatedAt,
+      @ISO8601DateTimeConverter()
+      @JsonKey(name: 'inserted_at')
+      DateTime insertedAt,
+      @ISO8601DateTimeConverter()
+      @JsonKey(name: 'updated_at')
+      DateTime updatedAt,
       Recipient recipient,
       Recipient? actor,
       Map<String, dynamic>? data});
@@ -816,11 +896,11 @@ class _$ActivityCopyWithImpl<$Res, $Val extends Activity>
       insertedAt: null == insertedAt
           ? _value.insertedAt
           : insertedAt // ignore: cast_nullable_to_non_nullable
-              as String,
+              as DateTime,
       updatedAt: null == updatedAt
           ? _value.updatedAt
           : updatedAt // ignore: cast_nullable_to_non_nullable
-              as String,
+              as DateTime,
       recipient: null == recipient
           ? _value.recipient
           : recipient // ignore: cast_nullable_to_non_nullable
@@ -867,8 +947,12 @@ abstract class _$$ActivityImplCopyWith<$Res>
   @useResult
   $Res call(
       {String id,
-      @JsonKey(name: 'inserted_at') String insertedAt,
-      @JsonKey(name: 'updated_at') String updatedAt,
+      @ISO8601DateTimeConverter()
+      @JsonKey(name: 'inserted_at')
+      DateTime insertedAt,
+      @ISO8601DateTimeConverter()
+      @JsonKey(name: 'updated_at')
+      DateTime updatedAt,
       Recipient recipient,
       Recipient? actor,
       Map<String, dynamic>? data});
@@ -905,11 +989,11 @@ class __$$ActivityImplCopyWithImpl<$Res>
       insertedAt: null == insertedAt
           ? _value.insertedAt
           : insertedAt // ignore: cast_nullable_to_non_nullable
-              as String,
+              as DateTime,
       updatedAt: null == updatedAt
           ? _value.updatedAt
           : updatedAt // ignore: cast_nullable_to_non_nullable
-              as String,
+              as DateTime,
       recipient: null == recipient
           ? _value.recipient
           : recipient // ignore: cast_nullable_to_non_nullable
@@ -932,8 +1016,12 @@ class __$$ActivityImplCopyWithImpl<$Res>
 class _$ActivityImpl implements _Activity {
   const _$ActivityImpl(
       {required this.id,
-      @JsonKey(name: 'inserted_at') required this.insertedAt,
-      @JsonKey(name: 'updated_at') required this.updatedAt,
+      @ISO8601DateTimeConverter()
+      @JsonKey(name: 'inserted_at')
+      required this.insertedAt,
+      @ISO8601DateTimeConverter()
+      @JsonKey(name: 'updated_at')
+      required this.updatedAt,
       required this.recipient,
       required this.actor,
       required final Map<String, dynamic>? data})
@@ -945,11 +1033,13 @@ class _$ActivityImpl implements _Activity {
   @override
   final String id;
   @override
+  @ISO8601DateTimeConverter()
   @JsonKey(name: 'inserted_at')
-  final String insertedAt;
+  final DateTime insertedAt;
   @override
+  @ISO8601DateTimeConverter()
   @JsonKey(name: 'updated_at')
-  final String updatedAt;
+  final DateTime updatedAt;
   @override
   final Recipient recipient;
   @override
@@ -1007,8 +1097,12 @@ class _$ActivityImpl implements _Activity {
 abstract class _Activity implements Activity {
   const factory _Activity(
       {required final String id,
-      @JsonKey(name: 'inserted_at') required final String insertedAt,
-      @JsonKey(name: 'updated_at') required final String updatedAt,
+      @ISO8601DateTimeConverter()
+      @JsonKey(name: 'inserted_at')
+      required final DateTime insertedAt,
+      @ISO8601DateTimeConverter()
+      @JsonKey(name: 'updated_at')
+      required final DateTime updatedAt,
       required final Recipient recipient,
       required final Recipient? actor,
       required final Map<String, dynamic>? data}) = _$ActivityImpl;
@@ -1019,11 +1113,13 @@ abstract class _Activity implements Activity {
   @override
   String get id;
   @override
+  @ISO8601DateTimeConverter()
   @JsonKey(name: 'inserted_at')
-  String get insertedAt;
+  DateTime get insertedAt;
   @override
+  @ISO8601DateTimeConverter()
   @JsonKey(name: 'updated_at')
-  String get updatedAt;
+  DateTime get updatedAt;
   @override
   Recipient get recipient;
   @override
