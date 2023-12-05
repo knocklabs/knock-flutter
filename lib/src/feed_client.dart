@@ -39,9 +39,10 @@ enum _BulkFeedItemApiStatus {
 
 class FeedClient {
   final Knock _knock;
-  final ApiClient _api;
   final String feedChannelId;
   late final FeedOptions options;
+
+  StreamSubscription? _apiStatusSubscription;
 
   late Feed _feedValue;
   StreamController<Feed>? _feedController;
@@ -54,15 +55,34 @@ class FeedClient {
 
   final _eventController = StreamController<FeedEvent>.broadcast();
 
+  bool _disposed = false;
+
   FeedClient(
     this._knock,
-    this._api,
     this.feedChannelId,
     FeedOptions? options,
   ) {
     this.options = FeedOptions.defaultOptions().merge(options);
     _currentFeed = this.options.buildInitialFeed();
+
+    _apiStatusSubscription = _knock.client().status.listen((event) {
+      if (event == ApiClientStatus.disposed) {
+        _disposed = true;
+
+        // Add an empty state back to the controller
+        _feedController?.add(this.options.buildInitialFeed());
+
+        // Start closing out everything
+        _feedController?.close();
+        _feedController = null;
+
+        _apiStatusSubscription?.cancel();
+        _apiStatusSubscription = null;
+      }
+    });
   }
+
+  ApiClient get _api => _knock.client();
 
   Feed get _currentFeed => _feedValue;
 
@@ -83,10 +103,15 @@ class FeedClient {
         controller.add(_currentFeed);
 
         final socket = _api.socket;
+
+        // Note: closeStream will never terminate because it's backed by a
+        // BehaviorSubject in phoenix_socket
         _socketClosedSubscription = socket.closeStream.listen((event) {
           // TODO KNO-4703 error handling
         });
 
+        // Note: openStream will never terminate because it's backed by a
+        // BehaviorSubject in phoenix_socket
         _socketOpenSubscription = socket.openStream.listen((event) {
           final userFeedId = 'feeds:$feedChannelId:${_knock.userId}';
           _channel = socket.addChannel(
@@ -110,10 +135,18 @@ class FeedClient {
       },
       onCancel: () {
         _channel?.leave();
+        _channel = null;
+
         _channelMessagesSubscription?.cancel();
+        _channelMessagesSubscription = null;
 
         _socketClosedSubscription?.cancel();
+        _socketClosedSubscription = null;
+
         _socketOpenSubscription?.cancel();
+        _socketOpenSubscription = null;
+
+        _eventController.close();
 
         _feedController?.close();
         _feedController = null;
@@ -123,6 +156,8 @@ class FeedClient {
   }
 
   Stream<FeedEvent> on(BindableFeedEvent bindableFeedEvent) {
+    _assertNotDisposed();
+
     return _eventController.stream
         .where((event) => bindableFeedEvent.includes(event.eventType));
   }
@@ -197,6 +232,8 @@ class FeedClient {
   }
 
   void fetchNextPage() {
+    _assertNotDisposed();
+
     // Do nothing if there is nothing else to fetch
     final after = _currentFeed.pageInfo.after;
     if (after == null) {
@@ -211,6 +248,8 @@ class FeedClient {
   }
 
   void markAsSeen(List<FeedItem> items) {
+    _assertNotDisposed();
+
     items.action((ids) {
       _makeStatusUpdates(_FeedItemApiStatus.seen, ids);
       _currentFeed = _currentFeed.markAsSeen(ids, DateTime.now());
@@ -224,6 +263,8 @@ class FeedClient {
   }
 
   void markAsUnseen(List<FeedItem> items) {
+    _assertNotDisposed();
+
     items.action((ids) {
       _makeStatusUpdates(_FeedItemApiStatus.unseen, ids);
       _currentFeed = _currentFeed.markAsUnseen(ids);
@@ -237,6 +278,8 @@ class FeedClient {
   }
 
   void markAsRead(List<FeedItem> items) {
+    _assertNotDisposed();
+
     items.action((ids) {
       _makeStatusUpdates(_FeedItemApiStatus.read, ids);
       _currentFeed = _currentFeed.markAsRead(ids, DateTime.now());
@@ -250,6 +293,8 @@ class FeedClient {
   }
 
   void markAsUnread(List<FeedItem> items) {
+    _assertNotDisposed();
+
     items.action((ids) {
       _makeStatusUpdates(_FeedItemApiStatus.unread, ids);
       _currentFeed = _currentFeed.markAsUnread(ids);
@@ -263,6 +308,8 @@ class FeedClient {
   }
 
   void markAsArchived(List<FeedItem> items) {
+    _assertNotDisposed();
+
     items.action((ids) {
       _makeStatusUpdates(_FeedItemApiStatus.archived, ids);
       _currentFeed = _currentFeed.markAsArchived(
@@ -280,6 +327,8 @@ class FeedClient {
   }
 
   void markAsUnarchived(List<FeedItem> items) {
+    _assertNotDisposed();
+
     items.action((ids) {
       _makeStatusUpdates(_FeedItemApiStatus.unarchived, ids);
       _currentFeed = _currentFeed.markAsUnarchived(ids);
@@ -293,6 +342,8 @@ class FeedClient {
   }
 
   void markAsInteracted(List<FeedItem> items) {
+    _assertNotDisposed();
+
     items.action((ids) {
       _makeStatusUpdates(_FeedItemApiStatus.interacted, ids);
       _currentFeed = _currentFeed.markAsInteracted(ids, DateTime.now());
@@ -300,6 +351,8 @@ class FeedClient {
   }
 
   void markAllAsSeen() {
+    _assertNotDisposed();
+
     _makeBulkStatusUpdate(_BulkFeedItemApiStatus.seen);
     _currentFeed = _currentFeed.markAllAsSeen(
       DateTime.now(),
@@ -315,6 +368,8 @@ class FeedClient {
   }
 
   void markAllAsRead() {
+    _assertNotDisposed();
+
     _makeBulkStatusUpdate(_BulkFeedItemApiStatus.read);
     _currentFeed = _currentFeed.markAllAsRead(
       DateTime.now(),
@@ -330,6 +385,8 @@ class FeedClient {
   }
 
   void markAllAsArchived() {
+    _assertNotDisposed();
+
     _makeBulkStatusUpdate(_BulkFeedItemApiStatus.archive);
     _currentFeed = _currentFeed.markAllAsArchived(
       DateTime.now(),
@@ -382,6 +439,14 @@ class FeedClient {
     } else {
       final body = response.body!;
       return jsonDecode(body);
+    }
+  }
+
+  void _assertNotDisposed() {
+    if (_disposed) {
+      throw StateError("""
+        [Knock] This FeedClient has been disposed. Please create a new client.
+      """);
     }
   }
 }

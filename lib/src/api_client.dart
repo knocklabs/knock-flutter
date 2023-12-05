@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'dart:developer' as developer;
 
 import 'package:http/http.dart' as http;
@@ -8,11 +9,18 @@ import 'package:phoenix_socket/phoenix_socket.dart';
 
 typedef ApiRequestBuilder = Future<http.Response> Function();
 
+enum ApiClientStatus {
+  disposed,
+}
+
 class ApiClient extends http.BaseClient {
   final Knock knock;
   final http.Client _client;
 
   PhoenixSocket? _socket;
+
+  bool _disposed = false;
+  final _status = StreamController<ApiClientStatus>.broadcast();
 
   ApiClient(
     this.knock, {
@@ -23,9 +31,13 @@ class ApiClient extends http.BaseClient {
 
   String get _wsHost => '${_host.replaceFirst('http', 'ws')}/ws/v1/websocket';
 
+  Stream<ApiClientStatus> get status => _status.stream;
+
   PhoenixSocket get socket => _socket ?? _buildSocket();
 
   PhoenixSocket _buildSocket() {
+    _assertNotDisposed();
+
     final params = {
       'api_key': knock.apiKey,
     };
@@ -43,6 +55,8 @@ class ApiClient extends http.BaseClient {
 
   @override
   Future<http.StreamedResponse> send(http.BaseRequest request) {
+    _assertNotDisposed();
+
     request.headers['Accept'] = 'application/json';
     request.headers['Content-Type'] = 'application/json';
     request.headers['Authorization'] = 'Bearer ${knock.apiKey}';
@@ -113,7 +127,20 @@ class ApiClient extends http.BaseClient {
   }
 
   void dispose() {
+    _disposed = true;
+    _status.add(ApiClientStatus.disposed);
+
     _client.close();
-    _socket?.close();
+
+    _socket?.dispose();
+    _socket = null;
+  }
+
+  void _assertNotDisposed() {
+    if (_disposed) {
+      throw StateError("""
+        [Knock] This APIClient has been disposed. Please create a new client.
+      """);
+    }
   }
 }

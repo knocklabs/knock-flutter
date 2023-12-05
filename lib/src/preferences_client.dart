@@ -13,14 +13,14 @@ class PreferencesOptions {
 
 class PreferencesClient {
   final Knock _knock;
-  final ApiClient _api;
   final PreferencesOptions options;
 
   PreferencesClient(
     this._knock,
-    this._api,
     this.options,
   );
+
+  ApiClient get _api => _knock.client();
 
   Future<List<PreferenceSet>> getAll() async {
     final response = await _api.doGet(

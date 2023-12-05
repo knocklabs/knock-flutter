@@ -86,6 +86,13 @@ class _KnockPageState extends State<_KnockPage> {
       appBar: AppBar(
         backgroundColor: Theme.of(context).colorScheme.inversePrimary,
         title: const Text('Example Knock App'),
+        actions: [
+          IconButton(
+            tooltip: "Logout",
+            onPressed: () => knock.logout(),
+            icon: const Icon(Icons.logout),
+          ),
+        ],
       ),
       bottomNavigationBar: BottomNavigationBar(
         items: const [

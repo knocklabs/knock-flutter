@@ -48,6 +48,14 @@ class Knock {
     _userToken = userToken;
   }
 
+  /// Clears any user authentication and disposes of any created clients.
+  void logout() {
+    _userId = null;
+    _userToken = null;
+
+    dispose();
+  }
+
   /// Returns whether or this Knock instance is authenticated. Passing `true`
   /// will check the presence of the userToken as well.
   bool isAuthenticated({bool checkUserToken = false}) {
@@ -79,7 +87,7 @@ class Knock {
     PreferencesOptions options = const PreferencesOptions(),
   }) {
     _assertAuthenticated();
-    return _preferencesClient ??= PreferencesClient(this, client(), options);
+    return _preferencesClient ??= PreferencesClient(this, options);
   }
 
   FeedClient feed(
@@ -87,11 +95,12 @@ class Knock {
     FeedOptions? options,
   }) {
     _assertAuthenticated();
-    return FeedClient(this, client(), feedChannelId, options);
+    return FeedClient(this, feedChannelId, options);
   }
 
   /// Releases any connected resources used by this this instance.
   void dispose() {
     _apiClient?.dispose();
+    _apiClient = null;
   }
 }
