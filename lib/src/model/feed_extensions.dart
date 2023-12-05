@@ -1,5 +1,7 @@
 // This file is not intended for export in the public interface.
 
+import 'dart:math';
+
 import 'package:knock_flutter/knock_flutter.dart';
 
 extension FeedItemsModifiers on Iterable<FeedItem> {
@@ -20,6 +22,19 @@ extension FeedItemsModifiers on Iterable<FeedItem> {
       }
     }).toList();
   }
+
+  int _count(
+    Iterable<String> ids,
+    bool Function(FeedItem) test,
+  ) {
+    return where((item) {
+      if (ids.contains(item.id)) {
+        return test(item);
+      } else {
+        return false;
+      }
+    }).length;
+  }
 }
 
 extension FeedModifiersExtension on Feed {
@@ -28,48 +43,78 @@ extension FeedModifiersExtension on Feed {
   }
 
   Feed markAsSeen(Iterable<String> ids, DateTime at) {
+    final unseenCount = items._count(ids, (item) => item.seenAt == null);
     return copyWith(
       items: items._filteredMap(ids, (item) {
         return item.copyWith(seenAt: at);
       }),
-      // TODO KNO-4771 optimistic updates (metadata)
+      metadata: metadata.copyWith(
+        unseenCount: max(0, metadata.unseenCount - unseenCount),
+      ),
     );
   }
 
   Feed markAsUnseen(Iterable<String> ids) {
+    final seenCount = items._count(ids, (item) => item.seenAt != null);
     return copyWith(
       items: items._filteredMap(ids, (item) {
         return item.copyWith(seenAt: null);
       }),
-      // TODO KNO-4771 optimistic updates (metadata)
+      metadata: metadata.copyWith(
+        unseenCount: max(0, metadata.unseenCount + seenCount),
+      ),
     );
   }
 
   Feed markAsRead(Iterable<String> ids, DateTime at) {
+    final unreadCount = items._count(ids, (item) => item.readAt == null);
     return copyWith(
       items: items._filteredMap(ids, (item) {
         return item.copyWith(readAt: at);
       }),
-      // TODO KNO-4771 optimistic updates (metadata)
+      metadata: metadata.copyWith(
+        unreadCount: max(0, metadata.unreadCount - unreadCount),
+      ),
     );
   }
 
   Feed markAsUnread(Iterable<String> ids) {
+    final readCount = items._count(ids, (item) => item.readAt != null);
     return copyWith(
       items: items._filteredMap(ids, (item) {
         return item.copyWith(readAt: null);
       }),
-      // TODO KNO-4771 optimistic updates (metadata)
+      metadata: metadata.copyWith(
+        unreadCount: max(0, metadata.unreadCount + readCount),
+      ),
     );
   }
 
-  Feed markAsArchived(Iterable<String> ids, DateTime at) {
-    return copyWith(
-      items: items._filteredMap(ids, (item) {
-        return item.copyWith(archivedAt: at);
-      }),
-      // TODO KNO-4771 optimistic updates (metadata)
-    );
+  Feed markAsArchived(
+    Iterable<String> ids,
+    DateTime at,
+    bool isFromUnarchivedOnly,
+  ) {
+    final itemCount = items._count(ids, (ids) => true);
+    final unreadCount = items._count(ids, (item) => item.readAt == null);
+    final unseenCount = items._count(ids, (item) => item.seenAt == null);
+
+    if (isFromUnarchivedOnly) {
+      return copyWith(
+        items: items.where((item) => !ids.contains(item.id)).toList(),
+        metadata: metadata.copyWith(
+          totalCount: max(0, metadata.totalCount - itemCount),
+          unreadCount: max(0, metadata.unreadCount - unreadCount),
+          unseenCount: max(0, metadata.unseenCount - unseenCount),
+        ),
+      );
+    } else {
+      return copyWith(
+        items: items._filteredMap(ids, (item) {
+          return item.copyWith(archivedAt: at);
+        }),
+      );
+    }
   }
 
   Feed markAsUnarchived(Iterable<String> ids) {
@@ -77,23 +122,61 @@ extension FeedModifiersExtension on Feed {
       items: items._filteredMap(ids, (item) {
         return item.copyWith(archivedAt: null);
       }),
-      // TODO KNO-4771 optimistic updates (metadata)
     );
   }
 
-  Feed markAllAsSeen(DateTime timestamp) {
-    // TODO KNO-4771 optimistic updates
-    return this;
+  Feed markAllAsSeen(
+    DateTime at,
+    bool isFromUnseenOnly,
+    Feed Function() initialStateBuilder,
+  ) {
+    if (isFromUnseenOnly) {
+      return initialStateBuilder();
+    } else {
+      return copyWith(
+        items: items.map((item) {
+          return item.copyWith(seenAt: at);
+        }).toList(),
+        metadata: metadata.copyWith(
+          unseenCount: 0,
+        ),
+      );
+    }
   }
 
-  Feed markAllAsRead(DateTime timestamp) {
-    // TODO KNO-4771 optimistic updates
-    return this;
+  Feed markAllAsRead(
+    DateTime at,
+    bool isFromUnreadOnly,
+    Feed Function() initialStateBuilder,
+  ) {
+    if (isFromUnreadOnly) {
+      return initialStateBuilder();
+    } else {
+      return copyWith(
+        items: items.map((item) {
+          return item.copyWith(readAt: at);
+        }).toList(),
+        metadata: metadata.copyWith(
+          unreadCount: 0,
+        ),
+      );
+    }
   }
 
-  Feed markAllAsArchived(DateTime timestamp) {
-    // TODO KNO-4771 optimistic updates
-    return this;
+  Feed markAllAsArchived(
+    DateTime at,
+    bool isFromUnarchivedOnly,
+    Feed Function() initialStateBuilder,
+  ) {
+    if (isFromUnarchivedOnly) {
+      return initialStateBuilder();
+    } else {
+      return copyWith(
+        items: items.map((item) {
+          return item.copyWith(archivedAt: at);
+        }).toList(),
+      );
+    }
   }
 
   Feed merge(

@@ -12,44 +12,6 @@ enum NetworkStatus {
   error,
 }
 
-enum FeedEvent {
-  itemsReceivedPage('items.received.page'),
-  itemsReceivedRealtime('items.received.realtime'),
-  itemsArchived('items.archived'),
-  itemsUnarchived('items.unarchived'),
-  itemsSeen('items.seen'),
-  itemsUnseen('items.unseen'),
-  itemsRead('items.read'),
-  itemsUnread('items.unread'),
-  itemsAllArchived('items.all_archived'),
-  itemsAllRead('items.all_read'),
-  itemsAllSeen('items.all_seen');
-
-  final String value;
-
-  const FeedEvent(this.value);
-}
-
-enum BindableFeedEvent {
-  itemsWildcard('items.*'),
-  itemsReceivedWildcard('items.received.*'),
-  itemsReceivedPage('items.received.page'),
-  itemsReceivedRealtime('items.received.realtime'),
-  itemsArchived('items.archived'),
-  itemsUnarchived('items.unarchived'),
-  itemsSeen('items.seen'),
-  itemsUnseen('items.unseen'),
-  itemsRead('items.read'),
-  itemsUnread('items.unread'),
-  itemsAllArchived('items.all_archived'),
-  itemsAllRead('items.all_read'),
-  itemsAllSeen('items.all_seen');
-
-  final String value;
-
-  const BindableFeedEvent(this.value);
-}
-
 @freezed
 class Feed with _$Feed {
   const Feed._();

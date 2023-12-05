@@ -20,7 +20,7 @@ _$FeedOptionsImpl _$$FeedOptionsImplFromJson(Map<String, dynamic> json) =>
       archived: $enumDecodeNullable(
               _$FeedOptionsArchivedScopeEnumMap, json['archived']) ??
           FeedOptionsArchivedScope.exclude,
-      triggerData: json['triggerData'] as Map<String, dynamic>?,
+      triggerData: json['trigger_data'] as Map<String, dynamic>?,
     );
 
 Map<String, dynamic> _$$FeedOptionsImplToJson(_$FeedOptionsImpl instance) =>
@@ -33,7 +33,7 @@ Map<String, dynamic> _$$FeedOptionsImplToJson(_$FeedOptionsImpl instance) =>
       'tenant': instance.tenant,
       'has_tenant': instance.hasTenant,
       'archived': _$FeedOptionsArchivedScopeEnumMap[instance.archived]!,
-      'triggerData': instance.triggerData,
+      'trigger_data': instance.triggerData,
     };
 
 const _$FeedOptionsStatusEnumMap = {

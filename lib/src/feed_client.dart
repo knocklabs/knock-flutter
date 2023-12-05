@@ -1,13 +1,17 @@
 import 'dart:async';
 import 'dart:convert';
 
-import 'package:flutter/foundation.dart';
 import 'package:knock_flutter/knock_flutter.dart';
 import 'package:knock_flutter/src/model/feed_extensions.dart';
 import 'package:knock_flutter/src/model/api_response.dart';
 import 'package:knock_flutter/src/model/feed_response.dart';
-import 'package:knock_flutter/src/util/value_notifier_extension.dart';
+import 'package:knock_flutter/src/model/feed_update_request.dart';
 import 'package:phoenix_socket/phoenix_socket.dart';
+
+enum _FeedFetchSource {
+  socket,
+  http,
+}
 
 enum _FeedItemApiStatus {
   seen('seen'),
@@ -37,37 +41,47 @@ class FeedClient {
   final Knock _knock;
   final ApiClient _api;
   final String feedChannelId;
-  final FeedOptions options;
+  late final FeedOptions options;
 
-  final _feedNotifier = ValueNotifier<Feed>(Feed.initialState());
+  late Feed _feedValue;
   StreamController<Feed>? _feedController;
 
   StreamSubscription? _socketOpenSubscription;
   StreamSubscription? _socketClosedSubscription;
 
   PhoenixChannel? _channel;
-  final _eventNotifier = ValueNotifier<FeedEvent?>(null);
   StreamSubscription? _channelMessagesSubscription;
+
+  final _eventController = StreamController<FeedEvent>.broadcast();
 
   FeedClient(
     this._knock,
     this._api,
     this.feedChannelId,
     FeedOptions? options,
-  ) : options = FeedOptions.defaultOptions().merge(options);
+  ) {
+    this.options = FeedOptions.defaultOptions().merge(options);
+    _currentFeed = this.options.buildInitialFeed();
+  }
 
-  Feed get _currentFeed => _feedNotifier.value;
+  Feed get _currentFeed => _feedValue;
 
-  set _currentFeed(Feed feed) => _feedNotifier.value = feed;
+  set _currentFeed(Feed feed) {
+    _feedValue = feed;
+    _feedController?.add(feed);
+  }
 
   Stream<Feed> get feed {
-    final controller = _feedController ?? _buildFeedController();
+    final controller = _feedController ??= _buildFeedController();
     return controller.stream;
   }
 
   StreamController<Feed> _buildFeedController() {
-    return _feedNotifier.asStreamController(
+    late StreamController<Feed> controller;
+    controller = StreamController<Feed>.broadcast(
       onListen: () {
+        controller.add(_currentFeed);
+
         final socket = _api.socket;
         _socketClosedSubscription = socket.closeStream.listen((event) {
           // TODO KNO-4703 error handling
@@ -87,7 +101,11 @@ class FeedClient {
             }
           });
 
-          _fetch();
+          _fetch(
+            fetchOptions: null,
+            loadingType: NetworkStatus.loading,
+            fetchSource: _FeedFetchSource.http,
+          );
         });
       },
       onCancel: () {
@@ -101,14 +119,12 @@ class FeedClient {
         _feedController = null;
       },
     );
+    return controller;
   }
 
-  Stream<FeedEvent> on(BindableFeedEvent event) {
-    return _eventNotifier
-        .asStreamController()
-        .stream
-        .where((message) => message != null)
-        .cast();
+  Stream<FeedEvent> on(BindableFeedEvent bindableFeedEvent) {
+    return _eventController.stream
+        .where((event) => bindableFeedEvent.includes(event.eventType));
   }
 
   void _onNewMessageReceived(Message message) {
@@ -119,13 +135,18 @@ class FeedClient {
       _currentFeed = _currentFeed.updateMetadata(response.metadata);
 
       final before = _currentFeed.items.firstOrNull?.knockInternalCursor;
-      _fetch(fetchOptions: FeedOptions(before: before));
+      _fetch(
+        fetchOptions: FeedOptions(before: before),
+        loadingType: NetworkStatus.loading,
+        fetchSource: _FeedFetchSource.socket,
+      );
     }
   }
 
   void _fetch({
-    FeedOptions? fetchOptions,
-    NetworkStatus? networkStatus,
+    required FeedOptions? fetchOptions,
+    required NetworkStatus loadingType,
+    required _FeedFetchSource fetchSource,
   }) async {
     // Do nothing if there is an active request
     final currentFeed = _currentFeed;
@@ -133,7 +154,7 @@ class FeedClient {
       return;
     }
 
-    _currentFeed = currentFeed.copyWith(networkStatus: NetworkStatus.loading);
+    _currentFeed = currentFeed.copyWith(networkStatus: loadingType);
 
     final response = await _api.doGet(
       '/v1/users/${_knock.userId}/feeds/$feedChannelId',
@@ -161,7 +182,17 @@ class FeedClient {
         mergedFeed = _currentFeed.merge(updatedFeed);
       }
 
-      _currentFeed = mergedFeed.copyWith(networkStatus: NetworkStatus.ready);
+      _currentFeed = mergedFeed.copyWith(
+        networkStatus: NetworkStatus.ready,
+      );
+
+      _eventController.add(FeedEvent(
+        eventType: fetchSource == _FeedFetchSource.socket
+            ? FeedEventType.itemsReceivedRealtime
+            : FeedEventType.itemsReceivedPage,
+        items: updatedFeed.items,
+        metadata: updatedFeed.metadata,
+      ));
     }
   }
 
@@ -174,7 +205,8 @@ class FeedClient {
 
     _fetch(
       fetchOptions: FeedOptions(after: after),
-      networkStatus: NetworkStatus.fetchMore,
+      loadingType: NetworkStatus.fetchMore,
+      fetchSource: _FeedFetchSource.http,
     );
   }
 
@@ -183,6 +215,12 @@ class FeedClient {
       _makeStatusUpdates(_FeedItemApiStatus.seen, ids);
       _currentFeed = _currentFeed.markAsSeen(ids, DateTime.now());
     });
+
+    _eventController.add(FeedEvent(
+      eventType: FeedEventType.itemsSeen,
+      items: items,
+      metadata: _currentFeed.metadata,
+    ));
   }
 
   void markAsUnseen(List<FeedItem> items) {
@@ -190,6 +228,12 @@ class FeedClient {
       _makeStatusUpdates(_FeedItemApiStatus.unseen, ids);
       _currentFeed = _currentFeed.markAsUnseen(ids);
     });
+
+    _eventController.add(FeedEvent(
+      eventType: FeedEventType.itemsUnseen,
+      items: items,
+      metadata: _currentFeed.metadata,
+    ));
   }
 
   void markAsRead(List<FeedItem> items) {
@@ -197,6 +241,12 @@ class FeedClient {
       _makeStatusUpdates(_FeedItemApiStatus.read, ids);
       _currentFeed = _currentFeed.markAsRead(ids, DateTime.now());
     });
+
+    _eventController.add(FeedEvent(
+      eventType: FeedEventType.itemsRead,
+      items: items,
+      metadata: _currentFeed.metadata,
+    ));
   }
 
   void markAsUnread(List<FeedItem> items) {
@@ -204,13 +254,29 @@ class FeedClient {
       _makeStatusUpdates(_FeedItemApiStatus.unread, ids);
       _currentFeed = _currentFeed.markAsUnread(ids);
     });
+
+    _eventController.add(FeedEvent(
+      eventType: FeedEventType.itemsUnread,
+      items: items,
+      metadata: _currentFeed.metadata,
+    ));
   }
 
   void markAsArchived(List<FeedItem> items) {
     items.action((ids) {
       _makeStatusUpdates(_FeedItemApiStatus.archived, ids);
-      _currentFeed = _currentFeed.markAsArchived(ids, DateTime.now());
+      _currentFeed = _currentFeed.markAsArchived(
+        ids,
+        DateTime.now(),
+        options.archived == FeedOptionsArchivedScope.exclude,
+      );
     });
+
+    _eventController.add(FeedEvent(
+      eventType: FeedEventType.itemsArchived,
+      items: items,
+      metadata: _currentFeed.metadata,
+    ));
   }
 
   void markAsUnarchived(List<FeedItem> items) {
@@ -218,31 +284,68 @@ class FeedClient {
       _makeStatusUpdates(_FeedItemApiStatus.unarchived, ids);
       _currentFeed = _currentFeed.markAsUnarchived(ids);
     });
+
+    _eventController.add(FeedEvent(
+      eventType: FeedEventType.itemsUnarchived,
+      items: items,
+      metadata: _currentFeed.metadata,
+    ));
   }
 
   void markAsInteracted(List<FeedItem> items) {
     items.action((ids) {
       _makeStatusUpdates(_FeedItemApiStatus.interacted, ids);
-      _currentFeed = _currentFeed.markAsUnarchived(ids);
+      // TODO - Question about if `interacted_at` should be part of the model on FeedItem?
+      //_feed = _feed.markAsInteracted(ids);
     });
   }
 
   void markAllAsSeen() {
     _makeBulkStatusUpdate(_BulkFeedItemApiStatus.seen);
-    _currentFeed = _currentFeed.markAllAsSeen(DateTime.now());
+    _currentFeed = _currentFeed.markAllAsSeen(
+      DateTime.now(),
+      options.status == FeedOptionsStatus.unseen,
+      () => options.buildInitialFeed(),
+    );
+
+    _eventController.add(FeedEvent(
+      eventType: FeedEventType.itemsAllSeen,
+      items: _currentFeed.items,
+      metadata: _currentFeed.metadata,
+    ));
   }
 
   void markAllAsRead() {
     _makeBulkStatusUpdate(_BulkFeedItemApiStatus.read);
-    _currentFeed = _currentFeed.markAllAsRead(DateTime.now());
+    _currentFeed = _currentFeed.markAllAsRead(
+      DateTime.now(),
+      options.status == FeedOptionsStatus.unread,
+      () => options.buildInitialFeed(),
+    );
+
+    _eventController.add(FeedEvent(
+      eventType: FeedEventType.itemsAllRead,
+      items: _currentFeed.items,
+      metadata: _currentFeed.metadata,
+    ));
   }
 
   void markAllAsArchived() {
     _makeBulkStatusUpdate(_BulkFeedItemApiStatus.archive);
-    _currentFeed = _currentFeed.markAllAsArchived(DateTime.now());
+    _currentFeed = _currentFeed.markAllAsArchived(
+      DateTime.now(),
+      options.archived == FeedOptionsArchivedScope.exclude,
+      () => options.buildInitialFeed(),
+    );
+
+    _eventController.add(FeedEvent(
+      eventType: FeedEventType.itemsAllArchived,
+      items: _currentFeed.items,
+      metadata: _currentFeed.metadata,
+    ));
   }
 
-  void _makeStatusUpdates(_FeedItemApiStatus type, Iterable<String> ids) async {
+  void _makeStatusUpdates(_FeedItemApiStatus type, List<String> ids) async {
     if (ids.isEmpty) {
       return;
     }
@@ -250,9 +353,7 @@ class FeedClient {
     // TODO KNO-4773 error handling
     final response = await _api.doPost(
       '/v1/messages/batch/${type.apiValue}',
-      body: jsonEncode({
-        'message_ids': ids,
-      }),
+      body: jsonEncode(FeedStatusUpdateRequest(ids: ids).toJson()),
     );
   }
 
@@ -261,19 +362,19 @@ class FeedClient {
 
     final engagementStatus =
         options.status != FeedOptionsStatus.all ? options.status : null;
-    final tenants = options.tenant != null ? [options.tenant] : null;
+    final tenant = options.tenant;
+    final tenants = tenant != null ? [tenant] : null;
 
     // TODO KNO-4773 error handling
     final response = await _api.doPost(
-      '/v1/channels/$feedChannelId/messages/bulk/${type.apiValue}',
-      body: jsonEncode({
-        'user_ids': [_knock.userId],
-        'engagement_status': engagementStatus,
-        'archived': options.archived,
-        'has_tenant': options.hasTenant,
-        'tenants': tenants,
-      }),
-    );
+        '/v1/channels/$feedChannelId/messages/bulk/${type.apiValue}',
+        body: jsonEncode(BulkFeedStatusUpdateRequest(
+          userIds: [_knock.userId!],
+          engagementStatus: engagementStatus,
+          archived: options.archived,
+          hasTenant: options.hasTenant,
+          tenants: tenants,
+        ).toJson()));
   }
 
   dynamic _decodeResponse(ApiResponse response) {
@@ -298,5 +399,24 @@ extension _FeedOptionsExtension on FeedOptions {
       archived: other?.archived ?? archived,
       triggerData: other?.triggerData ?? triggerData,
     );
+  }
+
+  Feed buildInitialFeed() {
+    final feed = Feed.initialState();
+    final pageInfo = feed.pageInfo;
+    return feed.copyWith(
+      pageInfo: pageInfo.copyWith(
+        before: before ?? pageInfo.before,
+        after: after ?? pageInfo.after,
+        pageSize: pageSize ?? pageInfo.pageSize,
+      ),
+    );
+  }
+}
+
+extension _BindableFeedEventExtension on BindableFeedEvent {
+  bool includes(FeedEventType feedEventType) {
+    final prefixPattern = pattern.replaceAll(RegExp(r'\*'), '');
+    return feedEventType.value.startsWith(prefixPattern);
   }
 }

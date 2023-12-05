@@ -26,6 +26,7 @@ mixin _$FeedOptions {
   @JsonKey(name: 'has_tenant')
   bool? get hasTenant => throw _privateConstructorUsedError;
   FeedOptionsArchivedScope get archived => throw _privateConstructorUsedError;
+  @JsonKey(name: 'trigger_data')
   Map<String, dynamic>? get triggerData => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
@@ -49,7 +50,7 @@ abstract class $FeedOptionsCopyWith<$Res> {
       String? tenant,
       @JsonKey(name: 'has_tenant') bool? hasTenant,
       FeedOptionsArchivedScope archived,
-      Map<String, dynamic>? triggerData});
+      @JsonKey(name: 'trigger_data') Map<String, dynamic>? triggerData});
 }
 
 /// @nodoc
@@ -133,7 +134,7 @@ abstract class _$$FeedOptionsImplCopyWith<$Res>
       String? tenant,
       @JsonKey(name: 'has_tenant') bool? hasTenant,
       FeedOptionsArchivedScope archived,
-      Map<String, dynamic>? triggerData});
+      @JsonKey(name: 'trigger_data') Map<String, dynamic>? triggerData});
 }
 
 /// @nodoc
@@ -211,7 +212,7 @@ class _$FeedOptionsImpl implements _FeedOptions {
       this.tenant,
       @JsonKey(name: 'has_tenant') this.hasTenant,
       this.archived = FeedOptionsArchivedScope.exclude,
-      final Map<String, dynamic>? triggerData})
+      @JsonKey(name: 'trigger_data') final Map<String, dynamic>? triggerData})
       : _triggerData = triggerData;
 
   @override
@@ -235,6 +236,7 @@ class _$FeedOptionsImpl implements _FeedOptions {
   final FeedOptionsArchivedScope archived;
   final Map<String, dynamic>? _triggerData;
   @override
+  @JsonKey(name: 'trigger_data')
   Map<String, dynamic>? get triggerData {
     final value = _triggerData;
     if (value == null) return null;
@@ -306,6 +308,7 @@ abstract class _FeedOptions implements FeedOptions {
       final String? tenant,
       @JsonKey(name: 'has_tenant') final bool? hasTenant,
       final FeedOptionsArchivedScope archived,
+      @JsonKey(name: 'trigger_data')
       final Map<String, dynamic>? triggerData}) = _$FeedOptionsImpl;
 
   @override
@@ -327,6 +330,7 @@ abstract class _FeedOptions implements FeedOptions {
   @override
   FeedOptionsArchivedScope get archived;
   @override
+  @JsonKey(name: 'trigger_data')
   Map<String, dynamic>? get triggerData;
   @override
   @JsonKey(ignore: true)

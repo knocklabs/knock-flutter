@@ -36,6 +36,6 @@ class FeedOptions with _$FeedOptions {
     @JsonKey(name: 'has_tenant') bool? hasTenant,
     @Default(FeedOptionsArchivedScope.exclude)
     FeedOptionsArchivedScope archived,
-    Map<String, dynamic>? triggerData,
+    @JsonKey(name: 'trigger_data') Map<String, dynamic>? triggerData,
   }) = _FeedOptions;
 }
