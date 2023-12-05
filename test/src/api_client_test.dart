@@ -3,7 +3,6 @@ import 'package:http/http.dart';
 import 'package:knock_flutter/knock_flutter.dart';
 import 'package:http/testing.dart';
 
-import 'package:knock_flutter/src/api_client.dart';
 import 'package:knock_flutter/src/model/api_response.dart';
 
 void main() {
@@ -33,7 +32,8 @@ void main() {
       responseBuilder = () => throw error;
 
       final response = await client.doGet('/');
-      expect(response, ApiResponse(status: 500, statusCode: StatusCode.error, error: error));
+      expect(response,
+          ApiResponse(status: 500, statusCode: StatusCode.error, error: error));
     });
 
     test('correctly sets headers before user authentication', () async {

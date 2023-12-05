@@ -8,14 +8,16 @@ part of 'preferences.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-_ChannelTypesJson _$ChannelTypesJsonFromJson(Map<String, dynamic> json) =>
-    _ChannelTypesJson(
+_$_ChannelTypesJsonImpl _$$_ChannelTypesJsonImplFromJson(
+        Map<String, dynamic> json) =>
+    _$_ChannelTypesJsonImpl(
       channelTypes: (json['channel_types'] as Map<String, dynamic>).map(
         (k, e) => MapEntry($enumDecode(_$ChannelTypeEnumMap, k), e as bool),
       ),
     );
 
-Map<String, dynamic> _$ChannelTypesJsonToJson(_ChannelTypesJson instance) =>
+Map<String, dynamic> _$$_ChannelTypesJsonImplToJson(
+        _$_ChannelTypesJsonImpl instance) =>
     <String, dynamic>{
       'channel_types': instance.channelTypes
           .map((k, e) => MapEntry(_$ChannelTypeEnumMap[k]!, e)),
@@ -30,9 +32,9 @@ const _$ChannelTypeEnumMap = {
   ChannelType.http: 'http',
 };
 
-SetPreferencesProperties _$SetPreferencesPropertiesFromJson(
+_$SetPreferencesPropertiesImpl _$$SetPreferencesPropertiesImplFromJson(
         Map<String, dynamic> json) =>
-    SetPreferencesProperties(
+    _$SetPreferencesPropertiesImpl(
       channelTypes: (json['channel_types'] as Map<String, dynamic>?)?.map(
         (k, e) => MapEntry($enumDecode(_$ChannelTypeEnumMap, k), e as bool),
       ),
@@ -42,8 +44,8 @@ SetPreferencesProperties _$SetPreferencesPropertiesFromJson(
           json['categories'] as Map<String, dynamic>?),
     );
 
-Map<String, dynamic> _$SetPreferencesPropertiesToJson(
-        SetPreferencesProperties instance) =>
+Map<String, dynamic> _$$SetPreferencesPropertiesImplToJson(
+        _$SetPreferencesPropertiesImpl instance) =>
     <String, dynamic>{
       'channel_types': instance.channelTypes
           ?.map((k, e) => MapEntry(_$ChannelTypeEnumMap[k]!, e)),
@@ -51,8 +53,8 @@ Map<String, dynamic> _$SetPreferencesPropertiesToJson(
       'categories': _workflowPreferencesToJson(instance.categories),
     };
 
-PreferenceSet _$PreferenceSetFromJson(Map<String, dynamic> json) =>
-    PreferenceSet(
+_$PreferenceSetImpl _$$PreferenceSetImplFromJson(Map<String, dynamic> json) =>
+    _$PreferenceSetImpl(
       id: json['id'] as String,
       channelTypes: (json['channel_types'] as Map<String, dynamic>?)?.map(
         (k, e) => MapEntry($enumDecode(_$ChannelTypeEnumMap, k), e as bool),
@@ -62,3 +64,12 @@ PreferenceSet _$PreferenceSetFromJson(Map<String, dynamic> json) =>
       categories: _workflowPreferencesFromJson(
           json['categories'] as Map<String, dynamic>?),
     );
+
+Map<String, dynamic> _$$PreferenceSetImplToJson(_$PreferenceSetImpl instance) =>
+    <String, dynamic>{
+      'id': instance.id,
+      'channel_types': instance.channelTypes
+          ?.map((k, e) => MapEntry(_$ChannelTypeEnumMap[k]!, e)),
+      'workflows': _workflowPreferencesToJson(instance.workflows),
+      'categories': _workflowPreferencesToJson(instance.categories),
+    };

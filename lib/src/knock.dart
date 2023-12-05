@@ -1,5 +1,4 @@
-import 'package:knock_flutter/src/api_client.dart';
-import 'package:knock_flutter/src/preferences_client.dart';
+import 'package:knock_flutter/knock_flutter.dart';
 
 // Default endpoint that the Knock SDK will use.
 const _defaultHost = "https://api.knock.app";
@@ -73,14 +72,22 @@ class Knock {
 
   ApiClient client() {
     _assertAuthenticated();
-
     return _apiClient ??= ApiClient(this);
   }
 
-  PreferencesClient get preferences {
+  PreferencesClient preferences({
+    PreferencesOptions options = const PreferencesOptions(),
+  }) {
     _assertAuthenticated();
+    return _preferencesClient ??= PreferencesClient(this, client(), options);
+  }
 
-    return _preferencesClient ??= PreferencesClient(this, client());
+  FeedClient feed(
+    String feedChannelId, {
+    FeedOptions options = const FeedOptions(),
+  }) {
+    _assertAuthenticated();
+    return FeedClient(this, client(), feedChannelId, options);
   }
 
   /// Releases any connected resources used by this this instance.
