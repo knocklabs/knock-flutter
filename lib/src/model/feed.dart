@@ -70,6 +70,9 @@ class FeedItem with _$FeedItem {
     @ISO8601DateTimeConverter()
     @JsonKey(name: 'archived_at')
     required DateTime? archivedAt,
+    @ISO8601DateTimeConverter()
+    @JsonKey(name: 'interacted_at')
+    required DateTime? interactedAt,
     @JsonKey(name: 'total_activities') required int totalActivities,
     @JsonKey(name: 'total_actors') required int totalActors,
     required Map<String, dynamic>? data,

@@ -23,6 +23,7 @@ class Knock {
   String? _userToken;
   ApiClient? _apiClient;
   PreferencesClient? _preferencesClient;
+  UserClient? _userClient;
 
   Knock(this.apiKey, {KnockOptions? options})
       : host = options?.host ?? _defaultHost {
@@ -46,6 +47,14 @@ class Knock {
   void authenticate(String userId, [String? userToken]) {
     _userId = userId;
     _userToken = userToken;
+  }
+
+  /// Clears any user authentication and disposes of any created clients.
+  void logout() {
+    _userId = null;
+    _userToken = null;
+
+    dispose();
   }
 
   /// Returns whether or this Knock instance is authenticated. Passing `true`
@@ -75,11 +84,16 @@ class Knock {
     return _apiClient ??= ApiClient(this);
   }
 
+  UserClient user() {
+    _assertAuthenticated();
+    return _userClient ??= UserClient(this);
+  }
+
   PreferencesClient preferences({
     PreferencesOptions options = const PreferencesOptions(),
   }) {
     _assertAuthenticated();
-    return _preferencesClient ??= PreferencesClient(this, client(), options);
+    return _preferencesClient ??= PreferencesClient(this, options);
   }
 
   FeedClient feed(
@@ -87,11 +101,12 @@ class Knock {
     FeedOptions? options,
   }) {
     _assertAuthenticated();
-    return FeedClient(this, client(), feedChannelId, options);
+    return FeedClient(this, feedChannelId, options);
   }
 
   /// Releases any connected resources used by this this instance.
   void dispose() {
     _apiClient?.dispose();
+    _apiClient = null;
   }
 }

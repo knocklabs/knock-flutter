@@ -14,8 +14,10 @@ _$UserImpl _$$UserImplFromJson(Map<String, dynamic> json) => _$UserImpl(
       name: json['name'] as String?,
       phoneNumber: json['phone_number'] as String?,
       avatar: json['avatar'] as String?,
-      updatedAt: json['updated_at'] as String,
-      createdAt: json['created_at'] as String?,
+      updatedAt: const ISO8601DateTimeConverter()
+          .fromJson(json['updated_at'] as String),
+      createdAt: _$JsonConverterFromJson<String, DateTime>(
+          json['created_at'], const ISO8601DateTimeConverter().fromJson),
     );
 
 const _$$UserImplFieldMap = <String, String>{
@@ -35,6 +37,19 @@ Map<String, dynamic> _$$UserImplToJson(_$UserImpl instance) =>
       'name': instance.name,
       'phone_number': instance.phoneNumber,
       'avatar': instance.avatar,
-      'updated_at': instance.updatedAt,
-      'created_at': instance.createdAt,
+      'updated_at': const ISO8601DateTimeConverter().toJson(instance.updatedAt),
+      'created_at': _$JsonConverterToJson<String, DateTime>(
+          instance.createdAt, const ISO8601DateTimeConverter().toJson),
     };
+
+Value? _$JsonConverterFromJson<Json, Value>(
+  Object? json,
+  Value? Function(Json json) fromJson,
+) =>
+    json == null ? null : fromJson(json as Json);
+
+Json? _$JsonConverterToJson<Json, Value>(
+  Value? value,
+  Json? Function(Value value) toJson,
+) =>
+    value == null ? null : toJson(value);

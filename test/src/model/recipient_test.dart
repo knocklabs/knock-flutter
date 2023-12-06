@@ -56,7 +56,7 @@ void main() {
     test('user recipients', () {
       final recipient = Recipient.user(User(
         id: '123',
-        updatedAt: '2023-11-28T15:00:00Z',
+        updatedAt: DateTime.parse('2023-11-28T15:00:00Z'),
       ).set('extra', 'value'));
       expect(recipient.toJson(), {
         'id': '123',
@@ -64,7 +64,7 @@ void main() {
         'name': null,
         'phone_number': null,
         'avatar': null,
-        'updated_at': "2023-11-28T15:00:00Z",
+        'updated_at': '2023-11-28T15:00:00.000Z',
         'created_at': null,
         'extra': 'value',
       });

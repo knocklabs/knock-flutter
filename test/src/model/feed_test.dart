@@ -74,7 +74,7 @@ void main() {
           id: '1',
           email: 'jhammond@ingen.net',
           name: 'John Hammond',
-          updatedAt: '2023-11-17T22:46:39.020Z',
+          updatedAt: DateTime.parse('2023-11-17T22:46:39.020Z'),
           properties: {'__typename': 'User'},
         ))),
       );
@@ -215,6 +215,7 @@ void main() {
           seenAt: null,
           readAt: null,
           archivedAt: null,
+          interactedAt: null,
           totalActivities: 1,
           totalActors: 1,
           data: {
@@ -241,7 +242,7 @@ void main() {
               id: '2',
               name: 'Ellie Sattler',
               email: 'esattler@ingen.net',
-              updatedAt: '2023-11-27T22:08:30.739Z',
+              updatedAt: DateTime.parse('2023-11-27T22:08:30.739Z'),
               properties: {'__typename': 'User'},
             ),
           ),
@@ -250,7 +251,7 @@ void main() {
               id: '1',
               name: 'John Hammond',
               email: 'jhammond@ingen.net',
-              updatedAt: '2023-11-17T22:46:39.020Z',
+              updatedAt: DateTime.parse('2023-11-17T22:46:39.020Z'),
               properties: {'__typename': 'User'},
             ),
           ),
@@ -270,7 +271,7 @@ void main() {
               id: '1',
               name: 'John Hammond',
               email: 'jhammond@ingen.net',
-              updatedAt: '2023-11-17T22:46:39.020Z',
+              updatedAt: DateTime.parse('2023-11-17T22:46:39.020Z'),
               properties: {'__typename': 'User'},
             ),
           )

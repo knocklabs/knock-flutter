@@ -22,10 +22,12 @@ mixin _$User {
   @JsonKey(name: 'phone_number')
   String? get phoneNumber => throw _privateConstructorUsedError;
   String? get avatar => throw _privateConstructorUsedError;
+  @ISO8601DateTimeConverter()
   @JsonKey(name: 'updated_at')
-  String get updatedAt => throw _privateConstructorUsedError;
+  DateTime get updatedAt => throw _privateConstructorUsedError;
+  @ISO8601DateTimeConverter()
   @JsonKey(name: 'created_at')
-  String? get createdAt => throw _privateConstructorUsedError;
+  DateTime? get createdAt => throw _privateConstructorUsedError;
   @JsonKey(includeToJson: false, includeFromJson: false)
   Map<String, dynamic>? get properties => throw _privateConstructorUsedError;
 
@@ -44,8 +46,12 @@ abstract class $UserCopyWith<$Res> {
       String? name,
       @JsonKey(name: 'phone_number') String? phoneNumber,
       String? avatar,
-      @JsonKey(name: 'updated_at') String updatedAt,
-      @JsonKey(name: 'created_at') String? createdAt,
+      @ISO8601DateTimeConverter()
+      @JsonKey(name: 'updated_at')
+      DateTime updatedAt,
+      @ISO8601DateTimeConverter()
+      @JsonKey(name: 'created_at')
+      DateTime? createdAt,
       @JsonKey(includeToJson: false, includeFromJson: false)
       Map<String, dynamic>? properties});
 }
@@ -96,11 +102,11 @@ class _$UserCopyWithImpl<$Res, $Val extends User>
       updatedAt: null == updatedAt
           ? _value.updatedAt
           : updatedAt // ignore: cast_nullable_to_non_nullable
-              as String,
+              as DateTime,
       createdAt: freezed == createdAt
           ? _value.createdAt
           : createdAt // ignore: cast_nullable_to_non_nullable
-              as String?,
+              as DateTime?,
       properties: freezed == properties
           ? _value.properties
           : properties // ignore: cast_nullable_to_non_nullable
@@ -122,8 +128,12 @@ abstract class _$$UserImplCopyWith<$Res> implements $UserCopyWith<$Res> {
       String? name,
       @JsonKey(name: 'phone_number') String? phoneNumber,
       String? avatar,
-      @JsonKey(name: 'updated_at') String updatedAt,
-      @JsonKey(name: 'created_at') String? createdAt,
+      @ISO8601DateTimeConverter()
+      @JsonKey(name: 'updated_at')
+      DateTime updatedAt,
+      @ISO8601DateTimeConverter()
+      @JsonKey(name: 'created_at')
+      DateTime? createdAt,
       @JsonKey(includeToJson: false, includeFromJson: false)
       Map<String, dynamic>? properties});
 }
@@ -171,11 +181,11 @@ class __$$UserImplCopyWithImpl<$Res>
       updatedAt: null == updatedAt
           ? _value.updatedAt
           : updatedAt // ignore: cast_nullable_to_non_nullable
-              as String,
+              as DateTime,
       createdAt: freezed == createdAt
           ? _value.createdAt
           : createdAt // ignore: cast_nullable_to_non_nullable
-              as String?,
+              as DateTime?,
       properties: freezed == properties
           ? _value._properties
           : properties // ignore: cast_nullable_to_non_nullable
@@ -194,8 +204,10 @@ class _$UserImpl extends _User {
       this.name,
       @JsonKey(name: 'phone_number') this.phoneNumber,
       this.avatar,
-      @JsonKey(name: 'updated_at') required this.updatedAt,
-      @JsonKey(name: 'created_at') this.createdAt,
+      @ISO8601DateTimeConverter()
+      @JsonKey(name: 'updated_at')
+      required this.updatedAt,
+      @ISO8601DateTimeConverter() @JsonKey(name: 'created_at') this.createdAt,
       @JsonKey(includeToJson: false, includeFromJson: false)
       final Map<String, dynamic>? properties})
       : _properties = properties,
@@ -213,11 +225,13 @@ class _$UserImpl extends _User {
   @override
   final String? avatar;
   @override
+  @ISO8601DateTimeConverter()
   @JsonKey(name: 'updated_at')
-  final String updatedAt;
+  final DateTime updatedAt;
   @override
+  @ISO8601DateTimeConverter()
   @JsonKey(name: 'created_at')
-  final String? createdAt;
+  final DateTime? createdAt;
   final Map<String, dynamic>? _properties;
   @override
   @JsonKey(includeToJson: false, includeFromJson: false)
@@ -279,8 +293,12 @@ abstract class _User extends User {
       final String? name,
       @JsonKey(name: 'phone_number') final String? phoneNumber,
       final String? avatar,
-      @JsonKey(name: 'updated_at') required final String updatedAt,
-      @JsonKey(name: 'created_at') final String? createdAt,
+      @ISO8601DateTimeConverter()
+      @JsonKey(name: 'updated_at')
+      required final DateTime updatedAt,
+      @ISO8601DateTimeConverter()
+      @JsonKey(name: 'created_at')
+      final DateTime? createdAt,
       @JsonKey(includeToJson: false, includeFromJson: false)
       final Map<String, dynamic>? properties}) = _$UserImpl;
   _User._() : super._();
@@ -297,11 +315,13 @@ abstract class _User extends User {
   @override
   String? get avatar;
   @override
+  @ISO8601DateTimeConverter()
   @JsonKey(name: 'updated_at')
-  String get updatedAt;
+  DateTime get updatedAt;
   @override
+  @ISO8601DateTimeConverter()
   @JsonKey(name: 'created_at')
-  String? get createdAt;
+  DateTime? get createdAt;
   @override
   @JsonKey(includeToJson: false, includeFromJson: false)
   Map<String, dynamic>? get properties;

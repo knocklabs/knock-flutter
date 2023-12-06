@@ -118,9 +118,10 @@ class __$$ApiResponseImplCopyWithImpl<$Res>
 
 /// @nodoc
 
-class _$ApiResponseImpl implements _ApiResponse {
+class _$ApiResponseImpl extends _ApiResponse {
   const _$ApiResponseImpl(
-      {required this.status, required this.statusCode, this.body, this.error});
+      {required this.status, required this.statusCode, this.body, this.error})
+      : super._();
 
   @override
   final int status;
@@ -159,12 +160,13 @@ class _$ApiResponseImpl implements _ApiResponse {
       __$$ApiResponseImplCopyWithImpl<_$ApiResponseImpl>(this, _$identity);
 }
 
-abstract class _ApiResponse implements ApiResponse {
+abstract class _ApiResponse extends ApiResponse {
   const factory _ApiResponse(
       {required final int status,
       required final StatusCode statusCode,
       final String? body,
       final Object? error}) = _$ApiResponseImpl;
+  const _ApiResponse._() : super._();
 
   @override
   int get status;

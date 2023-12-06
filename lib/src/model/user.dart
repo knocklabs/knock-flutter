@@ -1,4 +1,5 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
+import 'package:knock_flutter/src/util/date_time.dart';
 
 part 'user.freezed.dart';
 part 'user.g.dart';
@@ -14,8 +15,10 @@ class User with _$User {
     String? name,
     @JsonKey(name: 'phone_number') String? phoneNumber,
     String? avatar,
-    @JsonKey(name: 'updated_at') required String updatedAt,
-    @JsonKey(name: 'created_at') String? createdAt,
+    @ISO8601DateTimeConverter()
+    @JsonKey(name: 'updated_at') required DateTime updatedAt,
+    @ISO8601DateTimeConverter()
+    @JsonKey(name: 'created_at') DateTime? createdAt,
     @JsonKey(includeToJson: false, includeFromJson: false)
     Map<String, dynamic>? properties,
   }) = _User;

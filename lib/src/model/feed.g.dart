@@ -57,6 +57,8 @@ _$FeedItemImpl _$$FeedItemImplFromJson(Map<String, dynamic> json) =>
           json['read_at'], const ISO8601DateTimeConverter().fromJson),
       archivedAt: _$JsonConverterFromJson<String, DateTime>(
           json['archived_at'], const ISO8601DateTimeConverter().fromJson),
+      interactedAt: _$JsonConverterFromJson<String, DateTime>(
+          json['interacted_at'], const ISO8601DateTimeConverter().fromJson),
       totalActivities: json['total_activities'] as int,
       totalActors: json['total_actors'] as int,
       data: json['data'] as Map<String, dynamic>?,
@@ -81,6 +83,8 @@ Map<String, dynamic> _$$FeedItemImplToJson(_$FeedItemImpl instance) =>
           instance.readAt, const ISO8601DateTimeConverter().toJson),
       'archived_at': _$JsonConverterToJson<String, DateTime>(
           instance.archivedAt, const ISO8601DateTimeConverter().toJson),
+      'interacted_at': _$JsonConverterToJson<String, DateTime>(
+          instance.interactedAt, const ISO8601DateTimeConverter().toJson),
       'total_activities': instance.totalActivities,
       'total_actors': instance.totalActors,
       'data': instance.data,
