@@ -9,6 +9,7 @@ import 'package:knock_flutter/knock_flutter.dart';
 const _exampleUserId = '1';
 const _exampleUserToken = null;
 const _exampleFeedChannelId = '495a74d0-3ac1-43f6-9906-344f9e7d94d9';
+const _exampleChannelId = 'c5c4fd65-20de-4ab5-bcda-8f8d077f528e';
 
 void main() => runApp(const _ExampleKnockApp());
 
@@ -83,6 +84,9 @@ class _KnockPageState extends State<_KnockPage> {
       _UserWidget(
         knock: knock,
       ),
+      _ChannelWidget(
+        knock: knock,
+      ),
     ];
 
     return Scaffold(
@@ -98,6 +102,7 @@ class _KnockPageState extends State<_KnockPage> {
         ],
       ),
       bottomNavigationBar: BottomNavigationBar(
+        type: BottomNavigationBarType.fixed,
         items: const [
           BottomNavigationBarItem(
             icon: Icon(Icons.list),
@@ -110,6 +115,10 @@ class _KnockPageState extends State<_KnockPage> {
           BottomNavigationBarItem(
             icon: Icon(Icons.person),
             label: 'User',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.notifications),
+            label: 'Channel',
           ),
         ],
         currentIndex: _selectedTabIndex,
@@ -188,6 +197,98 @@ class _UserWidgetState extends State<_UserWidget> {
           ),
           const SizedBox(height: 16),
           Text(_user?.toString() ?? 'null'),
+        ],
+      ),
+    );
+  }
+}
+
+class _ChannelWidget extends StatefulWidget {
+  final Knock knock;
+
+  const _ChannelWidget({required this.knock});
+
+  @override
+  State<_ChannelWidget> createState() => _ChannelWidgetState();
+}
+
+class _ChannelWidgetState extends State<_ChannelWidget> {
+  ChannelData? _channelData;
+  Object? _error;
+
+  @override
+  void initState() {
+    super.initState();
+    WidgetsBinding.instance.addPostFrameCallback((_) async {
+      _handleChannelData(() {
+        // Knock: Getting channel data
+        return widget.knock.channel().get(_exampleChannelId);
+      });
+    });
+  }
+
+  void _onReplaceChannelData() async {
+    _handleChannelData(() {
+      // Knock: Setting existing channel data
+      return widget.knock.channel().set(
+          _exampleChannelId,
+          ChannelData.forTokens([
+            'test-token-${DateTime.now().toIso8601String()}',
+          ]));
+    });
+  }
+
+  void _onAppendChannelData() async {
+    _handleChannelData(() {
+      // Knock: Appending new tokens to existing channel data
+      return widget.knock.channel().set(
+          _exampleChannelId,
+          ChannelData.forTokens([
+            ..._channelData?.data.tokens ?? [],
+            'test-token-${DateTime.now().toIso8601String()}',
+          ]));
+    });
+  }
+
+  void _handleChannelData(Future<ChannelData> Function() operation) async {
+    try {
+      final channelData = await operation();
+      setState(() {
+        _channelData = channelData;
+        _error = null;
+      });
+    } catch (error) {
+      setState(() {
+        _channelData = null;
+        _error = error;
+      });
+    }
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.all(8.0),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.stretch,
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          OutlinedButton(
+            onPressed: _onReplaceChannelData,
+            child: const Text('Replace Channel Data'),
+          ),
+          const SizedBox(height: 16),
+          OutlinedButton(
+            onPressed: _onAppendChannelData,
+            child: const Text('Append Channel Data'),
+          ),
+          const SizedBox(height: 16),
+          if (_channelData != null) ...[
+            Text(_channelData.toString()),
+          ],
+          if (_error != null) ...[
+            Text(_error.toString()),
+          ],
         ],
       ),
     );
