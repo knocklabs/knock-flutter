@@ -55,4 +55,22 @@ class UserClient {
     final json = response.decodeResponse();
     return User.fromJson(json);
   }
+
+  Future<ChannelData> getChannelData(String channelId) async {
+    final response = await _api.doGet(
+      '/v1/users/${_knock.userId}/channel_data/$channelId',
+    );
+    final json = response.decodeResponse();
+    return ChannelData.fromJson(json);
+  }
+
+  Future<ChannelData> setChannelData(String channelId, ChannelData channelData) async {
+    final body = jsonEncode(channelData.toJson());
+    final response = await _api.doPut(
+      '/v1/users/${_knock.userId}/channel_data/$channelId',
+      body: body,
+    );
+    final json = response.decodeResponse();
+    return ChannelData.fromJson(json);
+  }
 }

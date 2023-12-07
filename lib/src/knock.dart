@@ -22,6 +22,7 @@ class Knock {
   String? _userId;
   String? _userToken;
   ApiClient? _apiClient;
+
   PreferencesClient? _preferencesClient;
   UserClient? _userClient;
 
