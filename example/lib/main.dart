@@ -310,17 +310,65 @@ class _PreferencesWidgetState extends State<_PreferencesWidget> {
   void _setPreferences() async {
     final PreferenceSet preferences = await widget.knock.preferences().set(
           SetPreferencesProperties(
+            channelTypes: {
+              // Knock: You can turn channel types on or off
+              ChannelType.email: ChannelTypePreference(value: false),
+              // Knock: Or you can configure conditions for channels
+              ChannelType.push: ChannelTypePreference(conditions: [
+                const PreferenceCondition(
+                  variable: 'recipient.muted_dinos',
+                  operator: 'not_contains',
+                  argument: 'data.dino',
+                )
+              ])
+            },
             categories: {
-              'dinosaur-proximity': WorkflowPreferenceSetting.workflow(true),
+              // Knock: You can turn categories on or off
+              'dinosaur-proximity': WorkflowPreferenceSetting(value: true),
+              // Knock: You can also configure conditions for each channel or entire category conditions
+              'velociraptor-enclosure-alert': WorkflowPreferenceSetting(
+                channelTypePreferences: {
+                  ChannelType.inAppFeed: ChannelTypePreference(value: false),
+                  ChannelType.push: ChannelTypePreference(conditions: [
+                    const PreferenceCondition(
+                      variable: 'recipient.muted_dinos',
+                      operator: 'not_contains',
+                      argument: 'data.dino',
+                    )
+                  ])
+                },
+                conditions: [
+                  const PreferenceCondition(
+                    variable: 'recipient.muted_dinos',
+                    operator: 'not_contains',
+                    argument: 'data.dino',
+                  )
+                ],
+              )
             },
             workflows: {
-              'unix-servers':
-                  WorkflowPreferenceSetting.channelTypePreferences(const {
-                ChannelType.inAppFeed: true,
-              }),
-            },
-            channelTypes: const {
-              ChannelType.email: false,
+              // Knock: You can turn workflows on or off
+              'unix-servers': WorkflowPreferenceSetting(value: true),
+              // Knock: You can also configure conditions for each workflow or entire workflow conditions
+              'disable-park-security': WorkflowPreferenceSetting(
+                channelTypePreferences: {
+                  ChannelType.inAppFeed: ChannelTypePreference(value: false),
+                  ChannelType.push: ChannelTypePreference(conditions: [
+                    const PreferenceCondition(
+                      variable: 'recipient.muted_dinos',
+                      operator: 'not_contains',
+                      argument: 'data.dino',
+                    )
+                  ])
+                },
+                conditions: [
+                  const PreferenceCondition(
+                    variable: 'recipient.muted_dinos',
+                    operator: 'not_contains',
+                    argument: 'data.dino',
+                  )
+                ],
+              ),
             },
           ),
         );
