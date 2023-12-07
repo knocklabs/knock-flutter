@@ -23,7 +23,6 @@ class Knock {
   String? _userToken;
   ApiClient? _apiClient;
 
-  ChannelClient? _channelClient;
   PreferencesClient? _preferencesClient;
   UserClient? _userClient;
 
@@ -96,11 +95,6 @@ class Knock {
   }) {
     _assertAuthenticated();
     return _preferencesClient ??= PreferencesClient(this, options);
-  }
-
-  ChannelClient channel() {
-    _assertAuthenticated();
-    return _channelClient ??= ChannelClient(this);
   }
 
   FeedClient feed(

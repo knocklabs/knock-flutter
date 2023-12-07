@@ -222,7 +222,7 @@ class _ChannelWidgetState extends State<_ChannelWidget> {
     WidgetsBinding.instance.addPostFrameCallback((_) async {
       _handleChannelData(() {
         // Knock: Getting channel data
-        return widget.knock.channel().get(_exampleChannelId);
+        return widget.knock.user().getChannelData(_exampleChannelId);
       });
     });
   }
@@ -230,7 +230,7 @@ class _ChannelWidgetState extends State<_ChannelWidget> {
   void _onReplaceChannelData() async {
     _handleChannelData(() {
       // Knock: Setting existing channel data
-      return widget.knock.channel().set(
+      return widget.knock.user().setChannelData(
           _exampleChannelId,
           ChannelData.forTokens([
             'test-token-${DateTime.now().toIso8601String()}',
@@ -241,7 +241,7 @@ class _ChannelWidgetState extends State<_ChannelWidget> {
   void _onAppendChannelData() async {
     _handleChannelData(() {
       // Knock: Appending new tokens to existing channel data
-      return widget.knock.channel().set(
+      return widget.knock.user().setChannelData(
           _exampleChannelId,
           ChannelData.forTokens([
             ..._channelData?.data.tokens ?? [],
