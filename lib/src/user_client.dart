@@ -64,7 +64,10 @@ class UserClient {
     return ChannelData.fromJson(json);
   }
 
-  Future<ChannelData> setChannelData(String channelId, ChannelData channelData) async {
+  Future<ChannelData> setChannelData(
+    String channelId,
+    ChannelData channelData,
+  ) async {
     final body = jsonEncode(channelData.toJson());
     final response = await _api.doPut(
       '/v1/users/${_knock.userId}/channel_data/$channelId',
