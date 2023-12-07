@@ -91,7 +91,7 @@ class Knock {
   }
 
   PreferencesClient preferences({
-    PreferencesOptions options = const PreferencesOptions(),
+    PreferencesOptions? options,
   }) {
     _assertAuthenticated();
     return _preferencesClient ??= PreferencesClient(this, options);

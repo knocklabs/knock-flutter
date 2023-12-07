@@ -16,8 +16,8 @@ class PreferencesClient {
 
   PreferencesClient(
     this._knock,
-    this.options,
-  );
+    PreferencesOptions? options,
+  ) : options = options ?? const PreferencesOptions();
 
   ApiClient get _api => _knock.client();
 
@@ -38,9 +38,8 @@ class PreferencesClient {
     return PreferenceSet.fromJson(json);
   }
 
-  Future<PreferenceSet> set(
-      SetPreferencesProperties setPreferencesProperties) async {
-    final body = jsonEncode(setPreferencesProperties.toJson());
+  Future<PreferenceSet> set(SetPreferencesProperties properties) async {
+    final body = jsonEncode(properties.toJson());
     final response = await _api.doPut(
       '/v1/users/${_knock.userId}/preferences/${options.preferenceSetId}',
       body: body,
