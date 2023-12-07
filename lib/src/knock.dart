@@ -1,18 +1,32 @@
 import 'package:knock_flutter/knock_flutter.dart';
 
 // Default endpoint that the Knock SDK will use.
-const _defaultHost = "https://api.knock.app";
+const _defaultHost = 'https://api.knock.app';
 
 /// Configuration options for the [Knock] client SDK.
 class KnockOptions {
-  /// The [Knock] client SDK will use this host instead of the default endpoint if set to a non-null value.
-  final String? host;
-
   KnockOptions({this.host});
+
+  /// The [Knock] client SDK will use this host instead of the default endpoint
+  /// if set to a non-null value.
+  final String? host;
 }
 
 /// Knock client SDK.
 class Knock {
+  Knock(this.apiKey, {KnockOptions? options})
+      : host = options?.host ?? _defaultHost {
+    // Fail loudly if we're using the wrong API key
+    if (apiKey.startsWith('sk')) {
+      throw ArgumentError(
+        '''
+        [Knock] You are using your secret API key on the client. Please use the
+        public key.
+        ''',
+      );
+    }
+  }
+
   /// Your Knock public API key.
   final String apiKey;
 
@@ -25,19 +39,6 @@ class Knock {
 
   PreferencesClient? _preferencesClient;
   UserClient? _userClient;
-
-  Knock(this.apiKey, {KnockOptions? options})
-      : host = options?.host ?? _defaultHost {
-    // Fail loudly if we're using the wrong API key
-    if (apiKey.startsWith("sk")) {
-      throw ArgumentError(
-        """
-        [Knock] You are using your secret API key on the client. Please use the
-        public key.
-        """,
-      );
-    }
-  }
 
   String? get userId => _userId;
 
@@ -65,7 +66,7 @@ class Knock {
       return (userId?.isNotEmpty ?? false) && (userToken?.isNotEmpty ?? false);
     }
 
-    return (userId?.isNotEmpty ?? false);
+    return userId?.isNotEmpty ?? false;
   }
 
   void _assertAuthenticated() {

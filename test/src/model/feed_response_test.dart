@@ -18,13 +18,15 @@ void main() {
         ''');
       final response = OnNewMessageResponse.fromJson(json);
       expect(
-          response,
-          const OnNewMessageResponse(
-              metadata: FeedMetadata(
+        response,
+        const OnNewMessageResponse(
+          metadata: FeedMetadata(
             totalCount: 24,
             unreadCount: 24,
             unseenCount: 24,
-          )),);
+          ),
+        ),
+      );
     });
   });
 }

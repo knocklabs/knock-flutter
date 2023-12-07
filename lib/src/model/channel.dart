@@ -5,6 +5,11 @@ part 'channel.g.dart';
 
 @freezed
 class ChannelData with _$ChannelData {
+  @JsonSerializable(explicitToJson: true)
+  const factory ChannelData({
+    required ChannelProviderData data,
+  }) = _ChannelData;
+
   factory ChannelData.forTokens(List<String> tokens) {
     return ChannelData(
       data: ChannelProviderData(
@@ -12,11 +17,6 @@ class ChannelData with _$ChannelData {
       ),
     );
   }
-
-  @JsonSerializable(explicitToJson: true)
-  const factory ChannelData({
-    required ChannelProviderData data,
-  }) = _ChannelData;
 
   factory ChannelData.fromJson(Map<String, dynamic> json) =>
       _$ChannelDataFromJson(json);

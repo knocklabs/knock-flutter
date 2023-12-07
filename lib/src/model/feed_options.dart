@@ -19,12 +19,6 @@ enum FeedOptionsArchivedScope {
 
 @Freezed(toJson: true)
 class FeedOptions with _$FeedOptions {
-  factory FeedOptions.defaultOptions() {
-    return const FeedOptions(
-      archived: FeedOptionsArchivedScope.exclude,
-    );
-  }
-
   @JsonSerializable(explicitToJson: true)
   const factory FeedOptions({
     String? before,
@@ -38,4 +32,8 @@ class FeedOptions with _$FeedOptions {
     FeedOptionsArchivedScope archived,
     @JsonKey(name: 'trigger_data') Map<String, dynamic>? triggerData,
   }) = _FeedOptions;
+
+  factory FeedOptions.defaultOptions() {
+    return const FeedOptions();
+  }
 }

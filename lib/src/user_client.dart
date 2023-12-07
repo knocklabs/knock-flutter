@@ -4,9 +4,9 @@ import 'package:knock_flutter/knock_flutter.dart';
 import 'package:knock_flutter/src/util/arguments.dart';
 
 class UserClient {
-  final Knock _knock;
-
   UserClient(this._knock);
+
+  final Knock _knock;
 
   ApiClient get _api => _knock.client();
 
@@ -26,7 +26,7 @@ class UserClient {
     String? locale = knockDefaultString,
     Map<String, dynamic>? properties,
   }) async {
-    final Map<String, dynamic> requestBody = Map.from(properties ?? {});
+    final requestBody = Map<String, dynamic>.from(properties ?? {});
     if (!email.isDefaultValue) {
       requestBody['email'] = email;
     }

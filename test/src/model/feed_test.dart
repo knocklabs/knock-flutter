@@ -70,13 +70,17 @@ void main() {
       final actor = Recipient.fromJson(json);
       expect(
         actor,
-        equals(Recipient.user(User(
-          id: '1',
-          email: 'jhammond@ingen.net',
-          name: 'John Hammond',
-          updatedAt: DateTime.parse('2023-11-17T22:46:39.020Z'),
-          properties: {'__typename': 'User'},
-        ))),
+        equals(
+          Recipient.user(
+            User(
+              id: '1',
+              email: 'jhammond@ingen.net',
+              name: 'John Hammond',
+              updatedAt: DateTime.parse('2023-11-17T22:46:39.020Z'),
+              properties: {'__typename': 'User'},
+            ),
+          ),
+        ),
       );
     });
 
@@ -201,7 +205,8 @@ void main() {
       expect(feed.items.length, 1);
       final item = feed.items[0];
 
-      // Start with the top level data...will check activities, actors, and blocks next
+      // Start with the top level data...will check activities, actors, and
+      // blocks next
       expect(
         item.copyWith(activities: [], actors: [], blocks: []),
         FeedItem(
@@ -274,7 +279,7 @@ void main() {
               updatedAt: DateTime.parse('2023-11-17T22:46:39.020Z'),
               properties: {'__typename': 'User'},
             ),
-          )
+          ),
         ],
       );
 
@@ -284,7 +289,8 @@ void main() {
         const [
           ContentBlock(
             content:
-                'Hey **{{ recipient.name | split: \' \' | first }}** - {{ actor.name }} added a new comment.',
+                // ignore: lines_longer_than_80_chars
+                "Hey **{{ recipient.name | split: ' ' | first }}** - {{ actor.name }} added a new comment.",
             name: 'body',
             rendered:
                 '<p>Hey <strong>Ellie</strong> - John Hammond added a new comment.</p>',

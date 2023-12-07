@@ -1,11 +1,14 @@
 // This file is not intended for export in the public interface.
 
+// We are ok ignoring these checks because it will not be exported.
+// ignore_for_file: avoid_positional_boolean_parameters
+
 import 'dart:math';
 
 import 'package:knock_flutter/knock_flutter.dart';
 
 extension FeedItemsModifiers on Iterable<FeedItem> {
-  void action(Function(List<String> ids) callback) {
+  void action(void Function(List<String> ids) callback) {
     final ids = map((item) => item.id).toList();
     callback(ids);
   }
@@ -204,7 +207,7 @@ extension FeedModifiersExtension on Feed {
       // Prioritize the incoming feed because it is most likely more up to date
       mergedItems = other.items + items;
 
-      final Set<String> ids = {};
+      final ids = <String>{};
       mergedItems.retainWhere((item) => ids.add(item.id));
     } else {
       mergedItems = List.from(other.items);

@@ -18,9 +18,9 @@ enum BindableFeedEvent {
   itemsAllRead('items.all_read'),
   itemsAllSeen('items.all_seen');
 
-  final String pattern;
-
   const BindableFeedEvent(this.pattern);
+
+  final String pattern;
 }
 
 enum FeedEventType {
@@ -36,9 +36,9 @@ enum FeedEventType {
   itemsAllRead('items.all_read'),
   itemsAllSeen('items.all_seen');
 
-  final String value;
-
   const FeedEventType(this.value);
+
+  final String value;
 }
 
 @freezed

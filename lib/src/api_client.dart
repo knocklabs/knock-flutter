@@ -14,6 +14,11 @@ enum ApiClientStatus {
 }
 
 class ApiClient extends http.BaseClient {
+  ApiClient(
+    this.knock, {
+    http.Client? client,
+  }) : _client = client ?? http.Client();
+
   final Knock knock;
   final http.Client _client;
 
@@ -21,11 +26,6 @@ class ApiClient extends http.BaseClient {
 
   bool _disposed = false;
   final _status = StreamController<ApiClientStatus>.broadcast();
-
-  ApiClient(
-    this.knock, {
-    http.Client? client,
-  }) : _client = client ?? http.Client();
 
   String get _host => knock.host;
 
@@ -113,17 +113,18 @@ class ApiClient extends http.BaseClient {
   Uri _buildUri(String path, Map<String, dynamic>? queryParams) {
     final uri = Uri.parse('$_host$path');
     final cleanParams = Map<String, dynamic>.from(queryParams ?? {})
-        .map((key, value) => MapEntry(key, value?.toString()));
-    cleanParams.removeWhere((key, value) => value == null);
+        .map((key, value) => MapEntry(key, value?.toString()))
+      ..removeWhere((key, value) => value == null);
 
     return Uri(
-        scheme: uri.scheme,
-        userInfo: uri.userInfo,
-        host: uri.host,
-        port: uri.port == 0 ? null : uri.port,
-        pathSegments: uri.pathSegments,
-        queryParameters: cleanParams,
-        fragment: uri.fragment);
+      scheme: uri.scheme,
+      userInfo: uri.userInfo,
+      host: uri.host,
+      port: uri.port == 0 ? null : uri.port,
+      pathSegments: uri.pathSegments,
+      queryParameters: cleanParams,
+      fragment: uri.fragment,
+    );
   }
 
   void dispose() {
@@ -138,9 +139,9 @@ class ApiClient extends http.BaseClient {
 
   void _assertNotDisposed() {
     if (_disposed) {
-      throw StateError("""
+      throw StateError('''
         [Knock] This APIClient has been disposed. Please create a new client.
-      """);
+      ''');
     }
   }
 }

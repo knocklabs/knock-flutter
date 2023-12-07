@@ -15,8 +15,7 @@ void main() {
             "updated_at": "2023-11-28T15:00:00Z"
           }
         ''');
-      final recipient = Recipient.fromJson(json);
-      recipient.maybeWhen(
+      Recipient.fromJson(json).maybeWhen(
         user: (user) {
           expect(user.id, '123');
           expect(user.email, 'dnedrey@biosyn.com');
@@ -38,8 +37,7 @@ void main() {
             "updated_at": "2023-11-28T15:00:00Z"
           }
         ''');
-      final recipient = Recipient.fromJson(json);
-      recipient.maybeWhen(
+      Recipient.fromJson(json).maybeWhen(
         knockObject: (knockObject) {
           expect(knockObject.id, '123');
           expect(knockObject.collection, 'my collection');
@@ -54,10 +52,12 @@ void main() {
 
   group('Recipient serializes', () {
     test('user recipients', () {
-      final recipient = Recipient.user(User(
-        id: '123',
-        updatedAt: DateTime.parse('2023-11-28T15:00:00Z'),
-      ).set('extra', 'value'));
+      final recipient = Recipient.user(
+        User(
+          id: '123',
+          updatedAt: DateTime.parse('2023-11-28T15:00:00Z'),
+        ).set('extra', 'value'),
+      );
       expect(recipient.toJson(), {
         'id': '123',
         'email': null,

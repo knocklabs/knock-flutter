@@ -3,21 +3,21 @@ import 'dart:convert';
 import 'package:knock_flutter/knock_flutter.dart';
 
 class PreferencesOptions {
+  const PreferencesOptions({this.preferenceSetId = _defaultPreferenceSetId});
+
   static const _defaultPreferenceSetId = 'default';
 
   final String preferenceSetId;
-
-  const PreferencesOptions({this.preferenceSetId = _defaultPreferenceSetId});
 }
 
 class PreferencesClient {
-  final Knock _knock;
-  final PreferencesOptions options;
-
   PreferencesClient(
     this._knock,
     PreferencesOptions? options,
   ) : options = options ?? const PreferencesOptions();
+
+  final Knock _knock;
+  final PreferencesOptions options;
 
   ApiClient get _api => _knock.client();
 
@@ -26,8 +26,8 @@ class PreferencesClient {
       '/v1/users/${_knock.userId}/preferences',
     );
     final json = response.decodeResponse();
-    final jsonList = json as List;
-    return jsonList.map((e) => PreferenceSet.fromJson(e)).toList();
+    final jsonList = json as List<Map<String, dynamic>>;
+    return jsonList.map(PreferenceSet.fromJson).toList();
   }
 
   Future<PreferenceSet> get() async {

@@ -179,7 +179,8 @@ abstract class _ChannelTypePreference implements ChannelTypePreference {
 
 /// @nodoc
 mixin _$WorkflowPreferenceSetting {
-  /// If [value] is set then [channelTypePreferences] and [conditions] should not be set.
+  /// If [value] is set then [channelTypePreferences] and [conditions] should
+  /// not be set.
   bool? get value => throw _privateConstructorUsedError;
 
   /// If [channelTypePreferences] is set then [value] should not be set.
@@ -301,7 +302,8 @@ class _$WorkflowPreferenceSettingImpl implements _WorkflowPreferenceSetting {
       : _channelTypePreferences = channelTypePreferences,
         _conditions = conditions;
 
-  /// If [value] is set then [channelTypePreferences] and [conditions] should not be set.
+  /// If [value] is set then [channelTypePreferences] and [conditions] should
+  /// not be set.
   @override
   final bool? value;
 
@@ -373,7 +375,8 @@ abstract class _WorkflowPreferenceSetting implements WorkflowPreferenceSetting {
 
   @override
 
-  /// If [value] is set then [channelTypePreferences] and [conditions] should not be set.
+  /// If [value] is set then [channelTypePreferences] and [conditions] should
+  /// not be set.
   bool? get value;
   @override
 

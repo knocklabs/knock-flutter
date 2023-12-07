@@ -6,22 +6,24 @@ part 'user.g.dart';
 
 @freezed
 class User with _$User {
-  User._();
-
   @JsonSerializable(createFieldMap: true)
   factory User({
     required String id,
+    @ISO8601DateTimeConverter()
+    @JsonKey(name: 'updated_at')
+    required DateTime updatedAt,
     String? email,
     String? name,
     @JsonKey(name: 'phone_number') String? phoneNumber,
     String? avatar,
     @ISO8601DateTimeConverter()
-    @JsonKey(name: 'updated_at') required DateTime updatedAt,
-    @ISO8601DateTimeConverter()
-    @JsonKey(name: 'created_at') DateTime? createdAt,
+    @JsonKey(name: 'created_at')
+    DateTime? createdAt,
     @JsonKey(includeToJson: false, includeFromJson: false)
     Map<String, dynamic>? properties,
   }) = _User;
+
+  User._();
 
   factory User.fromJson(Map<String, dynamic> json) {
     return const UserConverter().fromJson(json);
@@ -58,12 +60,12 @@ class UserConverter implements JsonConverter<User, Map<String, dynamic>> {
   @override
   Map<String, dynamic> toJson(User object) {
     if (object is _$UserImpl) {
-      final json = _$$UserImplToJson(object);
-      json.addAll(object.properties ?? {});
+      final json = _$$UserImplToJson(object)..addAll(object.properties ?? {});
       return json;
     } else {
       throw StateError(
-          'Trying to convert an unexpected User object to json: $object');
+        'Trying to convert an unexpected User object to json: $object',
+      );
     }
   }
 }
