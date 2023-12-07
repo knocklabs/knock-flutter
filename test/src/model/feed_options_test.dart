@@ -5,10 +5,11 @@ void main() {
   test('FeedOptions default state is to exclude archived items', () {
     final options = FeedOptions.defaultOptions();
     expect(
-        options,
-        const FeedOptions(
-          archived: FeedOptionsArchivedScope.exclude,
-        ));
+      options,
+      const FeedOptions(
+        archived: FeedOptionsArchivedScope.exclude,
+      ),
+    );
   });
 
   test('FeedOptions correctly serializes all default fields', () {

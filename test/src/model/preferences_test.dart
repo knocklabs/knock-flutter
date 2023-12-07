@@ -69,60 +69,74 @@ void main() {
       final preferenceSet = PreferenceSet.fromJson(json);
       expect(preferenceSet.id, 'default');
       expect(
-          preferenceSet.channelTypes,
-          equals({
-            ChannelType.sms: ChannelTypePreference(value: true),
-            ChannelType.inAppFeed: ChannelTypePreference(value: true),
-            ChannelType.push: ChannelTypePreference(conditions: [
+        preferenceSet.channelTypes,
+        equals({
+          ChannelType.sms: ChannelTypePreference(value: true),
+          ChannelType.inAppFeed: ChannelTypePreference(value: true),
+          ChannelType.push: ChannelTypePreference(
+            conditions: [
               const PreferenceCondition(
                 variable: 'v1',
                 operator: 'o1',
                 argument: 'a1',
-              )
-            ])
-          }));
+              ),
+            ],
+          ),
+        }),
+      );
       expect(
-          preferenceSet.workflows,
-          equals(
-            {
-              'dinosaurs-loose':
-                  WorkflowPreferenceSetting(channelTypePreferences: {
+        preferenceSet.workflows,
+        equals(
+          {
+            'dinosaurs-loose': WorkflowPreferenceSetting(
+              channelTypePreferences: {
                 ChannelType.email: ChannelTypePreference(value: true),
-                ChannelType.push: ChannelTypePreference(conditions: [
-                  const PreferenceCondition(
-                    variable: 'v2',
-                    operator: 'o2',
-                    argument: 'a2',
-                  )
-                ]),
-              }, conditions: [
-                // Workflows and categories have the same backing structure so we do not
-                // need to recheck the parsing in categories, but we will ensure that
-                // parsing works correct when there is not conditions provided.
+                ChannelType.push: ChannelTypePreference(
+                  conditions: [
+                    const PreferenceCondition(
+                      variable: 'v2',
+                      operator: 'o2',
+                      argument: 'a2',
+                    ),
+                  ],
+                ),
+              },
+              conditions: [
+                // Workflows and categories have the same backing structure so 
+                // we do not need to recheck the parsing in categories, but we
+                // will ensure that parsing works correct when there is not 
+                // conditions provided.
                 const PreferenceCondition(
                   variable: 'v4',
                   operator: 'o4',
                   argument: 'a4',
-                )
-              ]),
-            },
-          ));
+                ),
+              ],
+            ),
+          },
+        ),
+      );
       expect(
-          preferenceSet.categories,
-          equals(
-            {
-              'park-wide': WorkflowPreferenceSetting(channelTypePreferences: {
+        preferenceSet.categories,
+        equals(
+          {
+            'park-wide': WorkflowPreferenceSetting(
+              channelTypePreferences: {
                 ChannelType.sms: ChannelTypePreference(value: false),
-                ChannelType.push: ChannelTypePreference(conditions: [
-                  const PreferenceCondition(
-                    variable: 'v3',
-                    operator: 'o3',
-                    argument: 'a3',
-                  )
-                ]),
-              })
-            },
-          ));
+                ChannelType.push: ChannelTypePreference(
+                  conditions: [
+                    const PreferenceCondition(
+                      variable: 'v3',
+                      operator: 'o3',
+                      argument: 'a3',
+                    ),
+                  ],
+                ),
+              },
+            ),
+          },
+        ),
+      );
     });
 
     test('correctly when boolean preferences are used', () async {
@@ -145,11 +159,12 @@ void main() {
       final preferenceSet = PreferenceSet.fromJson(json);
       expect(preferenceSet.id, 'default');
       expect(
-          preferenceSet.channelTypes,
-          equals({
-            ChannelType.sms: ChannelTypePreference(value: true),
-            ChannelType.inAppFeed: ChannelTypePreference(value: true),
-          }));
+        preferenceSet.channelTypes,
+        equals({
+          ChannelType.sms: ChannelTypePreference(value: true),
+          ChannelType.inAppFeed: ChannelTypePreference(value: true),
+        }),
+      );
       expect(
         preferenceSet.workflows,
         equals(
@@ -210,22 +225,27 @@ void main() {
       expect(
         SetPreferencesProperties(
           categories: {
-            'park-wide': WorkflowPreferenceSetting(channelTypePreferences: {
-              ChannelType.inAppFeed: ChannelTypePreference(value: true),
-              ChannelType.push: ChannelTypePreference(conditions: [
+            'park-wide': WorkflowPreferenceSetting(
+              channelTypePreferences: {
+                ChannelType.inAppFeed: ChannelTypePreference(value: true),
+                ChannelType.push: ChannelTypePreference(
+                  conditions: [
+                    const PreferenceCondition(
+                      variable: 'v2',
+                      operator: 'o2',
+                      argument: 'a2',
+                    ),
+                  ],
+                ),
+              },
+              conditions: [
                 const PreferenceCondition(
-                  variable: 'v2',
-                  operator: 'o2',
-                  argument: 'a2',
-                )
-              ]),
-            }, conditions: [
-              const PreferenceCondition(
-                variable: 'v3',
-                operator: 'o3',
-                argument: 'a3',
-              )
-            ]),
+                  variable: 'v3',
+                  operator: 'o3',
+                  argument: 'a3',
+                ),
+              ],
+            ),
           },
           workflows: {
             'dinosaurs-loose': WorkflowPreferenceSetting(
@@ -239,19 +259,21 @@ void main() {
                   variable: 'v4',
                   operator: 'o4',
                   argument: 'a4',
-                )
+                ),
               ],
             ),
           },
           channelTypes: {
             ChannelType.inAppFeed: ChannelTypePreference(value: true),
-            ChannelType.push: ChannelTypePreference(conditions: [
-              const PreferenceCondition(
-                variable: 'v1',
-                operator: 'o1',
-                argument: 'a1',
-              )
-            ]),
+            ChannelType.push: ChannelTypePreference(
+              conditions: [
+                const PreferenceCondition(
+                  variable: 'v1',
+                  operator: 'o1',
+                  argument: 'a1',
+                ),
+              ],
+            ),
           },
         ).toJson(),
         {
@@ -261,34 +283,34 @@ void main() {
                 'in_app_feed': true,
                 'push': {
                   'conditions': [
-                    {'variable': 'v2', 'operator': 'o2', 'argument': 'a2'}
-                  ]
-                }
+                    {'variable': 'v2', 'operator': 'o2', 'argument': 'a2'},
+                  ],
+                },
               },
               'conditions': [
-                {'variable': 'v3', 'operator': 'o3', 'argument': 'a3'}
-              ]
+                {'variable': 'v3', 'operator': 'o3', 'argument': 'a3'},
+              ],
             },
           },
           'workflows': {
             'dinosaurs-loose': {
               'channel_types': {
                 'in_app_feed': false,
-              }
+              },
             },
             'velociraptor-enclosure-alert': {
               'conditions': [
-                {'variable': 'v4', 'operator': 'o4', 'argument': 'a4'}
-              ]
-            }
+                {'variable': 'v4', 'operator': 'o4', 'argument': 'a4'},
+              ],
+            },
           },
           'channel_types': {
             'in_app_feed': true,
             'push': {
               'conditions': [
-                {'variable': 'v1', 'operator': 'o1', 'argument': 'a1'}
-              ]
-            }
+                {'variable': 'v1', 'operator': 'o1', 'argument': 'a1'},
+              ],
+            },
           },
         },
       );

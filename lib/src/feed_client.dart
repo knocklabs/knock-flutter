@@ -2,8 +2,8 @@ import 'dart:async';
 import 'dart:convert';
 
 import 'package:knock_flutter/knock_flutter.dart';
-import 'package:knock_flutter/src/model/feed_extensions.dart';
 import 'package:knock_flutter/src/model/api_response.dart';
+import 'package:knock_flutter/src/model/feed_extensions.dart';
 import 'package:knock_flutter/src/model/feed_response.dart';
 import 'package:knock_flutter/src/model/feed_update_request.dart';
 import 'package:phoenix_socket/phoenix_socket.dart';
@@ -22,9 +22,9 @@ enum _FeedItemApiStatus {
   unarchived('unarchived'),
   interacted('interacted');
 
-  final String apiValue;
-
   const _FeedItemApiStatus(this.apiValue);
+
+  final String apiValue;
 }
 
 enum _BulkFeedItemApiStatus {
@@ -32,31 +32,12 @@ enum _BulkFeedItemApiStatus {
   read('read'),
   archive('archive');
 
-  final String apiValue;
-
   const _BulkFeedItemApiStatus(this.apiValue);
+
+  final String apiValue;
 }
 
 class FeedClient {
-  final Knock _knock;
-  final String feedChannelId;
-  late final FeedOptions options;
-
-  StreamSubscription? _apiStatusSubscription;
-
-  late Feed _feedValue;
-  StreamController<Feed>? _feedController;
-
-  StreamSubscription? _socketOpenSubscription;
-  StreamSubscription? _socketClosedSubscription;
-
-  PhoenixChannel? _channel;
-  StreamSubscription? _channelMessagesSubscription;
-
-  final _eventController = StreamController<FeedEvent>.broadcast();
-
-  bool _disposed = false;
-
   FeedClient(
     this._knock,
     this.feedChannelId,
@@ -82,6 +63,25 @@ class FeedClient {
     });
   }
 
+  final Knock _knock;
+  final String feedChannelId;
+  late final FeedOptions options;
+
+  StreamSubscription<ApiClientStatus>? _apiStatusSubscription;
+
+  late Feed _feedValue;
+  StreamController<Feed>? _feedController;
+
+  StreamSubscription<PhoenixSocketOpenEvent>? _socketOpenSubscription;
+  StreamSubscription<PhoenixSocketCloseEvent>? _socketClosedSubscription;
+
+  PhoenixChannel? _channel;
+  StreamSubscription<Message>? _channelMessagesSubscription;
+
+  final _eventController = StreamController<FeedEvent>.broadcast();
+
+  bool _disposed = false;
+
   ApiClient get _api => _knock.client();
 
   Feed get _currentFeed => _feedValue;
@@ -98,7 +98,7 @@ class FeedClient {
 
   StreamController<Feed> _buildFeedController() {
     late StreamController<Feed> controller;
-    controller = StreamController<Feed>.broadcast(
+    return controller = StreamController<Feed>.broadcast(
       onListen: () {
         controller.add(_currentFeed);
 
@@ -107,7 +107,7 @@ class FeedClient {
         // Note: closeStream will never terminate because it's backed by a
         // BehaviorSubject in phoenix_socket
         _socketClosedSubscription = socket.closeStream.listen((event) {
-          // TODO KNO-4703 error handling
+          // TODO(KNO-4703): error handling
         });
 
         // Note: openStream will never terminate because it's backed by a
@@ -152,7 +152,6 @@ class FeedClient {
         _feedController = null;
       },
     );
-    return controller;
   }
 
   Stream<FeedEvent> on(BindableFeedEvent bindableFeedEvent) {
@@ -178,7 +177,7 @@ class FeedClient {
     }
   }
 
-  void _fetch({
+  Future<void> _fetch({
     required FeedOptions? fetchOptions,
     required NetworkStatus loadingType,
     required _FeedFetchSource fetchSource,
@@ -221,13 +220,15 @@ class FeedClient {
         networkStatus: NetworkStatus.ready,
       );
 
-      _eventController.add(FeedEvent(
-        eventType: fetchSource == _FeedFetchSource.socket
-            ? FeedEventType.itemsReceivedRealtime
-            : FeedEventType.itemsReceivedPage,
-        items: updatedFeed.items,
-        metadata: updatedFeed.metadata,
-      ));
+      _eventController.add(
+        FeedEvent(
+          eventType: fetchSource == _FeedFetchSource.socket
+              ? FeedEventType.itemsReceivedRealtime
+              : FeedEventType.itemsReceivedPage,
+          items: updatedFeed.items,
+          metadata: updatedFeed.metadata,
+        ),
+      );
     }
   }
 
@@ -255,11 +256,13 @@ class FeedClient {
       _currentFeed = _currentFeed.markAsSeen(ids, DateTime.now());
     });
 
-    _eventController.add(FeedEvent(
-      eventType: FeedEventType.itemsSeen,
-      items: items,
-      metadata: _currentFeed.metadata,
-    ));
+    _eventController.add(
+      FeedEvent(
+        eventType: FeedEventType.itemsSeen,
+        items: items,
+        metadata: _currentFeed.metadata,
+      ),
+    );
   }
 
   void markAsUnseen(List<FeedItem> items) {
@@ -270,11 +273,13 @@ class FeedClient {
       _currentFeed = _currentFeed.markAsUnseen(ids);
     });
 
-    _eventController.add(FeedEvent(
-      eventType: FeedEventType.itemsUnseen,
-      items: items,
-      metadata: _currentFeed.metadata,
-    ));
+    _eventController.add(
+      FeedEvent(
+        eventType: FeedEventType.itemsUnseen,
+        items: items,
+        metadata: _currentFeed.metadata,
+      ),
+    );
   }
 
   void markAsRead(List<FeedItem> items) {
@@ -285,11 +290,13 @@ class FeedClient {
       _currentFeed = _currentFeed.markAsRead(ids, DateTime.now());
     });
 
-    _eventController.add(FeedEvent(
-      eventType: FeedEventType.itemsRead,
-      items: items,
-      metadata: _currentFeed.metadata,
-    ));
+    _eventController.add(
+      FeedEvent(
+        eventType: FeedEventType.itemsRead,
+        items: items,
+        metadata: _currentFeed.metadata,
+      ),
+    );
   }
 
   void markAsUnread(List<FeedItem> items) {
@@ -300,11 +307,13 @@ class FeedClient {
       _currentFeed = _currentFeed.markAsUnread(ids);
     });
 
-    _eventController.add(FeedEvent(
-      eventType: FeedEventType.itemsUnread,
-      items: items,
-      metadata: _currentFeed.metadata,
-    ));
+    _eventController.add(
+      FeedEvent(
+        eventType: FeedEventType.itemsUnread,
+        items: items,
+        metadata: _currentFeed.metadata,
+      ),
+    );
   }
 
   void markAsArchived(List<FeedItem> items) {
@@ -319,11 +328,13 @@ class FeedClient {
       );
     });
 
-    _eventController.add(FeedEvent(
-      eventType: FeedEventType.itemsArchived,
-      items: items,
-      metadata: _currentFeed.metadata,
-    ));
+    _eventController.add(
+      FeedEvent(
+        eventType: FeedEventType.itemsArchived,
+        items: items,
+        metadata: _currentFeed.metadata,
+      ),
+    );
   }
 
   void markAsUnarchived(List<FeedItem> items) {
@@ -334,11 +345,13 @@ class FeedClient {
       _currentFeed = _currentFeed.markAsUnarchived(ids);
     });
 
-    _eventController.add(FeedEvent(
-      eventType: FeedEventType.itemsUnarchived,
-      items: items,
-      metadata: _currentFeed.metadata,
-    ));
+    _eventController.add(
+      FeedEvent(
+        eventType: FeedEventType.itemsUnarchived,
+        items: items,
+        metadata: _currentFeed.metadata,
+      ),
+    );
   }
 
   void markAsInteracted(List<FeedItem> items) {
@@ -360,11 +373,13 @@ class FeedClient {
       () => options.buildInitialFeed(),
     );
 
-    _eventController.add(FeedEvent(
-      eventType: FeedEventType.itemsAllSeen,
-      items: _currentFeed.items,
-      metadata: _currentFeed.metadata,
-    ));
+    _eventController.add(
+      FeedEvent(
+        eventType: FeedEventType.itemsAllSeen,
+        items: _currentFeed.items,
+        metadata: _currentFeed.metadata,
+      ),
+    );
   }
 
   void markAllAsRead() {
@@ -377,11 +392,13 @@ class FeedClient {
       () => options.buildInitialFeed(),
     );
 
-    _eventController.add(FeedEvent(
-      eventType: FeedEventType.itemsAllRead,
-      items: _currentFeed.items,
-      metadata: _currentFeed.metadata,
-    ));
+    _eventController.add(
+      FeedEvent(
+        eventType: FeedEventType.itemsAllRead,
+        items: _currentFeed.items,
+        metadata: _currentFeed.metadata,
+      ),
+    );
   }
 
   void markAllAsArchived() {
@@ -394,26 +411,31 @@ class FeedClient {
       () => options.buildInitialFeed(),
     );
 
-    _eventController.add(FeedEvent(
-      eventType: FeedEventType.itemsAllArchived,
-      items: _currentFeed.items,
-      metadata: _currentFeed.metadata,
-    ));
+    _eventController.add(
+      FeedEvent(
+        eventType: FeedEventType.itemsAllArchived,
+        items: _currentFeed.items,
+        metadata: _currentFeed.metadata,
+      ),
+    );
   }
 
-  void _makeStatusUpdates(_FeedItemApiStatus type, List<String> ids) async {
+  Future<void> _makeStatusUpdates(
+    _FeedItemApiStatus type,
+    List<String> ids,
+  ) async {
     if (ids.isEmpty) {
       return;
     }
 
-    // TODO KNO-4773 error handling
-    final response = await _api.doPost(
+    // TODO(KNO-4773): error handling
+    await _api.doPost(
       '/v1/messages/batch/${type.apiValue}',
       body: jsonEncode(FeedStatusUpdateRequest(ids: ids).toJson()),
     );
   }
 
-  void _makeBulkStatusUpdate(_BulkFeedItemApiStatus type) async {
+  Future<void> _makeBulkStatusUpdate(_BulkFeedItemApiStatus type) async {
     final options = this.options;
 
     final engagementStatus =
@@ -421,23 +443,26 @@ class FeedClient {
     final tenant = options.tenant;
     final tenants = tenant != null ? [tenant] : null;
 
-    // TODO KNO-4773 error handling
-    final response = await _api.doPost(
-        '/v1/channels/$feedChannelId/messages/bulk/${type.apiValue}',
-        body: jsonEncode(BulkFeedStatusUpdateRequest(
+    // TODO(KNO-4773): error handling
+    await _api.doPost(
+      '/v1/channels/$feedChannelId/messages/bulk/${type.apiValue}',
+      body: jsonEncode(
+        BulkFeedStatusUpdateRequest(
           userIds: [_knock.userId!],
           engagementStatus: engagementStatus,
           archived: options.archived,
           hasTenant: options.hasTenant,
           tenants: tenants,
-        ).toJson()));
+        ).toJson(),
+      ),
+    );
   }
 
   void _assertNotDisposed() {
     if (_disposed) {
-      throw StateError("""
+      throw StateError('''
         [Knock] This FeedClient has been disposed. Please create a new client.
-      """);
+      ''');
     }
   }
 }

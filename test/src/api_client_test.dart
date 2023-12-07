@@ -1,8 +1,7 @@
 import 'package:flutter_test/flutter_test.dart';
 import 'package:http/http.dart';
-import 'package:knock_flutter/knock_flutter.dart';
 import 'package:http/testing.dart';
-
+import 'package:knock_flutter/knock_flutter.dart';
 import 'package:knock_flutter/src/model/api_response.dart';
 
 void main() {
@@ -14,7 +13,7 @@ void main() {
 
     setUp(() {
       knock = Knock('public_api_key');
-      responseBuilder = () => Response("", 200);
+      responseBuilder = () => Response('', 200);
       final mockClient = MockClient((request) async {
         capturedRequest = request;
         return responseBuilder();
@@ -32,8 +31,10 @@ void main() {
       responseBuilder = () => throw error;
 
       final response = await client.doGet('/');
-      expect(response,
-          ApiResponse(status: 500, statusCode: StatusCode.error, error: error));
+      expect(
+        response,
+        ApiResponse(status: 500, statusCode: StatusCode.error, error: error),
+      );
     });
 
     test('correctly sets headers before user authentication', () async {

@@ -17,14 +17,14 @@ final _privateConstructorUsedError = UnsupportedError(
 /// @nodoc
 mixin _$User {
   String get id => throw _privateConstructorUsedError;
+  @ISO8601DateTimeConverter()
+  @JsonKey(name: 'updated_at')
+  DateTime get updatedAt => throw _privateConstructorUsedError;
   String? get email => throw _privateConstructorUsedError;
   String? get name => throw _privateConstructorUsedError;
   @JsonKey(name: 'phone_number')
   String? get phoneNumber => throw _privateConstructorUsedError;
   String? get avatar => throw _privateConstructorUsedError;
-  @ISO8601DateTimeConverter()
-  @JsonKey(name: 'updated_at')
-  DateTime get updatedAt => throw _privateConstructorUsedError;
   @ISO8601DateTimeConverter()
   @JsonKey(name: 'created_at')
   DateTime? get createdAt => throw _privateConstructorUsedError;
@@ -42,13 +42,13 @@ abstract class $UserCopyWith<$Res> {
   @useResult
   $Res call(
       {String id,
+      @ISO8601DateTimeConverter()
+      @JsonKey(name: 'updated_at')
+      DateTime updatedAt,
       String? email,
       String? name,
       @JsonKey(name: 'phone_number') String? phoneNumber,
       String? avatar,
-      @ISO8601DateTimeConverter()
-      @JsonKey(name: 'updated_at')
-      DateTime updatedAt,
       @ISO8601DateTimeConverter()
       @JsonKey(name: 'created_at')
       DateTime? createdAt,
@@ -70,11 +70,11 @@ class _$UserCopyWithImpl<$Res, $Val extends User>
   @override
   $Res call({
     Object? id = null,
+    Object? updatedAt = null,
     Object? email = freezed,
     Object? name = freezed,
     Object? phoneNumber = freezed,
     Object? avatar = freezed,
-    Object? updatedAt = null,
     Object? createdAt = freezed,
     Object? properties = freezed,
   }) {
@@ -83,6 +83,10 @@ class _$UserCopyWithImpl<$Res, $Val extends User>
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
               as String,
+      updatedAt: null == updatedAt
+          ? _value.updatedAt
+          : updatedAt // ignore: cast_nullable_to_non_nullable
+              as DateTime,
       email: freezed == email
           ? _value.email
           : email // ignore: cast_nullable_to_non_nullable
@@ -99,10 +103,6 @@ class _$UserCopyWithImpl<$Res, $Val extends User>
           ? _value.avatar
           : avatar // ignore: cast_nullable_to_non_nullable
               as String?,
-      updatedAt: null == updatedAt
-          ? _value.updatedAt
-          : updatedAt // ignore: cast_nullable_to_non_nullable
-              as DateTime,
       createdAt: freezed == createdAt
           ? _value.createdAt
           : createdAt // ignore: cast_nullable_to_non_nullable
@@ -124,13 +124,13 @@ abstract class _$$UserImplCopyWith<$Res> implements $UserCopyWith<$Res> {
   @useResult
   $Res call(
       {String id,
+      @ISO8601DateTimeConverter()
+      @JsonKey(name: 'updated_at')
+      DateTime updatedAt,
       String? email,
       String? name,
       @JsonKey(name: 'phone_number') String? phoneNumber,
       String? avatar,
-      @ISO8601DateTimeConverter()
-      @JsonKey(name: 'updated_at')
-      DateTime updatedAt,
       @ISO8601DateTimeConverter()
       @JsonKey(name: 'created_at')
       DateTime? createdAt,
@@ -149,11 +149,11 @@ class __$$UserImplCopyWithImpl<$Res>
   @override
   $Res call({
     Object? id = null,
+    Object? updatedAt = null,
     Object? email = freezed,
     Object? name = freezed,
     Object? phoneNumber = freezed,
     Object? avatar = freezed,
-    Object? updatedAt = null,
     Object? createdAt = freezed,
     Object? properties = freezed,
   }) {
@@ -162,6 +162,10 @@ class __$$UserImplCopyWithImpl<$Res>
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
               as String,
+      updatedAt: null == updatedAt
+          ? _value.updatedAt
+          : updatedAt // ignore: cast_nullable_to_non_nullable
+              as DateTime,
       email: freezed == email
           ? _value.email
           : email // ignore: cast_nullable_to_non_nullable
@@ -178,10 +182,6 @@ class __$$UserImplCopyWithImpl<$Res>
           ? _value.avatar
           : avatar // ignore: cast_nullable_to_non_nullable
               as String?,
-      updatedAt: null == updatedAt
-          ? _value.updatedAt
-          : updatedAt // ignore: cast_nullable_to_non_nullable
-              as DateTime,
       createdAt: freezed == createdAt
           ? _value.createdAt
           : createdAt // ignore: cast_nullable_to_non_nullable
@@ -200,13 +200,13 @@ class __$$UserImplCopyWithImpl<$Res>
 class _$UserImpl extends _User {
   _$UserImpl(
       {required this.id,
+      @ISO8601DateTimeConverter()
+      @JsonKey(name: 'updated_at')
+      required this.updatedAt,
       this.email,
       this.name,
       @JsonKey(name: 'phone_number') this.phoneNumber,
       this.avatar,
-      @ISO8601DateTimeConverter()
-      @JsonKey(name: 'updated_at')
-      required this.updatedAt,
       @ISO8601DateTimeConverter() @JsonKey(name: 'created_at') this.createdAt,
       @JsonKey(includeToJson: false, includeFromJson: false)
       final Map<String, dynamic>? properties})
@@ -216,6 +216,10 @@ class _$UserImpl extends _User {
   @override
   final String id;
   @override
+  @ISO8601DateTimeConverter()
+  @JsonKey(name: 'updated_at')
+  final DateTime updatedAt;
+  @override
   final String? email;
   @override
   final String? name;
@@ -224,10 +228,6 @@ class _$UserImpl extends _User {
   final String? phoneNumber;
   @override
   final String? avatar;
-  @override
-  @ISO8601DateTimeConverter()
-  @JsonKey(name: 'updated_at')
-  final DateTime updatedAt;
   @override
   @ISO8601DateTimeConverter()
   @JsonKey(name: 'created_at')
@@ -245,7 +245,7 @@ class _$UserImpl extends _User {
 
   @override
   String toString() {
-    return 'User(id: $id, email: $email, name: $name, phoneNumber: $phoneNumber, avatar: $avatar, updatedAt: $updatedAt, createdAt: $createdAt, properties: $properties)';
+    return 'User(id: $id, updatedAt: $updatedAt, email: $email, name: $name, phoneNumber: $phoneNumber, avatar: $avatar, createdAt: $createdAt, properties: $properties)';
   }
 
   @override
@@ -254,13 +254,13 @@ class _$UserImpl extends _User {
         (other.runtimeType == runtimeType &&
             other is _$UserImpl &&
             (identical(other.id, id) || other.id == id) &&
+            (identical(other.updatedAt, updatedAt) ||
+                other.updatedAt == updatedAt) &&
             (identical(other.email, email) || other.email == email) &&
             (identical(other.name, name) || other.name == name) &&
             (identical(other.phoneNumber, phoneNumber) ||
                 other.phoneNumber == phoneNumber) &&
             (identical(other.avatar, avatar) || other.avatar == avatar) &&
-            (identical(other.updatedAt, updatedAt) ||
-                other.updatedAt == updatedAt) &&
             (identical(other.createdAt, createdAt) ||
                 other.createdAt == createdAt) &&
             const DeepCollectionEquality()
@@ -271,11 +271,11 @@ class _$UserImpl extends _User {
   int get hashCode => Object.hash(
       runtimeType,
       id,
+      updatedAt,
       email,
       name,
       phoneNumber,
       avatar,
-      updatedAt,
       createdAt,
       const DeepCollectionEquality().hash(_properties));
 
@@ -289,13 +289,13 @@ class _$UserImpl extends _User {
 abstract class _User extends User {
   factory _User(
       {required final String id,
+      @ISO8601DateTimeConverter()
+      @JsonKey(name: 'updated_at')
+      required final DateTime updatedAt,
       final String? email,
       final String? name,
       @JsonKey(name: 'phone_number') final String? phoneNumber,
       final String? avatar,
-      @ISO8601DateTimeConverter()
-      @JsonKey(name: 'updated_at')
-      required final DateTime updatedAt,
       @ISO8601DateTimeConverter()
       @JsonKey(name: 'created_at')
       final DateTime? createdAt,
@@ -306,6 +306,10 @@ abstract class _User extends User {
   @override
   String get id;
   @override
+  @ISO8601DateTimeConverter()
+  @JsonKey(name: 'updated_at')
+  DateTime get updatedAt;
+  @override
   String? get email;
   @override
   String? get name;
@@ -314,10 +318,6 @@ abstract class _User extends User {
   String? get phoneNumber;
   @override
   String? get avatar;
-  @override
-  @ISO8601DateTimeConverter()
-  @JsonKey(name: 'updated_at')
-  DateTime get updatedAt;
   @override
   @ISO8601DateTimeConverter()
   @JsonKey(name: 'created_at')

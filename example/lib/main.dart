@@ -394,7 +394,16 @@ class _PreferencesWidgetState extends State<_PreferencesWidget> {
 
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 8.0),
-      child: Text(preference.toString()),
+      child: Column(
+        children: [
+          OutlinedButton(
+            onPressed: _setPreferences,
+            child: const Text('Set Preferences'),
+          ),
+          const SizedBox(height: 8.0),
+          Text(preference.toString()),
+        ],
+      ),
     );
   }
 }

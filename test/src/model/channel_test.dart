@@ -29,7 +29,7 @@ void main() {
       {
         'data': {
           'tokens': ['test-token'],
-        }
+        },
       },
     );
   });
@@ -45,15 +45,17 @@ void main() {
 
       final user = User.fromJson(json);
       expect(
-          user,
-          User(
-              id: '123',
-              email: null,
-              name: null,
-              phoneNumber: null,
-              avatar: null,
-              createdAt: null,
-              updatedAt: DateTime.parse('2023-11-28T15:00:00Z')));
+        user,
+        User(
+          id: '123',
+          email: null,
+          name: null,
+          phoneNumber: null,
+          avatar: null,
+          createdAt: null,
+          updatedAt: DateTime.parse('2023-11-28T15:00:00Z'),
+        ),
+      );
     });
 
     test('correctly when extra fields are present', () {

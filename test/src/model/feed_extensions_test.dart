@@ -32,8 +32,8 @@ void main() {
         testFeedItem('1'),
         testFeedItem('2'),
       ];
-      final actionIds = [];
-      items.action((ids) => actionIds.addAll(ids));
+      final actionIds = <String>[];
+      items.action(actionIds.addAll);
       expect(actionIds, ['1', '2']);
     });
   });
@@ -41,11 +41,13 @@ void main() {
   group('FeedModifiersExtension', () {
     test('updates metadata', () {
       final feed = testFeed();
-      final updatedFeed = feed.updateMetadata(const FeedMetadata(
-        totalCount: 100,
-        unreadCount: 75,
-        unseenCount: 50,
-      ));
+      final updatedFeed = feed.updateMetadata(
+        const FeedMetadata(
+          totalCount: 100,
+          unreadCount: 75,
+          unseenCount: 50,
+        ),
+      );
 
       expect(
         updatedFeed,
@@ -60,10 +62,12 @@ void main() {
     });
 
     test('marks items as seen', () {
-      final feed = testFeed().copyWith(items: [
-        testFeedItem('1'),
-        testFeedItem('2'),
-      ]).correctTestMetadata();
+      final feed = testFeed().copyWith(
+        items: [
+          testFeedItem('1'),
+          testFeedItem('2'),
+        ],
+      ).correctTestMetadata();
       final updatedFeed = feed.markAsSeen(['2'], testNow());
 
       expect(
@@ -85,11 +89,13 @@ void main() {
     });
 
     test('marks items as unseen', () {
-      final feed = testFeed().copyWith(items: [
-        testFeedItem('1'),
-        testFeedItem('2')
-            .copyWith(seenAt: DateTime.parse('2023-11-29T19:30:45.100Z')),
-      ]).correctTestMetadata();
+      final feed = testFeed().copyWith(
+        items: [
+          testFeedItem('1'),
+          testFeedItem('2')
+              .copyWith(seenAt: DateTime.parse('2023-11-29T19:30:45.100Z')),
+        ],
+      ).correctTestMetadata();
       final updatedFeed = feed.markAsUnseen(['2']);
 
       expect(
@@ -109,10 +115,12 @@ void main() {
     });
 
     test('marks items as read', () {
-      final feed = testFeed().copyWith(items: [
-        testFeedItem('1'),
-        testFeedItem('2'),
-      ]).correctTestMetadata();
+      final feed = testFeed().copyWith(
+        items: [
+          testFeedItem('1'),
+          testFeedItem('2'),
+        ],
+      ).correctTestMetadata();
       final updatedFeed = feed.markAsRead(['2'], testNow());
 
       expect(
@@ -134,12 +142,14 @@ void main() {
     });
 
     test('marks items as unread', () {
-      final feed = testFeed().copyWith(items: [
-        testFeedItem('1'),
-        testFeedItem('2').copyWith(
-          readAt: DateTime.parse('2023-11-29T19:30:45.100Z'),
-        ),
-      ]).correctTestMetadata();
+      final feed = testFeed().copyWith(
+        items: [
+          testFeedItem('1'),
+          testFeedItem('2').copyWith(
+            readAt: DateTime.parse('2023-11-29T19:30:45.100Z'),
+          ),
+        ],
+      ).correctTestMetadata();
       final updatedFeed = feed.markAsUnread(['2']);
 
       expect(
@@ -160,7 +170,8 @@ void main() {
 
     test('marks items as interacted', () {
       final feed = testFeed().copyWith(
-          items: [testFeedItem('1'), testFeedItem('2')]).correctTestMetadata();
+        items: [testFeedItem('1'), testFeedItem('2')],
+      ).correctTestMetadata();
       final updatedFeed = feed.markAsInteracted(['2'], testNow());
 
       expect(
@@ -183,10 +194,12 @@ void main() {
     });
 
     test('marks items as archived when filtering for unarchived', () {
-      final feed = testFeed().copyWith(items: [
-        testFeedItem('1'),
-        testFeedItem('2'),
-      ]).correctTestMetadata();
+      final feed = testFeed().copyWith(
+        items: [
+          testFeedItem('1'),
+          testFeedItem('2'),
+        ],
+      ).correctTestMetadata();
       final updatedFeed = feed.markAsArchived(['2'], testNow(), true);
 
       expect(
@@ -205,10 +218,12 @@ void main() {
     });
 
     test('marks items as archived when not filtering for unarchived', () {
-      final feed = testFeed().copyWith(items: [
-        testFeedItem('1'),
-        testFeedItem('2'),
-      ]).correctTestMetadata();
+      final feed = testFeed().copyWith(
+        items: [
+          testFeedItem('1'),
+          testFeedItem('2'),
+        ],
+      ).correctTestMetadata();
       final updatedFeed = feed.markAsArchived(['2'], testNow(), false);
 
       expect(
@@ -230,12 +245,14 @@ void main() {
     });
 
     test('marks items as unarchived', () {
-      final feed = testFeed().copyWith(items: [
-        testFeedItem('1'),
-        testFeedItem('2').copyWith(
-          archivedAt: DateTime.parse('2023-11-29T19:30:45.100Z'),
-        ),
-      ]).correctTestMetadata();
+      final feed = testFeed().copyWith(
+        items: [
+          testFeedItem('1'),
+          testFeedItem('2').copyWith(
+            archivedAt: DateTime.parse('2023-11-29T19:30:45.100Z'),
+          ),
+        ],
+      ).correctTestMetadata();
       final updatedFeed = feed.markAsUnarchived(['2']);
 
       expect(
@@ -255,14 +272,16 @@ void main() {
     });
 
     test('marks all items as seen when filtering for unseen', () {
-      final feed = testFeed().copyWith(items: [
-        testFeedItem('1'),
-        testFeedItem('2'),
-      ]).correctTestMetadata();
+      final feed = testFeed().copyWith(
+        items: [
+          testFeedItem('1'),
+          testFeedItem('2'),
+        ],
+      ).correctTestMetadata();
       final updatedFeed = feed.markAllAsSeen(
         testNow(),
         true,
-        () => Feed.initialState(),
+        Feed.initialState,
       );
 
       expect(
@@ -272,14 +291,16 @@ void main() {
     });
 
     test('marks all items as seen when not filtering for unseen', () {
-      final feed = testFeed().copyWith(items: [
-        testFeedItem('1'),
-        testFeedItem('2'),
-      ]).correctTestMetadata();
+      final feed = testFeed().copyWith(
+        items: [
+          testFeedItem('1'),
+          testFeedItem('2'),
+        ],
+      ).correctTestMetadata();
       final updatedFeed = feed.markAllAsSeen(
         testNow(),
         false,
-        () => Feed.initialState(),
+        Feed.initialState,
       );
 
       expect(
@@ -299,14 +320,16 @@ void main() {
     });
 
     test('marks all items as read when filtering for unread', () {
-      final feed = testFeed().copyWith(items: [
-        testFeedItem('1'),
-        testFeedItem('2'),
-      ]).correctTestMetadata();
+      final feed = testFeed().copyWith(
+        items: [
+          testFeedItem('1'),
+          testFeedItem('2'),
+        ],
+      ).correctTestMetadata();
       final updatedFeed = feed.markAllAsRead(
         testNow(),
         true,
-        () => Feed.initialState(),
+        Feed.initialState,
       );
 
       expect(
@@ -316,14 +339,16 @@ void main() {
     });
 
     test('marks all items as read when not filtering for unread', () {
-      final feed = testFeed().copyWith(items: [
-        testFeedItem('1'),
-        testFeedItem('2'),
-      ]).correctTestMetadata();
+      final feed = testFeed().copyWith(
+        items: [
+          testFeedItem('1'),
+          testFeedItem('2'),
+        ],
+      ).correctTestMetadata();
       final updatedFeed = feed.markAllAsRead(
         testNow(),
         false,
-        () => Feed.initialState(),
+        Feed.initialState,
       );
 
       expect(
@@ -343,14 +368,16 @@ void main() {
     });
 
     test('marks all items as archived when filtering for unarchived', () {
-      final feed = testFeed().copyWith(items: [
-        testFeedItem('1'),
-        testFeedItem('2'),
-      ]).correctTestMetadata();
+      final feed = testFeed().copyWith(
+        items: [
+          testFeedItem('1'),
+          testFeedItem('2'),
+        ],
+      ).correctTestMetadata();
       final updatedFeed = feed.markAllAsArchived(
         testNow(),
         true,
-        () => Feed.initialState(),
+        Feed.initialState,
       );
 
       expect(
@@ -360,14 +387,16 @@ void main() {
     });
 
     test('marks all items as archived when not filtering for unarchived', () {
-      final feed = testFeed().copyWith(items: [
-        testFeedItem('1'),
-        testFeedItem('2'),
-      ]).correctTestMetadata();
+      final feed = testFeed().copyWith(
+        items: [
+          testFeedItem('1'),
+          testFeedItem('2'),
+        ],
+      ).correctTestMetadata();
       final updatedFeed = feed.markAllAsArchived(
         testNow(),
         false,
-        () => Feed.initialState(),
+        Feed.initialState,
       );
 
       expect(
@@ -411,7 +440,7 @@ void main() {
             // Item will be duplicated below and we expect to take that copy
             testFeedItem('1').copyWith(
               insertedAt: DateTime.parse('2023-12-01T12:00:00.000Z'),
-            )
+            ),
           ],
         );
 
@@ -428,7 +457,7 @@ void main() {
             testFeedItem('3').copyWith(
               // Somehow this has an earlier timestamp so should be sorted last
               insertedAt: DateTime.parse('2023-12-01T12:00:00.000Z'),
-            )
+            ),
           ],
         );
 
@@ -446,7 +475,7 @@ void main() {
               ),
               testFeedItem('3').copyWith(
                 insertedAt: DateTime.parse('2023-12-01T12:00:00.000Z'),
-              )
+              ),
             ],
           ),
         );

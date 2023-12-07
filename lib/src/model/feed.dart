@@ -14,6 +14,15 @@ enum NetworkStatus {
 
 @freezed
 class Feed with _$Feed {
+  @JsonSerializable(explicitToJson: true)
+  const factory Feed({
+    @JsonKey(name: 'entries') required List<FeedItem> items,
+    @JsonKey(name: 'page_info') required PageInfo pageInfo,
+    @JsonKey(name: 'meta') required FeedMetadata metadata,
+    @JsonKey(includeFromJson: true, defaultValue: NetworkStatus.ready)
+    required NetworkStatus networkStatus,
+  }) = _Feed;
+
   const Feed._();
 
   factory Feed.initialState() {
@@ -28,15 +37,6 @@ class Feed with _$Feed {
       networkStatus: NetworkStatus.ready,
     );
   }
-
-  @JsonSerializable(explicitToJson: true)
-  const factory Feed({
-    @JsonKey(name: 'entries') required List<FeedItem> items,
-    @JsonKey(name: 'page_info') required PageInfo pageInfo,
-    @JsonKey(name: 'meta') required FeedMetadata metadata,
-    @JsonKey(includeFromJson: true, defaultValue: NetworkStatus.ready)
-    required NetworkStatus networkStatus,
-  }) = _Feed;
 
   factory Feed.fromJson(Map<String, dynamic> json) => _$FeedFromJson(json);
 

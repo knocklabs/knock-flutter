@@ -1,6 +1,19 @@
-include: package:flutter_lints/flutter.yaml
+include: package:very_good_analysis/analysis_options.yaml
+
+linter:
+  rules:
+    public_member_api_docs: false
 
 analyzer:
   exclude: ["**/**.g.dart", "**/**.freezed.dart"]
   errors:
     invalid_annotation_target: ignore
+
+    # Style
+    #unnecessary_lambdas: ignore
+
+    # We are OK with our dynamic usage for JSON
+    argument_type_not_assignable: ignore
+
+    # We value the explicitness in tests
+    avoid_redundant_argument_values: ignore
