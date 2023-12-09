@@ -87,6 +87,9 @@ class _KnockPageState extends State<_KnockPage> {
       _ChannelWidget(
         knock: knock,
       ),
+      _NotificationsWidget(
+        knock: knock,
+      ),
     ];
 
     return Scaffold(
@@ -119,6 +122,10 @@ class _KnockPageState extends State<_KnockPage> {
           BottomNavigationBarItem(
             icon: Icon(Icons.notifications),
             label: 'Channel',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.notifications),
+            label: 'Notifications',
           ),
         ],
         currentIndex: _selectedTabIndex,
@@ -197,6 +204,53 @@ class _UserWidgetState extends State<_UserWidget> {
           ),
           const SizedBox(height: 16),
           Text(_user?.toString() ?? 'null'),
+        ],
+      ),
+    );
+  }
+}
+
+class _NotificationsWidget extends StatefulWidget {
+  const _NotificationsWidget({required this.knock});
+
+  final Knock knock;
+
+  @override
+  State<_NotificationsWidget> createState() => _NotificationsWidgetState();
+}
+
+class _NotificationsWidgetState extends State<_NotificationsWidget> {
+  String _fcmToken = '';
+  String _apnsToken = '';
+
+  Future<void> _getFcmToken() async {
+    final token = await widget.knock.getFcmToken();
+    setState(() => _fcmToken = token);
+  }
+
+  Future<void> _getApnsToken() async {
+    final token = await widget.knock.getApnsToken();
+    setState(() => _apnsToken = token);
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.all(8),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.stretch,
+        children: [
+          OutlinedButton(
+            onPressed: _getFcmToken,
+            child: const Text('Get FCM Token'),
+          ),
+          Text('FCM token: $_fcmToken'),
+          const SizedBox(height: 16),
+          OutlinedButton(
+            onPressed: _getApnsToken,
+            child: const Text('Get APNS Token'),
+          ),
+          Text('APNS token: $_apnsToken'),
         ],
       ),
     );

@@ -17,4 +17,9 @@ adust the generated code you will want to run this command from the top level di
 dart run build_runner build --delete-conflicting-outputs
 ```
 
+If you need to update the generated platform channel messages you will want to run this command from the top level directory.
+```
+flutter pub run pigeon --input pigeons/messages.dart
+```
+
 Generated files are checked into version control because they are part of the released packaged.
