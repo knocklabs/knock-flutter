@@ -42,10 +42,11 @@ class FlutterError (
   override val message: String? = null,
   val details: Any? = null
 ) : Throwable()
+
 /** Generated interface from Pigeon that represents a handler of messages from Flutter. */
 interface KnockHostApi {
-  fun getFcmToken(): String
-  fun getApnsToken(): String
+  fun getFcmToken(callback: (Result<String>) -> Unit)
+  fun getApnsToken(callback: (Result<String>) -> Unit)
 
   companion object {
     /** The codec used by KnockHostApi. */
@@ -59,13 +60,15 @@ interface KnockHostApi {
         val channel = BasicMessageChannel<Any?>(binaryMessenger, "dev.flutter.pigeon.knock_flutter.KnockHostApi.getFcmToken", codec)
         if (api != null) {
           channel.setMessageHandler { _, reply ->
-            var wrapped: List<Any?>
-            try {
-              wrapped = listOf<Any?>(api.getFcmToken())
-            } catch (exception: Throwable) {
-              wrapped = wrapError(exception)
+            api.getFcmToken() { result: Result<String> ->
+              val error = result.exceptionOrNull()
+              if (error != null) {
+                reply.reply(wrapError(error))
+              } else {
+                val data = result.getOrNull()
+                reply.reply(wrapResult(data))
+              }
             }
-            reply.reply(wrapped)
           }
         } else {
           channel.setMessageHandler(null)
@@ -75,13 +78,15 @@ interface KnockHostApi {
         val channel = BasicMessageChannel<Any?>(binaryMessenger, "dev.flutter.pigeon.knock_flutter.KnockHostApi.getApnsToken", codec)
         if (api != null) {
           channel.setMessageHandler { _, reply ->
-            var wrapped: List<Any?>
-            try {
-              wrapped = listOf<Any?>(api.getApnsToken())
-            } catch (exception: Throwable) {
-              wrapped = wrapError(exception)
+            api.getApnsToken() { result: Result<String> ->
+              val error = result.exceptionOrNull()
+              if (error != null) {
+                reply.reply(wrapError(error))
+              } else {
+                val data = result.getOrNull()
+                reply.reply(wrapResult(data))
+              }
             }
-            reply.reply(wrapped)
           }
         } else {
           channel.setMessageHandler(null)

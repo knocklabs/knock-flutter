@@ -37,10 +37,11 @@ private func nilOrValue<T>(_ value: Any?) -> T? {
   if value is NSNull { return nil }
   return value as! T?
 }
+
 /// Generated protocol from Pigeon that represents a handler of messages from Flutter.
 protocol KnockHostApi {
-  func getFcmToken() throws -> String
-  func getApnsToken() throws -> String
+  func getFcmToken(completion: @escaping (Result<String, Error>) -> Void)
+  func getApnsToken(completion: @escaping (Result<String, Error>) -> Void)
 }
 
 /// Generated setup class from Pigeon to handle messages through the `binaryMessenger`.
@@ -51,11 +52,13 @@ class KnockHostApiSetup {
     let getFcmTokenChannel = FlutterBasicMessageChannel(name: "dev.flutter.pigeon.knock_flutter.KnockHostApi.getFcmToken", binaryMessenger: binaryMessenger)
     if let api = api {
       getFcmTokenChannel.setMessageHandler { _, reply in
-        do {
-          let result = try api.getFcmToken()
-          reply(wrapResult(result))
-        } catch {
-          reply(wrapError(error))
+        api.getFcmToken() { result in
+          switch result {
+            case .success(let res):
+              reply(wrapResult(res))
+            case .failure(let error):
+              reply(wrapError(error))
+          }
         }
       }
     } else {
@@ -64,11 +67,13 @@ class KnockHostApiSetup {
     let getApnsTokenChannel = FlutterBasicMessageChannel(name: "dev.flutter.pigeon.knock_flutter.KnockHostApi.getApnsToken", binaryMessenger: binaryMessenger)
     if let api = api {
       getApnsTokenChannel.setMessageHandler { _, reply in
-        do {
-          let result = try api.getApnsToken()
-          reply(wrapResult(result))
-        } catch {
-          reply(wrapError(error))
+        api.getApnsToken() { result in
+          switch result {
+            case .success(let res):
+              reply(wrapResult(res))
+            case .failure(let error):
+              reply(wrapError(error))
+          }
         }
       }
     } else {

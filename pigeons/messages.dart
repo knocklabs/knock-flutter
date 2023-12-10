@@ -10,6 +10,9 @@ import 'package:pigeon/pigeon.dart';
 )
 @HostApi()
 abstract class KnockHostApi {
+  @async
   String getFcmToken();
+
+  @async
   String getApnsToken();
 }

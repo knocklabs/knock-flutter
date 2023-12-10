@@ -8,6 +8,19 @@ A client-side Flutter library to interact with user-facing Knock features, such 
 
 See the [documentation](https://docs.knock.app/notification-feeds/bring-your-own-ui) for usage examples.
 
+### iOS
+To receive push notifications via APNS (Apple Push Notification Service) you will need to enable the push notification capability in your application. You can find instructions on how to do this at:
+https://developer.apple.com/documentation/usernotifications/registering_your_app_with_apns
+
+#### Example App
+To test APNS integration in the example app, you will need to open `example/ios` in Xcode and select your Development Team and choose Bundle Identifier unique to you.
+
+### Android
+TODO
+
+#### Example App
+To test FCM integration in the example app, you will need to open `example/android` in Android Studio and TODO
+
 ## Package Development
 
 ### Code generation
@@ -22,4 +35,4 @@ If you need to update the generated platform channel messages you will want to r
 flutter pub run pigeon --input pigeons/messages.dart
 ```
 
-Generated files are checked into version control because they are part of the released packaged.
+Note: Generated files are checked into version control because they are part of the released packaged.

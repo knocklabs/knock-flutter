@@ -224,13 +224,21 @@ class _NotificationsWidgetState extends State<_NotificationsWidget> {
   String _apnsToken = '';
 
   Future<void> _getFcmToken() async {
-    final token = await widget.knock.getFcmToken();
-    setState(() => _fcmToken = token);
+    try {
+      final token = await widget.knock.getFcmToken();
+      setState(() => _fcmToken = token);
+    } catch (error) {
+      setState(() => _fcmToken = error.toString());
+    }
   }
 
   Future<void> _getApnsToken() async {
-    final token = await widget.knock.getApnsToken();
-    setState(() => _apnsToken = token);
+    try {
+      final token = await widget.knock.getApnsToken();
+      setState(() => _apnsToken = token);
+    } catch (error) {
+      setState(() => _apnsToken = error.toString());
+    }
   }
 
   @override

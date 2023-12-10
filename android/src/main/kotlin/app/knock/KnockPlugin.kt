@@ -1,23 +1,23 @@
 package app.knock
 
-import app.knock.KnockHostApi
-
 import io.flutter.embedding.engine.plugins.FlutterPlugin
 
 class KnockPlugin: FlutterPlugin, KnockHostApi {
   override fun onAttachedToEngine(flutterPluginBinding: FlutterPlugin.FlutterPluginBinding) {
-    KnockHostApi.setUp(flutterPluginBinding.getBinaryMessenger(), this)
+    KnockHostApi.setUp(flutterPluginBinding.binaryMessenger, this)
   }
 
   override fun onDetachedFromEngine(binding: FlutterPlugin.FlutterPluginBinding) {
-    KnockHostApi.setUp(binding.getBinaryMessenger(), null)
+    KnockHostApi.setUp(binding.binaryMessenger, null)
   }
 
-  override fun getFcmToken(): String {
-    return "TODO getFcmToken Android"
+  override fun getFcmToken(callback: (Result<String>) -> Unit) {
+    callback(Result.success("TODO getFcmToken Android"))
   }
 
-  override fun getApnsToken(): String {
-    return "TODO getApnsToken Android"
+  override fun getApnsToken(callback: (Result<String>) -> Unit) {
+    callback(Result.failure(FlutterError(
+      code = "unsupported",
+      message = "getApnsToken is not supported on Android")))
   }
 }
