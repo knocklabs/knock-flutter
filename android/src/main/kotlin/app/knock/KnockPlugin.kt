@@ -1,5 +1,6 @@
 package app.knock
 
+import com.google.firebase.messaging.FirebaseMessaging
 import io.flutter.embedding.engine.plugins.FlutterPlugin
 
 class KnockPlugin: FlutterPlugin, KnockHostApi {
@@ -12,7 +13,13 @@ class KnockPlugin: FlutterPlugin, KnockHostApi {
   }
 
   override fun getFcmToken(callback: (Result<String>) -> Unit) {
-    callback(Result.success("TODO getFcmToken Android"))
+    FirebaseMessaging.getInstance().token.addOnCompleteListener { task ->
+      if (task.isSuccessful) {
+        callback(Result.success(task.result))
+      } else {
+        callback(Result.failure(Throwable(task.exception)))
+      }
+    }
   }
 
   override fun getApnsToken(callback: (Result<String>) -> Unit) {

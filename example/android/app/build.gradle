@@ -2,6 +2,9 @@ plugins {
     id "com.android.application"
     id "kotlin-android"
     id "dev.flutter.flutter-gradle-plugin"
+
+    // Knock: Add Firebase to your project
+    id "com.google.gms.google-services"
 }
 
 def localProperties = new Properties()
@@ -23,8 +26,8 @@ if (flutterVersionName == null) {
 }
 
 android {
-    namespace "com.example.knock_flutter_example"
-    compileSdkVersion flutter.compileSdkVersion
+    namespace "app.knock.example"
+    compileSdk flutter.compileSdkVersion
     ndkVersion flutter.ndkVersion
 
     compileOptions {
@@ -42,7 +45,7 @@ android {
 
     defaultConfig {
         // TODO: Specify your own unique Application ID (https://developer.android.com/studio/build/application-id.html).
-        applicationId "com.example.knock_flutter_example"
+        applicationId "app.knock.example"
         // You can update the following values to match your application needs.
         // For more information, see: https://docs.flutter.dev/deployment/android#reviewing-the-gradle-build-configuration.
         minSdkVersion flutter.minSdkVersion
@@ -64,4 +67,8 @@ flutter {
     source '../..'
 }
 
-dependencies {}
+dependencies {
+    // Knock: Add Firebase to your project
+    implementation(platform("com.google.firebase:firebase-bom:32.7.0"))
+    implementation("com.google.firebase:firebase-messaging")
+}

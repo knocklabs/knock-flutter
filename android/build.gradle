@@ -66,3 +66,8 @@ android {
         }
     }
 }
+
+dependencies {
+    // We expect that the app including Knock has already included the Firebase Messaging SDK
+    compileOnly 'com.google.firebase:firebase-messaging:23.1.0'
+}
