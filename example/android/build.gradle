@@ -6,8 +6,16 @@ buildscript {
     }
 
     dependencies {
-        classpath 'com.android.tools.build:gradle:7.3.0'
+        classpath 'com.android.tools.build:gradle:7.3.1'
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
+
+        // Be wary of using google-services 4.4.0 until the following is resolved. You will see
+        // these messages in logcat if things were not initialized correctly.
+        // - "Default FirebaseApp failed to initialize because no default options were found. This usually means that com.google.gms:google-services was not applied to your gradle project."
+        // - "FirebaseApp initialization unsuccessful"
+        // See: https://github.com/firebase/firebase-android-sdk/issues/4693
+        // Knock: Add Firebase to your project
+        classpath "com.google.gms:google-services:4.3.15"
     }
 }
 
