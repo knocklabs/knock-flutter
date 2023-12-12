@@ -18,10 +18,13 @@ class ApiResponse with _$ApiResponse {
   const ApiResponse._();
 
   dynamic decodeResponse() {
+    checkResponse();
+    return jsonDecode(body!);
+  }
+
+  void checkResponse() {
     if (statusCode == StatusCode.error) {
       throw Exception(this);
-    } else {
-      return jsonDecode(body!);
     }
   }
 }

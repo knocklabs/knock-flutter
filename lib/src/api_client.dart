@@ -5,6 +5,7 @@ import 'package:http/http.dart' as http;
 
 import 'package:knock_flutter/knock_flutter.dart';
 import 'package:knock_flutter/src/model/api_response.dart';
+import 'package:knock_flutter/src/util/retry.dart';
 import 'package:phoenix_socket/phoenix_socket.dart';
 
 typedef ApiRequestBuilder = Future<http.Response> Function();
@@ -17,7 +18,7 @@ class ApiClient extends http.BaseClient {
   ApiClient(
     this.knock, {
     http.Client? client,
-  }) : _client = client ?? http.Client();
+  }) : _client = client ?? buildRetryClient(http.Client());
 
   final Knock knock;
   final http.Client _client;
