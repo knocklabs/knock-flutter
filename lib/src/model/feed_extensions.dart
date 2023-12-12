@@ -8,9 +8,9 @@ import 'dart:math';
 import 'package:knock_flutter/knock_flutter.dart';
 
 extension FeedItemsModifiers on Iterable<FeedItem> {
-  void action(void Function(List<String> ids) callback) {
+  T action<T>(T Function(List<String> ids) callback) {
     final ids = map((item) => item.id).toList();
-    callback(ids);
+    return callback(ids);
   }
 
   List<FeedItem> _filteredMap(

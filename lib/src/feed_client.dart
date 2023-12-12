@@ -74,6 +74,7 @@ class FeedClient {
 
   StreamSubscription<PhoenixSocketOpenEvent>? _socketOpenSubscription;
   StreamSubscription<PhoenixSocketCloseEvent>? _socketClosedSubscription;
+  StreamSubscription<PhoenixSocketErrorEvent>? _socketErrorSubscription;
 
   PhoenixChannel? _channel;
   StreamSubscription<Message>? _channelMessagesSubscription;
@@ -107,7 +108,13 @@ class FeedClient {
         // Note: closeStream will never terminate because it's backed by a
         // BehaviorSubject in phoenix_socket
         _socketClosedSubscription = socket.closeStream.listen((event) {
-          // TODO(KNO-4703): error handling
+          // TODO(KNO-4773): error handling
+        });
+
+        // Note: errorStream will never terminate because it's backed by a
+        // BehaviorSubject in phoenix_socket
+        _socketErrorSubscription = socket.errorStream.listen((event) {
+          // TODO(KNO-4773): error handling
         });
 
         // Note: openStream will never terminate because it's backed by a
@@ -142,6 +149,9 @@ class FeedClient {
 
         _socketClosedSubscription?.cancel();
         _socketClosedSubscription = null;
+
+        _socketErrorSubscription?.cancel();
+        _socketErrorSubscription = null;
 
         _socketOpenSubscription?.cancel();
         _socketOpenSubscription = null;
@@ -248,12 +258,13 @@ class FeedClient {
     );
   }
 
-  void markAsSeen(List<FeedItem> items) {
+  Future<void> markAsSeen(List<FeedItem> items) async {
     _assertNotDisposed();
 
-    items.action((ids) {
-      _makeStatusUpdates(_FeedItemApiStatus.seen, ids);
+    final response = items.action((ids) {
+      final response = _makeStatusUpdates(_FeedItemApiStatus.seen, ids);
       _currentFeed = _currentFeed.markAsSeen(ids, DateTime.now());
+      return response;
     });
 
     _eventController.add(
@@ -263,14 +274,17 @@ class FeedClient {
         metadata: _currentFeed.metadata,
       ),
     );
+
+    await response.then((value) => value.checkResponse());
   }
 
-  void markAsUnseen(List<FeedItem> items) {
+  Future<void> markAsUnseen(List<FeedItem> items) async {
     _assertNotDisposed();
 
-    items.action((ids) {
-      _makeStatusUpdates(_FeedItemApiStatus.unseen, ids);
+    final response = items.action((ids) {
+      final response = _makeStatusUpdates(_FeedItemApiStatus.unseen, ids);
       _currentFeed = _currentFeed.markAsUnseen(ids);
+      return response;
     });
 
     _eventController.add(
@@ -280,14 +294,17 @@ class FeedClient {
         metadata: _currentFeed.metadata,
       ),
     );
+
+    await response.then((value) => value.checkResponse());
   }
 
-  void markAsRead(List<FeedItem> items) {
+  Future<void> markAsRead(List<FeedItem> items) async {
     _assertNotDisposed();
 
-    items.action((ids) {
-      _makeStatusUpdates(_FeedItemApiStatus.read, ids);
+    final response = items.action((ids) {
+      final response = _makeStatusUpdates(_FeedItemApiStatus.read, ids);
       _currentFeed = _currentFeed.markAsRead(ids, DateTime.now());
+      return response;
     });
 
     _eventController.add(
@@ -297,14 +314,17 @@ class FeedClient {
         metadata: _currentFeed.metadata,
       ),
     );
+
+    await response.then((value) => value.checkResponse());
   }
 
-  void markAsUnread(List<FeedItem> items) {
+  Future<void> markAsUnread(List<FeedItem> items) async {
     _assertNotDisposed();
 
-    items.action((ids) {
-      _makeStatusUpdates(_FeedItemApiStatus.unread, ids);
+    final response = items.action((ids) {
+      final response = _makeStatusUpdates(_FeedItemApiStatus.unread, ids);
       _currentFeed = _currentFeed.markAsUnread(ids);
+      return response;
     });
 
     _eventController.add(
@@ -314,18 +334,21 @@ class FeedClient {
         metadata: _currentFeed.metadata,
       ),
     );
+
+    await response.then((value) => value.checkResponse());
   }
 
-  void markAsArchived(List<FeedItem> items) {
+  Future<void> markAsArchived(List<FeedItem> items) async {
     _assertNotDisposed();
 
-    items.action((ids) {
-      _makeStatusUpdates(_FeedItemApiStatus.archived, ids);
+    final response = items.action((ids) {
+      final response = _makeStatusUpdates(_FeedItemApiStatus.archived, ids);
       _currentFeed = _currentFeed.markAsArchived(
         ids,
         DateTime.now(),
         options.archived == FeedOptionsArchivedScope.exclude,
       );
+      return response;
     });
 
     _eventController.add(
@@ -335,14 +358,17 @@ class FeedClient {
         metadata: _currentFeed.metadata,
       ),
     );
+
+    await response.then((value) => value.checkResponse());
   }
 
-  void markAsUnarchived(List<FeedItem> items) {
+  Future<void> markAsUnarchived(List<FeedItem> items) async {
     _assertNotDisposed();
 
-    items.action((ids) {
-      _makeStatusUpdates(_FeedItemApiStatus.unarchived, ids);
+    final response = items.action((ids) {
+      final response = _makeStatusUpdates(_FeedItemApiStatus.unarchived, ids);
       _currentFeed = _currentFeed.markAsUnarchived(ids);
+      return response;
     });
 
     _eventController.add(
@@ -352,21 +378,26 @@ class FeedClient {
         metadata: _currentFeed.metadata,
       ),
     );
+
+    await response.then((value) => value.checkResponse());
   }
 
-  void markAsInteracted(List<FeedItem> items) {
+  Future<void> markAsInteracted(List<FeedItem> items) async {
     _assertNotDisposed();
 
-    items.action((ids) {
-      _makeStatusUpdates(_FeedItemApiStatus.interacted, ids);
+    final response = items.action((ids) {
+      final response = _makeStatusUpdates(_FeedItemApiStatus.interacted, ids);
       _currentFeed = _currentFeed.markAsInteracted(ids, DateTime.now());
+      return response;
     });
+
+    await response.then((value) => value.checkResponse());
   }
 
-  void markAllAsSeen() {
+  Future<void> markAllAsSeen() async {
     _assertNotDisposed();
 
-    _makeBulkStatusUpdate(_BulkFeedItemApiStatus.seen);
+    final response = _makeBulkStatusUpdate(_BulkFeedItemApiStatus.seen);
     _currentFeed = _currentFeed.markAllAsSeen(
       DateTime.now(),
       options.status == FeedOptionsStatus.unseen,
@@ -380,12 +411,14 @@ class FeedClient {
         metadata: _currentFeed.metadata,
       ),
     );
+
+    await response.then((value) => value.checkResponse());
   }
 
-  void markAllAsRead() {
+  Future<void> markAllAsRead() async {
     _assertNotDisposed();
 
-    _makeBulkStatusUpdate(_BulkFeedItemApiStatus.read);
+    final response = _makeBulkStatusUpdate(_BulkFeedItemApiStatus.read);
     _currentFeed = _currentFeed.markAllAsRead(
       DateTime.now(),
       options.status == FeedOptionsStatus.unread,
@@ -399,12 +432,14 @@ class FeedClient {
         metadata: _currentFeed.metadata,
       ),
     );
+
+    await response.then((value) => value.checkResponse());
   }
 
-  void markAllAsArchived() {
+  Future<void> markAllAsArchived() async {
     _assertNotDisposed();
 
-    _makeBulkStatusUpdate(_BulkFeedItemApiStatus.archive);
+    final response = _makeBulkStatusUpdate(_BulkFeedItemApiStatus.archive);
     _currentFeed = _currentFeed.markAllAsArchived(
       DateTime.now(),
       options.archived == FeedOptionsArchivedScope.exclude,
@@ -418,24 +453,22 @@ class FeedClient {
         metadata: _currentFeed.metadata,
       ),
     );
+
+    await response.then((value) => value.checkResponse());
   }
 
-  Future<void> _makeStatusUpdates(
+  Future<ApiResponse> _makeStatusUpdates(
     _FeedItemApiStatus type,
     List<String> ids,
   ) async {
-    if (ids.isEmpty) {
-      return;
-    }
-
-    // TODO(KNO-4773): error handling
-    await _api.doPost(
+    final response = await _api.doPost(
       '/v1/messages/batch/${type.apiValue}',
       body: jsonEncode(FeedStatusUpdateRequest(ids: ids).toJson()),
     );
+    return response;
   }
 
-  Future<void> _makeBulkStatusUpdate(_BulkFeedItemApiStatus type) async {
+  Future<ApiResponse> _makeBulkStatusUpdate(_BulkFeedItemApiStatus type) async {
     final options = this.options;
 
     final engagementStatus =
@@ -443,8 +476,7 @@ class FeedClient {
     final tenant = options.tenant;
     final tenants = tenant != null ? [tenant] : null;
 
-    // TODO(KNO-4773): error handling
-    await _api.doPost(
+    final response = await _api.doPost(
       '/v1/channels/$feedChannelId/messages/bulk/${type.apiValue}',
       body: jsonEncode(
         BulkFeedStatusUpdateRequest(
@@ -456,6 +488,7 @@ class FeedClient {
         ).toJson(),
       ),
     );
+    return response;
   }
 
   void _assertNotDisposed() {
