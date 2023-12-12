@@ -106,28 +106,42 @@ class FeedClient {
         final socket = _api.socket;
 
         // Note: closeStream will never terminate because it's backed by a
-        // BehaviorSubject in phoenix_socket
+        // BehaviorSubject in phoenix_socket. This is called when the platform
+        // websocket stream completes or the underlying socket is closed by
+        // APIClient.dispose().
         _socketClosedSubscription = socket.closeStream.listen((event) {
-          // TODO(KNO-4773): error handling
+          _channelMessagesSubscription?.cancel();
+          _channelMessagesSubscription = null;
+
+          _channel?.close();
+          _channel = null;
         });
 
         // Note: errorStream will never terminate because it's backed by a
-        // BehaviorSubject in phoenix_socket
+        // BehaviorSubject in phoenix_socket. This is called when the platform
+        // websocket stream returns an error.
         _socketErrorSubscription = socket.errorStream.listen((event) {
-          // TODO(KNO-4773): error handling
+          _channelMessagesSubscription?.cancel();
+          _channelMessagesSubscription = null;
+
+          _channel?.close();
+          _channel = null;
         });
 
         // Note: openStream will never terminate because it's backed by a
-        // BehaviorSubject in phoenix_socket
+        // BehaviorSubject in phoenix_socket. This stream will get triggered
+        // after the initial heartbeat exchange completes.
         _socketOpenSubscription = socket.openStream.listen((event) {
           final userFeedId = 'feeds:$feedChannelId:${_knock.userId}';
-          _channel = socket.addChannel(
+
+          // It is safe to call this repeatedly as the PhoenixChannel instances
+          // for a topic are cached until the underlying socket is closed.
+          final channel = _channel = socket.addChannel(
             topic: userFeedId,
             parameters: options.toJson(),
           );
-          _channel?.join();
 
-          _channelMessagesSubscription = _channel?.messages.listen((message) {
+          _channelMessagesSubscription = channel.messages.listen((message) {
             if (message.event.value == 'new-message') {
               _onNewMessageReceived(message);
             }
@@ -141,6 +155,7 @@ class FeedClient {
         });
       },
       onCancel: () {
+        // Leaving will also take care of closing the channel in the socket
         _channel?.leave();
         _channel = null;
 
