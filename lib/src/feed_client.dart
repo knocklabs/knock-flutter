@@ -146,6 +146,7 @@ class FeedClient {
               _onNewMessageReceived(message);
             }
           });
+          channel.join();
 
           _fetch(
             fetchOptions: null,
