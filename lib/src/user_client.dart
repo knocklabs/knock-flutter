@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:knock_flutter/knock_flutter.dart';
+import 'package:knock_flutter/src/model/api_response.dart';
 import 'package:knock_flutter/src/util/arguments.dart';
 
 class UserClient {
@@ -75,5 +76,47 @@ class UserClient {
     );
     final json = response.decodeResponse();
     return ChannelData.fromJson(json);
+  }
+
+  Future<ChannelData> registerTokenForChannel(
+    String channelId,
+    String token,
+  ) async {
+    var channelData = ChannelData.forTokens([]);
+    try {
+      channelData = await getChannelData(channelId);
+    } catch (error) {
+      if (error is ApiError) {
+        final apiError = error;
+        if (apiError.response.status == 404) {
+          // First time adding to this channel (channels are lazily created)
+        } else {
+          rethrow;
+        }
+      } else {
+        rethrow;
+      }
+    }
+
+    if (channelData.hasToken(token)) {
+      return channelData;
+    } else {
+      final modifiedChannelData = channelData.appendToken(token);
+      return setChannelData(channelId, modifiedChannelData);
+    }
+  }
+}
+
+extension _ChannelDataExtension on ChannelData {
+  bool hasToken(String token) {
+    final tokens = data.tokens;
+    return tokens.contains(token);
+  }
+
+  ChannelData appendToken(String token) {
+    final tokens = [...data.tokens, token];
+    return copyWith(
+      data: data.copyWith(tokens: tokens),
+    );
   }
 }

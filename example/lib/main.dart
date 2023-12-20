@@ -9,7 +9,8 @@ import 'package:knock_flutter/knock_flutter.dart';
 const _exampleUserId = '1';
 const _exampleUserToken = null;
 const _exampleFeedChannelId = '495a74d0-3ac1-43f6-9906-344f9e7d94d9';
-const _exampleChannelId = 'c5c4fd65-20de-4ab5-bcda-8f8d077f528e';
+const _exampleApnsChannelId = 'c5c4fd65-20de-4ab5-bcda-8f8d077f528e';
+const _exampleFcmChannelId = '54268be3-1d12-416a-81a5-3dc7681f2408';
 
 void main() => runApp(const _ExampleKnockApp());
 
@@ -232,6 +233,12 @@ class _NotificationsWidgetState extends State<_NotificationsWidget> {
     }
   }
 
+  Future<void> _registerFcmToken() async {
+    await widget.knock
+        .user()
+        .registerTokenForChannel(_exampleFcmChannelId, _fcmToken);
+  }
+
   Future<void> _getApnsToken() async {
     try {
       final token = await widget.knock.getApnsToken();
@@ -241,6 +248,12 @@ class _NotificationsWidgetState extends State<_NotificationsWidget> {
     }
   }
 
+  Future<void> _registerApnsToken() async {
+    await widget.knock
+        .user()
+        .registerTokenForChannel(_exampleApnsChannelId, _apnsToken);
+  }
+
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -248,17 +261,35 @@ class _NotificationsWidgetState extends State<_NotificationsWidget> {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
-          OutlinedButton(
-            onPressed: _getFcmToken,
-            child: const Text('Get FCM Token'),
-          ),
           Text('FCM token: $_fcmToken'),
-          const SizedBox(height: 16),
-          OutlinedButton(
-            onPressed: _getApnsToken,
-            child: const Text('Get APNS Token'),
+          Row(
+            children: [
+              OutlinedButton(
+                onPressed: _getFcmToken,
+                child: const Text('Get FCM Token'),
+              ),
+              const SizedBox(width: 8),
+              OutlinedButton(
+                onPressed: _registerFcmToken,
+                child: const Text('Register FCM Token'),
+              ),
+            ],
           ),
+          const SizedBox(height: 16),
           Text('APNS token: $_apnsToken'),
+          Row(
+            children: [
+              OutlinedButton(
+                onPressed: _getApnsToken,
+                child: const Text('Get APNS Token'),
+              ),
+              const SizedBox(width: 8),
+              OutlinedButton(
+                onPressed: _registerApnsToken,
+                child: const Text('Register APNS Token'),
+              ),
+            ],
+          ),
         ],
       ),
     );
@@ -284,7 +315,7 @@ class _ChannelWidgetState extends State<_ChannelWidget> {
     WidgetsBinding.instance.addPostFrameCallback((_) async {
       _handleChannelData(() {
         // Knock: Getting channel data
-        return widget.knock.user().getChannelData(_exampleChannelId);
+        return widget.knock.user().getChannelData(_exampleApnsChannelId);
       });
     });
   }
@@ -293,7 +324,7 @@ class _ChannelWidgetState extends State<_ChannelWidget> {
     _handleChannelData(() {
       // Knock: Setting existing channel data
       return widget.knock.user().setChannelData(
-          _exampleChannelId,
+          _exampleApnsChannelId,
           ChannelData.forTokens([
             'test-token-${DateTime.now().toIso8601String()}',
           ]));
@@ -304,7 +335,7 @@ class _ChannelWidgetState extends State<_ChannelWidget> {
     _handleChannelData(() {
       // Knock: Appending new tokens to existing channel data
       return widget.knock.user().setChannelData(
-          _exampleChannelId,
+          _exampleApnsChannelId,
           ChannelData.forTokens([
             ..._channelData?.data.tokens ?? [],
             'test-token-${DateTime.now().toIso8601String()}',

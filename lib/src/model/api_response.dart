@@ -24,7 +24,13 @@ class ApiResponse with _$ApiResponse {
 
   void checkResponse() {
     if (statusCode == StatusCode.error) {
-      throw Exception(this);
+      throw ApiError(this);
     }
   }
+}
+
+class ApiError extends Error {
+  ApiError(this.response);
+
+  final ApiResponse response;
 }

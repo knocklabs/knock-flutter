@@ -22,6 +22,7 @@ dev_dependencies:
     sdk: flutter
   freezed: ^2.4.5
   json_serializable: ^6.7.1
+  mockito: ^5.4.3
   pigeon: ^14.0.1
   very_good_analysis: ^5.1.0
 
