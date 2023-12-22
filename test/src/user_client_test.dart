@@ -33,29 +33,93 @@ void main() {
       userClient = UserClient(knock);
     });
 
-    test('correctly appends new tokens to a channel', () async {
-      when(apiClient.doGet(any)).thenAnswer((_) async => noTokensResponse);
-      // We don't actually care what the response is for this test
-      when(apiClient.doPut(any, body: anyNamed('body')))
-          .thenAnswer((_) async => noTokensResponse);
+    group('appends tokens', () {
+      test('to a channel', () async {
+        when(apiClient.doGet(any)).thenAnswer((_) async => noTokensResponse);
+        // We don't actually care what the response is for this test
+        when(apiClient.doPut(any, body: anyNamed('body')))
+            .thenAnswer((_) async => noTokensResponse);
 
-      await userClient.registerTokenForChannel('testChannelId', 'testToken');
+        await userClient.registerTokenForChannel('testChannelId', 'testToken');
 
-      final expectedPut = ChannelData.forTokens(['testToken']);
-      verify(apiClient.doPut(any, body: jsonEncode(expectedPut.toJson())));
+        final expectedPut = ChannelData.forTokens(['testToken']);
+        verify(apiClient.doPut(any, body: jsonEncode(expectedPut.toJson())));
+      });
+
+      test('skips appending existing tokens', () async {
+        when(apiClient.doGet(any)).thenAnswer((_) async => testTokenResponse);
+        // We don't actually care what the response is for this test
+        when(apiClient.doPut(any, body: anyNamed('body')))
+            .thenAnswer((_) async => testTokenResponse);
+
+        await userClient.registerTokenForChannel('testChannelId', 'testToken');
+        verifyNever(apiClient.doPut(any, body: anyNamed('body')));
+      });
+
+      test('handles when there is no channel data', () async {
+        when(apiClient.doGet(any)).thenAnswer(
+          (_) async => throw ApiError(
+            const ApiResponse(status: 404, statusCode: StatusCode.error),
+          ),
+        );
+        // We don't actually care what the response is for this test
+        when(apiClient.doPut(any, body: anyNamed('body')))
+            .thenAnswer((_) async => noTokensResponse);
+
+        await userClient.registerTokenForChannel('testChannelId', 'testToken');
+
+        final expectedPut = ChannelData.forTokens(['testToken']);
+        verify(apiClient.doPut(any, body: jsonEncode(expectedPut.toJson())));
+      });
+
+      test('only rethrows other errors when registering tokens', () async {
+        when(apiClient.doGet(any)).thenAnswer(
+          (_) async => throw ApiError(
+            const ApiResponse(status: 405, statusCode: StatusCode.error),
+          ),
+        );
+        // We don't actually care what the response is for this test
+        when(apiClient.doPut(any, body: anyNamed('body')))
+            .thenAnswer((_) async => noTokensResponse);
+
+        await expectLater(
+          userClient.registerTokenForChannel(
+            'testChannelId',
+            'testToken',
+          ),
+          throwsA(isA<ApiError>()),
+        );
+      });
     });
 
-    test('correctly skips appending existing tokens to a channel', () async {
+    group('removes tokens', () {
+      test('from a channel', () async {
+        when(apiClient.doGet(any)).thenAnswer((_) async => testTokenResponse);
+        // We don't actually care what the response is for this test
+        when(apiClient.doPut(any, body: anyNamed('body')))
+            .thenAnswer((_) async => noTokensResponse);
+
+        await userClient.deregisterTokenForChannel(
+          'testChannelId',
+          'testToken',
+        );
+
+        final expectedPut = ChannelData.forTokens([]);
+        verify(apiClient.doPut(any, body: jsonEncode(expectedPut.toJson())));
+      });
+    });
+
+    test('skips removing non-existant tokens', () async {
       when(apiClient.doGet(any)).thenAnswer((_) async => testTokenResponse);
       // We don't actually care what the response is for this test
       when(apiClient.doPut(any, body: anyNamed('body')))
           .thenAnswer((_) async => testTokenResponse);
 
-      await userClient.registerTokenForChannel('testChannelId', 'testToken');
+      await userClient.deregisterTokenForChannel('testChannelId', 'nope');
       verifyNever(apiClient.doPut(any, body: anyNamed('body')));
     });
 
-    test('correctly handles when there is no channel data', () async {
+    test('handles when there is no channel data', () async {
       when(apiClient.doGet(any)).thenAnswer(
         (_) async => throw ApiError(
           const ApiResponse(status: 404, statusCode: StatusCode.error),
@@ -65,14 +129,11 @@ void main() {
       when(apiClient.doPut(any, body: anyNamed('body')))
           .thenAnswer((_) async => noTokensResponse);
 
-      await userClient.registerTokenForChannel('testChannelId', 'testToken');
-
-      final expectedPut = ChannelData.forTokens(['testToken']);
-      verify(apiClient.doPut(any, body: jsonEncode(expectedPut.toJson())));
+      await userClient.deregisterTokenForChannel('testChannelId', 'nope');
+      verifyNever(apiClient.doPut(any, body: anyNamed('body')));
     });
 
-    test('correctly only rethrows other errors when registering tokens',
-        () async {
+    test('only rethrows other errors when registering tokens', () async {
       when(apiClient.doGet(any)).thenAnswer(
         (_) async => throw ApiError(
           const ApiResponse(status: 405, statusCode: StatusCode.error),
@@ -83,7 +144,7 @@ void main() {
           .thenAnswer((_) async => noTokensResponse);
 
       await expectLater(
-        userClient.registerTokenForChannel(
+        userClient.deregisterTokenForChannel(
           'testChannelId',
           'testToken',
         ),
