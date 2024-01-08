@@ -221,37 +221,122 @@ class _NotificationsWidget extends StatefulWidget {
 }
 
 class _NotificationsWidgetState extends State<_NotificationsWidget> {
-  String _fcmToken = '';
-  String _apnsToken = '';
+  String? _fcmToken;
+  Object? _fcmError;
+  ChannelData? _fcmChannelData;
+
+  String? _apnsToken;
+  Object? _apnsError;
+  ChannelData? _apnsChannelData;
+
+  @override
+  void initState() {
+    super.initState();
+    WidgetsBinding.instance.addPostFrameCallback((_) async {
+      try {
+        final channelData =
+            await widget.knock.user().getChannelData(_exampleFcmChannelId);
+        setState(() {
+          _fcmChannelData = channelData;
+        });
+      } catch (error) {
+        setState(() {
+          _fcmChannelData = null;
+        });
+      }
+    });
+
+    WidgetsBinding.instance.addPostFrameCallback((_) async {
+      try {
+        final channelData =
+            await widget.knock.user().getChannelData(_exampleApnsChannelId);
+        setState(() {
+          _apnsChannelData = channelData;
+        });
+      } catch (error) {
+        setState(() {
+          _apnsChannelData = null;
+        });
+      }
+    });
+  }
 
   Future<void> _getFcmToken() async {
     try {
       final token = await widget.knock.getFcmToken();
-      setState(() => _fcmToken = token);
+      setState(() {
+        _fcmToken = token;
+        _fcmError = null;
+      });
     } catch (error) {
-      setState(() => _fcmToken = error.toString());
+      setState(() {
+        _fcmToken = null;
+        _fcmError = error;
+      });
     }
   }
 
   Future<void> _registerFcmToken() async {
-    await widget.knock
-        .user()
-        .registerTokenForChannel(_exampleFcmChannelId, _fcmToken);
+    final token = _fcmToken;
+    if (token != null) {
+      final channelData = await widget.knock
+          .user()
+          .registerTokenForChannel(_exampleFcmChannelId, token);
+      setState(() {
+        _fcmChannelData = channelData;
+      });
+    }
+  }
+
+  Future<void> _deregisterFcmToken() async {
+    final token = _fcmToken;
+    if (token != null) {
+      final channelData = await widget.knock
+          .user()
+          .deregisterTokenForChannel(_exampleFcmChannelId, token);
+      setState(() {
+        _fcmChannelData = channelData;
+      });
+    }
   }
 
   Future<void> _getApnsToken() async {
     try {
       final token = await widget.knock.getApnsToken();
-      setState(() => _apnsToken = token);
+      setState(() {
+        _apnsToken = token;
+        _apnsError = null;
+      });
     } catch (error) {
-      setState(() => _apnsToken = error.toString());
+      setState(() {
+        _apnsToken = null;
+        _apnsError = error;
+      });
     }
   }
 
   Future<void> _registerApnsToken() async {
-    await widget.knock
-        .user()
-        .registerTokenForChannel(_exampleApnsChannelId, _apnsToken);
+    final token = _apnsToken;
+    if (token != null) {
+      final channelData = await widget.knock
+          .user()
+          .registerTokenForChannel(_exampleApnsChannelId, token);
+      setState(() {
+        _apnsChannelData = channelData;
+      });
+    }
+  }
+
+  Future<void> _deregisterApnsToken() async {
+    final token = _apnsToken;
+    if (token != null) {
+      final channelData = await widget.knock
+          .user()
+          .deregisterTokenForChannel(_exampleApnsChannelId, token);
+      setState(() {
+        _apnsChannelData = channelData;
+      });
+    }
   }
 
   @override
@@ -261,34 +346,52 @@ class _NotificationsWidgetState extends State<_NotificationsWidget> {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
-          Text('FCM token: $_fcmToken'),
-          Row(
-            children: [
-              OutlinedButton(
-                onPressed: _getFcmToken,
-                child: const Text('Get FCM Token'),
-              ),
-              const SizedBox(width: 8),
-              OutlinedButton(
-                onPressed: _registerFcmToken,
-                child: const Text('Register FCM Token'),
-              ),
-            ],
+          Text('FCM channel data: $_fcmChannelData'),
+          Text('FCM token: ${_fcmToken ?? _fcmError}'),
+          SingleChildScrollView(
+            scrollDirection: Axis.horizontal,
+            child: Row(
+              children: [
+                OutlinedButton(
+                  onPressed: _getFcmToken,
+                  child: const Text('Get FCM Token'),
+                ),
+                const SizedBox(width: 8),
+                OutlinedButton(
+                  onPressed: _registerFcmToken,
+                  child: const Text('Register FCM Token'),
+                ),
+                const SizedBox(width: 8),
+                OutlinedButton(
+                  onPressed: _deregisterFcmToken,
+                  child: const Text('Deregister FCM Token'),
+                ),
+              ],
+            ),
           ),
           const SizedBox(height: 16),
-          Text('APNS token: $_apnsToken'),
-          Row(
-            children: [
-              OutlinedButton(
-                onPressed: _getApnsToken,
-                child: const Text('Get APNS Token'),
-              ),
-              const SizedBox(width: 8),
-              OutlinedButton(
-                onPressed: _registerApnsToken,
-                child: const Text('Register APNS Token'),
-              ),
-            ],
+          Text('APNS channel data: $_apnsChannelData'),
+          Text('APNS token: ${_apnsToken ?? _apnsError}'),
+          SingleChildScrollView(
+            scrollDirection: Axis.horizontal,
+            child: Row(
+              children: [
+                OutlinedButton(
+                  onPressed: _getApnsToken,
+                  child: const Text('Get APNS Token'),
+                ),
+                const SizedBox(width: 8),
+                OutlinedButton(
+                  onPressed: _registerApnsToken,
+                  child: const Text('Register APNS Token'),
+                ),
+                const SizedBox(width: 8),
+                OutlinedButton(
+                  onPressed: _deregisterApnsToken,
+                  child: const Text('Deregister APNS Token'),
+                ),
+              ],
+            ),
           ),
         ],
       ),

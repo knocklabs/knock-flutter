@@ -105,6 +105,34 @@ class UserClient {
       return setChannelData(channelId, modifiedChannelData);
     }
   }
+
+  Future<ChannelData> deregisterTokenForChannel(
+    String channelId,
+    String token,
+  ) async {
+    var channelData = ChannelData.forTokens([]);
+    try {
+      channelData = await getChannelData(channelId);
+    } catch (error) {
+      if (error is ApiError) {
+        final apiError = error;
+        if (apiError.response.status == 404) {
+          return channelData;
+        } else {
+          rethrow;
+        }
+      } else {
+        rethrow;
+      }
+    }
+
+    if (channelData.hasToken(token)) {
+      final modifiedChannelData = channelData.removeToken(token);
+      return setChannelData(channelId, modifiedChannelData);
+    } else {
+      return channelData;
+    }
+  }
 }
 
 extension _ChannelDataExtension on ChannelData {
@@ -115,6 +143,13 @@ extension _ChannelDataExtension on ChannelData {
 
   ChannelData appendToken(String token) {
     final tokens = [...data.tokens, token];
+    return copyWith(
+      data: data.copyWith(tokens: tokens),
+    );
+  }
+
+  ChannelData removeToken(String token) {
+    final tokens = List.of(data.tokens)..remove(token);
     return copyWith(
       data: data.copyWith(tokens: tokens),
     );
