@@ -1,6 +1,6 @@
 name: knock_flutter
 description: A client-side Flutter library to interact with user-facing Knock features, such as feeds.
-version: 0.1.1
+version: 0.1.2
 homepage: https://github.com/knocklabs/knock-flutter
 
 environment:
