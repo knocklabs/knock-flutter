@@ -1,7 +1,10 @@
 name: Publish package
+
 on:
-  release:
-    types: [created]
+  push:
+    tags:
+      - "v[0-9]+.[0-9]+.[0-9]+*" # tag pattern on pub.dev: 'v{{version}'
+
 jobs:
   publish:
     # Leveraged from https://github.com/dart-lang/setup-dart/blob/main/.github/workflows/publish.yml but made to support Flutter
