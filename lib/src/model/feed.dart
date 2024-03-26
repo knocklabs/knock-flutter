@@ -107,20 +107,53 @@ class Activity with _$Activity {
 enum ContentBlockType {
   markdown,
   text,
+  @JsonKey(name: 'button_set')
+  buttonSet,
 }
 
 @freezed
 class ContentBlock with _$ContentBlock {
-  @JsonSerializable(explicitToJson: true)
-  const factory ContentBlock({
+  const ContentBlock._(); // Private constructor for the base class
+
+  const factory ContentBlock.markdown({
+    required String name,
     required String content,
     required String rendered,
-    required ContentBlockType type,
+  }) = MarkdownContentBlock;
+
+  const factory ContentBlock.text({
     required String name,
-  }) = _ContentBlock;
+    required String content,
+  }) = TextContentBlock;
+
+  const factory ContentBlock.buttonSet({
+    required String name,
+    required List<BlockActionButton> buttons,
+  }) = ButtonSetContentBlock;
 
   factory ContentBlock.fromJson(Map<String, dynamic> json) =>
-      _$ContentBlockFromJson(json);
+      _$ContentBlockFromJson(modifyJsonForContentBlock(json));
+}
+
+Map<String, dynamic> modifyJsonForContentBlock(Map<String, dynamic> json) {
+  final type = json['type'] as String?;
+  json['runtimeType'] = type == 'button_set' ? 'buttonSet' : type;
+
+  // Now call the generated function
+  return json;
+}
+
+@freezed
+class BlockActionButton with _$BlockActionButton {
+  @JsonSerializable(explicitToJson: true)
+  const factory BlockActionButton({
+    required String name,
+    required String label,
+    required String action,
+  }) = _BlockActionButton;
+
+  factory BlockActionButton.fromJson(Map<String, dynamic> json) =>
+      _$BlockActionButtonFromJson(json);
 }
 
 @freezed
