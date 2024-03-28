@@ -12,7 +12,7 @@ part of 'feed.dart';
 T _$identity<T>(T value) => value;
 
 final _privateConstructorUsedError = UnsupportedError(
-    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#custom-getters-and-methods');
+    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#adding-getters-and-methods-to-our-models');
 
 Feed _$FeedFromJson(Map<String, dynamic> json) {
   return _Feed.fromJson(json);
@@ -202,7 +202,7 @@ class _$FeedImpl extends _Feed {
   }
 
   @override
-  bool operator ==(dynamic other) {
+  bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$FeedImpl &&
@@ -708,7 +708,7 @@ class _$FeedItemImpl implements _FeedItem {
   }
 
   @override
-  bool operator ==(dynamic other) {
+  bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$FeedItemImpl &&
@@ -1096,7 +1096,7 @@ class _$ActivityImpl implements _Activity {
   }
 
   @override
-  bool operator ==(dynamic other) {
+  bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$ActivityImpl &&
@@ -1169,16 +1169,69 @@ abstract class _Activity implements Activity {
 }
 
 ContentBlock _$ContentBlockFromJson(Map<String, dynamic> json) {
-  return _ContentBlock.fromJson(json);
+  switch (json['runtimeType']) {
+    case 'markdown':
+      return MarkdownContentBlock.fromJson(json);
+    case 'text':
+      return TextContentBlock.fromJson(json);
+    case 'buttonSet':
+      return ButtonSetContentBlock.fromJson(json);
+
+    default:
+      throw CheckedFromJsonException(json, 'runtimeType', 'ContentBlock',
+          'Invalid union type "${json['runtimeType']}"!');
+  }
 }
 
 /// @nodoc
 mixin _$ContentBlock {
-  String get content => throw _privateConstructorUsedError;
-  String get rendered => throw _privateConstructorUsedError;
-  ContentBlockType get type => throw _privateConstructorUsedError;
   String get name => throw _privateConstructorUsedError;
-
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function(String name, String content, String rendered)
+        markdown,
+    required TResult Function(String name, String content) text,
+    required TResult Function(String name, List<BlockActionButton> buttons)
+        buttonSet,
+  }) =>
+      throw _privateConstructorUsedError;
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function(String name, String content, String rendered)? markdown,
+    TResult? Function(String name, String content)? text,
+    TResult? Function(String name, List<BlockActionButton> buttons)? buttonSet,
+  }) =>
+      throw _privateConstructorUsedError;
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function(String name, String content, String rendered)? markdown,
+    TResult Function(String name, String content)? text,
+    TResult Function(String name, List<BlockActionButton> buttons)? buttonSet,
+    required TResult orElse(),
+  }) =>
+      throw _privateConstructorUsedError;
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(MarkdownContentBlock value) markdown,
+    required TResult Function(TextContentBlock value) text,
+    required TResult Function(ButtonSetContentBlock value) buttonSet,
+  }) =>
+      throw _privateConstructorUsedError;
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(MarkdownContentBlock value)? markdown,
+    TResult? Function(TextContentBlock value)? text,
+    TResult? Function(ButtonSetContentBlock value)? buttonSet,
+  }) =>
+      throw _privateConstructorUsedError;
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(MarkdownContentBlock value)? markdown,
+    TResult Function(TextContentBlock value)? text,
+    TResult Function(ButtonSetContentBlock value)? buttonSet,
+    required TResult orElse(),
+  }) =>
+      throw _privateConstructorUsedError;
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
   $ContentBlockCopyWith<ContentBlock> get copyWith =>
@@ -1191,8 +1244,7 @@ abstract class $ContentBlockCopyWith<$Res> {
           ContentBlock value, $Res Function(ContentBlock) then) =
       _$ContentBlockCopyWithImpl<$Res, ContentBlock>;
   @useResult
-  $Res call(
-      {String content, String rendered, ContentBlockType type, String name});
+  $Res call({String name});
 }
 
 /// @nodoc
@@ -1208,24 +1260,9 @@ class _$ContentBlockCopyWithImpl<$Res, $Val extends ContentBlock>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? content = null,
-    Object? rendered = null,
-    Object? type = null,
     Object? name = null,
   }) {
     return _then(_value.copyWith(
-      content: null == content
-          ? _value.content
-          : content // ignore: cast_nullable_to_non_nullable
-              as String,
-      rendered: null == rendered
-          ? _value.rendered
-          : rendered // ignore: cast_nullable_to_non_nullable
-              as String,
-      type: null == type
-          ? _value.type
-          : type // ignore: cast_nullable_to_non_nullable
-              as ContentBlockType,
       name: null == name
           ? _value.name
           : name // ignore: cast_nullable_to_non_nullable
@@ -1235,34 +1272,36 @@ class _$ContentBlockCopyWithImpl<$Res, $Val extends ContentBlock>
 }
 
 /// @nodoc
-abstract class _$$ContentBlockImplCopyWith<$Res>
+abstract class _$$MarkdownContentBlockImplCopyWith<$Res>
     implements $ContentBlockCopyWith<$Res> {
-  factory _$$ContentBlockImplCopyWith(
-          _$ContentBlockImpl value, $Res Function(_$ContentBlockImpl) then) =
-      __$$ContentBlockImplCopyWithImpl<$Res>;
+  factory _$$MarkdownContentBlockImplCopyWith(_$MarkdownContentBlockImpl value,
+          $Res Function(_$MarkdownContentBlockImpl) then) =
+      __$$MarkdownContentBlockImplCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call(
-      {String content, String rendered, ContentBlockType type, String name});
+  $Res call({String name, String content, String rendered});
 }
 
 /// @nodoc
-class __$$ContentBlockImplCopyWithImpl<$Res>
-    extends _$ContentBlockCopyWithImpl<$Res, _$ContentBlockImpl>
-    implements _$$ContentBlockImplCopyWith<$Res> {
-  __$$ContentBlockImplCopyWithImpl(
-      _$ContentBlockImpl _value, $Res Function(_$ContentBlockImpl) _then)
+class __$$MarkdownContentBlockImplCopyWithImpl<$Res>
+    extends _$ContentBlockCopyWithImpl<$Res, _$MarkdownContentBlockImpl>
+    implements _$$MarkdownContentBlockImplCopyWith<$Res> {
+  __$$MarkdownContentBlockImplCopyWithImpl(_$MarkdownContentBlockImpl _value,
+      $Res Function(_$MarkdownContentBlockImpl) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
   @override
   $Res call({
+    Object? name = null,
     Object? content = null,
     Object? rendered = null,
-    Object? type = null,
-    Object? name = null,
   }) {
-    return _then(_$ContentBlockImpl(
+    return _then(_$MarkdownContentBlockImpl(
+      name: null == name
+          ? _value.name
+          : name // ignore: cast_nullable_to_non_nullable
+              as String,
       content: null == content
           ? _value.content
           : content // ignore: cast_nullable_to_non_nullable
@@ -1271,13 +1310,624 @@ class __$$ContentBlockImplCopyWithImpl<$Res>
           ? _value.rendered
           : rendered // ignore: cast_nullable_to_non_nullable
               as String,
-      type: null == type
-          ? _value.type
-          : type // ignore: cast_nullable_to_non_nullable
-              as ContentBlockType,
+    ));
+  }
+}
+
+/// @nodoc
+@JsonSerializable()
+class _$MarkdownContentBlockImpl extends MarkdownContentBlock {
+  const _$MarkdownContentBlockImpl(
+      {required this.name,
+      required this.content,
+      required this.rendered,
+      final String? $type})
+      : $type = $type ?? 'markdown',
+        super._();
+
+  factory _$MarkdownContentBlockImpl.fromJson(Map<String, dynamic> json) =>
+      _$$MarkdownContentBlockImplFromJson(json);
+
+  @override
+  final String name;
+  @override
+  final String content;
+  @override
+  final String rendered;
+
+  @JsonKey(name: 'runtimeType')
+  final String $type;
+
+  @override
+  String toString() {
+    return 'ContentBlock.markdown(name: $name, content: $content, rendered: $rendered)';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$MarkdownContentBlockImpl &&
+            (identical(other.name, name) || other.name == name) &&
+            (identical(other.content, content) || other.content == content) &&
+            (identical(other.rendered, rendered) ||
+                other.rendered == rendered));
+  }
+
+  @JsonKey(ignore: true)
+  @override
+  int get hashCode => Object.hash(runtimeType, name, content, rendered);
+
+  @JsonKey(ignore: true)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$MarkdownContentBlockImplCopyWith<_$MarkdownContentBlockImpl>
+      get copyWith =>
+          __$$MarkdownContentBlockImplCopyWithImpl<_$MarkdownContentBlockImpl>(
+              this, _$identity);
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function(String name, String content, String rendered)
+        markdown,
+    required TResult Function(String name, String content) text,
+    required TResult Function(String name, List<BlockActionButton> buttons)
+        buttonSet,
+  }) {
+    return markdown(name, content, rendered);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function(String name, String content, String rendered)? markdown,
+    TResult? Function(String name, String content)? text,
+    TResult? Function(String name, List<BlockActionButton> buttons)? buttonSet,
+  }) {
+    return markdown?.call(name, content, rendered);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function(String name, String content, String rendered)? markdown,
+    TResult Function(String name, String content)? text,
+    TResult Function(String name, List<BlockActionButton> buttons)? buttonSet,
+    required TResult orElse(),
+  }) {
+    if (markdown != null) {
+      return markdown(name, content, rendered);
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(MarkdownContentBlock value) markdown,
+    required TResult Function(TextContentBlock value) text,
+    required TResult Function(ButtonSetContentBlock value) buttonSet,
+  }) {
+    return markdown(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(MarkdownContentBlock value)? markdown,
+    TResult? Function(TextContentBlock value)? text,
+    TResult? Function(ButtonSetContentBlock value)? buttonSet,
+  }) {
+    return markdown?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(MarkdownContentBlock value)? markdown,
+    TResult Function(TextContentBlock value)? text,
+    TResult Function(ButtonSetContentBlock value)? buttonSet,
+    required TResult orElse(),
+  }) {
+    if (markdown != null) {
+      return markdown(this);
+    }
+    return orElse();
+  }
+
+  @override
+  Map<String, dynamic> toJson() {
+    return _$$MarkdownContentBlockImplToJson(
+      this,
+    );
+  }
+}
+
+abstract class MarkdownContentBlock extends ContentBlock {
+  const factory MarkdownContentBlock(
+      {required final String name,
+      required final String content,
+      required final String rendered}) = _$MarkdownContentBlockImpl;
+  const MarkdownContentBlock._() : super._();
+
+  factory MarkdownContentBlock.fromJson(Map<String, dynamic> json) =
+      _$MarkdownContentBlockImpl.fromJson;
+
+  @override
+  String get name;
+  String get content;
+  String get rendered;
+  @override
+  @JsonKey(ignore: true)
+  _$$MarkdownContentBlockImplCopyWith<_$MarkdownContentBlockImpl>
+      get copyWith => throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class _$$TextContentBlockImplCopyWith<$Res>
+    implements $ContentBlockCopyWith<$Res> {
+  factory _$$TextContentBlockImplCopyWith(_$TextContentBlockImpl value,
+          $Res Function(_$TextContentBlockImpl) then) =
+      __$$TextContentBlockImplCopyWithImpl<$Res>;
+  @override
+  @useResult
+  $Res call({String name, String content});
+}
+
+/// @nodoc
+class __$$TextContentBlockImplCopyWithImpl<$Res>
+    extends _$ContentBlockCopyWithImpl<$Res, _$TextContentBlockImpl>
+    implements _$$TextContentBlockImplCopyWith<$Res> {
+  __$$TextContentBlockImplCopyWithImpl(_$TextContentBlockImpl _value,
+      $Res Function(_$TextContentBlockImpl) _then)
+      : super(_value, _then);
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? name = null,
+    Object? content = null,
+  }) {
+    return _then(_$TextContentBlockImpl(
       name: null == name
           ? _value.name
           : name // ignore: cast_nullable_to_non_nullable
+              as String,
+      content: null == content
+          ? _value.content
+          : content // ignore: cast_nullable_to_non_nullable
+              as String,
+    ));
+  }
+}
+
+/// @nodoc
+@JsonSerializable()
+class _$TextContentBlockImpl extends TextContentBlock {
+  const _$TextContentBlockImpl(
+      {required this.name, required this.content, final String? $type})
+      : $type = $type ?? 'text',
+        super._();
+
+  factory _$TextContentBlockImpl.fromJson(Map<String, dynamic> json) =>
+      _$$TextContentBlockImplFromJson(json);
+
+  @override
+  final String name;
+  @override
+  final String content;
+
+  @JsonKey(name: 'runtimeType')
+  final String $type;
+
+  @override
+  String toString() {
+    return 'ContentBlock.text(name: $name, content: $content)';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$TextContentBlockImpl &&
+            (identical(other.name, name) || other.name == name) &&
+            (identical(other.content, content) || other.content == content));
+  }
+
+  @JsonKey(ignore: true)
+  @override
+  int get hashCode => Object.hash(runtimeType, name, content);
+
+  @JsonKey(ignore: true)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$TextContentBlockImplCopyWith<_$TextContentBlockImpl> get copyWith =>
+      __$$TextContentBlockImplCopyWithImpl<_$TextContentBlockImpl>(
+          this, _$identity);
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function(String name, String content, String rendered)
+        markdown,
+    required TResult Function(String name, String content) text,
+    required TResult Function(String name, List<BlockActionButton> buttons)
+        buttonSet,
+  }) {
+    return text(name, content);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function(String name, String content, String rendered)? markdown,
+    TResult? Function(String name, String content)? text,
+    TResult? Function(String name, List<BlockActionButton> buttons)? buttonSet,
+  }) {
+    return text?.call(name, content);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function(String name, String content, String rendered)? markdown,
+    TResult Function(String name, String content)? text,
+    TResult Function(String name, List<BlockActionButton> buttons)? buttonSet,
+    required TResult orElse(),
+  }) {
+    if (text != null) {
+      return text(name, content);
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(MarkdownContentBlock value) markdown,
+    required TResult Function(TextContentBlock value) text,
+    required TResult Function(ButtonSetContentBlock value) buttonSet,
+  }) {
+    return text(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(MarkdownContentBlock value)? markdown,
+    TResult? Function(TextContentBlock value)? text,
+    TResult? Function(ButtonSetContentBlock value)? buttonSet,
+  }) {
+    return text?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(MarkdownContentBlock value)? markdown,
+    TResult Function(TextContentBlock value)? text,
+    TResult Function(ButtonSetContentBlock value)? buttonSet,
+    required TResult orElse(),
+  }) {
+    if (text != null) {
+      return text(this);
+    }
+    return orElse();
+  }
+
+  @override
+  Map<String, dynamic> toJson() {
+    return _$$TextContentBlockImplToJson(
+      this,
+    );
+  }
+}
+
+abstract class TextContentBlock extends ContentBlock {
+  const factory TextContentBlock(
+      {required final String name,
+      required final String content}) = _$TextContentBlockImpl;
+  const TextContentBlock._() : super._();
+
+  factory TextContentBlock.fromJson(Map<String, dynamic> json) =
+      _$TextContentBlockImpl.fromJson;
+
+  @override
+  String get name;
+  String get content;
+  @override
+  @JsonKey(ignore: true)
+  _$$TextContentBlockImplCopyWith<_$TextContentBlockImpl> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class _$$ButtonSetContentBlockImplCopyWith<$Res>
+    implements $ContentBlockCopyWith<$Res> {
+  factory _$$ButtonSetContentBlockImplCopyWith(
+          _$ButtonSetContentBlockImpl value,
+          $Res Function(_$ButtonSetContentBlockImpl) then) =
+      __$$ButtonSetContentBlockImplCopyWithImpl<$Res>;
+  @override
+  @useResult
+  $Res call({String name, List<BlockActionButton> buttons});
+}
+
+/// @nodoc
+class __$$ButtonSetContentBlockImplCopyWithImpl<$Res>
+    extends _$ContentBlockCopyWithImpl<$Res, _$ButtonSetContentBlockImpl>
+    implements _$$ButtonSetContentBlockImplCopyWith<$Res> {
+  __$$ButtonSetContentBlockImplCopyWithImpl(_$ButtonSetContentBlockImpl _value,
+      $Res Function(_$ButtonSetContentBlockImpl) _then)
+      : super(_value, _then);
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? name = null,
+    Object? buttons = null,
+  }) {
+    return _then(_$ButtonSetContentBlockImpl(
+      name: null == name
+          ? _value.name
+          : name // ignore: cast_nullable_to_non_nullable
+              as String,
+      buttons: null == buttons
+          ? _value._buttons
+          : buttons // ignore: cast_nullable_to_non_nullable
+              as List<BlockActionButton>,
+    ));
+  }
+}
+
+/// @nodoc
+@JsonSerializable()
+class _$ButtonSetContentBlockImpl extends ButtonSetContentBlock {
+  const _$ButtonSetContentBlockImpl(
+      {required this.name,
+      required final List<BlockActionButton> buttons,
+      final String? $type})
+      : _buttons = buttons,
+        $type = $type ?? 'buttonSet',
+        super._();
+
+  factory _$ButtonSetContentBlockImpl.fromJson(Map<String, dynamic> json) =>
+      _$$ButtonSetContentBlockImplFromJson(json);
+
+  @override
+  final String name;
+  final List<BlockActionButton> _buttons;
+  @override
+  List<BlockActionButton> get buttons {
+    if (_buttons is EqualUnmodifiableListView) return _buttons;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(_buttons);
+  }
+
+  @JsonKey(name: 'runtimeType')
+  final String $type;
+
+  @override
+  String toString() {
+    return 'ContentBlock.buttonSet(name: $name, buttons: $buttons)';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$ButtonSetContentBlockImpl &&
+            (identical(other.name, name) || other.name == name) &&
+            const DeepCollectionEquality().equals(other._buttons, _buttons));
+  }
+
+  @JsonKey(ignore: true)
+  @override
+  int get hashCode => Object.hash(
+      runtimeType, name, const DeepCollectionEquality().hash(_buttons));
+
+  @JsonKey(ignore: true)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$ButtonSetContentBlockImplCopyWith<_$ButtonSetContentBlockImpl>
+      get copyWith => __$$ButtonSetContentBlockImplCopyWithImpl<
+          _$ButtonSetContentBlockImpl>(this, _$identity);
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function(String name, String content, String rendered)
+        markdown,
+    required TResult Function(String name, String content) text,
+    required TResult Function(String name, List<BlockActionButton> buttons)
+        buttonSet,
+  }) {
+    return buttonSet(name, buttons);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function(String name, String content, String rendered)? markdown,
+    TResult? Function(String name, String content)? text,
+    TResult? Function(String name, List<BlockActionButton> buttons)? buttonSet,
+  }) {
+    return buttonSet?.call(name, buttons);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function(String name, String content, String rendered)? markdown,
+    TResult Function(String name, String content)? text,
+    TResult Function(String name, List<BlockActionButton> buttons)? buttonSet,
+    required TResult orElse(),
+  }) {
+    if (buttonSet != null) {
+      return buttonSet(name, buttons);
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(MarkdownContentBlock value) markdown,
+    required TResult Function(TextContentBlock value) text,
+    required TResult Function(ButtonSetContentBlock value) buttonSet,
+  }) {
+    return buttonSet(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(MarkdownContentBlock value)? markdown,
+    TResult? Function(TextContentBlock value)? text,
+    TResult? Function(ButtonSetContentBlock value)? buttonSet,
+  }) {
+    return buttonSet?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(MarkdownContentBlock value)? markdown,
+    TResult Function(TextContentBlock value)? text,
+    TResult Function(ButtonSetContentBlock value)? buttonSet,
+    required TResult orElse(),
+  }) {
+    if (buttonSet != null) {
+      return buttonSet(this);
+    }
+    return orElse();
+  }
+
+  @override
+  Map<String, dynamic> toJson() {
+    return _$$ButtonSetContentBlockImplToJson(
+      this,
+    );
+  }
+}
+
+abstract class ButtonSetContentBlock extends ContentBlock {
+  const factory ButtonSetContentBlock(
+          {required final String name,
+          required final List<BlockActionButton> buttons}) =
+      _$ButtonSetContentBlockImpl;
+  const ButtonSetContentBlock._() : super._();
+
+  factory ButtonSetContentBlock.fromJson(Map<String, dynamic> json) =
+      _$ButtonSetContentBlockImpl.fromJson;
+
+  @override
+  String get name;
+  List<BlockActionButton> get buttons;
+  @override
+  @JsonKey(ignore: true)
+  _$$ButtonSetContentBlockImplCopyWith<_$ButtonSetContentBlockImpl>
+      get copyWith => throw _privateConstructorUsedError;
+}
+
+BlockActionButton _$BlockActionButtonFromJson(Map<String, dynamic> json) {
+  return _BlockActionButton.fromJson(json);
+}
+
+/// @nodoc
+mixin _$BlockActionButton {
+  String get name => throw _privateConstructorUsedError;
+  String get label => throw _privateConstructorUsedError;
+  String get action => throw _privateConstructorUsedError;
+
+  Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
+  @JsonKey(ignore: true)
+  $BlockActionButtonCopyWith<BlockActionButton> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class $BlockActionButtonCopyWith<$Res> {
+  factory $BlockActionButtonCopyWith(
+          BlockActionButton value, $Res Function(BlockActionButton) then) =
+      _$BlockActionButtonCopyWithImpl<$Res, BlockActionButton>;
+  @useResult
+  $Res call({String name, String label, String action});
+}
+
+/// @nodoc
+class _$BlockActionButtonCopyWithImpl<$Res, $Val extends BlockActionButton>
+    implements $BlockActionButtonCopyWith<$Res> {
+  _$BlockActionButtonCopyWithImpl(this._value, this._then);
+
+  // ignore: unused_field
+  final $Val _value;
+  // ignore: unused_field
+  final $Res Function($Val) _then;
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? name = null,
+    Object? label = null,
+    Object? action = null,
+  }) {
+    return _then(_value.copyWith(
+      name: null == name
+          ? _value.name
+          : name // ignore: cast_nullable_to_non_nullable
+              as String,
+      label: null == label
+          ? _value.label
+          : label // ignore: cast_nullable_to_non_nullable
+              as String,
+      action: null == action
+          ? _value.action
+          : action // ignore: cast_nullable_to_non_nullable
+              as String,
+    ) as $Val);
+  }
+}
+
+/// @nodoc
+abstract class _$$BlockActionButtonImplCopyWith<$Res>
+    implements $BlockActionButtonCopyWith<$Res> {
+  factory _$$BlockActionButtonImplCopyWith(_$BlockActionButtonImpl value,
+          $Res Function(_$BlockActionButtonImpl) then) =
+      __$$BlockActionButtonImplCopyWithImpl<$Res>;
+  @override
+  @useResult
+  $Res call({String name, String label, String action});
+}
+
+/// @nodoc
+class __$$BlockActionButtonImplCopyWithImpl<$Res>
+    extends _$BlockActionButtonCopyWithImpl<$Res, _$BlockActionButtonImpl>
+    implements _$$BlockActionButtonImplCopyWith<$Res> {
+  __$$BlockActionButtonImplCopyWithImpl(_$BlockActionButtonImpl _value,
+      $Res Function(_$BlockActionButtonImpl) _then)
+      : super(_value, _then);
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? name = null,
+    Object? label = null,
+    Object? action = null,
+  }) {
+    return _then(_$BlockActionButtonImpl(
+      name: null == name
+          ? _value.name
+          : name // ignore: cast_nullable_to_non_nullable
+              as String,
+      label: null == label
+          ? _value.label
+          : label // ignore: cast_nullable_to_non_nullable
+              as String,
+      action: null == action
+          ? _value.action
+          : action // ignore: cast_nullable_to_non_nullable
               as String,
     ));
   }
@@ -1286,81 +1936,72 @@ class __$$ContentBlockImplCopyWithImpl<$Res>
 /// @nodoc
 
 @JsonSerializable(explicitToJson: true)
-class _$ContentBlockImpl implements _ContentBlock {
-  const _$ContentBlockImpl(
-      {required this.content,
-      required this.rendered,
-      required this.type,
-      required this.name});
+class _$BlockActionButtonImpl implements _BlockActionButton {
+  const _$BlockActionButtonImpl(
+      {required this.name, required this.label, required this.action});
 
-  factory _$ContentBlockImpl.fromJson(Map<String, dynamic> json) =>
-      _$$ContentBlockImplFromJson(json);
+  factory _$BlockActionButtonImpl.fromJson(Map<String, dynamic> json) =>
+      _$$BlockActionButtonImplFromJson(json);
 
-  @override
-  final String content;
-  @override
-  final String rendered;
-  @override
-  final ContentBlockType type;
   @override
   final String name;
+  @override
+  final String label;
+  @override
+  final String action;
 
   @override
   String toString() {
-    return 'ContentBlock(content: $content, rendered: $rendered, type: $type, name: $name)';
+    return 'BlockActionButton(name: $name, label: $label, action: $action)';
   }
 
   @override
-  bool operator ==(dynamic other) {
+  bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$ContentBlockImpl &&
-            (identical(other.content, content) || other.content == content) &&
-            (identical(other.rendered, rendered) ||
-                other.rendered == rendered) &&
-            (identical(other.type, type) || other.type == type) &&
-            (identical(other.name, name) || other.name == name));
+            other is _$BlockActionButtonImpl &&
+            (identical(other.name, name) || other.name == name) &&
+            (identical(other.label, label) || other.label == label) &&
+            (identical(other.action, action) || other.action == action));
   }
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode => Object.hash(runtimeType, content, rendered, type, name);
+  int get hashCode => Object.hash(runtimeType, name, label, action);
 
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$ContentBlockImplCopyWith<_$ContentBlockImpl> get copyWith =>
-      __$$ContentBlockImplCopyWithImpl<_$ContentBlockImpl>(this, _$identity);
+  _$$BlockActionButtonImplCopyWith<_$BlockActionButtonImpl> get copyWith =>
+      __$$BlockActionButtonImplCopyWithImpl<_$BlockActionButtonImpl>(
+          this, _$identity);
 
   @override
   Map<String, dynamic> toJson() {
-    return _$$ContentBlockImplToJson(
+    return _$$BlockActionButtonImplToJson(
       this,
     );
   }
 }
 
-abstract class _ContentBlock implements ContentBlock {
-  const factory _ContentBlock(
-      {required final String content,
-      required final String rendered,
-      required final ContentBlockType type,
-      required final String name}) = _$ContentBlockImpl;
+abstract class _BlockActionButton implements BlockActionButton {
+  const factory _BlockActionButton(
+      {required final String name,
+      required final String label,
+      required final String action}) = _$BlockActionButtonImpl;
 
-  factory _ContentBlock.fromJson(Map<String, dynamic> json) =
-      _$ContentBlockImpl.fromJson;
+  factory _BlockActionButton.fromJson(Map<String, dynamic> json) =
+      _$BlockActionButtonImpl.fromJson;
 
-  @override
-  String get content;
-  @override
-  String get rendered;
-  @override
-  ContentBlockType get type;
   @override
   String get name;
   @override
+  String get label;
+  @override
+  String get action;
+  @override
   @JsonKey(ignore: true)
-  _$$ContentBlockImplCopyWith<_$ContentBlockImpl> get copyWith =>
+  _$$BlockActionButtonImplCopyWith<_$BlockActionButtonImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
@@ -1479,7 +2120,7 @@ class _$NotificationSourceImpl implements _NotificationSource {
   }
 
   @override
-  bool operator ==(dynamic other) {
+  bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$NotificationSourceImpl &&
@@ -1661,7 +2302,7 @@ class _$PageInfoImpl implements _PageInfo {
   }
 
   @override
-  bool operator ==(dynamic other) {
+  bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$PageInfoImpl &&
@@ -1851,7 +2492,7 @@ class _$FeedMetadataImpl implements _FeedMetadata {
   }
 
   @override
-  bool operator ==(dynamic other) {
+  bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$FeedMetadataImpl &&

@@ -139,8 +139,18 @@ void main() {
                 {
                     "content": "{{ vars.app_url }}",
                     "name": "action_url",
-                    "rendered": "",
                     "type": "text"
+                },
+                {
+                    "buttons": [
+                        {
+                            "action": "/action-url",
+                            "label": "Primary",
+                            "name": "primary"
+                        }
+                    ],
+                    "name": "actions",
+                    "type": "button_set"
                 }
               ],
               "clicked_at": null,
@@ -283,24 +293,31 @@ void main() {
         ],
       );
 
-      expect(item.blocks.length, 2);
+      expect(item.blocks.length, 3);
       expect(
         item.blocks,
         const [
-          ContentBlock(
+          ContentBlock.markdown(
+            name: 'body',
             content:
                 // ignore: lines_longer_than_80_chars
                 "Hey **{{ recipient.name | split: ' ' | first }}** - {{ actor.name }} added a new comment.",
-            name: 'body',
             rendered:
                 '<p>Hey <strong>Ellie</strong> - John Hammond added a new comment.</p>',
-            type: ContentBlockType.markdown,
           ),
-          ContentBlock(
+          ContentBlock.text(
             content: '{{ vars.app_url }}',
             name: 'action_url',
-            rendered: '',
-            type: ContentBlockType.text,
+          ),
+          ContentBlock.buttonSet(
+            name: 'actions',
+            buttons: [
+              BlockActionButton(
+                action: '/action-url',
+                name: 'primary',
+                label: 'Primary',
+              ),
+            ],
           ),
         ],
       );

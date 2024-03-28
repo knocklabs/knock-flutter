@@ -849,14 +849,31 @@ class _FeedItemWidget extends StatelessWidget {
             ],
             Text('Inserted at: ${item.insertedAt}'),
             for (var block in item.blocks)
-              if (block.rendered.isNotEmpty)
-                Html(
-                  data: block.rendered,
+              block.when(
+                markdown: (name, content, rendered) => Html(
+                  data: rendered,
                   style: {
                     'body': Style(margin: Margins.zero),
                     'p': Style(padding: HtmlPaddings.zero, margin: Margins.zero)
                   },
                 ),
+                text: (name, content) => Html(
+                  data: content,
+                  style: {
+                    'body': Style(margin: Margins.zero),
+                    'p': Style(padding: HtmlPaddings.zero, margin: Margins.zero)
+                  },
+                ),
+                buttonSet: (name, buttons) => Row(
+                  children: [
+                    for (var button in buttons)
+                      OutlinedButton(
+                        onPressed: null,
+                        child: Text(button.label),
+                      ),
+                  ],
+                ),
+              )
           ],
         ),
         Row(

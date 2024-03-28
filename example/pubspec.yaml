@@ -16,7 +16,7 @@ dependencies:
     # In your app you will want to reference a released version.
     path: ..
 
-  flutter_html: 3.0.0-beta.2
+  flutter_html: ^3.0.0-beta.2
 
 dev_dependencies:
   flutter_test:
