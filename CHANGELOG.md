@@ -1,3 +1,7 @@
+## 0.1.3
+
+- feat: add new ContentBlock types to FeedItem
+
 ## 0.1.2
 
 - feat: add new methods for registering and deregistering channel data
