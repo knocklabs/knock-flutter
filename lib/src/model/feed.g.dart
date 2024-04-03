@@ -129,26 +129,73 @@ Map<String, dynamic> _$$ActivityImplToJson(_$ActivityImpl instance) =>
       'data': instance.data,
     };
 
-_$ContentBlockImpl _$$ContentBlockImplFromJson(Map<String, dynamic> json) =>
-    _$ContentBlockImpl(
+_$MarkdownContentBlockImpl _$$MarkdownContentBlockImplFromJson(
+        Map<String, dynamic> json) =>
+    _$MarkdownContentBlockImpl(
+      name: json['name'] as String,
       content: json['content'] as String,
       rendered: json['rendered'] as String,
-      type: $enumDecode(_$ContentBlockTypeEnumMap, json['type']),
-      name: json['name'] as String,
+      $type: json['runtimeType'] as String?,
     );
 
-Map<String, dynamic> _$$ContentBlockImplToJson(_$ContentBlockImpl instance) =>
+Map<String, dynamic> _$$MarkdownContentBlockImplToJson(
+        _$MarkdownContentBlockImpl instance) =>
     <String, dynamic>{
+      'name': instance.name,
       'content': instance.content,
       'rendered': instance.rendered,
-      'type': _$ContentBlockTypeEnumMap[instance.type]!,
-      'name': instance.name,
+      'runtimeType': instance.$type,
     };
 
-const _$ContentBlockTypeEnumMap = {
-  ContentBlockType.markdown: 'markdown',
-  ContentBlockType.text: 'text',
-};
+_$TextContentBlockImpl _$$TextContentBlockImplFromJson(
+        Map<String, dynamic> json) =>
+    _$TextContentBlockImpl(
+      name: json['name'] as String,
+      content: json['content'] as String,
+      $type: json['runtimeType'] as String?,
+    );
+
+Map<String, dynamic> _$$TextContentBlockImplToJson(
+        _$TextContentBlockImpl instance) =>
+    <String, dynamic>{
+      'name': instance.name,
+      'content': instance.content,
+      'runtimeType': instance.$type,
+    };
+
+_$ButtonSetContentBlockImpl _$$ButtonSetContentBlockImplFromJson(
+        Map<String, dynamic> json) =>
+    _$ButtonSetContentBlockImpl(
+      name: json['name'] as String,
+      buttons: (json['buttons'] as List<dynamic>)
+          .map((e) => BlockActionButton.fromJson(e as Map<String, dynamic>))
+          .toList(),
+      $type: json['runtimeType'] as String?,
+    );
+
+Map<String, dynamic> _$$ButtonSetContentBlockImplToJson(
+        _$ButtonSetContentBlockImpl instance) =>
+    <String, dynamic>{
+      'name': instance.name,
+      'buttons': instance.buttons,
+      'runtimeType': instance.$type,
+    };
+
+_$BlockActionButtonImpl _$$BlockActionButtonImplFromJson(
+        Map<String, dynamic> json) =>
+    _$BlockActionButtonImpl(
+      name: json['name'] as String,
+      label: json['label'] as String,
+      action: json['action'] as String,
+    );
+
+Map<String, dynamic> _$$BlockActionButtonImplToJson(
+        _$BlockActionButtonImpl instance) =>
+    <String, dynamic>{
+      'name': instance.name,
+      'label': instance.label,
+      'action': instance.action,
+    };
 
 _$NotificationSourceImpl _$$NotificationSourceImplFromJson(
         Map<String, dynamic> json) =>
