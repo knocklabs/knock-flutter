@@ -402,8 +402,7 @@ mixin _$ChannelTypesJson {
       name: 'channel_types',
       toJson: _nonNullChannelTypePreferencesToJson,
       fromJson: _nonNullChannelTypePreferencesFromJson)
-  Map<ChannelType, ChannelTypePreference> get channelTypes =>
-      throw _privateConstructorUsedError;
+  dynamic get channelTypes => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -422,7 +421,7 @@ abstract class _$ChannelTypesJsonCopyWith<$Res> {
           name: 'channel_types',
           toJson: _nonNullChannelTypePreferencesToJson,
           fromJson: _nonNullChannelTypePreferencesFromJson)
-      Map<ChannelType, ChannelTypePreference> channelTypes});
+      dynamic channelTypes});
 }
 
 /// @nodoc
@@ -438,13 +437,13 @@ class __$ChannelTypesJsonCopyWithImpl<$Res, $Val extends _ChannelTypesJson>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? channelTypes = null,
+    Object? channelTypes = freezed,
   }) {
     return _then(_value.copyWith(
-      channelTypes: null == channelTypes
+      channelTypes: freezed == channelTypes
           ? _value.channelTypes
           : channelTypes // ignore: cast_nullable_to_non_nullable
-              as Map<ChannelType, ChannelTypePreference>,
+              as dynamic,
     ) as $Val);
   }
 }
@@ -462,7 +461,7 @@ abstract class _$$_ChannelTypesJsonImplCopyWith<$Res>
           name: 'channel_types',
           toJson: _nonNullChannelTypePreferencesToJson,
           fromJson: _nonNullChannelTypePreferencesFromJson)
-      Map<ChannelType, ChannelTypePreference> channelTypes});
+      dynamic channelTypes});
 }
 
 /// @nodoc
@@ -476,13 +475,13 @@ class __$$_ChannelTypesJsonImplCopyWithImpl<$Res>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? channelTypes = null,
+    Object? channelTypes = freezed,
   }) {
     return _then(_$_ChannelTypesJsonImpl(
-      channelTypes: null == channelTypes
-          ? _value._channelTypes
+      channelTypes: freezed == channelTypes
+          ? _value.channelTypes
           : channelTypes // ignore: cast_nullable_to_non_nullable
-              as Map<ChannelType, ChannelTypePreference>,
+              as dynamic,
     ));
   }
 }
@@ -496,23 +495,17 @@ class _$_ChannelTypesJsonImpl implements __ChannelTypesJson {
           name: 'channel_types',
           toJson: _nonNullChannelTypePreferencesToJson,
           fromJson: _nonNullChannelTypePreferencesFromJson)
-      required final Map<ChannelType, ChannelTypePreference> channelTypes})
-      : _channelTypes = channelTypes;
+      required this.channelTypes});
 
   factory _$_ChannelTypesJsonImpl.fromJson(Map<String, dynamic> json) =>
       _$$_ChannelTypesJsonImplFromJson(json);
 
-  final Map<ChannelType, ChannelTypePreference> _channelTypes;
   @override
   @JsonKey(
       name: 'channel_types',
       toJson: _nonNullChannelTypePreferencesToJson,
       fromJson: _nonNullChannelTypePreferencesFromJson)
-  Map<ChannelType, ChannelTypePreference> get channelTypes {
-    if (_channelTypes is EqualUnmodifiableMapView) return _channelTypes;
-    // ignore: implicit_dynamic_type
-    return EqualUnmodifiableMapView(_channelTypes);
-  }
+  final dynamic channelTypes;
 
   @override
   String toString() {
@@ -525,13 +518,13 @@ class _$_ChannelTypesJsonImpl implements __ChannelTypesJson {
         (other.runtimeType == runtimeType &&
             other is _$_ChannelTypesJsonImpl &&
             const DeepCollectionEquality()
-                .equals(other._channelTypes, _channelTypes));
+                .equals(other.channelTypes, channelTypes));
   }
 
   @JsonKey(ignore: true)
   @override
   int get hashCode => Object.hash(
-      runtimeType, const DeepCollectionEquality().hash(_channelTypes));
+      runtimeType, const DeepCollectionEquality().hash(channelTypes));
 
   @JsonKey(ignore: true)
   @override
@@ -554,8 +547,7 @@ abstract class __ChannelTypesJson implements _ChannelTypesJson {
           name: 'channel_types',
           toJson: _nonNullChannelTypePreferencesToJson,
           fromJson: _nonNullChannelTypePreferencesFromJson)
-      required final Map<ChannelType, ChannelTypePreference>
-          channelTypes}) = _$_ChannelTypesJsonImpl;
+      required final dynamic channelTypes}) = _$_ChannelTypesJsonImpl;
 
   factory __ChannelTypesJson.fromJson(Map<String, dynamic> json) =
       _$_ChannelTypesJsonImpl.fromJson;
@@ -565,7 +557,7 @@ abstract class __ChannelTypesJson implements _ChannelTypesJson {
       name: 'channel_types',
       toJson: _nonNullChannelTypePreferencesToJson,
       fromJson: _nonNullChannelTypePreferencesFromJson)
-  Map<ChannelType, ChannelTypePreference> get channelTypes;
+  dynamic get channelTypes;
   @override
   @JsonKey(ignore: true)
   _$$_ChannelTypesJsonImplCopyWith<_$_ChannelTypesJsonImpl> get copyWith =>
