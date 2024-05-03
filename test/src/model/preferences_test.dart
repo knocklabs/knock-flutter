@@ -102,9 +102,9 @@ void main() {
                 ),
               },
               conditions: [
-                // Workflows and categories have the same backing structure so 
+                // Workflows and categories have the same backing structure so
                 // we do not need to recheck the parsing in categories, but we
-                // will ensure that parsing works correct when there is not 
+                // will ensure that parsing works correct when there is not
                 // conditions provided.
                 const PreferenceCondition(
                   variable: 'v4',
@@ -174,6 +174,42 @@ void main() {
       expect(
         preferenceSet.categories,
         equals({'park-wide': WorkflowPreferenceSetting(value: false)}),
+      );
+    });
+
+    test('correctly when no categories only have conditions', () async {
+      final json = jsonDecode('''
+          {
+            "id": "default",
+            "categories": {
+              "park-wide": {
+                "conditions": [
+                  {"variable": "v3", "operator": "o3", "argument": "a3"}
+                ]
+              }
+            },
+            "workflows": null,
+            "channel_types": null
+          }
+        ''');
+
+      final preferenceSet = PreferenceSet.fromJson(json);
+      expect(preferenceSet.id, 'default');
+      expect(preferenceSet.channelTypes, isNull);
+      expect(preferenceSet.workflows, isNull);
+      expect(
+        preferenceSet.categories,
+        equals({
+          'park-wide': WorkflowPreferenceSetting(
+            conditions: [
+              const PreferenceCondition(
+                variable: 'v3',
+                operator: 'o3',
+                argument: 'a3',
+              ),
+            ],
+          ),
+        }),
       );
     });
   });
@@ -312,6 +348,37 @@ void main() {
               ],
             },
           },
+        },
+      );
+    });
+
+    test('correctly when categories only has conditions', () async {
+      expect(
+        SetPreferencesProperties(
+          categories: {
+            'park-wide': WorkflowPreferenceSetting(
+              conditions: [
+                const PreferenceCondition(
+                  variable: 'v3',
+                  operator: 'o3',
+                  argument: 'a3',
+                ),
+              ],
+            ),
+          },
+          workflows: null,
+          channelTypes: null,
+        ).toJson(),
+        {
+          'categories': {
+            'park-wide': {
+              'conditions': [
+                {'variable': 'v3', 'operator': 'o3', 'argument': 'a3'},
+              ],
+            },
+          },
+          'workflows': null,
+          'channel_types': null,
         },
       );
     });

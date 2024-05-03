@@ -12,7 +12,7 @@ _$_ChannelTypesJsonImpl _$$_ChannelTypesJsonImplFromJson(
         Map<String, dynamic> json) =>
     _$_ChannelTypesJsonImpl(
       channelTypes: _nonNullChannelTypePreferencesFromJson(
-          json['channel_types'] as Map<String, dynamic>),
+          json['channel_types'] as Map<String, dynamic>?),
     );
 
 Map<String, dynamic> _$$_ChannelTypesJsonImplToJson(

@@ -50,8 +50,6 @@ class WorkflowPreferenceSetting with _$WorkflowPreferenceSetting {
   }) = _WorkflowPreferenceSetting;
 }
 
-// This class is only used for JSON encoding/decoding. The channel_types value
-// is what will be exposed in the public SDK.
 @freezed
 class _ChannelTypesJson with _$ChannelTypesJson {
   @JsonSerializable(explicitToJson: true)
@@ -61,15 +59,13 @@ class _ChannelTypesJson with _$ChannelTypesJson {
       toJson: _nonNullChannelTypePreferencesToJson,
       fromJson: _nonNullChannelTypePreferencesFromJson,
     )
-    required ChannelTypePreferences channelTypes,
+    required dynamic channelTypes,
   }) = __ChannelTypesJson;
 
   factory _ChannelTypesJson.fromJson(Map<String, dynamic> json) =>
       _$ChannelTypesJsonFromJson(json);
 }
 
-// This class is only used for JSON encoding/decoding. The conditions value
-// is what will be exposed in the public SDK.
 @freezed
 class _ConditionsJson with _$ConditionsJson {
   @JsonSerializable(explicitToJson: true)
@@ -153,16 +149,18 @@ dynamic _workflowPreferencesToJson(WorkflowPreferences? value) {
       final channelTypes = value.channelTypePreferences;
       final conditions = value.conditions;
 
-      final channelTypesJson = channelTypes == null
-          ? <String, dynamic>{}
-          : _ChannelTypesJson(channelTypes: channelTypes).toJson();
-      final conditionsJson = conditions == null
-          ? <String, dynamic>{}
-          : _ConditionsJson(conditions: conditions).toJson();
-      json = Map.fromEntries([
-        ...channelTypesJson.entries,
-        ...conditionsJson.entries,
-      ]);
+      if (channelTypes != null && conditions != null) {
+        json = {
+          ..._ChannelTypesJson(channelTypes: channelTypes).toJson(),
+          ..._ConditionsJson(conditions: conditions).toJson(),
+        };
+      } else if (channelTypes != null) {
+        json = _ChannelTypesJson(channelTypes: channelTypes).toJson();
+      } else if (conditions != null) {
+        json = _ConditionsJson(conditions: conditions).toJson();
+      } else {
+        json = null;
+      }
     }
 
     return MapEntry(key, json);
@@ -200,21 +198,25 @@ dynamic _nonNullChannelTypePreferencesToJson(ChannelTypePreferences value) {
   });
 }
 
-ChannelTypePreferences _nonNullChannelTypePreferencesFromJson(
-  Map<String, dynamic> json,
+ChannelTypePreferences? _nonNullChannelTypePreferencesFromJson(
+  Map<String, dynamic>? json,
 ) {
-  return json.map((key, value) {
-    final ChannelTypePreference setting;
-    if (value is bool) {
-      setting = ChannelTypePreference(value: value);
-    } else {
-      final parsed = _ConditionsJson.fromJson(value);
-      final conditions = parsed.conditions ?? [];
-      setting = ChannelTypePreference(conditions: conditions);
-    }
+  if (json != null) {
+    return json.map((key, value) {
+      final ChannelTypePreference setting;
+      if (value is bool) {
+        setting = ChannelTypePreference(value: value);
+      } else {
+        final parsed = _ConditionsJson.fromJson(value);
+        final conditions = parsed.conditions ?? [];
+        setting = ChannelTypePreference(conditions: conditions);
+      }
 
-    return MapEntry(ChannelType._valueOf(key), setting);
-  });
+      return MapEntry(ChannelType._valueOf(key), setting);
+    });
+  } else {
+    return null;
+  }
 }
 
 dynamic _channelTypePreferencesToJson(ChannelTypePreferences? value) {
