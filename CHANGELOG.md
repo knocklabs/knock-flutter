@@ -1,3 +1,7 @@
+## 0.1.4
+
+- fix: ensure preferences can handle both conditions and channel types
+
 ## 0.1.3
 
 - feat: add new ContentBlock types to FeedItem
