@@ -1,3 +1,7 @@
+## 0.1.5
+
+- fix: add `rendered` property to `TextContentBlock`
+
 ## 0.1.4
 
 - fix: ensure preferences can handle both conditions and channel types

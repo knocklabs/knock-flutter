@@ -75,3 +75,9 @@ flutter pub run pigeon --input pigeons/messages.dart
 ```
 
 Note: Generated files are checked into version control because they are part of the released packaged.
+
+### Release (Internal)
+
+Manually update changelog.md file.
+Create PR
+After your PR is merged, run /release status knock-flutter in slack to start the release process
