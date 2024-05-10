@@ -152,6 +152,7 @@ _$TextContentBlockImpl _$$TextContentBlockImplFromJson(
     _$TextContentBlockImpl(
       name: json['name'] as String,
       content: json['content'] as String,
+      rendered: json['rendered'] as String,
       $type: json['runtimeType'] as String?,
     );
 
@@ -160,6 +161,7 @@ Map<String, dynamic> _$$TextContentBlockImplToJson(
     <String, dynamic>{
       'name': instance.name,
       'content': instance.content,
+      'rendered': instance.rendered,
       'runtimeType': instance.$type,
     };
 

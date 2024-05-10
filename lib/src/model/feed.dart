@@ -124,6 +124,7 @@ class ContentBlock with _$ContentBlock {
   const factory ContentBlock.text({
     required String name,
     required String content,
+    required String rendered,
   }) = TextContentBlock;
 
   const factory ContentBlock.buttonSet({
