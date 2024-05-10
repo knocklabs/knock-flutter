@@ -79,5 +79,6 @@ Note: Generated files are checked into version control because they are part of 
 ### Release (Internal)
 
 Manually update changelog.md file.
+Update release version in pubspec.yaml
 Create PR
 After your PR is merged, run /release status knock-flutter in slack to start the release process
