@@ -137,8 +137,9 @@ void main() {
                     "type": "markdown"
                 },
                 {
-                    "content": "{{ vars.app_url }}",
+                    "content": "https://pavecommute.app/home/challenges/history/summary/{{challengeId}}?p=1",
                     "name": "action_url",
+                    "rendered": "https://pavecommute.app/home/challenges/history/summary/3?p=1",
                     "type": "text"
                 },
                 {
@@ -306,8 +307,11 @@ void main() {
                 '<p>Hey <strong>Ellie</strong> - John Hammond added a new comment.</p>',
           ),
           ContentBlock.text(
-            content: '{{ vars.app_url }}',
+            content:
+                'https://pavecommute.app/home/challenges/history/summary/{{challengeId}}?p=1',
             name: 'action_url',
+            rendered:
+                'https://pavecommute.app/home/challenges/history/summary/3?p=1',
           ),
           ContentBlock.buttonSet(
             name: 'actions',

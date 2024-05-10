@@ -1190,7 +1190,8 @@ mixin _$ContentBlock {
   TResult when<TResult extends Object?>({
     required TResult Function(String name, String content, String rendered)
         markdown,
-    required TResult Function(String name, String content) text,
+    required TResult Function(String name, String content, String rendered)
+        text,
     required TResult Function(String name, List<BlockActionButton> buttons)
         buttonSet,
   }) =>
@@ -1198,14 +1199,14 @@ mixin _$ContentBlock {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function(String name, String content, String rendered)? markdown,
-    TResult? Function(String name, String content)? text,
+    TResult? Function(String name, String content, String rendered)? text,
     TResult? Function(String name, List<BlockActionButton> buttons)? buttonSet,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(String name, String content, String rendered)? markdown,
-    TResult Function(String name, String content)? text,
+    TResult Function(String name, String content, String rendered)? text,
     TResult Function(String name, List<BlockActionButton> buttons)? buttonSet,
     required TResult orElse(),
   }) =>
@@ -1371,7 +1372,8 @@ class _$MarkdownContentBlockImpl extends MarkdownContentBlock {
   TResult when<TResult extends Object?>({
     required TResult Function(String name, String content, String rendered)
         markdown,
-    required TResult Function(String name, String content) text,
+    required TResult Function(String name, String content, String rendered)
+        text,
     required TResult Function(String name, List<BlockActionButton> buttons)
         buttonSet,
   }) {
@@ -1382,7 +1384,7 @@ class _$MarkdownContentBlockImpl extends MarkdownContentBlock {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function(String name, String content, String rendered)? markdown,
-    TResult? Function(String name, String content)? text,
+    TResult? Function(String name, String content, String rendered)? text,
     TResult? Function(String name, List<BlockActionButton> buttons)? buttonSet,
   }) {
     return markdown?.call(name, content, rendered);
@@ -1392,7 +1394,7 @@ class _$MarkdownContentBlockImpl extends MarkdownContentBlock {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(String name, String content, String rendered)? markdown,
-    TResult Function(String name, String content)? text,
+    TResult Function(String name, String content, String rendered)? text,
     TResult Function(String name, List<BlockActionButton> buttons)? buttonSet,
     required TResult orElse(),
   }) {
@@ -1472,7 +1474,7 @@ abstract class _$$TextContentBlockImplCopyWith<$Res>
       __$$TextContentBlockImplCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({String name, String content});
+  $Res call({String name, String content, String rendered});
 }
 
 /// @nodoc
@@ -1488,6 +1490,7 @@ class __$$TextContentBlockImplCopyWithImpl<$Res>
   $Res call({
     Object? name = null,
     Object? content = null,
+    Object? rendered = null,
   }) {
     return _then(_$TextContentBlockImpl(
       name: null == name
@@ -1498,6 +1501,10 @@ class __$$TextContentBlockImplCopyWithImpl<$Res>
           ? _value.content
           : content // ignore: cast_nullable_to_non_nullable
               as String,
+      rendered: null == rendered
+          ? _value.rendered
+          : rendered // ignore: cast_nullable_to_non_nullable
+              as String,
     ));
   }
 }
@@ -1506,7 +1513,10 @@ class __$$TextContentBlockImplCopyWithImpl<$Res>
 @JsonSerializable()
 class _$TextContentBlockImpl extends TextContentBlock {
   const _$TextContentBlockImpl(
-      {required this.name, required this.content, final String? $type})
+      {required this.name,
+      required this.content,
+      required this.rendered,
+      final String? $type})
       : $type = $type ?? 'text',
         super._();
 
@@ -1517,13 +1527,15 @@ class _$TextContentBlockImpl extends TextContentBlock {
   final String name;
   @override
   final String content;
+  @override
+  final String rendered;
 
   @JsonKey(name: 'runtimeType')
   final String $type;
 
   @override
   String toString() {
-    return 'ContentBlock.text(name: $name, content: $content)';
+    return 'ContentBlock.text(name: $name, content: $content, rendered: $rendered)';
   }
 
   @override
@@ -1532,12 +1544,14 @@ class _$TextContentBlockImpl extends TextContentBlock {
         (other.runtimeType == runtimeType &&
             other is _$TextContentBlockImpl &&
             (identical(other.name, name) || other.name == name) &&
-            (identical(other.content, content) || other.content == content));
+            (identical(other.content, content) || other.content == content) &&
+            (identical(other.rendered, rendered) ||
+                other.rendered == rendered));
   }
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode => Object.hash(runtimeType, name, content);
+  int get hashCode => Object.hash(runtimeType, name, content, rendered);
 
   @JsonKey(ignore: true)
   @override
@@ -1551,33 +1565,34 @@ class _$TextContentBlockImpl extends TextContentBlock {
   TResult when<TResult extends Object?>({
     required TResult Function(String name, String content, String rendered)
         markdown,
-    required TResult Function(String name, String content) text,
+    required TResult Function(String name, String content, String rendered)
+        text,
     required TResult Function(String name, List<BlockActionButton> buttons)
         buttonSet,
   }) {
-    return text(name, content);
+    return text(name, content, rendered);
   }
 
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function(String name, String content, String rendered)? markdown,
-    TResult? Function(String name, String content)? text,
+    TResult? Function(String name, String content, String rendered)? text,
     TResult? Function(String name, List<BlockActionButton> buttons)? buttonSet,
   }) {
-    return text?.call(name, content);
+    return text?.call(name, content, rendered);
   }
 
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(String name, String content, String rendered)? markdown,
-    TResult Function(String name, String content)? text,
+    TResult Function(String name, String content, String rendered)? text,
     TResult Function(String name, List<BlockActionButton> buttons)? buttonSet,
     required TResult orElse(),
   }) {
     if (text != null) {
-      return text(name, content);
+      return text(name, content, rendered);
     }
     return orElse();
   }
@@ -1627,7 +1642,8 @@ class _$TextContentBlockImpl extends TextContentBlock {
 abstract class TextContentBlock extends ContentBlock {
   const factory TextContentBlock(
       {required final String name,
-      required final String content}) = _$TextContentBlockImpl;
+      required final String content,
+      required final String rendered}) = _$TextContentBlockImpl;
   const TextContentBlock._() : super._();
 
   factory TextContentBlock.fromJson(Map<String, dynamic> json) =
@@ -1636,6 +1652,7 @@ abstract class TextContentBlock extends ContentBlock {
   @override
   String get name;
   String get content;
+  String get rendered;
   @override
   @JsonKey(ignore: true)
   _$$TextContentBlockImplCopyWith<_$TextContentBlockImpl> get copyWith =>
@@ -1739,7 +1756,8 @@ class _$ButtonSetContentBlockImpl extends ButtonSetContentBlock {
   TResult when<TResult extends Object?>({
     required TResult Function(String name, String content, String rendered)
         markdown,
-    required TResult Function(String name, String content) text,
+    required TResult Function(String name, String content, String rendered)
+        text,
     required TResult Function(String name, List<BlockActionButton> buttons)
         buttonSet,
   }) {
@@ -1750,7 +1768,7 @@ class _$ButtonSetContentBlockImpl extends ButtonSetContentBlock {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function(String name, String content, String rendered)? markdown,
-    TResult? Function(String name, String content)? text,
+    TResult? Function(String name, String content, String rendered)? text,
     TResult? Function(String name, List<BlockActionButton> buttons)? buttonSet,
   }) {
     return buttonSet?.call(name, buttons);
@@ -1760,7 +1778,7 @@ class _$ButtonSetContentBlockImpl extends ButtonSetContentBlock {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(String name, String content, String rendered)? markdown,
-    TResult Function(String name, String content)? text,
+    TResult Function(String name, String content, String rendered)? text,
     TResult Function(String name, List<BlockActionButton> buttons)? buttonSet,
     required TResult orElse(),
   }) {

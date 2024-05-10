@@ -857,7 +857,7 @@ class _FeedItemWidget extends StatelessWidget {
                     'p': Style(padding: HtmlPaddings.zero, margin: Margins.zero)
                   },
                 ),
-                text: (name, content) => Html(
+                text: (name, content, rendered) => Html(
                   data: content,
                   style: {
                     'body': Style(margin: Margins.zero),
