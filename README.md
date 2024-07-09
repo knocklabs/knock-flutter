@@ -82,3 +82,27 @@ Manually update changelog.md file.
 Update release version in pubspec.yaml
 Create PR
 After your PR is merged, run /release status knock-flutter in slack to start the release process
+
+### Running Example App
+
+https://docs.flutter.dev/get-started/test-drive
+
+Open the Command Palette.
+
+Go to View > Command Palette or press Command + Shift + P.
+
+Type flutter.
+
+Select the Flutter: Select Device.
+
+If no devices are running, this command prompts you to enable a device.
+
+Select a target device from Select Device prompt.
+
+After you select a target, start the app. Go to Run > Start Debugging or press F5.
+
+Wait for the app to launch.
+
+You can watch the launch progress in the Debug Console view.
+
+After the app build completes, your device displays your app.

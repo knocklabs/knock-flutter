@@ -1,3 +1,7 @@
+## 0.1.6
+
+- fix: Adding `ApiResponse` to `ApiError` to provide more context
+
 ## 0.1.5
 
 - fix: add `rendered` property to `TextContentBlock`

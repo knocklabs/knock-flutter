@@ -27,10 +27,20 @@ class ApiResponse with _$ApiResponse {
       throw ApiError(this);
     }
   }
+
+  @override
+  String toString() {
+    return 'ApiResponse(status: $status, statusCode: $statusCode, body: $body, error: $error)';
+  }
 }
 
 class ApiError extends Error {
   ApiError(this.response);
 
   final ApiResponse response;
+
+  @override
+  String toString() {
+    return 'ApiError: ${response.toString()}';
+  }
 }
