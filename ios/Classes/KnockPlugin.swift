@@ -2,7 +2,16 @@ import Flutter
 import UIKit
 import Combine
 
-extension FlutterError: Error {}
+struct FlutterErrorWrapper: Error {
+    let flutterError: FlutterError
+    let message: String
+
+    // You can customize the message or handle specific properties of FlutterError
+    init(flutterError: FlutterError) {
+        self.flutterError = flutterError
+        self.message = flutterError.message ?? "Unknown Flutter error"
+    }
+}
 
 public class KnockPlugin: NSObject, FlutterPlugin, KnockHostApi {
     public static func register(with registrar: FlutterPluginRegistrar) {
@@ -15,7 +24,9 @@ public class KnockPlugin: NSObject, FlutterPlugin, KnockHostApi {
     private let apnsTokenSubject = PassthroughSubject<Result<Data, Error>, Error>()
 
     func getFcmToken(completion: @escaping (Result<String, Error>) -> Void) {
-        completion(.failure(FlutterError(code: "unsupported", message: "getFcmToken is not supported on iOS", details: nil)))
+        let flutterError = FlutterError(code: "unsupported", message: "getFcmToken is not supported on iOS", details: nil)
+
+        completion(.failure(FlutterErrorWrapper(flutterError: flutterError)))
     }
     
     func getApnsToken(completion: @escaping (Result<String, Error>) -> Void) {
