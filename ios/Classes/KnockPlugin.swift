@@ -6,7 +6,6 @@ struct FlutterErrorWrapper: Error {
     let flutterError: FlutterError
     let message: String
 
-    // You can customize the message or handle specific properties of FlutterError
     init(flutterError: FlutterError) {
         self.flutterError = flutterError
         self.message = flutterError.message ?? "Unknown Flutter error"
