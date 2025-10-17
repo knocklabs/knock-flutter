@@ -158,7 +158,9 @@ extension _ChannelDataExtension on ChannelData {
   }
 
   ChannelData removeToken(String token) {
-    final devices = data.devices.where((device) => device.token != token).toList();
+    final devices = data.devices
+        .where((device) => device.token != token)
+        .toList();
     return copyWith(
       data: data.copyWith(devices: devices),
     );

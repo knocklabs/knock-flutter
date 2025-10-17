@@ -46,7 +46,12 @@ void main() {
 
         await userClient.registerTokenForChannel('testChannelId', 'testToken');
 
-        verify(apiClient.doPut(any, body: argThat(contains('"token":"testToken"'), named: 'body')));
+        verify(
+          apiClient.doPut(
+            any,
+            body: argThat(contains('"token":"testToken"'), named: 'body'),
+          ),
+        );
       });
 
       test('skips appending existing devices', () async {
@@ -71,7 +76,12 @@ void main() {
 
         await userClient.registerTokenForChannel('testChannelId', 'testToken');
 
-        verify(apiClient.doPut(any, body: argThat(contains('"token":"testToken"'), named: 'body')));
+        verify(
+          apiClient.doPut(
+            any,
+            body: argThat(contains('"token":"testToken"'), named: 'body'),
+          ),
+        );
       });
 
       test('only rethrows other errors when registering tokens', () async {
