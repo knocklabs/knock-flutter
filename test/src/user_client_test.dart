@@ -43,7 +43,8 @@ void main() {
           const Device(
               token: 'testToken',
               locale: 'en-US',
-              timezone: 'America/New_York'),
+              timezone: 'America/New_York',
+          ),
         ]).toJson(),
       ),
     );
