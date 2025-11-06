@@ -79,7 +79,7 @@ class UserClient {
     return ChannelData.fromJson(json);
   }
 
-  Future<ChannelData> registerTokenForChannel(
+  Future<ChannelData> registerDeviceForChannel(
     String channelId,
     String token,
   ) async {
@@ -102,7 +102,7 @@ class UserClient {
       }
     }
 
-    if (channelData.hasToken(token)) {
+    if (channelData.hasDevice(token)) {
       return channelData;
     } else {
       final device = Device(
@@ -115,7 +115,7 @@ class UserClient {
     }
   }
 
-  Future<ChannelData> deregisterTokenForChannel(
+  Future<ChannelData> deregisterDeviceForChannel(
     String channelId,
     String token,
   ) async {
@@ -135,8 +135,8 @@ class UserClient {
       }
     }
 
-    if (channelData.hasToken(token)) {
-      final modifiedChannelData = channelData.removeToken(token);
+    if (channelData.hasDevice(token)) {
+      final modifiedChannelData = channelData.removeDevice(token);
       return setChannelData(channelId, modifiedChannelData);
     } else {
       return channelData;
@@ -145,7 +145,7 @@ class UserClient {
 }
 
 extension _ChannelDataExtension on ChannelData {
-  bool hasToken(String token) {
+  bool hasDevice(String token) {
     final devices = data.devices;
     return devices.any((device) => device.token == token);
   }
@@ -157,10 +157,9 @@ extension _ChannelDataExtension on ChannelData {
     );
   }
 
-  ChannelData removeToken(String token) {
-    final devices = data.devices
-        .where((device) => device.token != token)
-        .toList();
+  ChannelData removeDevice(String token) {
+    final devices =
+        data.devices.where((device) => device.token != token).toList();
     return copyWith(
       data: data.copyWith(devices: devices),
     );
