@@ -133,11 +133,6 @@ class _$ApiResponseImpl extends _ApiResponse {
   final Object? error;
 
   @override
-  String toString() {
-    return 'ApiResponse(status: $status, statusCode: $statusCode, body: $body, error: $error)';
-  }
-
-  @override
   bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&

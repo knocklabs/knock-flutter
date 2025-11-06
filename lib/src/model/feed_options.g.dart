@@ -12,7 +12,7 @@ _$FeedOptionsImpl _$$FeedOptionsImplFromJson(Map<String, dynamic> json) =>
     _$FeedOptionsImpl(
       before: json['before'] as String?,
       after: json['after'] as String?,
-      pageSize: json['page_size'] as int?,
+      pageSize: (json['page_size'] as num?)?.toInt(),
       status: $enumDecodeNullable(_$FeedOptionsStatusEnumMap, json['status']),
       source: json['source'] as String?,
       tenant: json['tenant'] as String?,

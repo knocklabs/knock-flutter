@@ -59,8 +59,8 @@ _$FeedItemImpl _$$FeedItemImplFromJson(Map<String, dynamic> json) =>
           json['archived_at'], const ISO8601DateTimeConverter().fromJson),
       interactedAt: _$JsonConverterFromJson<String, DateTime>(
           json['interacted_at'], const ISO8601DateTimeConverter().fromJson),
-      totalActivities: json['total_activities'] as int,
-      totalActors: json['total_actors'] as int,
+      totalActivities: (json['total_activities'] as num).toInt(),
+      totalActors: (json['total_actors'] as num).toInt(),
       data: json['data'] as Map<String, dynamic>?,
       source:
           NotificationSource.fromJson(json['source'] as Map<String, dynamic>),
@@ -217,7 +217,7 @@ _$PageInfoImpl _$$PageInfoImplFromJson(Map<String, dynamic> json) =>
     _$PageInfoImpl(
       after: json['after'] as String?,
       before: json['before'] as String?,
-      pageSize: json['page_size'] as int,
+      pageSize: (json['page_size'] as num).toInt(),
     );
 
 Map<String, dynamic> _$$PageInfoImplToJson(_$PageInfoImpl instance) =>
@@ -229,9 +229,9 @@ Map<String, dynamic> _$$PageInfoImplToJson(_$PageInfoImpl instance) =>
 
 _$FeedMetadataImpl _$$FeedMetadataImplFromJson(Map<String, dynamic> json) =>
     _$FeedMetadataImpl(
-      totalCount: json['total_count'] as int,
-      unreadCount: json['unread_count'] as int,
-      unseenCount: json['unseen_count'] as int,
+      totalCount: (json['total_count'] as num).toInt(),
+      unreadCount: (json['unread_count'] as num).toInt(),
+      unseenCount: (json['unseen_count'] as num).toInt(),
     );
 
 Map<String, dynamic> _$$FeedMetadataImplToJson(_$FeedMetadataImpl instance) =>
