@@ -80,12 +80,18 @@ class UserClient {
     return ChannelData.fromJson(json);
   }
 
-  Future<ChannelData> registerDeviceForChannel(
+  Future<ChannelData> registerTokenForChannel(
     String channelId,
     String token,
   ) async {
     final locale = PlatformDispatcher.instance.locale.toString();
-    final timezone = await FlutterNativeTimezone.getLocalTimezone();
+    String? timezone;
+    try {
+      timezone = await FlutterNativeTimezone.getLocalTimezone();
+    } catch (error) {
+      // Continue without timezone if we can't get it
+      timezone = null;
+    }
 
     var channelData = ChannelData.forDevices([]);
     try {
@@ -116,7 +122,7 @@ class UserClient {
     }
   }
 
-  Future<ChannelData> deregisterDeviceForChannel(
+  Future<ChannelData> deregisterTokenForChannel(
     String channelId,
     String token,
   ) async {

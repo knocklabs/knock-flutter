@@ -67,7 +67,7 @@ void main() {
         when(apiClient.doPut(any, body: anyNamed('body')))
             .thenAnswer((_) async => noDevicesResponse);
 
-        await userClient.registerDeviceForChannel('testChannelId', 'testToken');
+        await userClient.registerTokenForChannel('testChannelId', 'testToken');
 
         verify(
           apiClient.doPut(
@@ -83,7 +83,7 @@ void main() {
         when(apiClient.doPut(any, body: anyNamed('body')))
             .thenAnswer((_) async => testDeviceResponse);
 
-        await userClient.registerDeviceForChannel('testChannelId', 'testToken');
+        await userClient.registerTokenForChannel('testChannelId', 'testToken');
         verifyNever(apiClient.doPut(any, body: anyNamed('body')));
       });
 
@@ -97,7 +97,7 @@ void main() {
         when(apiClient.doPut(any, body: anyNamed('body')))
             .thenAnswer((_) async => noDevicesResponse);
 
-        await userClient.registerDeviceForChannel('testChannelId', 'testToken');
+        await userClient.registerTokenForChannel('testChannelId', 'testToken');
 
         verify(
           apiClient.doPut(
@@ -118,7 +118,7 @@ void main() {
             .thenAnswer((_) async => noDevicesResponse);
 
         await expectLater(
-          userClient.registerDeviceForChannel(
+          userClient.registerTokenForChannel(
             'testChannelId',
             'testToken',
           ),
@@ -134,7 +134,7 @@ void main() {
         when(apiClient.doPut(any, body: anyNamed('body')))
             .thenAnswer((_) async => noDevicesResponse);
 
-        await userClient.deregisterDeviceForChannel(
+        await userClient.deregisterTokenForChannel(
           'testChannelId',
           'testToken',
         );
@@ -150,7 +150,7 @@ void main() {
       when(apiClient.doPut(any, body: anyNamed('body')))
           .thenAnswer((_) async => testDeviceResponse);
 
-      await userClient.deregisterDeviceForChannel('testChannelId', 'nope');
+      await userClient.deregisterTokenForChannel('testChannelId', 'nope');
       verifyNever(apiClient.doPut(any, body: anyNamed('body')));
     });
 
@@ -164,7 +164,7 @@ void main() {
       when(apiClient.doPut(any, body: anyNamed('body')))
           .thenAnswer((_) async => noDevicesResponse);
 
-      await userClient.deregisterDeviceForChannel('testChannelId', 'nope');
+      await userClient.deregisterTokenForChannel('testChannelId', 'nope');
       verifyNever(apiClient.doPut(any, body: anyNamed('body')));
     });
 
@@ -179,7 +179,7 @@ void main() {
           .thenAnswer((_) async => noDevicesResponse);
 
       await expectLater(
-        userClient.deregisterDeviceForChannel(
+        userClient.deregisterTokenForChannel(
           'testChannelId',
           'testToken',
         ),
