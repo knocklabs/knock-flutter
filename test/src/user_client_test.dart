@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:flutter/services.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:knock_flutter/knock_flutter.dart';
 import 'package:knock_flutter/src/model/api_response.dart';
@@ -8,17 +9,44 @@ import 'package:mockito/mockito.dart';
 import 'mocks.mocks.dart';
 
 void main() {
+  TestWidgetsFlutterBinding.ensureInitialized();
+
+  const channel = MethodChannel('flutter_native_timezone');
+
+  setUp(() {
+    TestDefaultBinaryMessengerBinding.instance.defaultBinaryMessenger
+        .setMockMethodCallHandler(channel, (methodCall) async {
+      if (methodCall.method == 'getLocalTimezone') {
+        return 'America/New_York';
+      }
+      return null;
+    });
+  });
+
+  tearDown(() {
+    TestDefaultBinaryMessengerBinding.instance.defaultBinaryMessenger
+        .setMockMethodCallHandler(channel, null);
+  });
+
   group('UserClient', () {
-    final noTokensResponse = ApiResponse(
+    final noDevicesResponse = ApiResponse(
       status: 200,
       statusCode: StatusCode.ok,
-      body: jsonEncode(ChannelData.forTokens([]).toJson()),
+      body: jsonEncode(ChannelData.forDevices([]).toJson()),
     );
 
-    final testTokenResponse = ApiResponse(
+    final testDeviceResponse = ApiResponse(
       status: 200,
       statusCode: StatusCode.ok,
-      body: jsonEncode(ChannelData.forTokens(['testToken']).toJson()),
+      body: jsonEncode(
+        ChannelData.forDevices([
+          const Device(
+              token: 'testToken',
+              locale: 'en-US',
+              timezone: 'America/New_York',
+          ),
+        ]).toJson(),
+      ),
     );
 
     late MockApiClient apiClient;
@@ -33,24 +61,28 @@ void main() {
       userClient = UserClient(knock);
     });
 
-    group('appends tokens', () {
+    group('appends devices', () {
       test('to a channel', () async {
-        when(apiClient.doGet(any)).thenAnswer((_) async => noTokensResponse);
+        when(apiClient.doGet(any)).thenAnswer((_) async => noDevicesResponse);
         // We don't actually care what the response is for this test
         when(apiClient.doPut(any, body: anyNamed('body')))
-            .thenAnswer((_) async => noTokensResponse);
+            .thenAnswer((_) async => noDevicesResponse);
 
         await userClient.registerTokenForChannel('testChannelId', 'testToken');
 
-        final expectedPut = ChannelData.forTokens(['testToken']);
-        verify(apiClient.doPut(any, body: jsonEncode(expectedPut.toJson())));
+        verify(
+          apiClient.doPut(
+            any,
+            body: argThat(contains('"token":"testToken"'), named: 'body'),
+          ),
+        );
       });
 
-      test('skips appending existing tokens', () async {
-        when(apiClient.doGet(any)).thenAnswer((_) async => testTokenResponse);
+      test('skips appending existing devices', () async {
+        when(apiClient.doGet(any)).thenAnswer((_) async => testDeviceResponse);
         // We don't actually care what the response is for this test
         when(apiClient.doPut(any, body: anyNamed('body')))
-            .thenAnswer((_) async => testTokenResponse);
+            .thenAnswer((_) async => testDeviceResponse);
 
         await userClient.registerTokenForChannel('testChannelId', 'testToken');
         verifyNever(apiClient.doPut(any, body: anyNamed('body')));
@@ -64,12 +96,16 @@ void main() {
         );
         // We don't actually care what the response is for this test
         when(apiClient.doPut(any, body: anyNamed('body')))
-            .thenAnswer((_) async => noTokensResponse);
+            .thenAnswer((_) async => noDevicesResponse);
 
         await userClient.registerTokenForChannel('testChannelId', 'testToken');
 
-        final expectedPut = ChannelData.forTokens(['testToken']);
-        verify(apiClient.doPut(any, body: jsonEncode(expectedPut.toJson())));
+        verify(
+          apiClient.doPut(
+            any,
+            body: argThat(contains('"token":"testToken"'), named: 'body'),
+          ),
+        );
       });
 
       test('only rethrows other errors when registering tokens', () async {
@@ -80,7 +116,7 @@ void main() {
         );
         // We don't actually care what the response is for this test
         when(apiClient.doPut(any, body: anyNamed('body')))
-            .thenAnswer((_) async => noTokensResponse);
+            .thenAnswer((_) async => noDevicesResponse);
 
         await expectLater(
           userClient.registerTokenForChannel(
@@ -92,28 +128,28 @@ void main() {
       });
     });
 
-    group('removes tokens', () {
+    group('removes devices', () {
       test('from a channel', () async {
-        when(apiClient.doGet(any)).thenAnswer((_) async => testTokenResponse);
+        when(apiClient.doGet(any)).thenAnswer((_) async => testDeviceResponse);
         // We don't actually care what the response is for this test
         when(apiClient.doPut(any, body: anyNamed('body')))
-            .thenAnswer((_) async => noTokensResponse);
+            .thenAnswer((_) async => noDevicesResponse);
 
         await userClient.deregisterTokenForChannel(
           'testChannelId',
           'testToken',
         );
 
-        final expectedPut = ChannelData.forTokens([]);
+        final expectedPut = ChannelData.forDevices([]);
         verify(apiClient.doPut(any, body: jsonEncode(expectedPut.toJson())));
       });
     });
 
-    test('skips removing non-existant tokens', () async {
-      when(apiClient.doGet(any)).thenAnswer((_) async => testTokenResponse);
+    test('skips removing non-existant devices', () async {
+      when(apiClient.doGet(any)).thenAnswer((_) async => testDeviceResponse);
       // We don't actually care what the response is for this test
       when(apiClient.doPut(any, body: anyNamed('body')))
-          .thenAnswer((_) async => testTokenResponse);
+          .thenAnswer((_) async => testDeviceResponse);
 
       await userClient.deregisterTokenForChannel('testChannelId', 'nope');
       verifyNever(apiClient.doPut(any, body: anyNamed('body')));
@@ -127,7 +163,7 @@ void main() {
       );
       // We don't actually care what the response is for this test
       when(apiClient.doPut(any, body: anyNamed('body')))
-          .thenAnswer((_) async => noTokensResponse);
+          .thenAnswer((_) async => noDevicesResponse);
 
       await userClient.deregisterTokenForChannel('testChannelId', 'nope');
       verifyNever(apiClient.doPut(any, body: anyNamed('body')));
@@ -141,7 +177,7 @@ void main() {
       );
       // We don't actually care what the response is for this test
       when(apiClient.doPut(any, body: anyNamed('body')))
-          .thenAnswer((_) async => noTokensResponse);
+          .thenAnswer((_) async => noDevicesResponse);
 
       await expectLater(
         userClient.deregisterTokenForChannel(

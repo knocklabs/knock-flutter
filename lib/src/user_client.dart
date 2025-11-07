@@ -1,5 +1,7 @@
 import 'dart:convert';
+import 'dart:ui';
 
+import 'package:flutter_native_timezone/flutter_native_timezone.dart';
 import 'package:knock_flutter/knock_flutter.dart';
 import 'package:knock_flutter/src/model/api_response.dart';
 import 'package:knock_flutter/src/util/arguments.dart';
@@ -82,7 +84,16 @@ class UserClient {
     String channelId,
     String token,
   ) async {
-    var channelData = ChannelData.forTokens([]);
+    final locale = PlatformDispatcher.instance.locale.toString();
+    String? timezone;
+    try {
+      timezone = await FlutterNativeTimezone.getLocalTimezone();
+    } catch (error) {
+      // Continue without timezone if we can't get it
+      timezone = null;
+    }
+
+    var channelData = ChannelData.forDevices([]);
     try {
       channelData = await getChannelData(channelId);
     } catch (error) {
@@ -98,10 +109,15 @@ class UserClient {
       }
     }
 
-    if (channelData.hasToken(token)) {
+    if (channelData.hasDevice(token)) {
       return channelData;
     } else {
-      final modifiedChannelData = channelData.appendToken(token);
+      final device = Device(
+        token: token,
+        locale: locale,
+        timezone: timezone,
+      );
+      final modifiedChannelData = channelData.appendDevice(device);
       return setChannelData(channelId, modifiedChannelData);
     }
   }
@@ -110,7 +126,7 @@ class UserClient {
     String channelId,
     String token,
   ) async {
-    var channelData = ChannelData.forTokens([]);
+    var channelData = ChannelData.forDevices([]);
     try {
       channelData = await getChannelData(channelId);
     } catch (error) {
@@ -126,8 +142,8 @@ class UserClient {
       }
     }
 
-    if (channelData.hasToken(token)) {
-      final modifiedChannelData = channelData.removeToken(token);
+    if (channelData.hasDevice(token)) {
+      final modifiedChannelData = channelData.removeDevice(token);
       return setChannelData(channelId, modifiedChannelData);
     } else {
       return channelData;
@@ -136,22 +152,23 @@ class UserClient {
 }
 
 extension _ChannelDataExtension on ChannelData {
-  bool hasToken(String token) {
-    final tokens = data.tokens;
-    return tokens.contains(token);
+  bool hasDevice(String token) {
+    final devices = data.devices;
+    return devices.any((device) => device.token == token);
   }
 
-  ChannelData appendToken(String token) {
-    final tokens = [...data.tokens, token];
+  ChannelData appendDevice(Device device) {
+    final devices = [...data.devices, device];
     return copyWith(
-      data: data.copyWith(tokens: tokens),
+      data: data.copyWith(devices: devices),
     );
   }
 
-  ChannelData removeToken(String token) {
-    final tokens = List.of(data.tokens)..remove(token);
+  ChannelData removeDevice(String token) {
+    final devices =
+        data.devices.where((device) => device.token != token).toList();
     return copyWith(
-      data: data.copyWith(tokens: tokens),
+      data: data.copyWith(devices: devices),
     );
   }
 }

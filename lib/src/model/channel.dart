@@ -4,6 +4,19 @@ part 'channel.freezed.dart';
 part 'channel.g.dart';
 
 @freezed
+class Device with _$Device {
+  @JsonSerializable(explicitToJson: true)
+  const factory Device({
+    required String token,
+    String? locale,
+    String? timezone,
+  }) = _Device;
+
+  factory Device.fromJson(Map<String, dynamic> json) =>
+      _$DeviceFromJson(json);
+}
+
+@freezed
 class ChannelData with _$ChannelData {
   @JsonSerializable(explicitToJson: true)
   const factory ChannelData({
@@ -13,7 +26,15 @@ class ChannelData with _$ChannelData {
   factory ChannelData.forTokens(List<String> tokens) {
     return ChannelData(
       data: ChannelProviderData(
-        tokens: tokens,
+        devices: tokens.map((token) => Device(token: token)).toList(),
+      ),
+    );
+  }
+
+  factory ChannelData.forDevices(List<Device> devices) {
+    return ChannelData(
+      data: ChannelProviderData(
+        devices: devices,
       ),
     );
   }
@@ -26,7 +47,7 @@ class ChannelData with _$ChannelData {
 class ChannelProviderData with _$ChannelProviderData {
   @JsonSerializable(explicitToJson: true)
   const factory ChannelProviderData({
-    required List<String> tokens,
+    required List<Device> devices,
   }) = _ChannelProviderData;
 
   factory ChannelProviderData.fromJson(Map<String, dynamic> json) =>

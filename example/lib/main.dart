@@ -436,12 +436,16 @@ class _ChannelWidgetState extends State<_ChannelWidget> {
 
   void _onAppendChannelData() async {
     _handleChannelData(() {
-      // Knock: Appending new tokens to existing channel data
+      // Knock: Appending new devices to existing channel data
+      final existingDevices = _channelData?.data.devices ?? [];
+      final newDevice = Device(
+        token: 'test-token-${DateTime.now().toIso8601String()}',
+      );
       return widget.knock.user().setChannelData(
           _exampleApnsChannelId,
-          ChannelData.forTokens([
-            ..._channelData?.data.tokens ?? [],
-            'test-token-${DateTime.now().toIso8601String()}',
+          ChannelData.forDevices([
+            ...existingDevices,
+            newDevice,
           ]));
     });
   }
