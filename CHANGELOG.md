@@ -1,3 +1,7 @@
+## 0.1.7
+- feat: Update AppDelegate.swift to request push permissions
+- feat(KNO-10078): replace tokens array with devices array containing token, locale, and timezone
+
 ## 0.1.6
 
 - fix: Adding `ApiResponse` to `ApiError` to provide more context
