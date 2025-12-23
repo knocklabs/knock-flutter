@@ -1,3 +1,7 @@
+## 0.1.8
+- fix: Replace deprecated `flutter_native_timezone` with maintained `flutter_timezone` fork to resolve Android build failures
+- fix: Use `toLanguageTag()` instead of `toString()` for locale formatting to fix iOS 422 invalid_request_error (e.g., `it-IT` instead of `it_IT`)
+
 ## 0.1.7
 - feat: Update AppDelegate.swift to request push permissions
 - feat(KNO-10078): replace tokens array with devices array containing token, locale, and timezone

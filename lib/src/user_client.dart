@@ -1,7 +1,7 @@
 import 'dart:convert';
 import 'dart:ui';
 
-import 'package:flutter_native_timezone/flutter_native_timezone.dart';
+import 'package:flutter_timezone/flutter_timezone.dart';
 import 'package:knock_flutter/knock_flutter.dart';
 import 'package:knock_flutter/src/model/api_response.dart';
 import 'package:knock_flutter/src/util/arguments.dart';
@@ -84,10 +84,10 @@ class UserClient {
     String channelId,
     String token,
   ) async {
-    final locale = PlatformDispatcher.instance.locale.toString();
+    final locale = PlatformDispatcher.instance.locale.toLanguageTag();
     String? timezone;
     try {
-      timezone = await FlutterNativeTimezone.getLocalTimezone();
+      timezone = await FlutterTimezone.getLocalTimezone();
     } catch (error) {
       // Continue without timezone if we can't get it
       timezone = null;
