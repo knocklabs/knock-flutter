@@ -640,6 +640,7 @@ class _FeedWidgetState extends State<_FeedWidget> {
     // Knock: You can listen to a stream of specific events.
     _subscription =
         _feedClient.on(BindableFeedEvent.allItemsEvents).listen((event) {
+      if (!mounted) return;
       ScaffoldMessenger.of(context).showSnackBar(SnackBar(
         content: Text('${event.eventType}: ${event.items.length}'),
         duration: const Duration(seconds: 1),

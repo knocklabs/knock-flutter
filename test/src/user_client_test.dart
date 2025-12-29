@@ -11,7 +11,7 @@ import 'mocks.mocks.dart';
 void main() {
   TestWidgetsFlutterBinding.ensureInitialized();
 
-  const channel = MethodChannel('flutter_native_timezone');
+  const channel = MethodChannel('plugins.flutter.io/flutter_timezone');
 
   setUp(() {
     TestDefaultBinaryMessengerBinding.instance.defaultBinaryMessenger
