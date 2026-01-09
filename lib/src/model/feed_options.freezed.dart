@@ -14,6 +14,195 @@ T _$identity<T>(T value) => value;
 final _privateConstructorUsedError = UnsupportedError(
     'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#adding-getters-and-methods-to-our-models');
 
+InsertedAtDateRange _$InsertedAtDateRangeFromJson(Map<String, dynamic> json) {
+  return _InsertedAtDateRange.fromJson(json);
+}
+
+/// @nodoc
+mixin _$InsertedAtDateRange {
+  /// The start date in ISO 8601 format
+  String? get start => throw _privateConstructorUsedError;
+
+  /// The end date in ISO 8601 format
+  String? get end => throw _privateConstructorUsedError;
+
+  /// Whether to be inclusive of the start and end dates
+  bool? get inclusive => throw _privateConstructorUsedError;
+
+  Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
+  @JsonKey(ignore: true)
+  $InsertedAtDateRangeCopyWith<InsertedAtDateRange> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class $InsertedAtDateRangeCopyWith<$Res> {
+  factory $InsertedAtDateRangeCopyWith(
+          InsertedAtDateRange value, $Res Function(InsertedAtDateRange) then) =
+      _$InsertedAtDateRangeCopyWithImpl<$Res, InsertedAtDateRange>;
+  @useResult
+  $Res call({String? start, String? end, bool? inclusive});
+}
+
+/// @nodoc
+class _$InsertedAtDateRangeCopyWithImpl<$Res, $Val extends InsertedAtDateRange>
+    implements $InsertedAtDateRangeCopyWith<$Res> {
+  _$InsertedAtDateRangeCopyWithImpl(this._value, this._then);
+
+  // ignore: unused_field
+  final $Val _value;
+  // ignore: unused_field
+  final $Res Function($Val) _then;
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? start = freezed,
+    Object? end = freezed,
+    Object? inclusive = freezed,
+  }) {
+    return _then(_value.copyWith(
+      start: freezed == start
+          ? _value.start
+          : start // ignore: cast_nullable_to_non_nullable
+              as String?,
+      end: freezed == end
+          ? _value.end
+          : end // ignore: cast_nullable_to_non_nullable
+              as String?,
+      inclusive: freezed == inclusive
+          ? _value.inclusive
+          : inclusive // ignore: cast_nullable_to_non_nullable
+              as bool?,
+    ) as $Val);
+  }
+}
+
+/// @nodoc
+abstract class _$$InsertedAtDateRangeImplCopyWith<$Res>
+    implements $InsertedAtDateRangeCopyWith<$Res> {
+  factory _$$InsertedAtDateRangeImplCopyWith(_$InsertedAtDateRangeImpl value,
+          $Res Function(_$InsertedAtDateRangeImpl) then) =
+      __$$InsertedAtDateRangeImplCopyWithImpl<$Res>;
+  @override
+  @useResult
+  $Res call({String? start, String? end, bool? inclusive});
+}
+
+/// @nodoc
+class __$$InsertedAtDateRangeImplCopyWithImpl<$Res>
+    extends _$InsertedAtDateRangeCopyWithImpl<$Res, _$InsertedAtDateRangeImpl>
+    implements _$$InsertedAtDateRangeImplCopyWith<$Res> {
+  __$$InsertedAtDateRangeImplCopyWithImpl(_$InsertedAtDateRangeImpl _value,
+      $Res Function(_$InsertedAtDateRangeImpl) _then)
+      : super(_value, _then);
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? start = freezed,
+    Object? end = freezed,
+    Object? inclusive = freezed,
+  }) {
+    return _then(_$InsertedAtDateRangeImpl(
+      start: freezed == start
+          ? _value.start
+          : start // ignore: cast_nullable_to_non_nullable
+              as String?,
+      end: freezed == end
+          ? _value.end
+          : end // ignore: cast_nullable_to_non_nullable
+              as String?,
+      inclusive: freezed == inclusive
+          ? _value.inclusive
+          : inclusive // ignore: cast_nullable_to_non_nullable
+              as bool?,
+    ));
+  }
+}
+
+/// @nodoc
+@JsonSerializable()
+class _$InsertedAtDateRangeImpl implements _InsertedAtDateRange {
+  const _$InsertedAtDateRangeImpl({this.start, this.end, this.inclusive});
+
+  factory _$InsertedAtDateRangeImpl.fromJson(Map<String, dynamic> json) =>
+      _$$InsertedAtDateRangeImplFromJson(json);
+
+  /// The start date in ISO 8601 format
+  @override
+  final String? start;
+
+  /// The end date in ISO 8601 format
+  @override
+  final String? end;
+
+  /// Whether to be inclusive of the start and end dates
+  @override
+  final bool? inclusive;
+
+  @override
+  String toString() {
+    return 'InsertedAtDateRange(start: $start, end: $end, inclusive: $inclusive)';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$InsertedAtDateRangeImpl &&
+            (identical(other.start, start) || other.start == start) &&
+            (identical(other.end, end) || other.end == end) &&
+            (identical(other.inclusive, inclusive) ||
+                other.inclusive == inclusive));
+  }
+
+  @JsonKey(ignore: true)
+  @override
+  int get hashCode => Object.hash(runtimeType, start, end, inclusive);
+
+  @JsonKey(ignore: true)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$InsertedAtDateRangeImplCopyWith<_$InsertedAtDateRangeImpl> get copyWith =>
+      __$$InsertedAtDateRangeImplCopyWithImpl<_$InsertedAtDateRangeImpl>(
+          this, _$identity);
+
+  @override
+  Map<String, dynamic> toJson() {
+    return _$$InsertedAtDateRangeImplToJson(
+      this,
+    );
+  }
+}
+
+abstract class _InsertedAtDateRange implements InsertedAtDateRange {
+  const factory _InsertedAtDateRange(
+      {final String? start,
+      final String? end,
+      final bool? inclusive}) = _$InsertedAtDateRangeImpl;
+
+  factory _InsertedAtDateRange.fromJson(Map<String, dynamic> json) =
+      _$InsertedAtDateRangeImpl.fromJson;
+
+  @override
+
+  /// The start date in ISO 8601 format
+  String? get start;
+  @override
+
+  /// The end date in ISO 8601 format
+  String? get end;
+  @override
+
+  /// Whether to be inclusive of the start and end dates
+  bool? get inclusive;
+  @override
+  @JsonKey(ignore: true)
+  _$$InsertedAtDateRangeImplCopyWith<_$InsertedAtDateRangeImpl> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
 /// @nodoc
 mixin _$FeedOptions {
   String? get before => throw _privateConstructorUsedError;
@@ -25,9 +214,14 @@ mixin _$FeedOptions {
   String? get tenant => throw _privateConstructorUsedError;
   @JsonKey(name: 'has_tenant')
   bool? get hasTenant => throw _privateConstructorUsedError;
+  @JsonKey(name: 'workflow_categories')
+  List<String>? get workflowCategories => throw _privateConstructorUsedError;
   FeedOptionsArchivedScope get archived => throw _privateConstructorUsedError;
   @JsonKey(name: 'trigger_data')
   Map<String, dynamic>? get triggerData => throw _privateConstructorUsedError;
+  @JsonKey(name: 'inserted_at_date_range')
+  InsertedAtDateRange? get insertedAtDateRange =>
+      throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -49,8 +243,13 @@ abstract class $FeedOptionsCopyWith<$Res> {
       String? source,
       String? tenant,
       @JsonKey(name: 'has_tenant') bool? hasTenant,
+      @JsonKey(name: 'workflow_categories') List<String>? workflowCategories,
       FeedOptionsArchivedScope archived,
-      @JsonKey(name: 'trigger_data') Map<String, dynamic>? triggerData});
+      @JsonKey(name: 'trigger_data') Map<String, dynamic>? triggerData,
+      @JsonKey(name: 'inserted_at_date_range')
+      InsertedAtDateRange? insertedAtDateRange});
+
+  $InsertedAtDateRangeCopyWith<$Res>? get insertedAtDateRange;
 }
 
 /// @nodoc
@@ -73,8 +272,10 @@ class _$FeedOptionsCopyWithImpl<$Res, $Val extends FeedOptions>
     Object? source = freezed,
     Object? tenant = freezed,
     Object? hasTenant = freezed,
+    Object? workflowCategories = freezed,
     Object? archived = null,
     Object? triggerData = freezed,
+    Object? insertedAtDateRange = freezed,
   }) {
     return _then(_value.copyWith(
       before: freezed == before
@@ -105,6 +306,10 @@ class _$FeedOptionsCopyWithImpl<$Res, $Val extends FeedOptions>
           ? _value.hasTenant
           : hasTenant // ignore: cast_nullable_to_non_nullable
               as bool?,
+      workflowCategories: freezed == workflowCategories
+          ? _value.workflowCategories
+          : workflowCategories // ignore: cast_nullable_to_non_nullable
+              as List<String>?,
       archived: null == archived
           ? _value.archived
           : archived // ignore: cast_nullable_to_non_nullable
@@ -113,7 +318,24 @@ class _$FeedOptionsCopyWithImpl<$Res, $Val extends FeedOptions>
           ? _value.triggerData
           : triggerData // ignore: cast_nullable_to_non_nullable
               as Map<String, dynamic>?,
+      insertedAtDateRange: freezed == insertedAtDateRange
+          ? _value.insertedAtDateRange
+          : insertedAtDateRange // ignore: cast_nullable_to_non_nullable
+              as InsertedAtDateRange?,
     ) as $Val);
+  }
+
+  @override
+  @pragma('vm:prefer-inline')
+  $InsertedAtDateRangeCopyWith<$Res>? get insertedAtDateRange {
+    if (_value.insertedAtDateRange == null) {
+      return null;
+    }
+
+    return $InsertedAtDateRangeCopyWith<$Res>(_value.insertedAtDateRange!,
+        (value) {
+      return _then(_value.copyWith(insertedAtDateRange: value) as $Val);
+    });
   }
 }
 
@@ -133,8 +355,14 @@ abstract class _$$FeedOptionsImplCopyWith<$Res>
       String? source,
       String? tenant,
       @JsonKey(name: 'has_tenant') bool? hasTenant,
+      @JsonKey(name: 'workflow_categories') List<String>? workflowCategories,
       FeedOptionsArchivedScope archived,
-      @JsonKey(name: 'trigger_data') Map<String, dynamic>? triggerData});
+      @JsonKey(name: 'trigger_data') Map<String, dynamic>? triggerData,
+      @JsonKey(name: 'inserted_at_date_range')
+      InsertedAtDateRange? insertedAtDateRange});
+
+  @override
+  $InsertedAtDateRangeCopyWith<$Res>? get insertedAtDateRange;
 }
 
 /// @nodoc
@@ -155,8 +383,10 @@ class __$$FeedOptionsImplCopyWithImpl<$Res>
     Object? source = freezed,
     Object? tenant = freezed,
     Object? hasTenant = freezed,
+    Object? workflowCategories = freezed,
     Object? archived = null,
     Object? triggerData = freezed,
+    Object? insertedAtDateRange = freezed,
   }) {
     return _then(_$FeedOptionsImpl(
       before: freezed == before
@@ -187,6 +417,10 @@ class __$$FeedOptionsImplCopyWithImpl<$Res>
           ? _value.hasTenant
           : hasTenant // ignore: cast_nullable_to_non_nullable
               as bool?,
+      workflowCategories: freezed == workflowCategories
+          ? _value._workflowCategories
+          : workflowCategories // ignore: cast_nullable_to_non_nullable
+              as List<String>?,
       archived: null == archived
           ? _value.archived
           : archived // ignore: cast_nullable_to_non_nullable
@@ -195,6 +429,10 @@ class __$$FeedOptionsImplCopyWithImpl<$Res>
           ? _value._triggerData
           : triggerData // ignore: cast_nullable_to_non_nullable
               as Map<String, dynamic>?,
+      insertedAtDateRange: freezed == insertedAtDateRange
+          ? _value.insertedAtDateRange
+          : insertedAtDateRange // ignore: cast_nullable_to_non_nullable
+              as InsertedAtDateRange?,
     ));
   }
 }
@@ -211,9 +449,13 @@ class _$FeedOptionsImpl implements _FeedOptions {
       this.source,
       this.tenant,
       @JsonKey(name: 'has_tenant') this.hasTenant,
+      @JsonKey(name: 'workflow_categories')
+      final List<String>? workflowCategories,
       this.archived = FeedOptionsArchivedScope.exclude,
-      @JsonKey(name: 'trigger_data') final Map<String, dynamic>? triggerData})
-      : _triggerData = triggerData;
+      @JsonKey(name: 'trigger_data') final Map<String, dynamic>? triggerData,
+      @JsonKey(name: 'inserted_at_date_range') this.insertedAtDateRange})
+      : _workflowCategories = workflowCategories,
+        _triggerData = triggerData;
 
   @override
   final String? before;
@@ -231,6 +473,18 @@ class _$FeedOptionsImpl implements _FeedOptions {
   @override
   @JsonKey(name: 'has_tenant')
   final bool? hasTenant;
+  final List<String>? _workflowCategories;
+  @override
+  @JsonKey(name: 'workflow_categories')
+  List<String>? get workflowCategories {
+    final value = _workflowCategories;
+    if (value == null) return null;
+    if (_workflowCategories is EqualUnmodifiableListView)
+      return _workflowCategories;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(value);
+  }
+
   @override
   @JsonKey()
   final FeedOptionsArchivedScope archived;
@@ -246,8 +500,12 @@ class _$FeedOptionsImpl implements _FeedOptions {
   }
 
   @override
+  @JsonKey(name: 'inserted_at_date_range')
+  final InsertedAtDateRange? insertedAtDateRange;
+
+  @override
   String toString() {
-    return 'FeedOptions(before: $before, after: $after, pageSize: $pageSize, status: $status, source: $source, tenant: $tenant, hasTenant: $hasTenant, archived: $archived, triggerData: $triggerData)';
+    return 'FeedOptions(before: $before, after: $after, pageSize: $pageSize, status: $status, source: $source, tenant: $tenant, hasTenant: $hasTenant, workflowCategories: $workflowCategories, archived: $archived, triggerData: $triggerData, insertedAtDateRange: $insertedAtDateRange)';
   }
 
   @override
@@ -264,10 +522,14 @@ class _$FeedOptionsImpl implements _FeedOptions {
             (identical(other.tenant, tenant) || other.tenant == tenant) &&
             (identical(other.hasTenant, hasTenant) ||
                 other.hasTenant == hasTenant) &&
+            const DeepCollectionEquality()
+                .equals(other._workflowCategories, _workflowCategories) &&
             (identical(other.archived, archived) ||
                 other.archived == archived) &&
             const DeepCollectionEquality()
-                .equals(other._triggerData, _triggerData));
+                .equals(other._triggerData, _triggerData) &&
+            (identical(other.insertedAtDateRange, insertedAtDateRange) ||
+                other.insertedAtDateRange == insertedAtDateRange));
   }
 
   @JsonKey(ignore: true)
@@ -281,8 +543,10 @@ class _$FeedOptionsImpl implements _FeedOptions {
       source,
       tenant,
       hasTenant,
+      const DeepCollectionEquality().hash(_workflowCategories),
       archived,
-      const DeepCollectionEquality().hash(_triggerData));
+      const DeepCollectionEquality().hash(_triggerData),
+      insertedAtDateRange);
 
   @JsonKey(ignore: true)
   @override
@@ -307,9 +571,12 @@ abstract class _FeedOptions implements FeedOptions {
       final String? source,
       final String? tenant,
       @JsonKey(name: 'has_tenant') final bool? hasTenant,
+      @JsonKey(name: 'workflow_categories')
+      final List<String>? workflowCategories,
       final FeedOptionsArchivedScope archived,
-      @JsonKey(name: 'trigger_data')
-      final Map<String, dynamic>? triggerData}) = _$FeedOptionsImpl;
+      @JsonKey(name: 'trigger_data') final Map<String, dynamic>? triggerData,
+      @JsonKey(name: 'inserted_at_date_range')
+      final InsertedAtDateRange? insertedAtDateRange}) = _$FeedOptionsImpl;
 
   @override
   String? get before;
@@ -328,10 +595,16 @@ abstract class _FeedOptions implements FeedOptions {
   @JsonKey(name: 'has_tenant')
   bool? get hasTenant;
   @override
+  @JsonKey(name: 'workflow_categories')
+  List<String>? get workflowCategories;
+  @override
   FeedOptionsArchivedScope get archived;
   @override
   @JsonKey(name: 'trigger_data')
   Map<String, dynamic>? get triggerData;
+  @override
+  @JsonKey(name: 'inserted_at_date_range')
+  InsertedAtDateRange? get insertedAtDateRange;
   @override
   @JsonKey(ignore: true)
   _$$FeedOptionsImplCopyWith<_$FeedOptionsImpl> get copyWith =>

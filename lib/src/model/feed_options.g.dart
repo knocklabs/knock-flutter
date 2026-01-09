@@ -8,6 +8,22 @@ part of 'feed_options.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
+_$InsertedAtDateRangeImpl _$$InsertedAtDateRangeImplFromJson(
+        Map<String, dynamic> json) =>
+    _$InsertedAtDateRangeImpl(
+      start: json['start'] as String?,
+      end: json['end'] as String?,
+      inclusive: json['inclusive'] as bool?,
+    );
+
+Map<String, dynamic> _$$InsertedAtDateRangeImplToJson(
+        _$InsertedAtDateRangeImpl instance) =>
+    <String, dynamic>{
+      'start': instance.start,
+      'end': instance.end,
+      'inclusive': instance.inclusive,
+    };
+
 _$FeedOptionsImpl _$$FeedOptionsImplFromJson(Map<String, dynamic> json) =>
     _$FeedOptionsImpl(
       before: json['before'] as String?,
@@ -17,10 +33,17 @@ _$FeedOptionsImpl _$$FeedOptionsImplFromJson(Map<String, dynamic> json) =>
       source: json['source'] as String?,
       tenant: json['tenant'] as String?,
       hasTenant: json['has_tenant'] as bool?,
+      workflowCategories: (json['workflow_categories'] as List<dynamic>?)
+          ?.map((e) => e as String)
+          .toList(),
       archived: $enumDecodeNullable(
               _$FeedOptionsArchivedScopeEnumMap, json['archived']) ??
           FeedOptionsArchivedScope.exclude,
       triggerData: json['trigger_data'] as Map<String, dynamic>?,
+      insertedAtDateRange: json['inserted_at_date_range'] == null
+          ? null
+          : InsertedAtDateRange.fromJson(
+              json['inserted_at_date_range'] as Map<String, dynamic>),
     );
 
 Map<String, dynamic> _$$FeedOptionsImplToJson(_$FeedOptionsImpl instance) =>
@@ -32,8 +55,10 @@ Map<String, dynamic> _$$FeedOptionsImplToJson(_$FeedOptionsImpl instance) =>
       'source': instance.source,
       'tenant': instance.tenant,
       'has_tenant': instance.hasTenant,
+      'workflow_categories': instance.workflowCategories,
       'archived': _$FeedOptionsArchivedScopeEnumMap[instance.archived]!,
       'trigger_data': instance.triggerData,
+      'inserted_at_date_range': instance.insertedAtDateRange?.toJson(),
     };
 
 const _$FeedOptionsStatusEnumMap = {

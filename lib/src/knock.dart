@@ -44,6 +44,7 @@ class Knock {
   String? _userToken;
   ApiClient? _apiClient;
 
+  MessagesClient? _messagesClient;
   PreferencesClient? _preferencesClient;
   UserClient? _userClient;
 
@@ -96,6 +97,11 @@ class Knock {
   UserClient user() {
     _assertAuthenticated();
     return _userClient ??= UserClient(this);
+  }
+
+  MessagesClient messages() {
+    _assertAuthenticated();
+    return _messagesClient ??= MessagesClient(this);
   }
 
   PreferencesClient preferences({

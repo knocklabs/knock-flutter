@@ -47,9 +47,20 @@ class _FakeUserClient_1 extends _i1.SmartFake implements _i2.UserClient {
         );
 }
 
-class _FakePreferencesClient_2 extends _i1.SmartFake
+class _FakeMessagesClient_2 extends _i1.SmartFake
+    implements _i2.MessagesClient {
+  _FakeMessagesClient_2(
+    Object parent,
+    Invocation parentInvocation,
+  ) : super(
+          parent,
+          parentInvocation,
+        );
+}
+
+class _FakePreferencesClient_3 extends _i1.SmartFake
     implements _i2.PreferencesClient {
-  _FakePreferencesClient_2(
+  _FakePreferencesClient_3(
     Object parent,
     Invocation parentInvocation,
   ) : super(
@@ -58,8 +69,8 @@ class _FakePreferencesClient_2 extends _i1.SmartFake
         );
 }
 
-class _FakeFeedClient_3 extends _i1.SmartFake implements _i2.FeedClient {
-  _FakeFeedClient_3(
+class _FakeFeedClient_4 extends _i1.SmartFake implements _i2.FeedClient {
+  _FakeFeedClient_4(
     Object parent,
     Invocation parentInvocation,
   ) : super(
@@ -68,8 +79,8 @@ class _FakeFeedClient_3 extends _i1.SmartFake implements _i2.FeedClient {
         );
 }
 
-class _FakeKnock_4 extends _i1.SmartFake implements _i2.Knock {
-  _FakeKnock_4(
+class _FakeKnock_5 extends _i1.SmartFake implements _i2.Knock {
+  _FakeKnock_5(
     Object parent,
     Invocation parentInvocation,
   ) : super(
@@ -78,8 +89,8 @@ class _FakeKnock_4 extends _i1.SmartFake implements _i2.Knock {
         );
 }
 
-class _FakePhoenixSocket_5 extends _i1.SmartFake implements _i3.PhoenixSocket {
-  _FakePhoenixSocket_5(
+class _FakePhoenixSocket_6 extends _i1.SmartFake implements _i3.PhoenixSocket {
+  _FakePhoenixSocket_6(
     Object parent,
     Invocation parentInvocation,
   ) : super(
@@ -88,9 +99,9 @@ class _FakePhoenixSocket_5 extends _i1.SmartFake implements _i3.PhoenixSocket {
         );
 }
 
-class _FakeStreamedResponse_6 extends _i1.SmartFake
+class _FakeStreamedResponse_7 extends _i1.SmartFake
     implements _i4.StreamedResponse {
-  _FakeStreamedResponse_6(
+  _FakeStreamedResponse_7(
     Object parent,
     Invocation parentInvocation,
   ) : super(
@@ -99,8 +110,8 @@ class _FakeStreamedResponse_6 extends _i1.SmartFake
         );
 }
 
-class _FakeApiResponse_7 extends _i1.SmartFake implements _i5.ApiResponse {
-  _FakeApiResponse_7(
+class _FakeApiResponse_8 extends _i1.SmartFake implements _i5.ApiResponse {
+  _FakeApiResponse_8(
     Object parent,
     Invocation parentInvocation,
   ) : super(
@@ -109,8 +120,8 @@ class _FakeApiResponse_7 extends _i1.SmartFake implements _i5.ApiResponse {
         );
 }
 
-class _FakeResponse_8 extends _i1.SmartFake implements _i4.Response {
-  _FakeResponse_8(
+class _FakeResponse_9 extends _i1.SmartFake implements _i4.Response {
+  _FakeResponse_9(
     Object parent,
     Invocation parentInvocation,
   ) : super(
@@ -230,6 +241,28 @@ class MockKnock extends _i1.Mock implements _i2.Knock {
       ) as _i2.UserClient);
 
   @override
+  _i2.MessagesClient messages() => (super.noSuchMethod(
+        Invocation.method(
+          #messages,
+          [],
+        ),
+        returnValue: _FakeMessagesClient_2(
+          this,
+          Invocation.method(
+            #messages,
+            [],
+          ),
+        ),
+        returnValueForMissingStub: _FakeMessagesClient_2(
+          this,
+          Invocation.method(
+            #messages,
+            [],
+          ),
+        ),
+      ) as _i2.MessagesClient);
+
+  @override
   _i2.PreferencesClient preferences({_i2.PreferencesOptions? options}) =>
       (super.noSuchMethod(
         Invocation.method(
@@ -237,7 +270,7 @@ class MockKnock extends _i1.Mock implements _i2.Knock {
           [],
           {#options: options},
         ),
-        returnValue: _FakePreferencesClient_2(
+        returnValue: _FakePreferencesClient_3(
           this,
           Invocation.method(
             #preferences,
@@ -245,7 +278,7 @@ class MockKnock extends _i1.Mock implements _i2.Knock {
             {#options: options},
           ),
         ),
-        returnValueForMissingStub: _FakePreferencesClient_2(
+        returnValueForMissingStub: _FakePreferencesClient_3(
           this,
           Invocation.method(
             #preferences,
@@ -266,7 +299,7 @@ class MockKnock extends _i1.Mock implements _i2.Knock {
           [feedChannelId],
           {#options: options},
         ),
-        returnValue: _FakeFeedClient_3(
+        returnValue: _FakeFeedClient_4(
           this,
           Invocation.method(
             #feed,
@@ -274,7 +307,7 @@ class MockKnock extends _i1.Mock implements _i2.Knock {
             {#options: options},
           ),
         ),
-        returnValueForMissingStub: _FakeFeedClient_3(
+        returnValueForMissingStub: _FakeFeedClient_4(
           this,
           Invocation.method(
             #feed,
@@ -347,11 +380,11 @@ class MockApiClient extends _i1.Mock implements _i2.ApiClient {
   @override
   _i2.Knock get knock => (super.noSuchMethod(
         Invocation.getter(#knock),
-        returnValue: _FakeKnock_4(
+        returnValue: _FakeKnock_5(
           this,
           Invocation.getter(#knock),
         ),
-        returnValueForMissingStub: _FakeKnock_4(
+        returnValueForMissingStub: _FakeKnock_5(
           this,
           Invocation.getter(#knock),
         ),
@@ -367,11 +400,11 @@ class MockApiClient extends _i1.Mock implements _i2.ApiClient {
   @override
   _i3.PhoenixSocket get socket => (super.noSuchMethod(
         Invocation.getter(#socket),
-        returnValue: _FakePhoenixSocket_5(
+        returnValue: _FakePhoenixSocket_6(
           this,
           Invocation.getter(#socket),
         ),
-        returnValueForMissingStub: _FakePhoenixSocket_5(
+        returnValueForMissingStub: _FakePhoenixSocket_6(
           this,
           Invocation.getter(#socket),
         ),
@@ -385,7 +418,7 @@ class MockApiClient extends _i1.Mock implements _i2.ApiClient {
           [request],
         ),
         returnValue:
-            _i7.Future<_i4.StreamedResponse>.value(_FakeStreamedResponse_6(
+            _i7.Future<_i4.StreamedResponse>.value(_FakeStreamedResponse_7(
           this,
           Invocation.method(
             #send,
@@ -393,7 +426,7 @@ class MockApiClient extends _i1.Mock implements _i2.ApiClient {
           ),
         )),
         returnValueForMissingStub:
-            _i7.Future<_i4.StreamedResponse>.value(_FakeStreamedResponse_6(
+            _i7.Future<_i4.StreamedResponse>.value(_FakeStreamedResponse_7(
           this,
           Invocation.method(
             #send,
@@ -413,7 +446,7 @@ class MockApiClient extends _i1.Mock implements _i2.ApiClient {
           [path],
           {#queryParams: queryParams},
         ),
-        returnValue: _i7.Future<_i5.ApiResponse>.value(_FakeApiResponse_7(
+        returnValue: _i7.Future<_i5.ApiResponse>.value(_FakeApiResponse_8(
           this,
           Invocation.method(
             #doGet,
@@ -422,7 +455,7 @@ class MockApiClient extends _i1.Mock implements _i2.ApiClient {
           ),
         )),
         returnValueForMissingStub:
-            _i7.Future<_i5.ApiResponse>.value(_FakeApiResponse_7(
+            _i7.Future<_i5.ApiResponse>.value(_FakeApiResponse_8(
           this,
           Invocation.method(
             #doGet,
@@ -447,7 +480,7 @@ class MockApiClient extends _i1.Mock implements _i2.ApiClient {
             #body: body,
           },
         ),
-        returnValue: _i7.Future<_i5.ApiResponse>.value(_FakeApiResponse_7(
+        returnValue: _i7.Future<_i5.ApiResponse>.value(_FakeApiResponse_8(
           this,
           Invocation.method(
             #doPut,
@@ -459,7 +492,7 @@ class MockApiClient extends _i1.Mock implements _i2.ApiClient {
           ),
         )),
         returnValueForMissingStub:
-            _i7.Future<_i5.ApiResponse>.value(_FakeApiResponse_7(
+            _i7.Future<_i5.ApiResponse>.value(_FakeApiResponse_8(
           this,
           Invocation.method(
             #doPut,
@@ -487,7 +520,7 @@ class MockApiClient extends _i1.Mock implements _i2.ApiClient {
             #body: body,
           },
         ),
-        returnValue: _i7.Future<_i5.ApiResponse>.value(_FakeApiResponse_7(
+        returnValue: _i7.Future<_i5.ApiResponse>.value(_FakeApiResponse_8(
           this,
           Invocation.method(
             #doPost,
@@ -499,7 +532,7 @@ class MockApiClient extends _i1.Mock implements _i2.ApiClient {
           ),
         )),
         returnValueForMissingStub:
-            _i7.Future<_i5.ApiResponse>.value(_FakeApiResponse_7(
+            _i7.Future<_i5.ApiResponse>.value(_FakeApiResponse_8(
           this,
           Invocation.method(
             #doPost,
@@ -508,6 +541,36 @@ class MockApiClient extends _i1.Mock implements _i2.ApiClient {
               #queryParams: queryParams,
               #body: body,
             },
+          ),
+        )),
+      ) as _i7.Future<_i5.ApiResponse>);
+
+  @override
+  _i7.Future<_i5.ApiResponse> doDelete(
+    String? path, {
+    Map<String, dynamic>? queryParams,
+  }) =>
+      (super.noSuchMethod(
+        Invocation.method(
+          #doDelete,
+          [path],
+          {#queryParams: queryParams},
+        ),
+        returnValue: _i7.Future<_i5.ApiResponse>.value(_FakeApiResponse_8(
+          this,
+          Invocation.method(
+            #doDelete,
+            [path],
+            {#queryParams: queryParams},
+          ),
+        )),
+        returnValueForMissingStub:
+            _i7.Future<_i5.ApiResponse>.value(_FakeApiResponse_8(
+          this,
+          Invocation.method(
+            #doDelete,
+            [path],
+            {#queryParams: queryParams},
           ),
         )),
       ) as _i7.Future<_i5.ApiResponse>);
@@ -532,7 +595,7 @@ class MockApiClient extends _i1.Mock implements _i2.ApiClient {
           [url],
           {#headers: headers},
         ),
-        returnValue: _i7.Future<_i4.Response>.value(_FakeResponse_8(
+        returnValue: _i7.Future<_i4.Response>.value(_FakeResponse_9(
           this,
           Invocation.method(
             #head,
@@ -541,7 +604,7 @@ class MockApiClient extends _i1.Mock implements _i2.ApiClient {
           ),
         )),
         returnValueForMissingStub:
-            _i7.Future<_i4.Response>.value(_FakeResponse_8(
+            _i7.Future<_i4.Response>.value(_FakeResponse_9(
           this,
           Invocation.method(
             #head,
@@ -562,7 +625,7 @@ class MockApiClient extends _i1.Mock implements _i2.ApiClient {
           [url],
           {#headers: headers},
         ),
-        returnValue: _i7.Future<_i4.Response>.value(_FakeResponse_8(
+        returnValue: _i7.Future<_i4.Response>.value(_FakeResponse_9(
           this,
           Invocation.method(
             #get,
@@ -571,7 +634,7 @@ class MockApiClient extends _i1.Mock implements _i2.ApiClient {
           ),
         )),
         returnValueForMissingStub:
-            _i7.Future<_i4.Response>.value(_FakeResponse_8(
+            _i7.Future<_i4.Response>.value(_FakeResponse_9(
           this,
           Invocation.method(
             #get,
@@ -598,7 +661,7 @@ class MockApiClient extends _i1.Mock implements _i2.ApiClient {
             #encoding: encoding,
           },
         ),
-        returnValue: _i7.Future<_i4.Response>.value(_FakeResponse_8(
+        returnValue: _i7.Future<_i4.Response>.value(_FakeResponse_9(
           this,
           Invocation.method(
             #post,
@@ -611,7 +674,7 @@ class MockApiClient extends _i1.Mock implements _i2.ApiClient {
           ),
         )),
         returnValueForMissingStub:
-            _i7.Future<_i4.Response>.value(_FakeResponse_8(
+            _i7.Future<_i4.Response>.value(_FakeResponse_9(
           this,
           Invocation.method(
             #post,
@@ -642,7 +705,7 @@ class MockApiClient extends _i1.Mock implements _i2.ApiClient {
             #encoding: encoding,
           },
         ),
-        returnValue: _i7.Future<_i4.Response>.value(_FakeResponse_8(
+        returnValue: _i7.Future<_i4.Response>.value(_FakeResponse_9(
           this,
           Invocation.method(
             #put,
@@ -655,7 +718,7 @@ class MockApiClient extends _i1.Mock implements _i2.ApiClient {
           ),
         )),
         returnValueForMissingStub:
-            _i7.Future<_i4.Response>.value(_FakeResponse_8(
+            _i7.Future<_i4.Response>.value(_FakeResponse_9(
           this,
           Invocation.method(
             #put,
@@ -686,7 +749,7 @@ class MockApiClient extends _i1.Mock implements _i2.ApiClient {
             #encoding: encoding,
           },
         ),
-        returnValue: _i7.Future<_i4.Response>.value(_FakeResponse_8(
+        returnValue: _i7.Future<_i4.Response>.value(_FakeResponse_9(
           this,
           Invocation.method(
             #patch,
@@ -699,7 +762,7 @@ class MockApiClient extends _i1.Mock implements _i2.ApiClient {
           ),
         )),
         returnValueForMissingStub:
-            _i7.Future<_i4.Response>.value(_FakeResponse_8(
+            _i7.Future<_i4.Response>.value(_FakeResponse_9(
           this,
           Invocation.method(
             #patch,
@@ -730,7 +793,7 @@ class MockApiClient extends _i1.Mock implements _i2.ApiClient {
             #encoding: encoding,
           },
         ),
-        returnValue: _i7.Future<_i4.Response>.value(_FakeResponse_8(
+        returnValue: _i7.Future<_i4.Response>.value(_FakeResponse_9(
           this,
           Invocation.method(
             #delete,
@@ -743,7 +806,7 @@ class MockApiClient extends _i1.Mock implements _i2.ApiClient {
           ),
         )),
         returnValueForMissingStub:
-            _i7.Future<_i4.Response>.value(_FakeResponse_8(
+            _i7.Future<_i4.Response>.value(_FakeResponse_9(
           this,
           Invocation.method(
             #delete,

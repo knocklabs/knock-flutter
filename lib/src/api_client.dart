@@ -93,6 +93,13 @@ class ApiClient extends http.BaseClient {
     return _doRequest(() => post(_buildUri(path, queryParams), body: body));
   }
 
+  Future<ApiResponse> doDelete(
+    String path, {
+    Map<String, dynamic>? queryParams,
+  }) async {
+    return _doRequest(() => delete(_buildUri(path, queryParams)));
+  }
+
   Future<ApiResponse> _doRequest(ApiRequestBuilder requestBuilder) async {
     try {
       final response = await requestBuilder();

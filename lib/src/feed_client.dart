@@ -523,10 +523,13 @@ extension _FeedOptionsExtension on FeedOptions {
       after: other?.after ?? after,
       pageSize: other?.pageSize ?? pageSize,
       status: other?.status ?? status,
+      source: other?.source ?? source,
       tenant: other?.tenant ?? tenant,
       hasTenant: other?.hasTenant ?? hasTenant,
+      workflowCategories: other?.workflowCategories ?? workflowCategories,
       archived: other?.archived ?? archived,
       triggerData: other?.triggerData ?? triggerData,
+      insertedAtDateRange: other?.insertedAtDateRange ?? insertedAtDateRange,
     );
   }
 
