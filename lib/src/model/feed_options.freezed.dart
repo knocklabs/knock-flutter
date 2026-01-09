@@ -14,6 +14,10 @@ T _$identity<T>(T value) => value;
 final _privateConstructorUsedError = UnsupportedError(
     'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#adding-getters-and-methods-to-our-models');
 
+InsertedAtDateRange _$InsertedAtDateRangeFromJson(Map<String, dynamic> json) {
+  return _InsertedAtDateRange.fromJson(json);
+}
+
 /// @nodoc
 mixin _$InsertedAtDateRange {
   /// The start date in ISO 8601 format

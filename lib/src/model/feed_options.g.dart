@@ -8,9 +8,6 @@ part of 'feed_options.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-InsertedAtDateRange _$InsertedAtDateRangeFromJson(Map<String, dynamic> json) =>
-    _$$InsertedAtDateRangeImplFromJson(json);
-
 _$InsertedAtDateRangeImpl _$$InsertedAtDateRangeImplFromJson(
         Map<String, dynamic> json) =>
     _$InsertedAtDateRangeImpl(
