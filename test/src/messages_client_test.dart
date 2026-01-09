@@ -23,7 +23,7 @@ void main() {
         'id': 'user_789',
         'updated_at': '2024-01-01T00:00:00.000Z',
       },
-      'actors': [],
+      'actors': <Map<String, dynamic>>[],
       'source': {
         'key': 'workflow_key',
         'version_id': 'version_1',
@@ -41,7 +41,7 @@ void main() {
       'interacted_at': null,
       'link_clicked_at': null,
       'data': {'key': 'value'},
-      'metadata': {},
+      'metadata': <String, dynamic>{},
     };
 
     final testMessageResponse = ApiResponse(

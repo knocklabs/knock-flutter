@@ -30,22 +30,11 @@ mixin _$KnockMessage {
   /// The recipient of this message.
   Recipient get recipient => throw _privateConstructorUsedError;
 
-  /// The actors who triggered this message.
-  List<Recipient> get actors => throw _privateConstructorUsedError;
-
   /// The source workflow that triggered this message.
   KnockMessageSource get source => throw _privateConstructorUsedError;
 
-  /// The tenant associated with this message, if any.
-  String? get tenant => throw _privateConstructorUsedError;
-
   /// The delivery status of the message.
   KnockMessageDeliveryStatus get status => throw _privateConstructorUsedError;
-
-  /// The engagement statuses of the message.
-  @JsonKey(name: 'engagement_statuses')
-  List<KnockMessageEngagementStatus> get engagementStatuses =>
-      throw _privateConstructorUsedError;
 
   /// When the message was inserted.
   @ISO8601DateTimeConverter()
@@ -56,6 +45,17 @@ mixin _$KnockMessage {
   @ISO8601DateTimeConverter()
   @JsonKey(name: 'updated_at')
   DateTime get updatedAt => throw _privateConstructorUsedError;
+
+  /// The actors who triggered this message.
+  List<Recipient> get actors => throw _privateConstructorUsedError;
+
+  /// The tenant associated with this message, if any.
+  String? get tenant => throw _privateConstructorUsedError;
+
+  /// The engagement statuses of the message.
+  @JsonKey(name: 'engagement_statuses')
+  List<KnockMessageEngagementStatus> get engagementStatuses =>
+      throw _privateConstructorUsedError;
 
   /// When the message was seen by the recipient.
   @ISO8601DateTimeConverter()
@@ -109,18 +109,18 @@ abstract class $KnockMessageCopyWith<$Res> {
       {String id,
       @JsonKey(name: 'channel_id') String channelId,
       Recipient recipient,
-      List<Recipient> actors,
       KnockMessageSource source,
-      String? tenant,
       KnockMessageDeliveryStatus status,
-      @JsonKey(name: 'engagement_statuses')
-      List<KnockMessageEngagementStatus> engagementStatuses,
       @ISO8601DateTimeConverter()
       @JsonKey(name: 'inserted_at')
       DateTime insertedAt,
       @ISO8601DateTimeConverter()
       @JsonKey(name: 'updated_at')
       DateTime updatedAt,
+      List<Recipient> actors,
+      String? tenant,
+      @JsonKey(name: 'engagement_statuses')
+      List<KnockMessageEngagementStatus> engagementStatuses,
       @ISO8601DateTimeConverter() @JsonKey(name: 'seen_at') DateTime? seenAt,
       @ISO8601DateTimeConverter() @JsonKey(name: 'read_at') DateTime? readAt,
       @ISO8601DateTimeConverter()
@@ -158,13 +158,13 @@ class _$KnockMessageCopyWithImpl<$Res, $Val extends KnockMessage>
     Object? id = null,
     Object? channelId = null,
     Object? recipient = null,
-    Object? actors = null,
     Object? source = null,
-    Object? tenant = freezed,
     Object? status = null,
-    Object? engagementStatuses = null,
     Object? insertedAt = null,
     Object? updatedAt = null,
+    Object? actors = null,
+    Object? tenant = freezed,
+    Object? engagementStatuses = null,
     Object? seenAt = freezed,
     Object? readAt = freezed,
     Object? archivedAt = freezed,
@@ -187,26 +187,14 @@ class _$KnockMessageCopyWithImpl<$Res, $Val extends KnockMessage>
           ? _value.recipient
           : recipient // ignore: cast_nullable_to_non_nullable
               as Recipient,
-      actors: null == actors
-          ? _value.actors
-          : actors // ignore: cast_nullable_to_non_nullable
-              as List<Recipient>,
       source: null == source
           ? _value.source
           : source // ignore: cast_nullable_to_non_nullable
               as KnockMessageSource,
-      tenant: freezed == tenant
-          ? _value.tenant
-          : tenant // ignore: cast_nullable_to_non_nullable
-              as String?,
       status: null == status
           ? _value.status
           : status // ignore: cast_nullable_to_non_nullable
               as KnockMessageDeliveryStatus,
-      engagementStatuses: null == engagementStatuses
-          ? _value.engagementStatuses
-          : engagementStatuses // ignore: cast_nullable_to_non_nullable
-              as List<KnockMessageEngagementStatus>,
       insertedAt: null == insertedAt
           ? _value.insertedAt
           : insertedAt // ignore: cast_nullable_to_non_nullable
@@ -215,6 +203,18 @@ class _$KnockMessageCopyWithImpl<$Res, $Val extends KnockMessage>
           ? _value.updatedAt
           : updatedAt // ignore: cast_nullable_to_non_nullable
               as DateTime,
+      actors: null == actors
+          ? _value.actors
+          : actors // ignore: cast_nullable_to_non_nullable
+              as List<Recipient>,
+      tenant: freezed == tenant
+          ? _value.tenant
+          : tenant // ignore: cast_nullable_to_non_nullable
+              as String?,
+      engagementStatuses: null == engagementStatuses
+          ? _value.engagementStatuses
+          : engagementStatuses // ignore: cast_nullable_to_non_nullable
+              as List<KnockMessageEngagementStatus>,
       seenAt: freezed == seenAt
           ? _value.seenAt
           : seenAt // ignore: cast_nullable_to_non_nullable
@@ -279,18 +279,18 @@ abstract class _$$KnockMessageImplCopyWith<$Res>
       {String id,
       @JsonKey(name: 'channel_id') String channelId,
       Recipient recipient,
-      List<Recipient> actors,
       KnockMessageSource source,
-      String? tenant,
       KnockMessageDeliveryStatus status,
-      @JsonKey(name: 'engagement_statuses')
-      List<KnockMessageEngagementStatus> engagementStatuses,
       @ISO8601DateTimeConverter()
       @JsonKey(name: 'inserted_at')
       DateTime insertedAt,
       @ISO8601DateTimeConverter()
       @JsonKey(name: 'updated_at')
       DateTime updatedAt,
+      List<Recipient> actors,
+      String? tenant,
+      @JsonKey(name: 'engagement_statuses')
+      List<KnockMessageEngagementStatus> engagementStatuses,
       @ISO8601DateTimeConverter() @JsonKey(name: 'seen_at') DateTime? seenAt,
       @ISO8601DateTimeConverter() @JsonKey(name: 'read_at') DateTime? readAt,
       @ISO8601DateTimeConverter()
@@ -328,13 +328,13 @@ class __$$KnockMessageImplCopyWithImpl<$Res>
     Object? id = null,
     Object? channelId = null,
     Object? recipient = null,
-    Object? actors = null,
     Object? source = null,
-    Object? tenant = freezed,
     Object? status = null,
-    Object? engagementStatuses = null,
     Object? insertedAt = null,
     Object? updatedAt = null,
+    Object? actors = null,
+    Object? tenant = freezed,
+    Object? engagementStatuses = null,
     Object? seenAt = freezed,
     Object? readAt = freezed,
     Object? archivedAt = freezed,
@@ -357,26 +357,14 @@ class __$$KnockMessageImplCopyWithImpl<$Res>
           ? _value.recipient
           : recipient // ignore: cast_nullable_to_non_nullable
               as Recipient,
-      actors: null == actors
-          ? _value._actors
-          : actors // ignore: cast_nullable_to_non_nullable
-              as List<Recipient>,
       source: null == source
           ? _value.source
           : source // ignore: cast_nullable_to_non_nullable
               as KnockMessageSource,
-      tenant: freezed == tenant
-          ? _value.tenant
-          : tenant // ignore: cast_nullable_to_non_nullable
-              as String?,
       status: null == status
           ? _value.status
           : status // ignore: cast_nullable_to_non_nullable
               as KnockMessageDeliveryStatus,
-      engagementStatuses: null == engagementStatuses
-          ? _value._engagementStatuses
-          : engagementStatuses // ignore: cast_nullable_to_non_nullable
-              as List<KnockMessageEngagementStatus>,
       insertedAt: null == insertedAt
           ? _value.insertedAt
           : insertedAt // ignore: cast_nullable_to_non_nullable
@@ -385,6 +373,18 @@ class __$$KnockMessageImplCopyWithImpl<$Res>
           ? _value.updatedAt
           : updatedAt // ignore: cast_nullable_to_non_nullable
               as DateTime,
+      actors: null == actors
+          ? _value._actors
+          : actors // ignore: cast_nullable_to_non_nullable
+              as List<Recipient>,
+      tenant: freezed == tenant
+          ? _value.tenant
+          : tenant // ignore: cast_nullable_to_non_nullable
+              as String?,
+      engagementStatuses: null == engagementStatuses
+          ? _value._engagementStatuses
+          : engagementStatuses // ignore: cast_nullable_to_non_nullable
+              as List<KnockMessageEngagementStatus>,
       seenAt: freezed == seenAt
           ? _value.seenAt
           : seenAt // ignore: cast_nullable_to_non_nullable
@@ -429,18 +429,18 @@ class _$KnockMessageImpl extends _KnockMessage {
       {required this.id,
       @JsonKey(name: 'channel_id') required this.channelId,
       required this.recipient,
-      final List<Recipient> actors = const [],
       required this.source,
-      this.tenant,
       required this.status,
-      @JsonKey(name: 'engagement_statuses')
-      final List<KnockMessageEngagementStatus> engagementStatuses = const [],
       @ISO8601DateTimeConverter()
       @JsonKey(name: 'inserted_at')
       required this.insertedAt,
       @ISO8601DateTimeConverter()
       @JsonKey(name: 'updated_at')
       required this.updatedAt,
+      final List<Recipient> actors = const [],
+      this.tenant,
+      @JsonKey(name: 'engagement_statuses')
+      final List<KnockMessageEngagementStatus> engagementStatuses = const [],
       @ISO8601DateTimeConverter() @JsonKey(name: 'seen_at') this.seenAt,
       @ISO8601DateTimeConverter() @JsonKey(name: 'read_at') this.readAt,
       @ISO8601DateTimeConverter() @JsonKey(name: 'archived_at') this.archivedAt,
@@ -475,6 +475,26 @@ class _$KnockMessageImpl extends _KnockMessage {
   @override
   final Recipient recipient;
 
+  /// The source workflow that triggered this message.
+  @override
+  final KnockMessageSource source;
+
+  /// The delivery status of the message.
+  @override
+  final KnockMessageDeliveryStatus status;
+
+  /// When the message was inserted.
+  @override
+  @ISO8601DateTimeConverter()
+  @JsonKey(name: 'inserted_at')
+  final DateTime insertedAt;
+
+  /// When the message was last updated.
+  @override
+  @ISO8601DateTimeConverter()
+  @JsonKey(name: 'updated_at')
+  final DateTime updatedAt;
+
   /// The actors who triggered this message.
   final List<Recipient> _actors;
 
@@ -487,17 +507,9 @@ class _$KnockMessageImpl extends _KnockMessage {
     return EqualUnmodifiableListView(_actors);
   }
 
-  /// The source workflow that triggered this message.
-  @override
-  final KnockMessageSource source;
-
   /// The tenant associated with this message, if any.
   @override
   final String? tenant;
-
-  /// The delivery status of the message.
-  @override
-  final KnockMessageDeliveryStatus status;
 
   /// The engagement statuses of the message.
   final List<KnockMessageEngagementStatus> _engagementStatuses;
@@ -511,18 +523,6 @@ class _$KnockMessageImpl extends _KnockMessage {
     // ignore: implicit_dynamic_type
     return EqualUnmodifiableListView(_engagementStatuses);
   }
-
-  /// When the message was inserted.
-  @override
-  @ISO8601DateTimeConverter()
-  @JsonKey(name: 'inserted_at')
-  final DateTime insertedAt;
-
-  /// When the message was last updated.
-  @override
-  @ISO8601DateTimeConverter()
-  @JsonKey(name: 'updated_at')
-  final DateTime updatedAt;
 
   /// When the message was seen by the recipient.
   @override
@@ -587,7 +587,7 @@ class _$KnockMessageImpl extends _KnockMessage {
 
   @override
   String toString() {
-    return 'KnockMessage(id: $id, channelId: $channelId, recipient: $recipient, actors: $actors, source: $source, tenant: $tenant, status: $status, engagementStatuses: $engagementStatuses, insertedAt: $insertedAt, updatedAt: $updatedAt, seenAt: $seenAt, readAt: $readAt, archivedAt: $archivedAt, clickedAt: $clickedAt, interactedAt: $interactedAt, linkClickedAt: $linkClickedAt, data: $data, metadata: $metadata)';
+    return 'KnockMessage(id: $id, channelId: $channelId, recipient: $recipient, source: $source, status: $status, insertedAt: $insertedAt, updatedAt: $updatedAt, actors: $actors, tenant: $tenant, engagementStatuses: $engagementStatuses, seenAt: $seenAt, readAt: $readAt, archivedAt: $archivedAt, clickedAt: $clickedAt, interactedAt: $interactedAt, linkClickedAt: $linkClickedAt, data: $data, metadata: $metadata)';
   }
 
   @override
@@ -600,16 +600,16 @@ class _$KnockMessageImpl extends _KnockMessage {
                 other.channelId == channelId) &&
             (identical(other.recipient, recipient) ||
                 other.recipient == recipient) &&
-            const DeepCollectionEquality().equals(other._actors, _actors) &&
             (identical(other.source, source) || other.source == source) &&
-            (identical(other.tenant, tenant) || other.tenant == tenant) &&
             (identical(other.status, status) || other.status == status) &&
-            const DeepCollectionEquality()
-                .equals(other._engagementStatuses, _engagementStatuses) &&
             (identical(other.insertedAt, insertedAt) ||
                 other.insertedAt == insertedAt) &&
             (identical(other.updatedAt, updatedAt) ||
                 other.updatedAt == updatedAt) &&
+            const DeepCollectionEquality().equals(other._actors, _actors) &&
+            (identical(other.tenant, tenant) || other.tenant == tenant) &&
+            const DeepCollectionEquality()
+                .equals(other._engagementStatuses, _engagementStatuses) &&
             (identical(other.seenAt, seenAt) || other.seenAt == seenAt) &&
             (identical(other.readAt, readAt) || other.readAt == readAt) &&
             (identical(other.archivedAt, archivedAt) ||
@@ -631,13 +631,13 @@ class _$KnockMessageImpl extends _KnockMessage {
       id,
       channelId,
       recipient,
-      const DeepCollectionEquality().hash(_actors),
       source,
-      tenant,
       status,
-      const DeepCollectionEquality().hash(_engagementStatuses),
       insertedAt,
       updatedAt,
+      const DeepCollectionEquality().hash(_actors),
+      tenant,
+      const DeepCollectionEquality().hash(_engagementStatuses),
       seenAt,
       readAt,
       archivedAt,
@@ -666,18 +666,18 @@ abstract class _KnockMessage extends KnockMessage {
       {required final String id,
       @JsonKey(name: 'channel_id') required final String channelId,
       required final Recipient recipient,
-      final List<Recipient> actors,
       required final KnockMessageSource source,
-      final String? tenant,
       required final KnockMessageDeliveryStatus status,
-      @JsonKey(name: 'engagement_statuses')
-      final List<KnockMessageEngagementStatus> engagementStatuses,
       @ISO8601DateTimeConverter()
       @JsonKey(name: 'inserted_at')
       required final DateTime insertedAt,
       @ISO8601DateTimeConverter()
       @JsonKey(name: 'updated_at')
       required final DateTime updatedAt,
+      final List<Recipient> actors,
+      final String? tenant,
+      @JsonKey(name: 'engagement_statuses')
+      final List<KnockMessageEngagementStatus> engagementStatuses,
       @ISO8601DateTimeConverter()
       @JsonKey(name: 'seen_at')
       final DateTime? seenAt,
@@ -718,25 +718,12 @@ abstract class _KnockMessage extends KnockMessage {
   Recipient get recipient;
   @override
 
-  /// The actors who triggered this message.
-  List<Recipient> get actors;
-  @override
-
   /// The source workflow that triggered this message.
   KnockMessageSource get source;
   @override
 
-  /// The tenant associated with this message, if any.
-  String? get tenant;
-  @override
-
   /// The delivery status of the message.
   KnockMessageDeliveryStatus get status;
-  @override
-
-  /// The engagement statuses of the message.
-  @JsonKey(name: 'engagement_statuses')
-  List<KnockMessageEngagementStatus> get engagementStatuses;
   @override
 
   /// When the message was inserted.
@@ -749,6 +736,19 @@ abstract class _KnockMessage extends KnockMessage {
   @ISO8601DateTimeConverter()
   @JsonKey(name: 'updated_at')
   DateTime get updatedAt;
+  @override
+
+  /// The actors who triggered this message.
+  List<Recipient> get actors;
+  @override
+
+  /// The tenant associated with this message, if any.
+  String? get tenant;
+  @override
+
+  /// The engagement statuses of the message.
+  @JsonKey(name: 'engagement_statuses')
+  List<KnockMessageEngagementStatus> get engagementStatuses;
   @override
 
   /// When the message was seen by the recipient.

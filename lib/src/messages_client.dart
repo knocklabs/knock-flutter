@@ -1,7 +1,6 @@
 import 'dart:convert';
 
 import 'package:knock_flutter/knock_flutter.dart';
-import 'package:knock_flutter/src/model/api_response.dart';
 
 /// The engagement status for updating a message.
 enum MessageEngagementStatus {
@@ -121,7 +120,10 @@ class BulkOperation {
 /// final message = await knock.messages().get(messageId);
 ///
 /// // Update a single message status
-/// await knock.messages().updateStatus(messageId, MessageEngagementStatus.read);
+/// await knock.messages().updateStatus(
+///   messageId,
+///   MessageEngagementStatus.read,
+/// );
 ///
 /// // Batch update multiple messages
 /// await knock.messages().batchUpdateStatuses(
@@ -151,12 +153,15 @@ class MessagesClient {
   ///
   /// For 'interacted' status, you can optionally pass [options] with metadata.
   ///
-  /// Example:
-  /// ```dart
-  /// // Mark a message as read
-  /// await knock.messages().updateStatus(messageId, MessageEngagementStatus.read);
-  ///
-  /// // Mark a message as interacted with metadata
+/// Example:
+/// ```dart
+/// // Mark a message as read
+/// await knock.messages().updateStatus(
+///   messageId,
+///   MessageEngagementStatus.read,
+/// );
+///
+/// // Mark a message as interacted with metadata
   /// await knock.messages().updateStatus(
   ///   messageId,
   ///   MessageEngagementStatus.interacted,
@@ -191,7 +196,10 @@ class MessagesClient {
   /// Example:
   /// ```dart
   /// // Remove the 'seen' status from a message
-  /// await knock.messages().removeStatus(messageId, RemovableMessageStatus.seen);
+  /// await knock.messages().removeStatus(
+///   messageId,
+///   RemovableMessageStatus.seen,
+/// );
   /// ```
   Future<KnockMessage> removeStatus(
     String messageId,
@@ -238,7 +246,8 @@ class MessagesClient {
 
   /// Bulk updates all message statuses in a channel.
   ///
-  /// Returns a [BulkOperation] that can be used to track the operation progress.
+  /// Returns a [BulkOperation] that can be used to track the operation
+  /// progress.
   ///
   /// Example:
   /// ```dart
@@ -291,8 +300,9 @@ class MessagesClient {
       updateStatus(
         messageId,
         MessageEngagementStatus.interacted,
-        options:
-            metadata != null ? UpdateMessageStatusOptions(metadata: metadata) : null,
+        options: metadata != null
+            ? UpdateMessageStatusOptions(metadata: metadata)
+            : null,
       );
 
   /// Removes the seen status from a message.

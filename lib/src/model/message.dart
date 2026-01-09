@@ -39,22 +39,11 @@ class KnockMessage with _$KnockMessage {
     /// The recipient of this message.
     required Recipient recipient,
 
-    /// The actors who triggered this message.
-    @Default([]) List<Recipient> actors,
-
     /// The source workflow that triggered this message.
     required KnockMessageSource source,
 
-    /// The tenant associated with this message, if any.
-    String? tenant,
-
     /// The delivery status of the message.
     required KnockMessageDeliveryStatus status,
-
-    /// The engagement statuses of the message.
-    @JsonKey(name: 'engagement_statuses')
-    @Default([])
-    List<KnockMessageEngagementStatus> engagementStatuses,
 
     /// When the message was inserted.
     @ISO8601DateTimeConverter()
@@ -65,6 +54,17 @@ class KnockMessage with _$KnockMessage {
     @ISO8601DateTimeConverter()
     @JsonKey(name: 'updated_at')
     required DateTime updatedAt,
+
+    /// The actors who triggered this message.
+    @Default([]) List<Recipient> actors,
+
+    /// The tenant associated with this message, if any.
+    String? tenant,
+
+    /// The engagement statuses of the message.
+    @JsonKey(name: 'engagement_statuses')
+    @Default([])
+    List<KnockMessageEngagementStatus> engagementStatuses,
 
     /// When the message was seen by the recipient.
     @ISO8601DateTimeConverter() @JsonKey(name: 'seen_at') DateTime? seenAt,

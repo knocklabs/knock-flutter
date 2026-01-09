@@ -13,23 +13,23 @@ _$KnockMessageImpl _$$KnockMessageImplFromJson(Map<String, dynamic> json) =>
       id: json['id'] as String,
       channelId: json['channel_id'] as String,
       recipient: Recipient.fromJson(json['recipient'] as Map<String, dynamic>),
+      source:
+          KnockMessageSource.fromJson(json['source'] as Map<String, dynamic>),
+      status: $enumDecode(_$KnockMessageDeliveryStatusEnumMap, json['status']),
+      insertedAt: const ISO8601DateTimeConverter()
+          .fromJson(json['inserted_at'] as String),
+      updatedAt: const ISO8601DateTimeConverter()
+          .fromJson(json['updated_at'] as String),
       actors: (json['actors'] as List<dynamic>?)
               ?.map((e) => Recipient.fromJson(e as Map<String, dynamic>))
               .toList() ??
           const [],
-      source:
-          KnockMessageSource.fromJson(json['source'] as Map<String, dynamic>),
       tenant: json['tenant'] as String?,
-      status: $enumDecode(_$KnockMessageDeliveryStatusEnumMap, json['status']),
       engagementStatuses: (json['engagement_statuses'] as List<dynamic>?)
               ?.map(
                   (e) => $enumDecode(_$KnockMessageEngagementStatusEnumMap, e))
               .toList() ??
           const [],
-      insertedAt: const ISO8601DateTimeConverter()
-          .fromJson(json['inserted_at'] as String),
-      updatedAt: const ISO8601DateTimeConverter()
-          .fromJson(json['updated_at'] as String),
       seenAt: _$JsonConverterFromJson<String, DateTime>(
           json['seen_at'], const ISO8601DateTimeConverter().fromJson),
       readAt: _$JsonConverterFromJson<String, DateTime>(
@@ -51,16 +51,16 @@ Map<String, dynamic> _$$KnockMessageImplToJson(_$KnockMessageImpl instance) =>
       'id': instance.id,
       'channel_id': instance.channelId,
       'recipient': instance.recipient.toJson(),
-      'actors': instance.actors.map((e) => e.toJson()).toList(),
       'source': instance.source.toJson(),
-      'tenant': instance.tenant,
       'status': _$KnockMessageDeliveryStatusEnumMap[instance.status]!,
-      'engagement_statuses': instance.engagementStatuses
-          .map((e) => _$KnockMessageEngagementStatusEnumMap[e]!)
-          .toList(),
       'inserted_at':
           const ISO8601DateTimeConverter().toJson(instance.insertedAt),
       'updated_at': const ISO8601DateTimeConverter().toJson(instance.updatedAt),
+      'actors': instance.actors.map((e) => e.toJson()).toList(),
+      'tenant': instance.tenant,
+      'engagement_statuses': instance.engagementStatuses
+          .map((e) => _$KnockMessageEngagementStatusEnumMap[e]!)
+          .toList(),
       'seen_at': _$JsonConverterToJson<String, DateTime>(
           instance.seenAt, const ISO8601DateTimeConverter().toJson),
       'read_at': _$JsonConverterToJson<String, DateTime>(

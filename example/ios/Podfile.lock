@@ -1,22 +1,28 @@
 PODS:
   - Flutter (1.0.0)
+  - flutter_timezone (0.0.1):
+    - Flutter
   - knock_flutter (0.0.1):
     - Flutter
 
 DEPENDENCIES:
   - Flutter (from `Flutter`)
+  - flutter_timezone (from `.symlinks/plugins/flutter_timezone/ios`)
   - knock_flutter (from `.symlinks/plugins/knock_flutter/ios`)
 
 EXTERNAL SOURCES:
   Flutter:
     :path: Flutter
+  flutter_timezone:
+    :path: ".symlinks/plugins/flutter_timezone/ios"
   knock_flutter:
     :path: ".symlinks/plugins/knock_flutter/ios"
 
 SPEC CHECKSUMS:
-  Flutter: e0871f40cf51350855a761d2e70bf5af5b9b5de7
-  knock_flutter: f71affd25f3f536326ecd04dbacf6cc5e6e1c550
+  Flutter: cabc95a1d2626b1b06e7179b784ebcf0c0cde467
+  flutter_timezone: ee50ce7786b5fde27e2fe5375bbc8c9661ffc13f
+  knock_flutter: 637373a58a2c6921841282d465b48844f3483473
 
-PODFILE CHECKSUM: 819463e6a0290f5a72f145ba7cde16e8b6ef0796
+PODFILE CHECKSUM: a57f30d18f102dd3ce366b1d62a55ecbef2158e5
 
-COCOAPODS: 1.14.3
+COCOAPODS: 1.16.2
