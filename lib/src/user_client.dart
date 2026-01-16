@@ -85,7 +85,7 @@ class UserClient {
     String token,
   ) async {
     final locale = PlatformDispatcher.instance.locale.toLanguageTag();
-    String? timezone;
+    TimezoneInfo? timezone;
     try {
       timezone = await FlutterTimezone.getLocalTimezone();
     } catch (error) {
@@ -115,7 +115,7 @@ class UserClient {
       final device = Device(
         token: token,
         locale: locale,
-        timezone: timezone,
+        timezone: timezone?.identifier,
       );
       final modifiedChannelData = channelData.appendDevice(device);
       return setChannelData(channelId, modifiedChannelData);
