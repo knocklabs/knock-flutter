@@ -8,8 +8,12 @@ enum StatusCode { ok, error }
 
 @freezed
 abstract class ApiResponse with _$ApiResponse {
-  const factory ApiResponse({required int status, required StatusCode statusCode, String? body, Object? error}) =
-      _ApiResponse;
+  const factory ApiResponse({
+    required int status,
+    required StatusCode statusCode,
+    String? body,
+    Object? error,
+  }) = _ApiResponse;
 
   const ApiResponse._();
 

@@ -9,7 +9,9 @@ part 'feed_response.g.dart';
 @freezed
 abstract class OnNewMessageResponse with _$OnNewMessageResponse {
   @JsonSerializable(explicitToJson: true)
-  const factory OnNewMessageResponse({required FeedMetadata metadata}) = _OnNewMessageResponse;
+  const factory OnNewMessageResponse({required FeedMetadata metadata}) =
+      _OnNewMessageResponse;
 
-  factory OnNewMessageResponse.fromJson(Map<String, dynamic> json) => _$OnNewMessageResponseFromJson(json);
+  factory OnNewMessageResponse.fromJson(Map<String, dynamic> json) =>
+      _$OnNewMessageResponseFromJson(json);
 }

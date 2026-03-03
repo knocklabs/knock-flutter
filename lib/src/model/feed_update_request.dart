@@ -9,8 +9,9 @@ part 'feed_update_request.g.dart';
 @Freezed(toJson: true)
 abstract class FeedStatusUpdateRequest with _$FeedStatusUpdateRequest {
   @JsonSerializable(explicitToJson: true)
-  const factory FeedStatusUpdateRequest({@JsonKey(name: 'message_ids') required List<String> ids}) =
-      _FeedStatusUpdateRequest;
+  const factory FeedStatusUpdateRequest({
+    @JsonKey(name: 'message_ids') required List<String> ids,
+  }) = _FeedStatusUpdateRequest;
 }
 
 @Freezed(toJson: true)
