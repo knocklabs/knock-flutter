@@ -29,7 +29,7 @@ class KnockApiClient extends http.BaseClient {
 
   Stream<KnockApiClientStatus> get status => _status.stream;
 
-  PhoenixSocket get socket => _socket ?? _buildSocket();
+  PhoenixSocket get socket => _socket ??= _buildSocket();
 
   PhoenixSocket _buildSocket() {
     _assertNotDisposed();
