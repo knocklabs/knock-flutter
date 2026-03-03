@@ -24,7 +24,7 @@ class ApiResponse with _$ApiResponse {
 
   void checkResponse() {
     if (statusCode == StatusCode.error) {
-      throw ApiError(this);
+      throw KnockApiException(this);
     }
   }
 
@@ -35,13 +35,13 @@ class ApiResponse with _$ApiResponse {
   }
 }
 
-class ApiError extends Error {
-  ApiError(this.response);
+class KnockApiException implements Exception {
+  KnockApiException(this.response);
 
   final ApiResponse response;
 
   @override
   String toString() {
-    return 'ApiError: $response';
+    return 'KnockApiException: statusCode: ${response.statusCode}, status: ${response.status}, body: ${response.body}, error: ${response.error}';
   }
 }

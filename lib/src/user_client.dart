@@ -97,7 +97,7 @@ class UserClient {
     try {
       channelData = await getChannelData(channelId);
     } catch (error) {
-      if (error is ApiError) {
+      if (error is KnockApiException) {
         final apiError = error;
         if (apiError.response.status == 404) {
           // First time adding to this channel (channels are lazily created)
@@ -130,7 +130,7 @@ class UserClient {
     try {
       channelData = await getChannelData(channelId);
     } catch (error) {
-      if (error is ApiError) {
+      if (error is KnockApiException) {
         final apiError = error;
         if (apiError.response.status == 404) {
           return channelData;

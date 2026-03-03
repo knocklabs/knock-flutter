@@ -90,7 +90,7 @@ void main() {
 
       test('handles when there is no channel data', () async {
         when(apiClient.doGet(any)).thenAnswer(
-          (_) async => throw ApiError(
+          (_) async => throw KnockApiException(
             const ApiResponse(status: 404, statusCode: StatusCode.error),
           ),
         );
@@ -110,7 +110,7 @@ void main() {
 
       test('only rethrows other errors when registering tokens', () async {
         when(apiClient.doGet(any)).thenAnswer(
-          (_) async => throw ApiError(
+          (_) async => throw KnockApiException(
             const ApiResponse(status: 405, statusCode: StatusCode.error),
           ),
         );
@@ -123,7 +123,7 @@ void main() {
             'testChannelId',
             'testToken',
           ),
-          throwsA(isA<ApiError>()),
+          throwsA(isA<KnockApiException>()),
         );
       });
     });
@@ -157,7 +157,7 @@ void main() {
 
     test('handles when there is no channel data', () async {
       when(apiClient.doGet(any)).thenAnswer(
-        (_) async => throw ApiError(
+        (_) async => throw KnockApiException(
           const ApiResponse(status: 404, statusCode: StatusCode.error),
         ),
       );
@@ -171,7 +171,7 @@ void main() {
 
     test('only rethrows other errors when registering tokens', () async {
       when(apiClient.doGet(any)).thenAnswer(
-        (_) async => throw ApiError(
+        (_) async => throw KnockApiException(
           const ApiResponse(status: 405, statusCode: StatusCode.error),
         ),
       );
@@ -184,7 +184,7 @@ void main() {
           'testChannelId',
           'testToken',
         ),
-        throwsA(isA<ApiError>()),
+        throwsA(isA<KnockApiException>()),
       );
     });
   });
