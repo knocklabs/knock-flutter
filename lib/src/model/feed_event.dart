@@ -42,7 +42,7 @@ enum FeedEventType {
 }
 
 @freezed
-class FeedEvent with _$FeedEvent {
+abstract class FeedEvent with _$FeedEvent {
   const factory FeedEvent({
     required FeedEventType eventType,
     required List<FeedItem> items,

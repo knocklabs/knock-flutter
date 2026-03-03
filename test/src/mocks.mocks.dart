@@ -27,108 +27,59 @@ import 'package:phoenix_socket/phoenix_socket.dart' as _i3;
 // ignore_for_file: unnecessary_parenthesis
 // ignore_for_file: camel_case_types
 // ignore_for_file: subtype_of_sealed_class
+// ignore_for_file: invalid_use_of_internal_member
 
 class _FakeApiClient_0 extends _i1.SmartFake implements _i2.ApiClient {
-  _FakeApiClient_0(
-    Object parent,
-    Invocation parentInvocation,
-  ) : super(
-          parent,
-          parentInvocation,
-        );
+  _FakeApiClient_0(Object parent, Invocation parentInvocation)
+    : super(parent, parentInvocation);
 }
 
 class _FakeUserClient_1 extends _i1.SmartFake implements _i2.UserClient {
-  _FakeUserClient_1(
-    Object parent,
-    Invocation parentInvocation,
-  ) : super(
-          parent,
-          parentInvocation,
-        );
+  _FakeUserClient_1(Object parent, Invocation parentInvocation)
+    : super(parent, parentInvocation);
 }
 
 class _FakeMessagesClient_2 extends _i1.SmartFake
     implements _i2.MessagesClient {
-  _FakeMessagesClient_2(
-    Object parent,
-    Invocation parentInvocation,
-  ) : super(
-          parent,
-          parentInvocation,
-        );
+  _FakeMessagesClient_2(Object parent, Invocation parentInvocation)
+    : super(parent, parentInvocation);
 }
 
 class _FakePreferencesClient_3 extends _i1.SmartFake
     implements _i2.PreferencesClient {
-  _FakePreferencesClient_3(
-    Object parent,
-    Invocation parentInvocation,
-  ) : super(
-          parent,
-          parentInvocation,
-        );
+  _FakePreferencesClient_3(Object parent, Invocation parentInvocation)
+    : super(parent, parentInvocation);
 }
 
 class _FakeFeedClient_4 extends _i1.SmartFake implements _i2.FeedClient {
-  _FakeFeedClient_4(
-    Object parent,
-    Invocation parentInvocation,
-  ) : super(
-          parent,
-          parentInvocation,
-        );
+  _FakeFeedClient_4(Object parent, Invocation parentInvocation)
+    : super(parent, parentInvocation);
 }
 
 class _FakeKnock_5 extends _i1.SmartFake implements _i2.Knock {
-  _FakeKnock_5(
-    Object parent,
-    Invocation parentInvocation,
-  ) : super(
-          parent,
-          parentInvocation,
-        );
+  _FakeKnock_5(Object parent, Invocation parentInvocation)
+    : super(parent, parentInvocation);
 }
 
 class _FakePhoenixSocket_6 extends _i1.SmartFake implements _i3.PhoenixSocket {
-  _FakePhoenixSocket_6(
-    Object parent,
-    Invocation parentInvocation,
-  ) : super(
-          parent,
-          parentInvocation,
-        );
+  _FakePhoenixSocket_6(Object parent, Invocation parentInvocation)
+    : super(parent, parentInvocation);
 }
 
 class _FakeStreamedResponse_7 extends _i1.SmartFake
     implements _i4.StreamedResponse {
-  _FakeStreamedResponse_7(
-    Object parent,
-    Invocation parentInvocation,
-  ) : super(
-          parent,
-          parentInvocation,
-        );
+  _FakeStreamedResponse_7(Object parent, Invocation parentInvocation)
+    : super(parent, parentInvocation);
 }
 
 class _FakeApiResponse_8 extends _i1.SmartFake implements _i5.ApiResponse {
-  _FakeApiResponse_8(
-    Object parent,
-    Invocation parentInvocation,
-  ) : super(
-          parent,
-          parentInvocation,
-        );
+  _FakeApiResponse_8(Object parent, Invocation parentInvocation)
+    : super(parent, parentInvocation);
 }
 
 class _FakeResponse_9 extends _i1.SmartFake implements _i4.Response {
-  _FakeResponse_9(
-    Object parent,
-    Invocation parentInvocation,
-  ) : super(
-          parent,
-          parentInvocation,
-        );
+  _FakeResponse_9(Object parent, Invocation parentInvocation)
+    : super(parent, parentInvocation);
 }
 
 /// A class which mocks [Knock].
@@ -136,196 +87,129 @@ class _FakeResponse_9 extends _i1.SmartFake implements _i4.Response {
 /// See the documentation for Mockito's code generation for more information.
 class MockKnock extends _i1.Mock implements _i2.Knock {
   @override
-  String get apiKey => (super.noSuchMethod(
-        Invocation.getter(#apiKey),
-        returnValue: _i6.dummyValue<String>(
-          this,
-          Invocation.getter(#apiKey),
-        ),
-        returnValueForMissingStub: _i6.dummyValue<String>(
-          this,
-          Invocation.getter(#apiKey),
-        ),
-      ) as String);
+  String get apiKey =>
+      (super.noSuchMethod(
+            Invocation.getter(#apiKey),
+            returnValue: _i6.dummyValue<String>(
+              this,
+              Invocation.getter(#apiKey),
+            ),
+            returnValueForMissingStub: _i6.dummyValue<String>(
+              this,
+              Invocation.getter(#apiKey),
+            ),
+          )
+          as String);
 
   @override
-  String get host => (super.noSuchMethod(
-        Invocation.getter(#host),
-        returnValue: _i6.dummyValue<String>(
-          this,
-          Invocation.getter(#host),
-        ),
-        returnValueForMissingStub: _i6.dummyValue<String>(
-          this,
-          Invocation.getter(#host),
-        ),
-      ) as String);
+  String get host =>
+      (super.noSuchMethod(
+            Invocation.getter(#host),
+            returnValue: _i6.dummyValue<String>(this, Invocation.getter(#host)),
+            returnValueForMissingStub: _i6.dummyValue<String>(
+              this,
+              Invocation.getter(#host),
+            ),
+          )
+          as String);
 
   @override
-  void authenticate(
-    String? userId, [
-    String? userToken,
-  ]) =>
-      super.noSuchMethod(
-        Invocation.method(
-          #authenticate,
-          [
-            userId,
-            userToken,
-          ],
-        ),
-        returnValueForMissingStub: null,
-      );
+  void authenticate(String? userId, [String? userToken]) => super.noSuchMethod(
+    Invocation.method(#authenticate, [userId, userToken]),
+    returnValueForMissingStub: null,
+  );
 
   @override
   void logout() => super.noSuchMethod(
-        Invocation.method(
-          #logout,
-          [],
-        ),
-        returnValueForMissingStub: null,
-      );
+    Invocation.method(#logout, []),
+    returnValueForMissingStub: null,
+  );
 
   @override
-  bool isAuthenticated({bool? checkUserToken = false}) => (super.noSuchMethod(
-        Invocation.method(
-          #isAuthenticated,
-          [],
-          {#checkUserToken: checkUserToken},
-        ),
-        returnValue: false,
-        returnValueForMissingStub: false,
-      ) as bool);
+  bool isAuthenticated({bool? checkUserToken = false}) =>
+      (super.noSuchMethod(
+            Invocation.method(#isAuthenticated, [], {
+              #checkUserToken: checkUserToken,
+            }),
+            returnValue: false,
+            returnValueForMissingStub: false,
+          )
+          as bool);
 
   @override
-  _i2.ApiClient client() => (super.noSuchMethod(
-        Invocation.method(
-          #client,
-          [],
-        ),
-        returnValue: _FakeApiClient_0(
-          this,
-          Invocation.method(
-            #client,
-            [],
-          ),
-        ),
-        returnValueForMissingStub: _FakeApiClient_0(
-          this,
-          Invocation.method(
-            #client,
-            [],
-          ),
-        ),
-      ) as _i2.ApiClient);
+  _i2.ApiClient client() =>
+      (super.noSuchMethod(
+            Invocation.method(#client, []),
+            returnValue: _FakeApiClient_0(this, Invocation.method(#client, [])),
+            returnValueForMissingStub: _FakeApiClient_0(
+              this,
+              Invocation.method(#client, []),
+            ),
+          )
+          as _i2.ApiClient);
 
   @override
-  _i2.UserClient user() => (super.noSuchMethod(
-        Invocation.method(
-          #user,
-          [],
-        ),
-        returnValue: _FakeUserClient_1(
-          this,
-          Invocation.method(
-            #user,
-            [],
-          ),
-        ),
-        returnValueForMissingStub: _FakeUserClient_1(
-          this,
-          Invocation.method(
-            #user,
-            [],
-          ),
-        ),
-      ) as _i2.UserClient);
+  _i2.UserClient user() =>
+      (super.noSuchMethod(
+            Invocation.method(#user, []),
+            returnValue: _FakeUserClient_1(this, Invocation.method(#user, [])),
+            returnValueForMissingStub: _FakeUserClient_1(
+              this,
+              Invocation.method(#user, []),
+            ),
+          )
+          as _i2.UserClient);
 
   @override
-  _i2.MessagesClient messages() => (super.noSuchMethod(
-        Invocation.method(
-          #messages,
-          [],
-        ),
-        returnValue: _FakeMessagesClient_2(
-          this,
-          Invocation.method(
-            #messages,
-            [],
-          ),
-        ),
-        returnValueForMissingStub: _FakeMessagesClient_2(
-          this,
-          Invocation.method(
-            #messages,
-            [],
-          ),
-        ),
-      ) as _i2.MessagesClient);
+  _i2.MessagesClient messages() =>
+      (super.noSuchMethod(
+            Invocation.method(#messages, []),
+            returnValue: _FakeMessagesClient_2(
+              this,
+              Invocation.method(#messages, []),
+            ),
+            returnValueForMissingStub: _FakeMessagesClient_2(
+              this,
+              Invocation.method(#messages, []),
+            ),
+          )
+          as _i2.MessagesClient);
 
   @override
   _i2.PreferencesClient preferences({_i2.PreferencesOptions? options}) =>
       (super.noSuchMethod(
-        Invocation.method(
-          #preferences,
-          [],
-          {#options: options},
-        ),
-        returnValue: _FakePreferencesClient_3(
-          this,
-          Invocation.method(
-            #preferences,
-            [],
-            {#options: options},
-          ),
-        ),
-        returnValueForMissingStub: _FakePreferencesClient_3(
-          this,
-          Invocation.method(
-            #preferences,
-            [],
-            {#options: options},
-          ),
-        ),
-      ) as _i2.PreferencesClient);
+            Invocation.method(#preferences, [], {#options: options}),
+            returnValue: _FakePreferencesClient_3(
+              this,
+              Invocation.method(#preferences, [], {#options: options}),
+            ),
+            returnValueForMissingStub: _FakePreferencesClient_3(
+              this,
+              Invocation.method(#preferences, [], {#options: options}),
+            ),
+          )
+          as _i2.PreferencesClient);
 
   @override
-  _i2.FeedClient feed(
-    String? feedChannelId, {
-    _i2.FeedOptions? options,
-  }) =>
+  _i2.FeedClient feed(String? feedChannelId, {_i2.FeedOptions? options}) =>
       (super.noSuchMethod(
-        Invocation.method(
-          #feed,
-          [feedChannelId],
-          {#options: options},
-        ),
-        returnValue: _FakeFeedClient_4(
-          this,
-          Invocation.method(
-            #feed,
-            [feedChannelId],
-            {#options: options},
-          ),
-        ),
-        returnValueForMissingStub: _FakeFeedClient_4(
-          this,
-          Invocation.method(
-            #feed,
-            [feedChannelId],
-            {#options: options},
-          ),
-        ),
-      ) as _i2.FeedClient);
+            Invocation.method(#feed, [feedChannelId], {#options: options}),
+            returnValue: _FakeFeedClient_4(
+              this,
+              Invocation.method(#feed, [feedChannelId], {#options: options}),
+            ),
+            returnValueForMissingStub: _FakeFeedClient_4(
+              this,
+              Invocation.method(#feed, [feedChannelId], {#options: options}),
+            ),
+          )
+          as _i2.FeedClient);
 
   @override
   void dispose() => super.noSuchMethod(
-        Invocation.method(
-          #dispose,
-          [],
-        ),
-        returnValueForMissingStub: null,
-      );
+    Invocation.method(#dispose, []),
+    returnValueForMissingStub: null,
+  );
 }
 
 /// A class which mocks [ApiClient].
@@ -333,62 +217,56 @@ class MockKnock extends _i1.Mock implements _i2.Knock {
 /// See the documentation for Mockito's code generation for more information.
 class MockApiClient extends _i1.Mock implements _i2.ApiClient {
   @override
-  _i2.Knock get knock => (super.noSuchMethod(
-        Invocation.getter(#knock),
-        returnValue: _FakeKnock_5(
-          this,
-          Invocation.getter(#knock),
-        ),
-        returnValueForMissingStub: _FakeKnock_5(
-          this,
-          Invocation.getter(#knock),
-        ),
-      ) as _i2.Knock);
+  _i2.Knock get knock =>
+      (super.noSuchMethod(
+            Invocation.getter(#knock),
+            returnValue: _FakeKnock_5(this, Invocation.getter(#knock)),
+            returnValueForMissingStub: _FakeKnock_5(
+              this,
+              Invocation.getter(#knock),
+            ),
+          )
+          as _i2.Knock);
 
   @override
-  _i7.Stream<_i2.ApiClientStatus> get status => (super.noSuchMethod(
-        Invocation.getter(#status),
-        returnValue: _i7.Stream<_i2.ApiClientStatus>.empty(),
-        returnValueForMissingStub: _i7.Stream<_i2.ApiClientStatus>.empty(),
-      ) as _i7.Stream<_i2.ApiClientStatus>);
+  _i7.Stream<_i2.ApiClientStatus> get status =>
+      (super.noSuchMethod(
+            Invocation.getter(#status),
+            returnValue: _i7.Stream<_i2.ApiClientStatus>.empty(),
+            returnValueForMissingStub: _i7.Stream<_i2.ApiClientStatus>.empty(),
+          )
+          as _i7.Stream<_i2.ApiClientStatus>);
 
   @override
-  _i3.PhoenixSocket get socket => (super.noSuchMethod(
-        Invocation.getter(#socket),
-        returnValue: _FakePhoenixSocket_6(
-          this,
-          Invocation.getter(#socket),
-        ),
-        returnValueForMissingStub: _FakePhoenixSocket_6(
-          this,
-          Invocation.getter(#socket),
-        ),
-      ) as _i3.PhoenixSocket);
+  _i3.PhoenixSocket get socket =>
+      (super.noSuchMethod(
+            Invocation.getter(#socket),
+            returnValue: _FakePhoenixSocket_6(this, Invocation.getter(#socket)),
+            returnValueForMissingStub: _FakePhoenixSocket_6(
+              this,
+              Invocation.getter(#socket),
+            ),
+          )
+          as _i3.PhoenixSocket);
 
   @override
   _i7.Future<_i4.StreamedResponse> send(_i4.BaseRequest? request) =>
       (super.noSuchMethod(
-        Invocation.method(
-          #send,
-          [request],
-        ),
-        returnValue:
-            _i7.Future<_i4.StreamedResponse>.value(_FakeStreamedResponse_7(
-          this,
-          Invocation.method(
-            #send,
-            [request],
-          ),
-        )),
-        returnValueForMissingStub:
-            _i7.Future<_i4.StreamedResponse>.value(_FakeStreamedResponse_7(
-          this,
-          Invocation.method(
-            #send,
-            [request],
-          ),
-        )),
-      ) as _i7.Future<_i4.StreamedResponse>);
+            Invocation.method(#send, [request]),
+            returnValue: _i7.Future<_i4.StreamedResponse>.value(
+              _FakeStreamedResponse_7(
+                this,
+                Invocation.method(#send, [request]),
+              ),
+            ),
+            returnValueForMissingStub: _i7.Future<_i4.StreamedResponse>.value(
+              _FakeStreamedResponse_7(
+                this,
+                Invocation.method(#send, [request]),
+              ),
+            ),
+          )
+          as _i7.Future<_i4.StreamedResponse>);
 
   @override
   _i7.Future<_i5.ApiResponse> doGet(
@@ -396,29 +274,21 @@ class MockApiClient extends _i1.Mock implements _i2.ApiClient {
     Map<String, dynamic>? queryParams,
   }) =>
       (super.noSuchMethod(
-        Invocation.method(
-          #doGet,
-          [path],
-          {#queryParams: queryParams},
-        ),
-        returnValue: _i7.Future<_i5.ApiResponse>.value(_FakeApiResponse_8(
-          this,
-          Invocation.method(
-            #doGet,
-            [path],
-            {#queryParams: queryParams},
-          ),
-        )),
-        returnValueForMissingStub:
-            _i7.Future<_i5.ApiResponse>.value(_FakeApiResponse_8(
-          this,
-          Invocation.method(
-            #doGet,
-            [path],
-            {#queryParams: queryParams},
-          ),
-        )),
-      ) as _i7.Future<_i5.ApiResponse>);
+            Invocation.method(#doGet, [path], {#queryParams: queryParams}),
+            returnValue: _i7.Future<_i5.ApiResponse>.value(
+              _FakeApiResponse_8(
+                this,
+                Invocation.method(#doGet, [path], {#queryParams: queryParams}),
+              ),
+            ),
+            returnValueForMissingStub: _i7.Future<_i5.ApiResponse>.value(
+              _FakeApiResponse_8(
+                this,
+                Invocation.method(#doGet, [path], {#queryParams: queryParams}),
+              ),
+            ),
+          )
+          as _i7.Future<_i5.ApiResponse>);
 
   @override
   _i7.Future<_i5.ApiResponse> doPut(
@@ -427,38 +297,33 @@ class MockApiClient extends _i1.Mock implements _i2.ApiClient {
     Object? body,
   }) =>
       (super.noSuchMethod(
-        Invocation.method(
-          #doPut,
-          [path],
-          {
-            #queryParams: queryParams,
-            #body: body,
-          },
-        ),
-        returnValue: _i7.Future<_i5.ApiResponse>.value(_FakeApiResponse_8(
-          this,
-          Invocation.method(
-            #doPut,
-            [path],
-            {
-              #queryParams: queryParams,
-              #body: body,
-            },
-          ),
-        )),
-        returnValueForMissingStub:
-            _i7.Future<_i5.ApiResponse>.value(_FakeApiResponse_8(
-          this,
-          Invocation.method(
-            #doPut,
-            [path],
-            {
-              #queryParams: queryParams,
-              #body: body,
-            },
-          ),
-        )),
-      ) as _i7.Future<_i5.ApiResponse>);
+            Invocation.method(
+              #doPut,
+              [path],
+              {#queryParams: queryParams, #body: body},
+            ),
+            returnValue: _i7.Future<_i5.ApiResponse>.value(
+              _FakeApiResponse_8(
+                this,
+                Invocation.method(
+                  #doPut,
+                  [path],
+                  {#queryParams: queryParams, #body: body},
+                ),
+              ),
+            ),
+            returnValueForMissingStub: _i7.Future<_i5.ApiResponse>.value(
+              _FakeApiResponse_8(
+                this,
+                Invocation.method(
+                  #doPut,
+                  [path],
+                  {#queryParams: queryParams, #body: body},
+                ),
+              ),
+            ),
+          )
+          as _i7.Future<_i5.ApiResponse>);
 
   @override
   _i7.Future<_i5.ApiResponse> doPost(
@@ -467,38 +332,33 @@ class MockApiClient extends _i1.Mock implements _i2.ApiClient {
     Object? body,
   }) =>
       (super.noSuchMethod(
-        Invocation.method(
-          #doPost,
-          [path],
-          {
-            #queryParams: queryParams,
-            #body: body,
-          },
-        ),
-        returnValue: _i7.Future<_i5.ApiResponse>.value(_FakeApiResponse_8(
-          this,
-          Invocation.method(
-            #doPost,
-            [path],
-            {
-              #queryParams: queryParams,
-              #body: body,
-            },
-          ),
-        )),
-        returnValueForMissingStub:
-            _i7.Future<_i5.ApiResponse>.value(_FakeApiResponse_8(
-          this,
-          Invocation.method(
-            #doPost,
-            [path],
-            {
-              #queryParams: queryParams,
-              #body: body,
-            },
-          ),
-        )),
-      ) as _i7.Future<_i5.ApiResponse>);
+            Invocation.method(
+              #doPost,
+              [path],
+              {#queryParams: queryParams, #body: body},
+            ),
+            returnValue: _i7.Future<_i5.ApiResponse>.value(
+              _FakeApiResponse_8(
+                this,
+                Invocation.method(
+                  #doPost,
+                  [path],
+                  {#queryParams: queryParams, #body: body},
+                ),
+              ),
+            ),
+            returnValueForMissingStub: _i7.Future<_i5.ApiResponse>.value(
+              _FakeApiResponse_8(
+                this,
+                Invocation.method(
+                  #doPost,
+                  [path],
+                  {#queryParams: queryParams, #body: body},
+                ),
+              ),
+            ),
+          )
+          as _i7.Future<_i5.ApiResponse>);
 
   @override
   _i7.Future<_i5.ApiResponse> doDelete(
@@ -506,98 +366,73 @@ class MockApiClient extends _i1.Mock implements _i2.ApiClient {
     Map<String, dynamic>? queryParams,
   }) =>
       (super.noSuchMethod(
-        Invocation.method(
-          #doDelete,
-          [path],
-          {#queryParams: queryParams},
-        ),
-        returnValue: _i7.Future<_i5.ApiResponse>.value(_FakeApiResponse_8(
-          this,
-          Invocation.method(
-            #doDelete,
-            [path],
-            {#queryParams: queryParams},
-          ),
-        )),
-        returnValueForMissingStub:
-            _i7.Future<_i5.ApiResponse>.value(_FakeApiResponse_8(
-          this,
-          Invocation.method(
-            #doDelete,
-            [path],
-            {#queryParams: queryParams},
-          ),
-        )),
-      ) as _i7.Future<_i5.ApiResponse>);
+            Invocation.method(#doDelete, [path], {#queryParams: queryParams}),
+            returnValue: _i7.Future<_i5.ApiResponse>.value(
+              _FakeApiResponse_8(
+                this,
+                Invocation.method(
+                  #doDelete,
+                  [path],
+                  {#queryParams: queryParams},
+                ),
+              ),
+            ),
+            returnValueForMissingStub: _i7.Future<_i5.ApiResponse>.value(
+              _FakeApiResponse_8(
+                this,
+                Invocation.method(
+                  #doDelete,
+                  [path],
+                  {#queryParams: queryParams},
+                ),
+              ),
+            ),
+          )
+          as _i7.Future<_i5.ApiResponse>);
 
   @override
   void dispose() => super.noSuchMethod(
-        Invocation.method(
-          #dispose,
-          [],
-        ),
-        returnValueForMissingStub: null,
-      );
+    Invocation.method(#dispose, []),
+    returnValueForMissingStub: null,
+  );
 
   @override
-  _i7.Future<_i4.Response> head(
-    Uri? url, {
-    Map<String, String>? headers,
-  }) =>
+  _i7.Future<_i4.Response> head(Uri? url, {Map<String, String>? headers}) =>
       (super.noSuchMethod(
-        Invocation.method(
-          #head,
-          [url],
-          {#headers: headers},
-        ),
-        returnValue: _i7.Future<_i4.Response>.value(_FakeResponse_9(
-          this,
-          Invocation.method(
-            #head,
-            [url],
-            {#headers: headers},
-          ),
-        )),
-        returnValueForMissingStub:
-            _i7.Future<_i4.Response>.value(_FakeResponse_9(
-          this,
-          Invocation.method(
-            #head,
-            [url],
-            {#headers: headers},
-          ),
-        )),
-      ) as _i7.Future<_i4.Response>);
+            Invocation.method(#head, [url], {#headers: headers}),
+            returnValue: _i7.Future<_i4.Response>.value(
+              _FakeResponse_9(
+                this,
+                Invocation.method(#head, [url], {#headers: headers}),
+              ),
+            ),
+            returnValueForMissingStub: _i7.Future<_i4.Response>.value(
+              _FakeResponse_9(
+                this,
+                Invocation.method(#head, [url], {#headers: headers}),
+              ),
+            ),
+          )
+          as _i7.Future<_i4.Response>);
 
   @override
-  _i7.Future<_i4.Response> get(
-    Uri? url, {
-    Map<String, String>? headers,
-  }) =>
+  _i7.Future<_i4.Response> get(Uri? url, {Map<String, String>? headers}) =>
       (super.noSuchMethod(
-        Invocation.method(
-          #get,
-          [url],
-          {#headers: headers},
-        ),
-        returnValue: _i7.Future<_i4.Response>.value(_FakeResponse_9(
-          this,
-          Invocation.method(
-            #get,
-            [url],
-            {#headers: headers},
-          ),
-        )),
-        returnValueForMissingStub:
-            _i7.Future<_i4.Response>.value(_FakeResponse_9(
-          this,
-          Invocation.method(
-            #get,
-            [url],
-            {#headers: headers},
-          ),
-        )),
-      ) as _i7.Future<_i4.Response>);
+            Invocation.method(#get, [url], {#headers: headers}),
+            returnValue: _i7.Future<_i4.Response>.value(
+              _FakeResponse_9(
+                this,
+                Invocation.method(#get, [url], {#headers: headers}),
+              ),
+            ),
+            returnValueForMissingStub: _i7.Future<_i4.Response>.value(
+              _FakeResponse_9(
+                this,
+                Invocation.method(#get, [url], {#headers: headers}),
+              ),
+            ),
+          )
+          as _i7.Future<_i4.Response>);
 
   @override
   _i7.Future<_i4.Response> post(
@@ -607,41 +442,33 @@ class MockApiClient extends _i1.Mock implements _i2.ApiClient {
     _i8.Encoding? encoding,
   }) =>
       (super.noSuchMethod(
-        Invocation.method(
-          #post,
-          [url],
-          {
-            #headers: headers,
-            #body: body,
-            #encoding: encoding,
-          },
-        ),
-        returnValue: _i7.Future<_i4.Response>.value(_FakeResponse_9(
-          this,
-          Invocation.method(
-            #post,
-            [url],
-            {
-              #headers: headers,
-              #body: body,
-              #encoding: encoding,
-            },
-          ),
-        )),
-        returnValueForMissingStub:
-            _i7.Future<_i4.Response>.value(_FakeResponse_9(
-          this,
-          Invocation.method(
-            #post,
-            [url],
-            {
-              #headers: headers,
-              #body: body,
-              #encoding: encoding,
-            },
-          ),
-        )),
-      ) as _i7.Future<_i4.Response>);
+            Invocation.method(
+              #post,
+              [url],
+              {#headers: headers, #body: body, #encoding: encoding},
+            ),
+            returnValue: _i7.Future<_i4.Response>.value(
+              _FakeResponse_9(
+                this,
+                Invocation.method(
+                  #post,
+                  [url],
+                  {#headers: headers, #body: body, #encoding: encoding},
+                ),
+              ),
+            ),
+            returnValueForMissingStub: _i7.Future<_i4.Response>.value(
+              _FakeResponse_9(
+                this,
+                Invocation.method(
+                  #post,
+                  [url],
+                  {#headers: headers, #body: body, #encoding: encoding},
+                ),
+              ),
+            ),
+          )
+          as _i7.Future<_i4.Response>);
 
   @override
   _i7.Future<_i4.Response> put(
@@ -651,41 +478,33 @@ class MockApiClient extends _i1.Mock implements _i2.ApiClient {
     _i8.Encoding? encoding,
   }) =>
       (super.noSuchMethod(
-        Invocation.method(
-          #put,
-          [url],
-          {
-            #headers: headers,
-            #body: body,
-            #encoding: encoding,
-          },
-        ),
-        returnValue: _i7.Future<_i4.Response>.value(_FakeResponse_9(
-          this,
-          Invocation.method(
-            #put,
-            [url],
-            {
-              #headers: headers,
-              #body: body,
-              #encoding: encoding,
-            },
-          ),
-        )),
-        returnValueForMissingStub:
-            _i7.Future<_i4.Response>.value(_FakeResponse_9(
-          this,
-          Invocation.method(
-            #put,
-            [url],
-            {
-              #headers: headers,
-              #body: body,
-              #encoding: encoding,
-            },
-          ),
-        )),
-      ) as _i7.Future<_i4.Response>);
+            Invocation.method(
+              #put,
+              [url],
+              {#headers: headers, #body: body, #encoding: encoding},
+            ),
+            returnValue: _i7.Future<_i4.Response>.value(
+              _FakeResponse_9(
+                this,
+                Invocation.method(
+                  #put,
+                  [url],
+                  {#headers: headers, #body: body, #encoding: encoding},
+                ),
+              ),
+            ),
+            returnValueForMissingStub: _i7.Future<_i4.Response>.value(
+              _FakeResponse_9(
+                this,
+                Invocation.method(
+                  #put,
+                  [url],
+                  {#headers: headers, #body: body, #encoding: encoding},
+                ),
+              ),
+            ),
+          )
+          as _i7.Future<_i4.Response>);
 
   @override
   _i7.Future<_i4.Response> patch(
@@ -695,41 +514,33 @@ class MockApiClient extends _i1.Mock implements _i2.ApiClient {
     _i8.Encoding? encoding,
   }) =>
       (super.noSuchMethod(
-        Invocation.method(
-          #patch,
-          [url],
-          {
-            #headers: headers,
-            #body: body,
-            #encoding: encoding,
-          },
-        ),
-        returnValue: _i7.Future<_i4.Response>.value(_FakeResponse_9(
-          this,
-          Invocation.method(
-            #patch,
-            [url],
-            {
-              #headers: headers,
-              #body: body,
-              #encoding: encoding,
-            },
-          ),
-        )),
-        returnValueForMissingStub:
-            _i7.Future<_i4.Response>.value(_FakeResponse_9(
-          this,
-          Invocation.method(
-            #patch,
-            [url],
-            {
-              #headers: headers,
-              #body: body,
-              #encoding: encoding,
-            },
-          ),
-        )),
-      ) as _i7.Future<_i4.Response>);
+            Invocation.method(
+              #patch,
+              [url],
+              {#headers: headers, #body: body, #encoding: encoding},
+            ),
+            returnValue: _i7.Future<_i4.Response>.value(
+              _FakeResponse_9(
+                this,
+                Invocation.method(
+                  #patch,
+                  [url],
+                  {#headers: headers, #body: body, #encoding: encoding},
+                ),
+              ),
+            ),
+            returnValueForMissingStub: _i7.Future<_i4.Response>.value(
+              _FakeResponse_9(
+                this,
+                Invocation.method(
+                  #patch,
+                  [url],
+                  {#headers: headers, #body: body, #encoding: encoding},
+                ),
+              ),
+            ),
+          )
+          as _i7.Future<_i4.Response>);
 
   @override
   _i7.Future<_i4.Response> delete(
@@ -739,71 +550,52 @@ class MockApiClient extends _i1.Mock implements _i2.ApiClient {
     _i8.Encoding? encoding,
   }) =>
       (super.noSuchMethod(
-        Invocation.method(
-          #delete,
-          [url],
-          {
-            #headers: headers,
-            #body: body,
-            #encoding: encoding,
-          },
-        ),
-        returnValue: _i7.Future<_i4.Response>.value(_FakeResponse_9(
-          this,
-          Invocation.method(
-            #delete,
-            [url],
-            {
-              #headers: headers,
-              #body: body,
-              #encoding: encoding,
-            },
-          ),
-        )),
-        returnValueForMissingStub:
-            _i7.Future<_i4.Response>.value(_FakeResponse_9(
-          this,
-          Invocation.method(
-            #delete,
-            [url],
-            {
-              #headers: headers,
-              #body: body,
-              #encoding: encoding,
-            },
-          ),
-        )),
-      ) as _i7.Future<_i4.Response>);
+            Invocation.method(
+              #delete,
+              [url],
+              {#headers: headers, #body: body, #encoding: encoding},
+            ),
+            returnValue: _i7.Future<_i4.Response>.value(
+              _FakeResponse_9(
+                this,
+                Invocation.method(
+                  #delete,
+                  [url],
+                  {#headers: headers, #body: body, #encoding: encoding},
+                ),
+              ),
+            ),
+            returnValueForMissingStub: _i7.Future<_i4.Response>.value(
+              _FakeResponse_9(
+                this,
+                Invocation.method(
+                  #delete,
+                  [url],
+                  {#headers: headers, #body: body, #encoding: encoding},
+                ),
+              ),
+            ),
+          )
+          as _i7.Future<_i4.Response>);
 
   @override
-  _i7.Future<String> read(
-    Uri? url, {
-    Map<String, String>? headers,
-  }) =>
+  _i7.Future<String> read(Uri? url, {Map<String, String>? headers}) =>
       (super.noSuchMethod(
-        Invocation.method(
-          #read,
-          [url],
-          {#headers: headers},
-        ),
-        returnValue: _i7.Future<String>.value(_i6.dummyValue<String>(
-          this,
-          Invocation.method(
-            #read,
-            [url],
-            {#headers: headers},
-          ),
-        )),
-        returnValueForMissingStub:
-            _i7.Future<String>.value(_i6.dummyValue<String>(
-          this,
-          Invocation.method(
-            #read,
-            [url],
-            {#headers: headers},
-          ),
-        )),
-      ) as _i7.Future<String>);
+            Invocation.method(#read, [url], {#headers: headers}),
+            returnValue: _i7.Future<String>.value(
+              _i6.dummyValue<String>(
+                this,
+                Invocation.method(#read, [url], {#headers: headers}),
+              ),
+            ),
+            returnValueForMissingStub: _i7.Future<String>.value(
+              _i6.dummyValue<String>(
+                this,
+                Invocation.method(#read, [url], {#headers: headers}),
+              ),
+            ),
+          )
+          as _i7.Future<String>);
 
   @override
   _i7.Future<_i9.Uint8List> readBytes(
@@ -811,22 +603,17 @@ class MockApiClient extends _i1.Mock implements _i2.ApiClient {
     Map<String, String>? headers,
   }) =>
       (super.noSuchMethod(
-        Invocation.method(
-          #readBytes,
-          [url],
-          {#headers: headers},
-        ),
-        returnValue: _i7.Future<_i9.Uint8List>.value(_i9.Uint8List(0)),
-        returnValueForMissingStub:
-            _i7.Future<_i9.Uint8List>.value(_i9.Uint8List(0)),
-      ) as _i7.Future<_i9.Uint8List>);
+            Invocation.method(#readBytes, [url], {#headers: headers}),
+            returnValue: _i7.Future<_i9.Uint8List>.value(_i9.Uint8List(0)),
+            returnValueForMissingStub: _i7.Future<_i9.Uint8List>.value(
+              _i9.Uint8List(0),
+            ),
+          )
+          as _i7.Future<_i9.Uint8List>);
 
   @override
   void close() => super.noSuchMethod(
-        Invocation.method(
-          #close,
-          [],
-        ),
-        returnValueForMissingStub: null,
-      );
+    Invocation.method(#close, []),
+    returnValueForMissingStub: null,
+  );
 }
