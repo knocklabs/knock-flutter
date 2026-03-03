@@ -1,6 +1,8 @@
 import 'dart:async';
 import 'dart:developer' as developer;
 
+import 'package:firebase_core/firebase_core.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_html/flutter_html.dart';
 import 'package:knock_flutter/knock_flutter.dart';
@@ -12,7 +14,11 @@ const _exampleFeedChannelId = '495a74d0-3ac1-43f6-9906-344f9e7d94d9';
 const _exampleApnsChannelId = 'c5c4fd65-20de-4ab5-bcda-8f8d077f528e';
 const _exampleFcmChannelId = '54268be3-1d12-416a-81a5-3dc7681f2408';
 
-void main() => runApp(const _ExampleKnockApp());
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp();
+  runApp(const _ExampleKnockApp());
+}
 
 class _ExampleKnockApp extends StatelessWidget {
   const _ExampleKnockApp();
@@ -263,7 +269,8 @@ class _NotificationsWidgetState extends State<_NotificationsWidget> {
 
   Future<void> _getFcmToken() async {
     try {
-      final token = await widget.knock.getFcmToken();
+      // Get FCM token directly from Firebase Messaging
+      final token = await FirebaseMessaging.instance.getToken();
       setState(() {
         _fcmToken = token;
         _fcmError = null;
@@ -302,7 +309,8 @@ class _NotificationsWidgetState extends State<_NotificationsWidget> {
 
   Future<void> _getApnsToken() async {
     try {
-      final token = await widget.knock.getApnsToken();
+      // Get APNS token directly from Firebase Messaging
+      final token = await FirebaseMessaging.instance.getAPNSToken();
       setState(() {
         _apnsToken = token;
         _apnsError = null;
