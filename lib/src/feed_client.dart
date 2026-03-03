@@ -50,6 +50,8 @@ class FeedClient {
         _feedController?.close();
         _feedController = null;
 
+        _eventController.close();
+
         _apiStatusSubscription?.cancel();
         _apiStatusSubscription = null;
       }
@@ -165,8 +167,6 @@ class FeedClient {
         _socketOpenSubscription?.cancel();
         _socketOpenSubscription = null;
 
-        _eventController.close();
-
         _feedController?.close();
         _feedController = null;
       },
@@ -235,15 +235,17 @@ class FeedClient {
 
       _currentFeed = mergedFeed.copyWith(networkStatus: NetworkStatus.ready);
 
-      _eventController.add(
-        FeedEvent(
-          eventType: fetchSource == _FeedFetchSource.socket
-              ? FeedEventType.itemsReceivedRealtime
-              : FeedEventType.itemsReceivedPage,
-          items: updatedFeed.items,
-          metadata: updatedFeed.metadata,
-        ),
-      );
+      if (!_eventController.isClosed) {
+        _eventController.add(
+          FeedEvent(
+            eventType: fetchSource == _FeedFetchSource.socket
+                ? FeedEventType.itemsReceivedRealtime
+                : FeedEventType.itemsReceivedPage,
+            items: updatedFeed.items,
+            metadata: updatedFeed.metadata,
+          ),
+        );
+      }
     }
   }
 
@@ -272,13 +274,15 @@ class FeedClient {
       return response;
     });
 
-    _eventController.add(
-      FeedEvent(
-        eventType: FeedEventType.itemsSeen,
-        items: items,
-        metadata: _currentFeed.metadata,
-      ),
-    );
+    if (!_eventController.isClosed) {
+      _eventController.add(
+        FeedEvent(
+          eventType: FeedEventType.itemsSeen,
+          items: items,
+          metadata: _currentFeed.metadata,
+        ),
+      );
+    }
 
     await response.then((value) => value.checkResponse());
   }
@@ -292,13 +296,15 @@ class FeedClient {
       return response;
     });
 
-    _eventController.add(
-      FeedEvent(
-        eventType: FeedEventType.itemsUnseen,
-        items: items,
-        metadata: _currentFeed.metadata,
-      ),
-    );
+    if (!_eventController.isClosed) {
+      _eventController.add(
+        FeedEvent(
+          eventType: FeedEventType.itemsUnseen,
+          items: items,
+          metadata: _currentFeed.metadata,
+        ),
+      );
+    }
 
     await response.then((value) => value.checkResponse());
   }
@@ -312,13 +318,15 @@ class FeedClient {
       return response;
     });
 
-    _eventController.add(
-      FeedEvent(
-        eventType: FeedEventType.itemsRead,
-        items: items,
-        metadata: _currentFeed.metadata,
-      ),
-    );
+    if (!_eventController.isClosed) {
+      _eventController.add(
+        FeedEvent(
+          eventType: FeedEventType.itemsRead,
+          items: items,
+          metadata: _currentFeed.metadata,
+        ),
+      );
+    }
 
     await response.then((value) => value.checkResponse());
   }
@@ -332,13 +340,15 @@ class FeedClient {
       return response;
     });
 
-    _eventController.add(
-      FeedEvent(
-        eventType: FeedEventType.itemsUnread,
-        items: items,
-        metadata: _currentFeed.metadata,
-      ),
-    );
+    if (!_eventController.isClosed) {
+      _eventController.add(
+        FeedEvent(
+          eventType: FeedEventType.itemsUnread,
+          items: items,
+          metadata: _currentFeed.metadata,
+        ),
+      );
+    }
 
     await response.then((value) => value.checkResponse());
   }
@@ -356,13 +366,15 @@ class FeedClient {
       return response;
     });
 
-    _eventController.add(
-      FeedEvent(
-        eventType: FeedEventType.itemsArchived,
-        items: items,
-        metadata: _currentFeed.metadata,
-      ),
-    );
+    if (!_eventController.isClosed) {
+      _eventController.add(
+        FeedEvent(
+          eventType: FeedEventType.itemsArchived,
+          items: items,
+          metadata: _currentFeed.metadata,
+        ),
+      );
+    }
 
     await response.then((value) => value.checkResponse());
   }
@@ -376,13 +388,15 @@ class FeedClient {
       return response;
     });
 
-    _eventController.add(
-      FeedEvent(
-        eventType: FeedEventType.itemsUnarchived,
-        items: items,
-        metadata: _currentFeed.metadata,
-      ),
-    );
+    if (!_eventController.isClosed) {
+      _eventController.add(
+        FeedEvent(
+          eventType: FeedEventType.itemsUnarchived,
+          items: items,
+          metadata: _currentFeed.metadata,
+        ),
+      );
+    }
 
     await response.then((value) => value.checkResponse());
   }
@@ -409,13 +423,15 @@ class FeedClient {
       () => options.buildInitialFeed(),
     );
 
-    _eventController.add(
-      FeedEvent(
-        eventType: FeedEventType.itemsAllSeen,
-        items: _currentFeed.items,
-        metadata: _currentFeed.metadata,
-      ),
-    );
+    if (!_eventController.isClosed) {
+      _eventController.add(
+        FeedEvent(
+          eventType: FeedEventType.itemsAllSeen,
+          items: _currentFeed.items,
+          metadata: _currentFeed.metadata,
+        ),
+      );
+    }
 
     await response.then((value) => value.checkResponse());
   }
@@ -430,13 +446,15 @@ class FeedClient {
       () => options.buildInitialFeed(),
     );
 
-    _eventController.add(
-      FeedEvent(
-        eventType: FeedEventType.itemsAllRead,
-        items: _currentFeed.items,
-        metadata: _currentFeed.metadata,
-      ),
-    );
+    if (!_eventController.isClosed) {
+      _eventController.add(
+        FeedEvent(
+          eventType: FeedEventType.itemsAllRead,
+          items: _currentFeed.items,
+          metadata: _currentFeed.metadata,
+        ),
+      );
+    }
 
     await response.then((value) => value.checkResponse());
   }
@@ -451,13 +469,15 @@ class FeedClient {
       () => options.buildInitialFeed(),
     );
 
-    _eventController.add(
-      FeedEvent(
-        eventType: FeedEventType.itemsAllArchived,
-        items: _currentFeed.items,
-        metadata: _currentFeed.metadata,
-      ),
-    );
+    if (!_eventController.isClosed) {
+      _eventController.add(
+        FeedEvent(
+          eventType: FeedEventType.itemsAllArchived,
+          items: _currentFeed.items,
+          metadata: _currentFeed.metadata,
+        ),
+      );
+    }
 
     await response.then((value) => value.checkResponse());
   }
