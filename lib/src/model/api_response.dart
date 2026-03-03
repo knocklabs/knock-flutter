@@ -7,15 +7,15 @@ part 'api_response.freezed.dart';
 enum StatusCode { ok, error }
 
 @freezed
-abstract class ApiResponse with _$ApiResponse {
-  const factory ApiResponse({
+abstract class KnockApiResponse with _$KnockApiResponse {
+  const factory KnockApiResponse({
     required int status,
     required StatusCode statusCode,
     String? body,
     Object? error,
-  }) = _ApiResponse;
+  }) = _KnockApiResponse;
 
-  const ApiResponse._();
+  const KnockApiResponse._();
 
   dynamic decodeResponse() {
     checkResponse();
@@ -31,18 +31,17 @@ abstract class ApiResponse with _$ApiResponse {
   @override
   String toString() {
     // ignore: lines_longer_than_80_chars
-    return 'ApiResponse(status: $status, statusCode: $statusCode, body: $body, error: $error)';
+    return 'KnockApiResponse(status: $status, statusCode: $statusCode, body: $body, error: $error)';
   }
 }
 
 class KnockApiException implements Exception {
   KnockApiException(this.response);
 
-  final ApiResponse response;
+  final KnockApiResponse response;
 
   @override
   String toString() {
-    // ignore: lines_longer_than_80_chars
-    return 'KnockApiException: statusCode: ${response.statusCode}, status: ${response.status}, body: ${response.body}, error: ${response.error}';
+    return 'KnockApiException: response: $response';
   }
 }

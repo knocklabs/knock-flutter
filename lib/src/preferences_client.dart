@@ -11,20 +11,16 @@ class PreferencesOptions {
 }
 
 class PreferencesClient {
-  PreferencesClient(
-    this._knock,
-    PreferencesOptions? options,
-  ) : options = options ?? const PreferencesOptions();
+  PreferencesClient(this._knock, PreferencesOptions? options)
+    : options = options ?? const PreferencesOptions();
 
   final Knock _knock;
   final PreferencesOptions options;
 
-  ApiClient get _api => _knock.client();
+  KnockApiClient get _api => _knock.client();
 
   Future<List<PreferenceSet>> getAll() async {
-    final response = await _api.doGet(
-      '/v1/users/${_knock.userId}/preferences',
-    );
+    final response = await _api.doGet('/v1/users/${_knock.userId}/preferences');
     final json = response.decodeResponse();
     final jsonList = json as List<Map<String, dynamic>>;
     return jsonList.map(PreferenceSet.fromJson).toList();

@@ -8,10 +8,7 @@ import 'package:knock_flutter/src/model/feed_response.dart';
 import 'package:knock_flutter/src/model/feed_update_request.dart';
 import 'package:phoenix_socket/phoenix_socket.dart';
 
-enum _FeedFetchSource {
-  socket,
-  http,
-}
+enum _FeedFetchSource { socket, http }
 
 enum _FeedItemApiStatus {
   seen('seen'),
@@ -38,16 +35,12 @@ enum _BulkFeedItemApiStatus {
 }
 
 class FeedClient {
-  FeedClient(
-    this._knock,
-    this.feedChannelId,
-    FeedOptions? options,
-  ) {
+  FeedClient(this._knock, this.feedChannelId, FeedOptions? options) {
     this.options = FeedOptions.defaultOptions().merge(options);
     _currentFeed = this.options.buildInitialFeed();
 
     _apiStatusSubscription = _knock.client().status.listen((event) {
-      if (event == ApiClientStatus.disposed) {
+      if (event == KnockApiClientStatus.disposed) {
         _disposed = true;
 
         // Add an empty state back to the controller
@@ -67,7 +60,7 @@ class FeedClient {
   final String feedChannelId;
   late final FeedOptions options;
 
-  StreamSubscription<ApiClientStatus>? _apiStatusSubscription;
+  StreamSubscription<KnockApiClientStatus>? _apiStatusSubscription;
 
   late Feed _feedValue;
   StreamController<Feed>? _feedController;
@@ -83,7 +76,7 @@ class FeedClient {
 
   bool _disposed = false;
 
-  ApiClient get _api => _knock.client();
+  KnockApiClient get _api => _knock.client();
 
   Feed get _currentFeed => _feedValue;
 
@@ -183,8 +176,9 @@ class FeedClient {
   Stream<FeedEvent> on(BindableFeedEvent bindableFeedEvent) {
     _assertNotDisposed();
 
-    return _eventController.stream
-        .where((event) => bindableFeedEvent.includes(event.eventType));
+    return _eventController.stream.where(
+      (event) => bindableFeedEvent.includes(event.eventType),
+    );
   }
 
   void _onNewMessageReceived(Message message) {
@@ -234,17 +228,12 @@ class FeedClient {
           shouldAppend: true,
         );
       } else if (fetchOptions?.after != null) {
-        mergedFeed = _currentFeed.merge(
-          updatedFeed,
-          shouldAppend: true,
-        );
+        mergedFeed = _currentFeed.merge(updatedFeed, shouldAppend: true);
       } else {
         mergedFeed = _currentFeed.merge(updatedFeed);
       }
 
-      _currentFeed = mergedFeed.copyWith(
-        networkStatus: NetworkStatus.ready,
-      );
+      _currentFeed = mergedFeed.copyWith(networkStatus: NetworkStatus.ready);
 
       _eventController.add(
         FeedEvent(
@@ -473,7 +462,7 @@ class FeedClient {
     await response.then((value) => value.checkResponse());
   }
 
-  Future<ApiResponse> _makeStatusUpdates(
+  Future<KnockApiResponse> _makeStatusUpdates(
     _FeedItemApiStatus type,
     List<String> ids,
   ) async {
@@ -484,11 +473,14 @@ class FeedClient {
     return response;
   }
 
-  Future<ApiResponse> _makeBulkStatusUpdate(_BulkFeedItemApiStatus type) async {
+  Future<KnockApiResponse> _makeBulkStatusUpdate(
+    _BulkFeedItemApiStatus type,
+  ) async {
     final options = this.options;
 
-    final engagementStatus =
-        options.status != FeedOptionsStatus.all ? options.status : null;
+    final engagementStatus = options.status != FeedOptionsStatus.all
+        ? options.status
+        : null;
     final tenant = options.tenant;
     final tenants = tenant != null ? [tenant] : null;
 

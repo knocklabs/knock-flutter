@@ -136,7 +136,7 @@ class MessagesClient {
 
   final Knock _knock;
 
-  ApiClient get _api => _knock.client();
+  KnockApiClient get _api => _knock.client();
 
   /// Gets a message by its ID.
   ///
@@ -153,15 +153,15 @@ class MessagesClient {
   ///
   /// For 'interacted' status, you can optionally pass [options] with metadata.
   ///
-/// Example:
-/// ```dart
-/// // Mark a message as read
-/// await knock.messages().updateStatus(
-///   messageId,
-///   MessageEngagementStatus.read,
-/// );
-///
-/// // Mark a message as interacted with metadata
+  /// Example:
+  /// ```dart
+  /// // Mark a message as read
+  /// await knock.messages().updateStatus(
+  ///   messageId,
+  ///   MessageEngagementStatus.read,
+  /// );
+  ///
+  /// // Mark a message as interacted with metadata
   /// await knock.messages().updateStatus(
   ///   messageId,
   ///   MessageEngagementStatus.interacted,
@@ -197,9 +197,9 @@ class MessagesClient {
   /// ```dart
   /// // Remove the 'seen' status from a message
   /// await knock.messages().removeStatus(
-///   messageId,
-///   RemovableMessageStatus.seen,
-/// );
+  ///   messageId,
+  ///   RemovableMessageStatus.seen,
+  /// );
   /// ```
   Future<KnockMessage> removeStatus(
     String messageId,
@@ -296,14 +296,13 @@ class MessagesClient {
   Future<KnockMessage> markAsInteracted(
     String messageId, {
     Map<String, String>? metadata,
-  }) =>
-      updateStatus(
-        messageId,
-        MessageEngagementStatus.interacted,
-        options: metadata != null
-            ? UpdateMessageStatusOptions(metadata: metadata)
-            : null,
-      );
+  }) => updateStatus(
+    messageId,
+    MessageEngagementStatus.interacted,
+    options: metadata != null
+        ? UpdateMessageStatusOptions(metadata: metadata)
+        : null,
+  );
 
   /// Removes the seen status from a message.
   Future<KnockMessage> markAsUnseen(String messageId) =>

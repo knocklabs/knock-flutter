@@ -29,7 +29,7 @@ import 'package:phoenix_socket/phoenix_socket.dart' as _i3;
 // ignore_for_file: subtype_of_sealed_class
 // ignore_for_file: invalid_use_of_internal_member
 
-class _FakeApiClient_0 extends _i1.SmartFake implements _i2.ApiClient {
+class _FakeApiClient_0 extends _i1.SmartFake implements _i2.KnockApiClient {
   _FakeApiClient_0(Object parent, Invocation parentInvocation)
     : super(parent, parentInvocation);
 }
@@ -72,8 +72,9 @@ class _FakeStreamedResponse_7 extends _i1.SmartFake
     : super(parent, parentInvocation);
 }
 
-class _FakeApiResponse_8 extends _i1.SmartFake implements _i5.ApiResponse {
-  _FakeApiResponse_8(Object parent, Invocation parentInvocation)
+class _FakeKnockApiResponse_8 extends _i1.SmartFake
+    implements _i5.KnockApiResponse {
+  _FakeKnockApiResponse_8(Object parent, Invocation parentInvocation)
     : super(parent, parentInvocation);
 }
 
@@ -137,7 +138,7 @@ class MockKnock extends _i1.Mock implements _i2.Knock {
           as bool);
 
   @override
-  _i2.ApiClient client() =>
+  _i2.KnockApiClient client() =>
       (super.noSuchMethod(
             Invocation.method(#client, []),
             returnValue: _FakeApiClient_0(this, Invocation.method(#client, [])),
@@ -146,7 +147,7 @@ class MockKnock extends _i1.Mock implements _i2.Knock {
               Invocation.method(#client, []),
             ),
           )
-          as _i2.ApiClient);
+          as _i2.KnockApiClient);
 
   @override
   _i2.UserClient user() =>
@@ -215,7 +216,7 @@ class MockKnock extends _i1.Mock implements _i2.Knock {
 /// A class which mocks [ApiClient].
 ///
 /// See the documentation for Mockito's code generation for more information.
-class MockApiClient extends _i1.Mock implements _i2.ApiClient {
+class MockApiClient extends _i1.Mock implements _i2.KnockApiClient {
   @override
   _i2.Knock get knock =>
       (super.noSuchMethod(
@@ -229,13 +230,14 @@ class MockApiClient extends _i1.Mock implements _i2.ApiClient {
           as _i2.Knock);
 
   @override
-  _i7.Stream<_i2.ApiClientStatus> get status =>
+  _i7.Stream<_i2.KnockApiClientStatus> get status =>
       (super.noSuchMethod(
             Invocation.getter(#status),
-            returnValue: _i7.Stream<_i2.ApiClientStatus>.empty(),
-            returnValueForMissingStub: _i7.Stream<_i2.ApiClientStatus>.empty(),
+            returnValue: _i7.Stream<_i2.KnockApiClientStatus>.empty(),
+            returnValueForMissingStub:
+                _i7.Stream<_i2.KnockApiClientStatus>.empty(),
           )
-          as _i7.Stream<_i2.ApiClientStatus>);
+          as _i7.Stream<_i2.KnockApiClientStatus>);
 
   @override
   _i3.PhoenixSocket get socket =>
@@ -269,29 +271,29 @@ class MockApiClient extends _i1.Mock implements _i2.ApiClient {
           as _i7.Future<_i4.StreamedResponse>);
 
   @override
-  _i7.Future<_i5.ApiResponse> doGet(
+  _i7.Future<_i5.KnockApiResponse> doGet(
     String? path, {
     Map<String, dynamic>? queryParams,
   }) =>
       (super.noSuchMethod(
             Invocation.method(#doGet, [path], {#queryParams: queryParams}),
-            returnValue: _i7.Future<_i5.ApiResponse>.value(
-              _FakeApiResponse_8(
+            returnValue: _i7.Future<_i5.KnockApiResponse>.value(
+              _FakeKnockApiResponse_8(
                 this,
                 Invocation.method(#doGet, [path], {#queryParams: queryParams}),
               ),
             ),
-            returnValueForMissingStub: _i7.Future<_i5.ApiResponse>.value(
-              _FakeApiResponse_8(
+            returnValueForMissingStub: _i7.Future<_i5.KnockApiResponse>.value(
+              _FakeKnockApiResponse_8(
                 this,
                 Invocation.method(#doGet, [path], {#queryParams: queryParams}),
               ),
             ),
           )
-          as _i7.Future<_i5.ApiResponse>);
+          as _i7.Future<_i5.KnockApiResponse>);
 
   @override
-  _i7.Future<_i5.ApiResponse> doPut(
+  _i7.Future<_i5.KnockApiResponse> doPut(
     String? path, {
     Map<String, dynamic>? queryParams,
     Object? body,
@@ -302,8 +304,8 @@ class MockApiClient extends _i1.Mock implements _i2.ApiClient {
               [path],
               {#queryParams: queryParams, #body: body},
             ),
-            returnValue: _i7.Future<_i5.ApiResponse>.value(
-              _FakeApiResponse_8(
+            returnValue: _i7.Future<_i5.KnockApiResponse>.value(
+              _FakeKnockApiResponse_8(
                 this,
                 Invocation.method(
                   #doPut,
@@ -312,8 +314,8 @@ class MockApiClient extends _i1.Mock implements _i2.ApiClient {
                 ),
               ),
             ),
-            returnValueForMissingStub: _i7.Future<_i5.ApiResponse>.value(
-              _FakeApiResponse_8(
+            returnValueForMissingStub: _i7.Future<_i5.KnockApiResponse>.value(
+              _FakeKnockApiResponse_8(
                 this,
                 Invocation.method(
                   #doPut,
@@ -323,10 +325,10 @@ class MockApiClient extends _i1.Mock implements _i2.ApiClient {
               ),
             ),
           )
-          as _i7.Future<_i5.ApiResponse>);
+          as _i7.Future<_i5.KnockApiResponse>);
 
   @override
-  _i7.Future<_i5.ApiResponse> doPost(
+  _i7.Future<_i5.KnockApiResponse> doPost(
     String? path, {
     Map<String, dynamic>? queryParams,
     Object? body,
@@ -337,8 +339,8 @@ class MockApiClient extends _i1.Mock implements _i2.ApiClient {
               [path],
               {#queryParams: queryParams, #body: body},
             ),
-            returnValue: _i7.Future<_i5.ApiResponse>.value(
-              _FakeApiResponse_8(
+            returnValue: _i7.Future<_i5.KnockApiResponse>.value(
+              _FakeKnockApiResponse_8(
                 this,
                 Invocation.method(
                   #doPost,
@@ -347,8 +349,8 @@ class MockApiClient extends _i1.Mock implements _i2.ApiClient {
                 ),
               ),
             ),
-            returnValueForMissingStub: _i7.Future<_i5.ApiResponse>.value(
-              _FakeApiResponse_8(
+            returnValueForMissingStub: _i7.Future<_i5.KnockApiResponse>.value(
+              _FakeKnockApiResponse_8(
                 this,
                 Invocation.method(
                   #doPost,
@@ -358,17 +360,17 @@ class MockApiClient extends _i1.Mock implements _i2.ApiClient {
               ),
             ),
           )
-          as _i7.Future<_i5.ApiResponse>);
+          as _i7.Future<_i5.KnockApiResponse>);
 
   @override
-  _i7.Future<_i5.ApiResponse> doDelete(
+  _i7.Future<_i5.KnockApiResponse> doDelete(
     String? path, {
     Map<String, dynamic>? queryParams,
   }) =>
       (super.noSuchMethod(
             Invocation.method(#doDelete, [path], {#queryParams: queryParams}),
-            returnValue: _i7.Future<_i5.ApiResponse>.value(
-              _FakeApiResponse_8(
+            returnValue: _i7.Future<_i5.KnockApiResponse>.value(
+              _FakeKnockApiResponse_8(
                 this,
                 Invocation.method(
                   #doDelete,
@@ -377,8 +379,8 @@ class MockApiClient extends _i1.Mock implements _i2.ApiClient {
                 ),
               ),
             ),
-            returnValueForMissingStub: _i7.Future<_i5.ApiResponse>.value(
-              _FakeApiResponse_8(
+            returnValueForMissingStub: _i7.Future<_i5.KnockApiResponse>.value(
+              _FakeKnockApiResponse_8(
                 this,
                 Invocation.method(
                   #doDelete,
@@ -388,7 +390,7 @@ class MockApiClient extends _i1.Mock implements _i2.ApiClient {
               ),
             ),
           )
-          as _i7.Future<_i5.ApiResponse>);
+          as _i7.Future<_i5.KnockApiResponse>);
 
   @override
   void dispose() => super.noSuchMethod(

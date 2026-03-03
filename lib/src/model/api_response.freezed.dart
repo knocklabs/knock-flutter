@@ -12,20 +12,20 @@ part of 'api_response.dart';
 // dart format off
 T _$identity<T>(T value) => value;
 /// @nodoc
-mixin _$ApiResponse {
+mixin _$KnockApiResponse {
 
  int get status; StatusCode get statusCode; String? get body; Object? get error;
-/// Create a copy of ApiResponse
+/// Create a copy of KnockApiResponse
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
 @pragma('vm:prefer-inline')
-$ApiResponseCopyWith<ApiResponse> get copyWith => _$ApiResponseCopyWithImpl<ApiResponse>(this as ApiResponse, _$identity);
+$KnockApiResponseCopyWith<KnockApiResponse> get copyWith => _$KnockApiResponseCopyWithImpl<KnockApiResponse>(this as KnockApiResponse, _$identity);
 
 
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is ApiResponse&&(identical(other.status, status) || other.status == status)&&(identical(other.statusCode, statusCode) || other.statusCode == statusCode)&&(identical(other.body, body) || other.body == body)&&const DeepCollectionEquality().equals(other.error, error));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is KnockApiResponse&&(identical(other.status, status) || other.status == status)&&(identical(other.statusCode, statusCode) || other.statusCode == statusCode)&&(identical(other.body, body) || other.body == body)&&const DeepCollectionEquality().equals(other.error, error));
 }
 
 
@@ -37,8 +37,8 @@ int get hashCode => Object.hash(runtimeType,status,statusCode,body,const DeepCol
 }
 
 /// @nodoc
-abstract mixin class $ApiResponseCopyWith<$Res>  {
-  factory $ApiResponseCopyWith(ApiResponse value, $Res Function(ApiResponse) _then) = _$ApiResponseCopyWithImpl;
+abstract mixin class $KnockApiResponseCopyWith<$Res>  {
+  factory $KnockApiResponseCopyWith(KnockApiResponse value, $Res Function(KnockApiResponse) _then) = _$KnockApiResponseCopyWithImpl;
 @useResult
 $Res call({
  int status, StatusCode statusCode, String? body, Object? error
@@ -49,14 +49,14 @@ $Res call({
 
 }
 /// @nodoc
-class _$ApiResponseCopyWithImpl<$Res>
-    implements $ApiResponseCopyWith<$Res> {
-  _$ApiResponseCopyWithImpl(this._self, this._then);
+class _$KnockApiResponseCopyWithImpl<$Res>
+    implements $KnockApiResponseCopyWith<$Res> {
+  _$KnockApiResponseCopyWithImpl(this._self, this._then);
 
-  final ApiResponse _self;
-  final $Res Function(ApiResponse) _then;
+  final KnockApiResponse _self;
+  final $Res Function(KnockApiResponse) _then;
 
-/// Create a copy of ApiResponse
+/// Create a copy of KnockApiResponse
 /// with the given fields replaced by the non-null parameter values.
 @pragma('vm:prefer-inline') @override $Res call({Object? status = null,Object? statusCode = null,Object? body = freezed,Object? error = freezed,}) {
   return _then(_self.copyWith(
@@ -70,8 +70,8 @@ as String?,error: freezed == error ? _self.error : error ,
 }
 
 
-/// Adds pattern-matching-related methods to [ApiResponse].
-extension ApiResponsePatterns on ApiResponse {
+/// Adds pattern-matching-related methods to [KnockApiResponse].
+extension KnockApiResponsePatterns on KnockApiResponse {
 /// A variant of `map` that fallback to returning `orElse`.
 ///
 /// It is equivalent to doing:
@@ -84,10 +84,10 @@ extension ApiResponsePatterns on ApiResponse {
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeMap<TResult extends Object?>(TResult Function( _ApiResponse value)?  $default,{required TResult orElse(),}){
+@optionalTypeArgs TResult maybeMap<TResult extends Object?>(TResult Function( _KnockApiResponse value)?  $default,{required TResult orElse(),}){
 final _that = this;
 switch (_that) {
-case _ApiResponse() when $default != null:
+case _KnockApiResponse() when $default != null:
 return $default(_that);case _:
   return orElse();
 
@@ -106,10 +106,10 @@ return $default(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult map<TResult extends Object?>(TResult Function( _ApiResponse value)  $default,){
+@optionalTypeArgs TResult map<TResult extends Object?>(TResult Function( _KnockApiResponse value)  $default,){
 final _that = this;
 switch (_that) {
-case _ApiResponse():
+case _KnockApiResponse():
 return $default(_that);case _:
   throw StateError('Unexpected subclass');
 
@@ -127,10 +127,10 @@ return $default(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult? mapOrNull<TResult extends Object?>(TResult? Function( _ApiResponse value)?  $default,){
+@optionalTypeArgs TResult? mapOrNull<TResult extends Object?>(TResult? Function( _KnockApiResponse value)?  $default,){
 final _that = this;
 switch (_that) {
-case _ApiResponse() when $default != null:
+case _KnockApiResponse() when $default != null:
 return $default(_that);case _:
   return null;
 
@@ -150,7 +150,7 @@ return $default(_that);case _:
 
 @optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( int status,  StatusCode statusCode,  String? body,  Object? error)?  $default,{required TResult orElse(),}) {final _that = this;
 switch (_that) {
-case _ApiResponse() when $default != null:
+case _KnockApiResponse() when $default != null:
 return $default(_that.status,_that.statusCode,_that.body,_that.error);case _:
   return orElse();
 
@@ -171,7 +171,7 @@ return $default(_that.status,_that.statusCode,_that.body,_that.error);case _:
 
 @optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( int status,  StatusCode statusCode,  String? body,  Object? error)  $default,) {final _that = this;
 switch (_that) {
-case _ApiResponse():
+case _KnockApiResponse():
 return $default(_that.status,_that.statusCode,_that.body,_that.error);case _:
   throw StateError('Unexpected subclass');
 
@@ -191,7 +191,7 @@ return $default(_that.status,_that.statusCode,_that.body,_that.error);case _:
 
 @optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( int status,  StatusCode statusCode,  String? body,  Object? error)?  $default,) {final _that = this;
 switch (_that) {
-case _ApiResponse() when $default != null:
+case _KnockApiResponse() when $default != null:
 return $default(_that.status,_that.statusCode,_that.body,_that.error);case _:
   return null;
 
@@ -203,8 +203,8 @@ return $default(_that.status,_that.statusCode,_that.body,_that.error);case _:
 /// @nodoc
 
 
-class _ApiResponse extends ApiResponse {
-  const _ApiResponse({required this.status, required this.statusCode, this.body, this.error}): super._();
+class _KnockApiResponse extends KnockApiResponse {
+  const _KnockApiResponse({required this.status, required this.statusCode, this.body, this.error}): super._();
   
 
 @override final  int status;
@@ -212,17 +212,17 @@ class _ApiResponse extends ApiResponse {
 @override final  String? body;
 @override final  Object? error;
 
-/// Create a copy of ApiResponse
+/// Create a copy of KnockApiResponse
 /// with the given fields replaced by the non-null parameter values.
 @override @JsonKey(includeFromJson: false, includeToJson: false)
 @pragma('vm:prefer-inline')
-_$ApiResponseCopyWith<_ApiResponse> get copyWith => __$ApiResponseCopyWithImpl<_ApiResponse>(this, _$identity);
+_$KnockApiResponseCopyWith<_KnockApiResponse> get copyWith => __$KnockApiResponseCopyWithImpl<_KnockApiResponse>(this, _$identity);
 
 
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _ApiResponse&&(identical(other.status, status) || other.status == status)&&(identical(other.statusCode, statusCode) || other.statusCode == statusCode)&&(identical(other.body, body) || other.body == body)&&const DeepCollectionEquality().equals(other.error, error));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is _KnockApiResponse&&(identical(other.status, status) || other.status == status)&&(identical(other.statusCode, statusCode) || other.statusCode == statusCode)&&(identical(other.body, body) || other.body == body)&&const DeepCollectionEquality().equals(other.error, error));
 }
 
 
@@ -234,8 +234,8 @@ int get hashCode => Object.hash(runtimeType,status,statusCode,body,const DeepCol
 }
 
 /// @nodoc
-abstract mixin class _$ApiResponseCopyWith<$Res> implements $ApiResponseCopyWith<$Res> {
-  factory _$ApiResponseCopyWith(_ApiResponse value, $Res Function(_ApiResponse) _then) = __$ApiResponseCopyWithImpl;
+abstract mixin class _$KnockApiResponseCopyWith<$Res> implements $KnockApiResponseCopyWith<$Res> {
+  factory _$KnockApiResponseCopyWith(_KnockApiResponse value, $Res Function(_KnockApiResponse) _then) = __$KnockApiResponseCopyWithImpl;
 @override @useResult
 $Res call({
  int status, StatusCode statusCode, String? body, Object? error
@@ -246,17 +246,17 @@ $Res call({
 
 }
 /// @nodoc
-class __$ApiResponseCopyWithImpl<$Res>
-    implements _$ApiResponseCopyWith<$Res> {
-  __$ApiResponseCopyWithImpl(this._self, this._then);
+class __$KnockApiResponseCopyWithImpl<$Res>
+    implements _$KnockApiResponseCopyWith<$Res> {
+  __$KnockApiResponseCopyWithImpl(this._self, this._then);
 
-  final _ApiResponse _self;
-  final $Res Function(_ApiResponse) _then;
+  final _KnockApiResponse _self;
+  final $Res Function(_KnockApiResponse) _then;
 
-/// Create a copy of ApiResponse
+/// Create a copy of KnockApiResponse
 /// with the given fields replaced by the non-null parameter values.
 @override @pragma('vm:prefer-inline') $Res call({Object? status = null,Object? statusCode = null,Object? body = freezed,Object? error = freezed,}) {
-  return _then(_ApiResponse(
+  return _then(_KnockApiResponse(
 status: null == status ? _self.status : status // ignore: cast_nullable_to_non_nullable
 as int,statusCode: null == statusCode ? _self.statusCode : statusCode // ignore: cast_nullable_to_non_nullable
 as StatusCode,body: freezed == body ? _self.body : body // ignore: cast_nullable_to_non_nullable

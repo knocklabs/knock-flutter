@@ -44,19 +44,19 @@ void main() {
       'metadata': <String, dynamic>{},
     };
 
-    final testMessageResponse = ApiResponse(
+    final testMessageResponse = KnockApiResponse(
       status: 200,
       statusCode: StatusCode.ok,
       body: jsonEncode(testMessageJson),
     );
 
-    final testBatchMessagesResponse = ApiResponse(
+    final testBatchMessagesResponse = KnockApiResponse(
       status: 200,
       statusCode: StatusCode.ok,
       body: jsonEncode([testMessageJson, testMessageJson]),
     );
 
-    final testBulkOperationResponse = ApiResponse(
+    final testBulkOperationResponse = KnockApiResponse(
       status: 200,
       statusCode: StatusCode.ok,
       body: jsonEncode({
@@ -92,8 +92,9 @@ void main() {
 
     group('updateStatus', () {
       test('updates message status to seen', () async {
-        when(apiClient.doPut(any, body: anyNamed('body')))
-            .thenAnswer((_) async => testMessageResponse);
+        when(
+          apiClient.doPut(any, body: anyNamed('body')),
+        ).thenAnswer((_) async => testMessageResponse);
 
         await messagesClient.updateStatus(
           'msg_123',
@@ -104,8 +105,9 @@ void main() {
       });
 
       test('updates message status to read', () async {
-        when(apiClient.doPut(any, body: anyNamed('body')))
-            .thenAnswer((_) async => testMessageResponse);
+        when(
+          apiClient.doPut(any, body: anyNamed('body')),
+        ).thenAnswer((_) async => testMessageResponse);
 
         await messagesClient.updateStatus(
           'msg_123',
@@ -116,8 +118,9 @@ void main() {
       });
 
       test('updates message status to archived', () async {
-        when(apiClient.doPut(any, body: anyNamed('body')))
-            .thenAnswer((_) async => testMessageResponse);
+        when(
+          apiClient.doPut(any, body: anyNamed('body')),
+        ).thenAnswer((_) async => testMessageResponse);
 
         await messagesClient.updateStatus(
           'msg_123',
@@ -128,8 +131,9 @@ void main() {
       });
 
       test('updates message status to interacted with metadata', () async {
-        when(apiClient.doPut(any, body: anyNamed('body')))
-            .thenAnswer((_) async => testMessageResponse);
+        when(
+          apiClient.doPut(any, body: anyNamed('body')),
+        ).thenAnswer((_) async => testMessageResponse);
 
         await messagesClient.updateStatus(
           'msg_123',
@@ -151,24 +155,24 @@ void main() {
       });
 
       test('updates message status to interacted without metadata', () async {
-        when(apiClient.doPut(any, body: anyNamed('body')))
-            .thenAnswer((_) async => testMessageResponse);
+        when(
+          apiClient.doPut(any, body: anyNamed('body')),
+        ).thenAnswer((_) async => testMessageResponse);
 
         await messagesClient.updateStatus(
           'msg_123',
           MessageEngagementStatus.interacted,
         );
 
-        verify(
-          apiClient.doPut('/v1/messages/msg_123/interacted', body: null),
-        );
+        verify(apiClient.doPut('/v1/messages/msg_123/interacted', body: null));
       });
     });
 
     group('removeStatus', () {
       test('removes seen status from a message', () async {
-        when(apiClient.doDelete(any))
-            .thenAnswer((_) async => testMessageResponse);
+        when(
+          apiClient.doDelete(any),
+        ).thenAnswer((_) async => testMessageResponse);
 
         await messagesClient.removeStatus(
           'msg_123',
@@ -179,8 +183,9 @@ void main() {
       });
 
       test('removes read status from a message', () async {
-        when(apiClient.doDelete(any))
-            .thenAnswer((_) async => testMessageResponse);
+        when(
+          apiClient.doDelete(any),
+        ).thenAnswer((_) async => testMessageResponse);
 
         await messagesClient.removeStatus(
           'msg_123',
@@ -191,8 +196,9 @@ void main() {
       });
 
       test('removes archived status from a message', () async {
-        when(apiClient.doDelete(any))
-            .thenAnswer((_) async => testMessageResponse);
+        when(
+          apiClient.doDelete(any),
+        ).thenAnswer((_) async => testMessageResponse);
 
         await messagesClient.removeStatus(
           'msg_123',
@@ -205,13 +211,14 @@ void main() {
 
     group('batchUpdateStatuses', () {
       test('batch updates multiple messages', () async {
-        when(apiClient.doPost(any, body: anyNamed('body')))
-            .thenAnswer((_) async => testBatchMessagesResponse);
+        when(
+          apiClient.doPost(any, body: anyNamed('body')),
+        ).thenAnswer((_) async => testBatchMessagesResponse);
 
-        final messages = await messagesClient.batchUpdateStatuses(
-          ['msg_1', 'msg_2'],
-          BatchMessageStatus.read,
-        );
+        final messages = await messagesClient.batchUpdateStatuses([
+          'msg_1',
+          'msg_2',
+        ], BatchMessageStatus.read);
 
         expect(messages.length, 2);
 
@@ -227,8 +234,9 @@ void main() {
       });
 
       test('batch updates with interacted status includes metadata', () async {
-        when(apiClient.doPost(any, body: anyNamed('body')))
-            .thenAnswer((_) async => testBatchMessagesResponse);
+        when(
+          apiClient.doPost(any, body: anyNamed('body')),
+        ).thenAnswer((_) async => testBatchMessagesResponse);
 
         await messagesClient.batchUpdateStatuses(
           ['msg_1', 'msg_2'],
@@ -255,8 +263,9 @@ void main() {
 
     group('bulkUpdateAllStatusesInChannel', () {
       test('bulk updates all messages in a channel', () async {
-        when(apiClient.doPost(any, body: anyNamed('body')))
-            .thenAnswer((_) async => testBulkOperationResponse);
+        when(
+          apiClient.doPost(any, body: anyNamed('body')),
+        ).thenAnswer((_) async => testBulkOperationResponse);
 
         final operation = await messagesClient.bulkUpdateAllStatusesInChannel(
           channelId: 'channel_123',
@@ -277,8 +286,9 @@ void main() {
       });
 
       test('bulk updates with options', () async {
-        when(apiClient.doPost(any, body: anyNamed('body')))
-            .thenAnswer((_) async => testBulkOperationResponse);
+        when(
+          apiClient.doPost(any, body: anyNamed('body')),
+        ).thenAnswer((_) async => testBulkOperationResponse);
 
         await messagesClient.bulkUpdateAllStatusesInChannel(
           channelId: 'channel_123',
@@ -308,8 +318,9 @@ void main() {
 
     group('convenience methods', () {
       test('markAsSeen calls updateStatus with seen', () async {
-        when(apiClient.doPut(any, body: anyNamed('body')))
-            .thenAnswer((_) async => testMessageResponse);
+        when(
+          apiClient.doPut(any, body: anyNamed('body')),
+        ).thenAnswer((_) async => testMessageResponse);
 
         await messagesClient.markAsSeen('msg_123');
 
@@ -317,8 +328,9 @@ void main() {
       });
 
       test('markAsRead calls updateStatus with read', () async {
-        when(apiClient.doPut(any, body: anyNamed('body')))
-            .thenAnswer((_) async => testMessageResponse);
+        when(
+          apiClient.doPut(any, body: anyNamed('body')),
+        ).thenAnswer((_) async => testMessageResponse);
 
         await messagesClient.markAsRead('msg_123');
 
@@ -326,8 +338,9 @@ void main() {
       });
 
       test('markAsArchived calls updateStatus with archived', () async {
-        when(apiClient.doPut(any, body: anyNamed('body')))
-            .thenAnswer((_) async => testMessageResponse);
+        when(
+          apiClient.doPut(any, body: anyNamed('body')),
+        ).thenAnswer((_) async => testMessageResponse);
 
         await messagesClient.markAsArchived('msg_123');
 
@@ -335,19 +348,19 @@ void main() {
       });
 
       test('markAsInteracted calls updateStatus with interacted', () async {
-        when(apiClient.doPut(any, body: anyNamed('body')))
-            .thenAnswer((_) async => testMessageResponse);
+        when(
+          apiClient.doPut(any, body: anyNamed('body')),
+        ).thenAnswer((_) async => testMessageResponse);
 
         await messagesClient.markAsInteracted('msg_123');
 
-        verify(
-          apiClient.doPut('/v1/messages/msg_123/interacted', body: null),
-        );
+        verify(apiClient.doPut('/v1/messages/msg_123/interacted', body: null));
       });
 
       test('markAsInteracted with metadata passes metadata', () async {
-        when(apiClient.doPut(any, body: anyNamed('body')))
-            .thenAnswer((_) async => testMessageResponse);
+        when(
+          apiClient.doPut(any, body: anyNamed('body')),
+        ).thenAnswer((_) async => testMessageResponse);
 
         await messagesClient.markAsInteracted(
           'msg_123',
@@ -366,8 +379,9 @@ void main() {
       });
 
       test('markAsUnseen calls removeStatus with seen', () async {
-        when(apiClient.doDelete(any))
-            .thenAnswer((_) async => testMessageResponse);
+        when(
+          apiClient.doDelete(any),
+        ).thenAnswer((_) async => testMessageResponse);
 
         await messagesClient.markAsUnseen('msg_123');
 
@@ -375,8 +389,9 @@ void main() {
       });
 
       test('markAsUnread calls removeStatus with read', () async {
-        when(apiClient.doDelete(any))
-            .thenAnswer((_) async => testMessageResponse);
+        when(
+          apiClient.doDelete(any),
+        ).thenAnswer((_) async => testMessageResponse);
 
         await messagesClient.markAsUnread('msg_123');
 
@@ -384,8 +399,9 @@ void main() {
       });
 
       test('markAsUnarchived calls removeStatus with archived', () async {
-        when(apiClient.doDelete(any))
-            .thenAnswer((_) async => testMessageResponse);
+        when(
+          apiClient.doDelete(any),
+        ).thenAnswer((_) async => testMessageResponse);
 
         await messagesClient.markAsUnarchived('msg_123');
 
@@ -438,10 +454,10 @@ void main() {
       expect(message.channelId, 'channel_456');
       expect(message.tenant, 'tenant_abc');
       expect(message.status, KnockMessageDeliveryStatus.delivered);
-      expect(
-        message.engagementStatuses,
-        [KnockMessageEngagementStatus.seen, KnockMessageEngagementStatus.read],
-      );
+      expect(message.engagementStatuses, [
+        KnockMessageEngagementStatus.seen,
+        KnockMessageEngagementStatus.read,
+      ]);
 
       // Source
       expect(message.source.key, 'workflow_key');
@@ -480,10 +496,7 @@ void main() {
           'id': 'user_789',
           'updated_at': '2024-01-01T00:00:00.000Z',
         },
-        'source': {
-          'key': 'workflow_key',
-          'version_id': 'version_1',
-        },
+        'source': {'key': 'workflow_key', 'version_id': 'version_1'},
         'status': 'queued',
         'inserted_at': '2024-01-01T00:00:00.000Z',
         'updated_at': '2024-01-01T00:00:00.000Z',

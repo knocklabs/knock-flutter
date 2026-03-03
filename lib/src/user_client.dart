@@ -11,12 +11,10 @@ class UserClient {
 
   final Knock _knock;
 
-  ApiClient get _api => _knock.client();
+  KnockApiClient get _api => _knock.client();
 
   Future<User> get() async {
-    final response = await _api.doGet(
-      '/v1/users/${_knock.userId}',
-    );
+    final response = await _api.doGet('/v1/users/${_knock.userId}');
     final json = response.decodeResponse();
     return User.fromJson(json);
   }
@@ -51,10 +49,7 @@ class UserClient {
     }
 
     final body = jsonEncode(requestBody);
-    final response = await _api.doPut(
-      '/v1/users/${_knock.userId}',
-      body: body,
-    );
+    final response = await _api.doPut('/v1/users/${_knock.userId}', body: body);
     final json = response.decodeResponse();
     return User.fromJson(json);
   }
@@ -112,11 +107,7 @@ class UserClient {
     if (channelData.hasDevice(token)) {
       return channelData;
     } else {
-      final device = Device(
-        token: token,
-        locale: locale,
-        timezone: timezone,
-      );
+      final device = Device(token: token, locale: locale, timezone: timezone);
       final modifiedChannelData = channelData.appendDevice(device);
       return setChannelData(channelId, modifiedChannelData);
     }
@@ -159,16 +150,13 @@ extension _ChannelDataExtension on ChannelData {
 
   ChannelData appendDevice(Device device) {
     final devices = [...data.devices, device];
-    return copyWith(
-      data: data.copyWith(devices: devices),
-    );
+    return copyWith(data: data.copyWith(devices: devices));
   }
 
   ChannelData removeDevice(String token) {
-    final devices =
-        data.devices.where((device) => device.token != token).toList();
-    return copyWith(
-      data: data.copyWith(devices: devices),
-    );
+    final devices = data.devices
+        .where((device) => device.token != token)
+        .toList();
+    return copyWith(data: data.copyWith(devices: devices));
   }
 }
