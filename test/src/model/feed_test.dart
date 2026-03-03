@@ -20,12 +20,17 @@ void main() {
           after: null,
           pageSize: 50,
         ),
-        networkStatus: NetworkStatus.ready,
+        networkStatus: NetworkStatus.initial,
       ),
     );
   });
 
   test('Feed knows when it has an inflight request', () {
+    expect(
+      Feed.initialState().requestInFlight,
+      false,
+    );
+
     expect(
       Feed.initialState()
           .copyWith(networkStatus: NetworkStatus.ready)
