@@ -162,8 +162,10 @@ class FeedClient {
         );
       },
       onCancel: () {
-        // Leaving will also take care of closing the channel in the socket
-        _channel?.leave();
+        if (_channel != null) {
+          _channel!.leave();
+          _api.socket.removeChannel(_channel!);
+        }
         _channel = null;
 
         _channelMessagesSubscription?.cancel();
@@ -196,7 +198,10 @@ class FeedClient {
     if (_disposed) return;
     _disposed = true;
 
-    _channel?.leave();
+    if (_channel != null) {
+      _channel!.leave();
+      _api.socket.removeChannel(_channel!);
+    }
     _channel = null;
 
     _channelMessagesSubscription?.cancel();
