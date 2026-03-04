@@ -140,8 +140,15 @@ class KnockApiClient extends http.BaseClient {
 
     _client.close();
 
-    _socket?.dispose();
-    _socket = null;
+    if (_socket != null) {
+      if (_socket!.isConnected) {
+        _socket!.close();
+      }
+      _socket!.dispose();
+      _socket = null;
+    }
+
+    _status.close();
   }
 
   void _assertNotDisposed() {

@@ -136,6 +136,7 @@ class FeedClient {
             parameters: options.toJson(),
           );
 
+          _channelMessagesSubscription?.cancel();
           _channelMessagesSubscription = channel.messages.listen((message) {
             if (message.event.value == 'new-message') {
               _onNewMessageReceived(message);
@@ -191,7 +192,39 @@ class FeedClient {
     );
   }
 
+  void dispose() {
+    if (_disposed) return;
+    _disposed = true;
+
+    _channel?.leave();
+    _channel = null;
+
+    _channelMessagesSubscription?.cancel();
+    _channelMessagesSubscription = null;
+
+    _socketClosedSubscription?.cancel();
+    _socketClosedSubscription = null;
+
+    _socketErrorSubscription?.cancel();
+    _socketErrorSubscription = null;
+
+    _socketOpenSubscription?.cancel();
+    _socketOpenSubscription = null;
+
+    _apiStatusSubscription?.cancel();
+    _apiStatusSubscription = null;
+
+    if (!_eventController.isClosed) {
+      _eventController.close();
+    }
+
+    _feedController?.close();
+    _feedController = null;
+  }
+
   void _onNewMessageReceived(Message message) {
+    if (_disposed) return;
+
     final payload = message.payload;
     if (payload != null) {
       final response = OnNewMessageResponse.fromJson(payload);
