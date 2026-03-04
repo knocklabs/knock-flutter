@@ -149,6 +149,16 @@ class FeedClient {
             fetchSource: _FeedFetchSource.http,
           );
         });
+
+        // Always trigger an initial HTTP fetch immediately, without waiting
+        // for the socket openStream replay. This ensures data loads even when
+        // a new FeedClient is created while the socket is already connected.
+        // The requestInFlight guard in _fetch prevents duplicate requests.
+        _fetch(
+          fetchOptions: null,
+          loadingType: NetworkStatus.loading,
+          fetchSource: _FeedFetchSource.http,
+        );
       },
       onCancel: () {
         // Leaving will also take care of closing the channel in the socket
