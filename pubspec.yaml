@@ -10,7 +10,8 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
-  flutter_timezone: ^2.1.0
+  
+  flutter_timezone: ^5.0.1
   freezed_annotation: ^3.1.0
   http: ^1.1.0
   json_annotation: ^4.8.1
