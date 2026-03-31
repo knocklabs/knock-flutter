@@ -1,5 +1,5 @@
-// coverage:ignore-file
 // GENERATED CODE - DO NOT MODIFY BY HAND
+// coverage:ignore-file
 // ignore_for_file: type=lint
 // ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target, unnecessary_question_mark
 
@@ -9,97 +9,240 @@ part of 'feed_update_request.dart';
 // FreezedGenerator
 // **************************************************************************
 
+// dart format off
 T _$identity<T>(T value) => value;
-
-final _privateConstructorUsedError = UnsupportedError(
-    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#adding-getters-and-methods-to-our-models');
 
 /// @nodoc
 mixin _$FeedStatusUpdateRequest {
   @JsonKey(name: 'message_ids')
-  List<String> get ids => throw _privateConstructorUsedError;
+  List<String> get ids;
 
-  Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
-  @JsonKey(ignore: true)
-  $FeedStatusUpdateRequestCopyWith<FeedStatusUpdateRequest> get copyWith =>
-      throw _privateConstructorUsedError;
-}
-
-/// @nodoc
-abstract class $FeedStatusUpdateRequestCopyWith<$Res> {
-  factory $FeedStatusUpdateRequestCopyWith(FeedStatusUpdateRequest value,
-          $Res Function(FeedStatusUpdateRequest) then) =
-      _$FeedStatusUpdateRequestCopyWithImpl<$Res, FeedStatusUpdateRequest>;
-  @useResult
-  $Res call({@JsonKey(name: 'message_ids') List<String> ids});
-}
-
-/// @nodoc
-class _$FeedStatusUpdateRequestCopyWithImpl<$Res,
-        $Val extends FeedStatusUpdateRequest>
-    implements $FeedStatusUpdateRequestCopyWith<$Res> {
-  _$FeedStatusUpdateRequestCopyWithImpl(this._value, this._then);
-
-  // ignore: unused_field
-  final $Val _value;
-  // ignore: unused_field
-  final $Res Function($Val) _then;
-
+  /// Create a copy of FeedStatusUpdateRequest
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @pragma('vm:prefer-inline')
+  $FeedStatusUpdateRequestCopyWith<FeedStatusUpdateRequest> get copyWith =>
+      _$FeedStatusUpdateRequestCopyWithImpl<FeedStatusUpdateRequest>(
+          this as FeedStatusUpdateRequest, _$identity);
+
+  /// Serializes this FeedStatusUpdateRequest to a JSON map.
+  Map<String, dynamic> toJson();
+
   @override
-  $Res call({
-    Object? ids = null,
-  }) {
-    return _then(_value.copyWith(
-      ids: null == ids
-          ? _value.ids
-          : ids // ignore: cast_nullable_to_non_nullable
-              as List<String>,
-    ) as $Val);
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is FeedStatusUpdateRequest &&
+            const DeepCollectionEquality().equals(other.ids, ids));
+  }
+
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  @override
+  int get hashCode =>
+      Object.hash(runtimeType, const DeepCollectionEquality().hash(ids));
+
+  @override
+  String toString() {
+    return 'FeedStatusUpdateRequest(ids: $ids)';
   }
 }
 
 /// @nodoc
-abstract class _$$FeedStatusUpdateRequestImplCopyWith<$Res>
-    implements $FeedStatusUpdateRequestCopyWith<$Res> {
-  factory _$$FeedStatusUpdateRequestImplCopyWith(
-          _$FeedStatusUpdateRequestImpl value,
-          $Res Function(_$FeedStatusUpdateRequestImpl) then) =
-      __$$FeedStatusUpdateRequestImplCopyWithImpl<$Res>;
-  @override
+abstract mixin class $FeedStatusUpdateRequestCopyWith<$Res> {
+  factory $FeedStatusUpdateRequestCopyWith(FeedStatusUpdateRequest value,
+          $Res Function(FeedStatusUpdateRequest) _then) =
+      _$FeedStatusUpdateRequestCopyWithImpl;
   @useResult
   $Res call({@JsonKey(name: 'message_ids') List<String> ids});
 }
 
 /// @nodoc
-class __$$FeedStatusUpdateRequestImplCopyWithImpl<$Res>
-    extends _$FeedStatusUpdateRequestCopyWithImpl<$Res,
-        _$FeedStatusUpdateRequestImpl>
-    implements _$$FeedStatusUpdateRequestImplCopyWith<$Res> {
-  __$$FeedStatusUpdateRequestImplCopyWithImpl(
-      _$FeedStatusUpdateRequestImpl _value,
-      $Res Function(_$FeedStatusUpdateRequestImpl) _then)
-      : super(_value, _then);
+class _$FeedStatusUpdateRequestCopyWithImpl<$Res>
+    implements $FeedStatusUpdateRequestCopyWith<$Res> {
+  _$FeedStatusUpdateRequestCopyWithImpl(this._self, this._then);
 
+  final FeedStatusUpdateRequest _self;
+  final $Res Function(FeedStatusUpdateRequest) _then;
+
+  /// Create a copy of FeedStatusUpdateRequest
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
     Object? ids = null,
   }) {
-    return _then(_$FeedStatusUpdateRequestImpl(
+    return _then(_self.copyWith(
       ids: null == ids
-          ? _value._ids
+          ? _self.ids
           : ids // ignore: cast_nullable_to_non_nullable
               as List<String>,
     ));
   }
 }
 
+/// Adds pattern-matching-related methods to [FeedStatusUpdateRequest].
+extension FeedStatusUpdateRequestPatterns on FeedStatusUpdateRequest {
+  /// A variant of `map` that fallback to returning `orElse`.
+  ///
+  /// It is equivalent to doing:
+  /// ```dart
+  /// switch (sealedClass) {
+  ///   case final Subclass value:
+  ///     return ...;
+  ///   case _:
+  ///     return orElse();
+  /// }
+  /// ```
+
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>(
+    TResult Function(_FeedStatusUpdateRequest value)? $default, {
+    required TResult orElse(),
+  }) {
+    final _that = this;
+    switch (_that) {
+      case _FeedStatusUpdateRequest() when $default != null:
+        return $default(_that);
+      case _:
+        return orElse();
+    }
+  }
+
+  /// A `switch`-like method, using callbacks.
+  ///
+  /// Callbacks receives the raw object, upcasted.
+  /// It is equivalent to doing:
+  /// ```dart
+  /// switch (sealedClass) {
+  ///   case final Subclass value:
+  ///     return ...;
+  ///   case final Subclass2 value:
+  ///     return ...;
+  /// }
+  /// ```
+
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>(
+    TResult Function(_FeedStatusUpdateRequest value) $default,
+  ) {
+    final _that = this;
+    switch (_that) {
+      case _FeedStatusUpdateRequest():
+        return $default(_that);
+      case _:
+        throw StateError('Unexpected subclass');
+    }
+  }
+
+  /// A variant of `map` that fallback to returning `null`.
+  ///
+  /// It is equivalent to doing:
+  /// ```dart
+  /// switch (sealedClass) {
+  ///   case final Subclass value:
+  ///     return ...;
+  ///   case _:
+  ///     return null;
+  /// }
+  /// ```
+
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>(
+    TResult? Function(_FeedStatusUpdateRequest value)? $default,
+  ) {
+    final _that = this;
+    switch (_that) {
+      case _FeedStatusUpdateRequest() when $default != null:
+        return $default(_that);
+      case _:
+        return null;
+    }
+  }
+
+  /// A variant of `when` that fallback to an `orElse` callback.
+  ///
+  /// It is equivalent to doing:
+  /// ```dart
+  /// switch (sealedClass) {
+  ///   case Subclass(:final field):
+  ///     return ...;
+  ///   case _:
+  ///     return orElse();
+  /// }
+  /// ```
+
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>(
+    TResult Function(@JsonKey(name: 'message_ids') List<String> ids)?
+        $default, {
+    required TResult orElse(),
+  }) {
+    final _that = this;
+    switch (_that) {
+      case _FeedStatusUpdateRequest() when $default != null:
+        return $default(_that.ids);
+      case _:
+        return orElse();
+    }
+  }
+
+  /// A `switch`-like method, using callbacks.
+  ///
+  /// As opposed to `map`, this offers destructuring.
+  /// It is equivalent to doing:
+  /// ```dart
+  /// switch (sealedClass) {
+  ///   case Subclass(:final field):
+  ///     return ...;
+  ///   case Subclass2(:final field2):
+  ///     return ...;
+  /// }
+  /// ```
+
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>(
+    TResult Function(@JsonKey(name: 'message_ids') List<String> ids) $default,
+  ) {
+    final _that = this;
+    switch (_that) {
+      case _FeedStatusUpdateRequest():
+        return $default(_that.ids);
+      case _:
+        throw StateError('Unexpected subclass');
+    }
+  }
+
+  /// A variant of `when` that fallback to returning `null`
+  ///
+  /// It is equivalent to doing:
+  /// ```dart
+  /// switch (sealedClass) {
+  ///   case Subclass(:final field):
+  ///     return ...;
+  ///   case _:
+  ///     return null;
+  /// }
+  /// ```
+
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>(
+    TResult? Function(@JsonKey(name: 'message_ids') List<String> ids)? $default,
+  ) {
+    final _that = this;
+    switch (_that) {
+      case _FeedStatusUpdateRequest() when $default != null:
+        return $default(_that.ids);
+      case _:
+        return null;
+    }
+  }
+}
+
 /// @nodoc
 
 @JsonSerializable(explicitToJson: true)
-class _$FeedStatusUpdateRequestImpl implements _FeedStatusUpdateRequest {
-  const _$FeedStatusUpdateRequestImpl(
+class _FeedStatusUpdateRequest implements FeedStatusUpdateRequest {
+  const _FeedStatusUpdateRequest(
       {@JsonKey(name: 'message_ids') required final List<String> ids})
       : _ids = ids;
 
@@ -112,139 +255,136 @@ class _$FeedStatusUpdateRequestImpl implements _FeedStatusUpdateRequest {
     return EqualUnmodifiableListView(_ids);
   }
 
+  /// Create a copy of FeedStatusUpdateRequest
+  /// with the given fields replaced by the non-null parameter values.
   @override
-  String toString() {
-    return 'FeedStatusUpdateRequest(ids: $ids)';
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  @pragma('vm:prefer-inline')
+  _$FeedStatusUpdateRequestCopyWith<_FeedStatusUpdateRequest> get copyWith =>
+      __$FeedStatusUpdateRequestCopyWithImpl<_FeedStatusUpdateRequest>(
+          this, _$identity);
+
+  @override
+  Map<String, dynamic> toJson() {
+    return _$FeedStatusUpdateRequestToJson(
+      this,
+    );
   }
 
   @override
   bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$FeedStatusUpdateRequestImpl &&
+            other is _FeedStatusUpdateRequest &&
             const DeepCollectionEquality().equals(other._ids, _ids));
   }
 
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   int get hashCode =>
       Object.hash(runtimeType, const DeepCollectionEquality().hash(_ids));
 
-  @JsonKey(ignore: true)
   @override
-  @pragma('vm:prefer-inline')
-  _$$FeedStatusUpdateRequestImplCopyWith<_$FeedStatusUpdateRequestImpl>
-      get copyWith => __$$FeedStatusUpdateRequestImplCopyWithImpl<
-          _$FeedStatusUpdateRequestImpl>(this, _$identity);
-
-  @override
-  Map<String, dynamic> toJson() {
-    return _$$FeedStatusUpdateRequestImplToJson(
-      this,
-    );
+  String toString() {
+    return 'FeedStatusUpdateRequest(ids: $ids)';
   }
 }
 
-abstract class _FeedStatusUpdateRequest implements FeedStatusUpdateRequest {
-  const factory _FeedStatusUpdateRequest(
-          {@JsonKey(name: 'message_ids') required final List<String> ids}) =
-      _$FeedStatusUpdateRequestImpl;
+/// @nodoc
+abstract mixin class _$FeedStatusUpdateRequestCopyWith<$Res>
+    implements $FeedStatusUpdateRequestCopyWith<$Res> {
+  factory _$FeedStatusUpdateRequestCopyWith(_FeedStatusUpdateRequest value,
+          $Res Function(_FeedStatusUpdateRequest) _then) =
+      __$FeedStatusUpdateRequestCopyWithImpl;
+  @override
+  @useResult
+  $Res call({@JsonKey(name: 'message_ids') List<String> ids});
+}
 
+/// @nodoc
+class __$FeedStatusUpdateRequestCopyWithImpl<$Res>
+    implements _$FeedStatusUpdateRequestCopyWith<$Res> {
+  __$FeedStatusUpdateRequestCopyWithImpl(this._self, this._then);
+
+  final _FeedStatusUpdateRequest _self;
+  final $Res Function(_FeedStatusUpdateRequest) _then;
+
+  /// Create a copy of FeedStatusUpdateRequest
+  /// with the given fields replaced by the non-null parameter values.
   @override
-  @JsonKey(name: 'message_ids')
-  List<String> get ids;
-  @override
-  @JsonKey(ignore: true)
-  _$$FeedStatusUpdateRequestImplCopyWith<_$FeedStatusUpdateRequestImpl>
-      get copyWith => throw _privateConstructorUsedError;
+  @pragma('vm:prefer-inline')
+  $Res call({
+    Object? ids = null,
+  }) {
+    return _then(_FeedStatusUpdateRequest(
+      ids: null == ids
+          ? _self._ids
+          : ids // ignore: cast_nullable_to_non_nullable
+              as List<String>,
+    ));
+  }
 }
 
 /// @nodoc
 mixin _$BulkFeedStatusUpdateRequest {
   @JsonKey(name: 'user_ids')
-  List<String> get userIds => throw _privateConstructorUsedError;
+  List<String> get userIds;
   @JsonKey(name: 'engagement_status')
-  FeedOptionsStatus? get engagementStatus => throw _privateConstructorUsedError;
-  FeedOptionsArchivedScope? get archived => throw _privateConstructorUsedError;
+  FeedOptionsStatus? get engagementStatus;
+  FeedOptionsArchivedScope? get archived;
   @JsonKey(name: 'has_tenant')
-  bool? get hasTenant => throw _privateConstructorUsedError;
-  List<String>? get tenants => throw _privateConstructorUsedError;
+  bool? get hasTenant;
+  List<String>? get tenants;
 
-  Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
-  @JsonKey(ignore: true)
-  $BulkFeedStatusUpdateRequestCopyWith<BulkFeedStatusUpdateRequest>
-      get copyWith => throw _privateConstructorUsedError;
-}
-
-/// @nodoc
-abstract class $BulkFeedStatusUpdateRequestCopyWith<$Res> {
-  factory $BulkFeedStatusUpdateRequestCopyWith(
-          BulkFeedStatusUpdateRequest value,
-          $Res Function(BulkFeedStatusUpdateRequest) then) =
-      _$BulkFeedStatusUpdateRequestCopyWithImpl<$Res,
-          BulkFeedStatusUpdateRequest>;
-  @useResult
-  $Res call(
-      {@JsonKey(name: 'user_ids') List<String> userIds,
-      @JsonKey(name: 'engagement_status') FeedOptionsStatus? engagementStatus,
-      FeedOptionsArchivedScope? archived,
-      @JsonKey(name: 'has_tenant') bool? hasTenant,
-      List<String>? tenants});
-}
-
-/// @nodoc
-class _$BulkFeedStatusUpdateRequestCopyWithImpl<$Res,
-        $Val extends BulkFeedStatusUpdateRequest>
-    implements $BulkFeedStatusUpdateRequestCopyWith<$Res> {
-  _$BulkFeedStatusUpdateRequestCopyWithImpl(this._value, this._then);
-
-  // ignore: unused_field
-  final $Val _value;
-  // ignore: unused_field
-  final $Res Function($Val) _then;
-
+  /// Create a copy of BulkFeedStatusUpdateRequest
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @pragma('vm:prefer-inline')
+  $BulkFeedStatusUpdateRequestCopyWith<BulkFeedStatusUpdateRequest>
+      get copyWith => _$BulkFeedStatusUpdateRequestCopyWithImpl<
+              BulkFeedStatusUpdateRequest>(
+          this as BulkFeedStatusUpdateRequest, _$identity);
+
+  /// Serializes this BulkFeedStatusUpdateRequest to a JSON map.
+  Map<String, dynamic> toJson();
+
   @override
-  $Res call({
-    Object? userIds = null,
-    Object? engagementStatus = freezed,
-    Object? archived = freezed,
-    Object? hasTenant = freezed,
-    Object? tenants = freezed,
-  }) {
-    return _then(_value.copyWith(
-      userIds: null == userIds
-          ? _value.userIds
-          : userIds // ignore: cast_nullable_to_non_nullable
-              as List<String>,
-      engagementStatus: freezed == engagementStatus
-          ? _value.engagementStatus
-          : engagementStatus // ignore: cast_nullable_to_non_nullable
-              as FeedOptionsStatus?,
-      archived: freezed == archived
-          ? _value.archived
-          : archived // ignore: cast_nullable_to_non_nullable
-              as FeedOptionsArchivedScope?,
-      hasTenant: freezed == hasTenant
-          ? _value.hasTenant
-          : hasTenant // ignore: cast_nullable_to_non_nullable
-              as bool?,
-      tenants: freezed == tenants
-          ? _value.tenants
-          : tenants // ignore: cast_nullable_to_non_nullable
-              as List<String>?,
-    ) as $Val);
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is BulkFeedStatusUpdateRequest &&
+            const DeepCollectionEquality().equals(other.userIds, userIds) &&
+            (identical(other.engagementStatus, engagementStatus) ||
+                other.engagementStatus == engagementStatus) &&
+            (identical(other.archived, archived) ||
+                other.archived == archived) &&
+            (identical(other.hasTenant, hasTenant) ||
+                other.hasTenant == hasTenant) &&
+            const DeepCollectionEquality().equals(other.tenants, tenants));
+  }
+
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  @override
+  int get hashCode => Object.hash(
+      runtimeType,
+      const DeepCollectionEquality().hash(userIds),
+      engagementStatus,
+      archived,
+      hasTenant,
+      const DeepCollectionEquality().hash(tenants));
+
+  @override
+  String toString() {
+    return 'BulkFeedStatusUpdateRequest(userIds: $userIds, engagementStatus: $engagementStatus, archived: $archived, hasTenant: $hasTenant, tenants: $tenants)';
   }
 }
 
 /// @nodoc
-abstract class _$$BulkFeedStatusUpdateRequestImplCopyWith<$Res>
-    implements $BulkFeedStatusUpdateRequestCopyWith<$Res> {
-  factory _$$BulkFeedStatusUpdateRequestImplCopyWith(
-          _$BulkFeedStatusUpdateRequestImpl value,
-          $Res Function(_$BulkFeedStatusUpdateRequestImpl) then) =
-      __$$BulkFeedStatusUpdateRequestImplCopyWithImpl<$Res>;
-  @override
+abstract mixin class $BulkFeedStatusUpdateRequestCopyWith<$Res> {
+  factory $BulkFeedStatusUpdateRequestCopyWith(
+          BulkFeedStatusUpdateRequest value,
+          $Res Function(BulkFeedStatusUpdateRequest) _then) =
+      _$BulkFeedStatusUpdateRequestCopyWithImpl;
   @useResult
   $Res call(
       {@JsonKey(name: 'user_ids') List<String> userIds,
@@ -255,15 +395,15 @@ abstract class _$$BulkFeedStatusUpdateRequestImplCopyWith<$Res>
 }
 
 /// @nodoc
-class __$$BulkFeedStatusUpdateRequestImplCopyWithImpl<$Res>
-    extends _$BulkFeedStatusUpdateRequestCopyWithImpl<$Res,
-        _$BulkFeedStatusUpdateRequestImpl>
-    implements _$$BulkFeedStatusUpdateRequestImplCopyWith<$Res> {
-  __$$BulkFeedStatusUpdateRequestImplCopyWithImpl(
-      _$BulkFeedStatusUpdateRequestImpl _value,
-      $Res Function(_$BulkFeedStatusUpdateRequestImpl) _then)
-      : super(_value, _then);
+class _$BulkFeedStatusUpdateRequestCopyWithImpl<$Res>
+    implements $BulkFeedStatusUpdateRequestCopyWith<$Res> {
+  _$BulkFeedStatusUpdateRequestCopyWithImpl(this._self, this._then);
 
+  final BulkFeedStatusUpdateRequest _self;
+  final $Res Function(BulkFeedStatusUpdateRequest) _then;
+
+  /// Create a copy of BulkFeedStatusUpdateRequest
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -273,37 +413,217 @@ class __$$BulkFeedStatusUpdateRequestImplCopyWithImpl<$Res>
     Object? hasTenant = freezed,
     Object? tenants = freezed,
   }) {
-    return _then(_$BulkFeedStatusUpdateRequestImpl(
+    return _then(_self.copyWith(
       userIds: null == userIds
-          ? _value._userIds
+          ? _self.userIds
           : userIds // ignore: cast_nullable_to_non_nullable
               as List<String>,
       engagementStatus: freezed == engagementStatus
-          ? _value.engagementStatus
+          ? _self.engagementStatus
           : engagementStatus // ignore: cast_nullable_to_non_nullable
               as FeedOptionsStatus?,
       archived: freezed == archived
-          ? _value.archived
+          ? _self.archived
           : archived // ignore: cast_nullable_to_non_nullable
               as FeedOptionsArchivedScope?,
       hasTenant: freezed == hasTenant
-          ? _value.hasTenant
+          ? _self.hasTenant
           : hasTenant // ignore: cast_nullable_to_non_nullable
               as bool?,
       tenants: freezed == tenants
-          ? _value._tenants
+          ? _self.tenants
           : tenants // ignore: cast_nullable_to_non_nullable
               as List<String>?,
     ));
   }
 }
 
+/// Adds pattern-matching-related methods to [BulkFeedStatusUpdateRequest].
+extension BulkFeedStatusUpdateRequestPatterns on BulkFeedStatusUpdateRequest {
+  /// A variant of `map` that fallback to returning `orElse`.
+  ///
+  /// It is equivalent to doing:
+  /// ```dart
+  /// switch (sealedClass) {
+  ///   case final Subclass value:
+  ///     return ...;
+  ///   case _:
+  ///     return orElse();
+  /// }
+  /// ```
+
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>(
+    TResult Function(_BulkFeedStatusUpdateRequest value)? $default, {
+    required TResult orElse(),
+  }) {
+    final _that = this;
+    switch (_that) {
+      case _BulkFeedStatusUpdateRequest() when $default != null:
+        return $default(_that);
+      case _:
+        return orElse();
+    }
+  }
+
+  /// A `switch`-like method, using callbacks.
+  ///
+  /// Callbacks receives the raw object, upcasted.
+  /// It is equivalent to doing:
+  /// ```dart
+  /// switch (sealedClass) {
+  ///   case final Subclass value:
+  ///     return ...;
+  ///   case final Subclass2 value:
+  ///     return ...;
+  /// }
+  /// ```
+
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>(
+    TResult Function(_BulkFeedStatusUpdateRequest value) $default,
+  ) {
+    final _that = this;
+    switch (_that) {
+      case _BulkFeedStatusUpdateRequest():
+        return $default(_that);
+      case _:
+        throw StateError('Unexpected subclass');
+    }
+  }
+
+  /// A variant of `map` that fallback to returning `null`.
+  ///
+  /// It is equivalent to doing:
+  /// ```dart
+  /// switch (sealedClass) {
+  ///   case final Subclass value:
+  ///     return ...;
+  ///   case _:
+  ///     return null;
+  /// }
+  /// ```
+
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>(
+    TResult? Function(_BulkFeedStatusUpdateRequest value)? $default,
+  ) {
+    final _that = this;
+    switch (_that) {
+      case _BulkFeedStatusUpdateRequest() when $default != null:
+        return $default(_that);
+      case _:
+        return null;
+    }
+  }
+
+  /// A variant of `when` that fallback to an `orElse` callback.
+  ///
+  /// It is equivalent to doing:
+  /// ```dart
+  /// switch (sealedClass) {
+  ///   case Subclass(:final field):
+  ///     return ...;
+  ///   case _:
+  ///     return orElse();
+  /// }
+  /// ```
+
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>(
+    TResult Function(
+            @JsonKey(name: 'user_ids') List<String> userIds,
+            @JsonKey(name: 'engagement_status')
+            FeedOptionsStatus? engagementStatus,
+            FeedOptionsArchivedScope? archived,
+            @JsonKey(name: 'has_tenant') bool? hasTenant,
+            List<String>? tenants)?
+        $default, {
+    required TResult orElse(),
+  }) {
+    final _that = this;
+    switch (_that) {
+      case _BulkFeedStatusUpdateRequest() when $default != null:
+        return $default(_that.userIds, _that.engagementStatus, _that.archived,
+            _that.hasTenant, _that.tenants);
+      case _:
+        return orElse();
+    }
+  }
+
+  /// A `switch`-like method, using callbacks.
+  ///
+  /// As opposed to `map`, this offers destructuring.
+  /// It is equivalent to doing:
+  /// ```dart
+  /// switch (sealedClass) {
+  ///   case Subclass(:final field):
+  ///     return ...;
+  ///   case Subclass2(:final field2):
+  ///     return ...;
+  /// }
+  /// ```
+
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>(
+    TResult Function(
+            @JsonKey(name: 'user_ids') List<String> userIds,
+            @JsonKey(name: 'engagement_status')
+            FeedOptionsStatus? engagementStatus,
+            FeedOptionsArchivedScope? archived,
+            @JsonKey(name: 'has_tenant') bool? hasTenant,
+            List<String>? tenants)
+        $default,
+  ) {
+    final _that = this;
+    switch (_that) {
+      case _BulkFeedStatusUpdateRequest():
+        return $default(_that.userIds, _that.engagementStatus, _that.archived,
+            _that.hasTenant, _that.tenants);
+      case _:
+        throw StateError('Unexpected subclass');
+    }
+  }
+
+  /// A variant of `when` that fallback to returning `null`
+  ///
+  /// It is equivalent to doing:
+  /// ```dart
+  /// switch (sealedClass) {
+  ///   case Subclass(:final field):
+  ///     return ...;
+  ///   case _:
+  ///     return null;
+  /// }
+  /// ```
+
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>(
+    TResult? Function(
+            @JsonKey(name: 'user_ids') List<String> userIds,
+            @JsonKey(name: 'engagement_status')
+            FeedOptionsStatus? engagementStatus,
+            FeedOptionsArchivedScope? archived,
+            @JsonKey(name: 'has_tenant') bool? hasTenant,
+            List<String>? tenants)?
+        $default,
+  ) {
+    final _that = this;
+    switch (_that) {
+      case _BulkFeedStatusUpdateRequest() when $default != null:
+        return $default(_that.userIds, _that.engagementStatus, _that.archived,
+            _that.hasTenant, _that.tenants);
+      case _:
+        return null;
+    }
+  }
+}
+
 /// @nodoc
 
 @JsonSerializable(explicitToJson: true)
-class _$BulkFeedStatusUpdateRequestImpl
-    implements _BulkFeedStatusUpdateRequest {
-  const _$BulkFeedStatusUpdateRequestImpl(
+class _BulkFeedStatusUpdateRequest implements BulkFeedStatusUpdateRequest {
+  const _BulkFeedStatusUpdateRequest(
       {@JsonKey(name: 'user_ids') required final List<String> userIds,
       @JsonKey(name: 'engagement_status') this.engagementStatus,
       this.archived,
@@ -339,16 +659,27 @@ class _$BulkFeedStatusUpdateRequestImpl
     return EqualUnmodifiableListView(value);
   }
 
+  /// Create a copy of BulkFeedStatusUpdateRequest
+  /// with the given fields replaced by the non-null parameter values.
   @override
-  String toString() {
-    return 'BulkFeedStatusUpdateRequest(userIds: $userIds, engagementStatus: $engagementStatus, archived: $archived, hasTenant: $hasTenant, tenants: $tenants)';
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  @pragma('vm:prefer-inline')
+  _$BulkFeedStatusUpdateRequestCopyWith<_BulkFeedStatusUpdateRequest>
+      get copyWith => __$BulkFeedStatusUpdateRequestCopyWithImpl<
+          _BulkFeedStatusUpdateRequest>(this, _$identity);
+
+  @override
+  Map<String, dynamic> toJson() {
+    return _$BulkFeedStatusUpdateRequestToJson(
+      this,
+    );
   }
 
   @override
   bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$BulkFeedStatusUpdateRequestImpl &&
+            other is _BulkFeedStatusUpdateRequest &&
             const DeepCollectionEquality().equals(other._userIds, _userIds) &&
             (identical(other.engagementStatus, engagementStatus) ||
                 other.engagementStatus == engagementStatus) &&
@@ -359,7 +690,7 @@ class _$BulkFeedStatusUpdateRequestImpl
             const DeepCollectionEquality().equals(other._tenants, _tenants));
   }
 
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   int get hashCode => Object.hash(
       runtimeType,
@@ -369,46 +700,71 @@ class _$BulkFeedStatusUpdateRequestImpl
       hasTenant,
       const DeepCollectionEquality().hash(_tenants));
 
-  @JsonKey(ignore: true)
   @override
-  @pragma('vm:prefer-inline')
-  _$$BulkFeedStatusUpdateRequestImplCopyWith<_$BulkFeedStatusUpdateRequestImpl>
-      get copyWith => __$$BulkFeedStatusUpdateRequestImplCopyWithImpl<
-          _$BulkFeedStatusUpdateRequestImpl>(this, _$identity);
-
-  @override
-  Map<String, dynamic> toJson() {
-    return _$$BulkFeedStatusUpdateRequestImplToJson(
-      this,
-    );
+  String toString() {
+    return 'BulkFeedStatusUpdateRequest(userIds: $userIds, engagementStatus: $engagementStatus, archived: $archived, hasTenant: $hasTenant, tenants: $tenants)';
   }
 }
 
-abstract class _BulkFeedStatusUpdateRequest
-    implements BulkFeedStatusUpdateRequest {
-  const factory _BulkFeedStatusUpdateRequest(
-      {@JsonKey(name: 'user_ids') required final List<String> userIds,
-      @JsonKey(name: 'engagement_status')
-      final FeedOptionsStatus? engagementStatus,
-      final FeedOptionsArchivedScope? archived,
-      @JsonKey(name: 'has_tenant') final bool? hasTenant,
-      final List<String>? tenants}) = _$BulkFeedStatusUpdateRequestImpl;
-
+/// @nodoc
+abstract mixin class _$BulkFeedStatusUpdateRequestCopyWith<$Res>
+    implements $BulkFeedStatusUpdateRequestCopyWith<$Res> {
+  factory _$BulkFeedStatusUpdateRequestCopyWith(
+          _BulkFeedStatusUpdateRequest value,
+          $Res Function(_BulkFeedStatusUpdateRequest) _then) =
+      __$BulkFeedStatusUpdateRequestCopyWithImpl;
   @override
-  @JsonKey(name: 'user_ids')
-  List<String> get userIds;
-  @override
-  @JsonKey(name: 'engagement_status')
-  FeedOptionsStatus? get engagementStatus;
-  @override
-  FeedOptionsArchivedScope? get archived;
-  @override
-  @JsonKey(name: 'has_tenant')
-  bool? get hasTenant;
-  @override
-  List<String>? get tenants;
-  @override
-  @JsonKey(ignore: true)
-  _$$BulkFeedStatusUpdateRequestImplCopyWith<_$BulkFeedStatusUpdateRequestImpl>
-      get copyWith => throw _privateConstructorUsedError;
+  @useResult
+  $Res call(
+      {@JsonKey(name: 'user_ids') List<String> userIds,
+      @JsonKey(name: 'engagement_status') FeedOptionsStatus? engagementStatus,
+      FeedOptionsArchivedScope? archived,
+      @JsonKey(name: 'has_tenant') bool? hasTenant,
+      List<String>? tenants});
 }
+
+/// @nodoc
+class __$BulkFeedStatusUpdateRequestCopyWithImpl<$Res>
+    implements _$BulkFeedStatusUpdateRequestCopyWith<$Res> {
+  __$BulkFeedStatusUpdateRequestCopyWithImpl(this._self, this._then);
+
+  final _BulkFeedStatusUpdateRequest _self;
+  final $Res Function(_BulkFeedStatusUpdateRequest) _then;
+
+  /// Create a copy of BulkFeedStatusUpdateRequest
+  /// with the given fields replaced by the non-null parameter values.
+  @override
+  @pragma('vm:prefer-inline')
+  $Res call({
+    Object? userIds = null,
+    Object? engagementStatus = freezed,
+    Object? archived = freezed,
+    Object? hasTenant = freezed,
+    Object? tenants = freezed,
+  }) {
+    return _then(_BulkFeedStatusUpdateRequest(
+      userIds: null == userIds
+          ? _self._userIds
+          : userIds // ignore: cast_nullable_to_non_nullable
+              as List<String>,
+      engagementStatus: freezed == engagementStatus
+          ? _self.engagementStatus
+          : engagementStatus // ignore: cast_nullable_to_non_nullable
+              as FeedOptionsStatus?,
+      archived: freezed == archived
+          ? _self.archived
+          : archived // ignore: cast_nullable_to_non_nullable
+              as FeedOptionsArchivedScope?,
+      hasTenant: freezed == hasTenant
+          ? _self.hasTenant
+          : hasTenant // ignore: cast_nullable_to_non_nullable
+              as bool?,
+      tenants: freezed == tenants
+          ? _self._tenants
+          : tenants // ignore: cast_nullable_to_non_nullable
+              as List<String>?,
+    ));
+  }
+}
+
+// dart format on

@@ -10,22 +10,22 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
-  flutter_timezone: ^2.1.0
-  freezed_annotation: ^2.4.1
-  http: ^1.1.0
-  json_annotation: ^4.8.1
-  phoenix_socket: ^0.6.4
+  flutter_timezone: ^5.0.2
+  freezed_annotation: ^3.1.0
+  http: ^1.6.0
+  json_annotation: ^4.11.0
+  phoenix_socket: ^0.8.0
 
 dev_dependencies:
-  build_runner: ^2.4.8
-  flutter_lints: ^2.0.0
+  build_runner: ^2.13.1
+  flutter_lints: ^6.0.0
   flutter_test:
     sdk: flutter
-  freezed: ^2.4.5
-  json_serializable: ^6.7.1
-  mockito: ^5.4.3
-  pigeon: ^14.0.1
-  very_good_analysis: ^5.1.0
+  freezed: ^3.2.5
+  json_serializable: ^6.13.1
+  mockito: ^5.6.4
+  pigeon: ^26.3.3
+  very_good_analysis: ^10.2.0
 
 flutter:
   plugin:

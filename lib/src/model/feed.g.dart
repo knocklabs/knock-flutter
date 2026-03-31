@@ -8,7 +8,7 @@ part of 'feed.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-_$FeedImpl _$$FeedImplFromJson(Map<String, dynamic> json) => _$FeedImpl(
+_Feed _$FeedFromJson(Map<String, dynamic> json) => _Feed(
       items: (json['entries'] as List<dynamic>)
           .map((e) => FeedItem.fromJson(e as Map<String, dynamic>))
           .toList(),
@@ -19,8 +19,7 @@ _$FeedImpl _$$FeedImplFromJson(Map<String, dynamic> json) => _$FeedImpl(
               NetworkStatus.ready,
     );
 
-Map<String, dynamic> _$$FeedImplToJson(_$FeedImpl instance) =>
-    <String, dynamic>{
+Map<String, dynamic> _$FeedToJson(_Feed instance) => <String, dynamic>{
       'entries': instance.items.map((e) => e.toJson()).toList(),
       'page_info': instance.pageInfo.toJson(),
       'meta': instance.metadata.toJson(),
@@ -34,8 +33,7 @@ const _$NetworkStatusEnumMap = {
   NetworkStatus.error: 'error',
 };
 
-_$FeedItemImpl _$$FeedItemImplFromJson(Map<String, dynamic> json) =>
-    _$FeedItemImpl(
+_FeedItem _$FeedItemFromJson(Map<String, dynamic> json) => _FeedItem(
       knockInternalCursor: json['__cursor'] as String,
       id: json['id'] as String,
       activities: (json['activities'] as List<dynamic>)
@@ -67,8 +65,7 @@ _$FeedItemImpl _$$FeedItemImplFromJson(Map<String, dynamic> json) =>
       tenant: json['tenant'] as String?,
     );
 
-Map<String, dynamic> _$$FeedItemImplToJson(_$FeedItemImpl instance) =>
-    <String, dynamic>{
+Map<String, dynamic> _$FeedItemToJson(_FeedItem instance) => <String, dynamic>{
       '__cursor': instance.knockInternalCursor,
       'id': instance.id,
       'activities': instance.activities.map((e) => e.toJson()).toList(),
@@ -104,8 +101,7 @@ Json? _$JsonConverterToJson<Json, Value>(
 ) =>
     value == null ? null : toJson(value);
 
-_$ActivityImpl _$$ActivityImplFromJson(Map<String, dynamic> json) =>
-    _$ActivityImpl(
+_Activity _$ActivityFromJson(Map<String, dynamic> json) => _Activity(
       id: json['id'] as String,
       insertedAt: const ISO8601DateTimeConverter()
           .fromJson(json['inserted_at'] as String),
@@ -118,8 +114,7 @@ _$ActivityImpl _$$ActivityImplFromJson(Map<String, dynamic> json) =>
       data: json['data'] as Map<String, dynamic>?,
     );
 
-Map<String, dynamic> _$$ActivityImplToJson(_$ActivityImpl instance) =>
-    <String, dynamic>{
+Map<String, dynamic> _$ActivityToJson(_Activity instance) => <String, dynamic>{
       'id': instance.id,
       'inserted_at':
           const ISO8601DateTimeConverter().toJson(instance.insertedAt),
@@ -129,17 +124,17 @@ Map<String, dynamic> _$$ActivityImplToJson(_$ActivityImpl instance) =>
       'data': instance.data,
     };
 
-_$MarkdownContentBlockImpl _$$MarkdownContentBlockImplFromJson(
+MarkdownContentBlock _$MarkdownContentBlockFromJson(
         Map<String, dynamic> json) =>
-    _$MarkdownContentBlockImpl(
+    MarkdownContentBlock(
       name: json['name'] as String,
       content: json['content'] as String,
       rendered: json['rendered'] as String,
       $type: json['runtimeType'] as String?,
     );
 
-Map<String, dynamic> _$$MarkdownContentBlockImplToJson(
-        _$MarkdownContentBlockImpl instance) =>
+Map<String, dynamic> _$MarkdownContentBlockToJson(
+        MarkdownContentBlock instance) =>
     <String, dynamic>{
       'name': instance.name,
       'content': instance.content,
@@ -147,17 +142,15 @@ Map<String, dynamic> _$$MarkdownContentBlockImplToJson(
       'runtimeType': instance.$type,
     };
 
-_$TextContentBlockImpl _$$TextContentBlockImplFromJson(
-        Map<String, dynamic> json) =>
-    _$TextContentBlockImpl(
+TextContentBlock _$TextContentBlockFromJson(Map<String, dynamic> json) =>
+    TextContentBlock(
       name: json['name'] as String,
       content: json['content'] as String,
       rendered: json['rendered'] as String,
       $type: json['runtimeType'] as String?,
     );
 
-Map<String, dynamic> _$$TextContentBlockImplToJson(
-        _$TextContentBlockImpl instance) =>
+Map<String, dynamic> _$TextContentBlockToJson(TextContentBlock instance) =>
     <String, dynamic>{
       'name': instance.name,
       'content': instance.content,
@@ -165,9 +158,9 @@ Map<String, dynamic> _$$TextContentBlockImplToJson(
       'runtimeType': instance.$type,
     };
 
-_$ButtonSetContentBlockImpl _$$ButtonSetContentBlockImplFromJson(
+ButtonSetContentBlock _$ButtonSetContentBlockFromJson(
         Map<String, dynamic> json) =>
-    _$ButtonSetContentBlockImpl(
+    ButtonSetContentBlock(
       name: json['name'] as String,
       buttons: (json['buttons'] as List<dynamic>)
           .map((e) => BlockActionButton.fromJson(e as Map<String, dynamic>))
@@ -175,66 +168,60 @@ _$ButtonSetContentBlockImpl _$$ButtonSetContentBlockImplFromJson(
       $type: json['runtimeType'] as String?,
     );
 
-Map<String, dynamic> _$$ButtonSetContentBlockImplToJson(
-        _$ButtonSetContentBlockImpl instance) =>
+Map<String, dynamic> _$ButtonSetContentBlockToJson(
+        ButtonSetContentBlock instance) =>
     <String, dynamic>{
       'name': instance.name,
       'buttons': instance.buttons,
       'runtimeType': instance.$type,
     };
 
-_$BlockActionButtonImpl _$$BlockActionButtonImplFromJson(
-        Map<String, dynamic> json) =>
-    _$BlockActionButtonImpl(
+_BlockActionButton _$BlockActionButtonFromJson(Map<String, dynamic> json) =>
+    _BlockActionButton(
       name: json['name'] as String,
       label: json['label'] as String,
       action: json['action'] as String,
     );
 
-Map<String, dynamic> _$$BlockActionButtonImplToJson(
-        _$BlockActionButtonImpl instance) =>
+Map<String, dynamic> _$BlockActionButtonToJson(_BlockActionButton instance) =>
     <String, dynamic>{
       'name': instance.name,
       'label': instance.label,
       'action': instance.action,
     };
 
-_$NotificationSourceImpl _$$NotificationSourceImplFromJson(
-        Map<String, dynamic> json) =>
-    _$NotificationSourceImpl(
+_NotificationSource _$NotificationSourceFromJson(Map<String, dynamic> json) =>
+    _NotificationSource(
       key: json['key'] as String,
       versionId: json['version_id'] as String,
     );
 
-Map<String, dynamic> _$$NotificationSourceImplToJson(
-        _$NotificationSourceImpl instance) =>
+Map<String, dynamic> _$NotificationSourceToJson(_NotificationSource instance) =>
     <String, dynamic>{
       'key': instance.key,
       'version_id': instance.versionId,
     };
 
-_$PageInfoImpl _$$PageInfoImplFromJson(Map<String, dynamic> json) =>
-    _$PageInfoImpl(
+_PageInfo _$PageInfoFromJson(Map<String, dynamic> json) => _PageInfo(
       after: json['after'] as String?,
       before: json['before'] as String?,
       pageSize: (json['page_size'] as num).toInt(),
     );
 
-Map<String, dynamic> _$$PageInfoImplToJson(_$PageInfoImpl instance) =>
-    <String, dynamic>{
+Map<String, dynamic> _$PageInfoToJson(_PageInfo instance) => <String, dynamic>{
       'after': instance.after,
       'before': instance.before,
       'page_size': instance.pageSize,
     };
 
-_$FeedMetadataImpl _$$FeedMetadataImplFromJson(Map<String, dynamic> json) =>
-    _$FeedMetadataImpl(
+_FeedMetadata _$FeedMetadataFromJson(Map<String, dynamic> json) =>
+    _FeedMetadata(
       totalCount: (json['total_count'] as num).toInt(),
       unreadCount: (json['unread_count'] as num).toInt(),
       unseenCount: (json['unseen_count'] as num).toInt(),
     );
 
-Map<String, dynamic> _$$FeedMetadataImplToJson(_$FeedMetadataImpl instance) =>
+Map<String, dynamic> _$FeedMetadataToJson(_FeedMetadata instance) =>
     <String, dynamic>{
       'total_count': instance.totalCount,
       'unread_count': instance.unreadCount,

@@ -8,7 +8,7 @@ part of 'user.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-_$UserImpl _$$UserImplFromJson(Map<String, dynamic> json) => _$UserImpl(
+_User _$UserFromJson(Map<String, dynamic> json) => _User(
       id: json['id'] as String,
       updatedAt: const ISO8601DateTimeConverter()
           .fromJson(json['updated_at'] as String),
@@ -20,7 +20,7 @@ _$UserImpl _$$UserImplFromJson(Map<String, dynamic> json) => _$UserImpl(
           json['created_at'], const ISO8601DateTimeConverter().fromJson),
     );
 
-const _$$UserImplFieldMap = <String, String>{
+const _$UserFieldMap = <String, String>{
   'id': 'id',
   'updatedAt': 'updated_at',
   'email': 'email',
@@ -30,8 +30,7 @@ const _$$UserImplFieldMap = <String, String>{
   'createdAt': 'created_at',
 };
 
-Map<String, dynamic> _$$UserImplToJson(_$UserImpl instance) =>
-    <String, dynamic>{
+Map<String, dynamic> _$UserToJson(_User instance) => <String, dynamic>{
       'id': instance.id,
       'updated_at': const ISO8601DateTimeConverter().toJson(instance.updatedAt),
       'email': instance.email,

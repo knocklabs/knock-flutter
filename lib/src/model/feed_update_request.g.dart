@@ -8,23 +8,23 @@ part of 'feed_update_request.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-_$FeedStatusUpdateRequestImpl _$$FeedStatusUpdateRequestImplFromJson(
+_FeedStatusUpdateRequest _$FeedStatusUpdateRequestFromJson(
         Map<String, dynamic> json) =>
-    _$FeedStatusUpdateRequestImpl(
+    _FeedStatusUpdateRequest(
       ids: (json['message_ids'] as List<dynamic>)
           .map((e) => e as String)
           .toList(),
     );
 
-Map<String, dynamic> _$$FeedStatusUpdateRequestImplToJson(
-        _$FeedStatusUpdateRequestImpl instance) =>
+Map<String, dynamic> _$FeedStatusUpdateRequestToJson(
+        _FeedStatusUpdateRequest instance) =>
     <String, dynamic>{
       'message_ids': instance.ids,
     };
 
-_$BulkFeedStatusUpdateRequestImpl _$$BulkFeedStatusUpdateRequestImplFromJson(
+_BulkFeedStatusUpdateRequest _$BulkFeedStatusUpdateRequestFromJson(
         Map<String, dynamic> json) =>
-    _$BulkFeedStatusUpdateRequestImpl(
+    _BulkFeedStatusUpdateRequest(
       userIds:
           (json['user_ids'] as List<dynamic>).map((e) => e as String).toList(),
       engagementStatus: $enumDecodeNullable(
@@ -36,8 +36,8 @@ _$BulkFeedStatusUpdateRequestImpl _$$BulkFeedStatusUpdateRequestImplFromJson(
           (json['tenants'] as List<dynamic>?)?.map((e) => e as String).toList(),
     );
 
-Map<String, dynamic> _$$BulkFeedStatusUpdateRequestImplToJson(
-        _$BulkFeedStatusUpdateRequestImpl instance) =>
+Map<String, dynamic> _$BulkFeedStatusUpdateRequestToJson(
+        _BulkFeedStatusUpdateRequest instance) =>
     <String, dynamic>{
       'user_ids': instance.userIds,
       'engagement_status':

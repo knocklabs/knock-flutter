@@ -23,7 +23,7 @@ typedef WorkflowPreferences = Map<String, WorkflowPreferenceSetting>;
 typedef ChannelTypePreferences = Map<ChannelType, ChannelTypePreference>;
 
 @freezed
-class ChannelTypePreference with _$ChannelTypePreference {
+abstract class ChannelTypePreference with _$ChannelTypePreference {
   /// Either set [value] or [conditions].
   factory ChannelTypePreference({
     /// If [value] is set then [conditions] should not be set.
@@ -35,7 +35,7 @@ class ChannelTypePreference with _$ChannelTypePreference {
 }
 
 @freezed
-class WorkflowPreferenceSetting with _$WorkflowPreferenceSetting {
+abstract class WorkflowPreferenceSetting with _$WorkflowPreferenceSetting {
   /// Either set [value] or [channelTypePreferences], [conditions].
   factory WorkflowPreferenceSetting({
     /// If [value] is set then [channelTypePreferences] and [conditions] should
@@ -51,34 +51,34 @@ class WorkflowPreferenceSetting with _$WorkflowPreferenceSetting {
 }
 
 @freezed
-class _ChannelTypesJson with _$ChannelTypesJson {
+abstract class ChannelTypesJson with _$ChannelTypesJson {
   @JsonSerializable(explicitToJson: true)
-  const factory _ChannelTypesJson({
+  const factory ChannelTypesJson({
     @JsonKey(
       name: 'channel_types',
       toJson: _nonNullChannelTypePreferencesToJson,
       fromJson: _nonNullChannelTypePreferencesFromJson,
     )
     required dynamic channelTypes,
-  }) = __ChannelTypesJson;
+  }) = _ChannelTypesJson;
 
-  factory _ChannelTypesJson.fromJson(Map<String, dynamic> json) =>
+  factory ChannelTypesJson.fromJson(Map<String, dynamic> json) =>
       _$ChannelTypesJsonFromJson(json);
 }
 
 @freezed
-class _ConditionsJson with _$ConditionsJson {
+abstract class ConditionsJson with _$ConditionsJson {
   @JsonSerializable(explicitToJson: true)
-  const factory _ConditionsJson({
+  const factory ConditionsJson({
     required List<PreferenceCondition>? conditions,
-  }) = __ConditionsJson;
+  }) = _ConditionsJson;
 
-  factory _ConditionsJson.fromJson(Map<String, dynamic> json) =>
+  factory ConditionsJson.fromJson(Map<String, dynamic> json) =>
       _$ConditionsJsonFromJson(json);
 }
 
 @Freezed(toJson: true, fromJson: false)
-class SetPreferencesProperties with _$SetPreferencesProperties {
+abstract class SetPreferencesProperties with _$SetPreferencesProperties {
   @JsonSerializable(explicitToJson: true)
   const factory SetPreferencesProperties({
     @JsonKey(
@@ -101,7 +101,7 @@ class SetPreferencesProperties with _$SetPreferencesProperties {
 }
 
 @freezed
-class PreferenceSet with _$PreferenceSet {
+abstract class PreferenceSet with _$PreferenceSet {
   @JsonSerializable(explicitToJson: true)
   const factory PreferenceSet({
     required String id,
@@ -128,7 +128,7 @@ class PreferenceSet with _$PreferenceSet {
 }
 
 @freezed
-class PreferenceCondition with _$PreferenceCondition {
+abstract class PreferenceCondition with _$PreferenceCondition {
   @JsonSerializable(explicitToJson: true)
   const factory PreferenceCondition({
     required String variable,
@@ -151,13 +151,13 @@ dynamic _workflowPreferencesToJson(WorkflowPreferences? value) {
 
       if (channelTypes != null && conditions != null) {
         json = {
-          ..._ChannelTypesJson(channelTypes: channelTypes).toJson(),
-          ..._ConditionsJson(conditions: conditions).toJson(),
+          ...ChannelTypesJson(channelTypes: channelTypes).toJson(),
+          ...ConditionsJson(conditions: conditions).toJson(),
         };
       } else if (channelTypes != null) {
-        json = _ChannelTypesJson(channelTypes: channelTypes).toJson();
+        json = ChannelTypesJson(channelTypes: channelTypes).toJson();
       } else if (conditions != null) {
-        json = _ConditionsJson(conditions: conditions).toJson();
+        json = ConditionsJson(conditions: conditions).toJson();
       } else {
         json = null;
       }
@@ -173,8 +173,8 @@ WorkflowPreferences? _workflowPreferencesFromJson(Map<String, dynamic>? json) {
     if (value is bool) {
       setting = WorkflowPreferenceSetting(value: value);
     } else {
-      final channelTypes = _ChannelTypesJson.fromJson(value);
-      final conditions = _ConditionsJson.fromJson(value);
+      final channelTypes = ChannelTypesJson.fromJson(value);
+      final conditions = ConditionsJson.fromJson(value);
       setting = WorkflowPreferenceSetting(
         channelTypePreferences: channelTypes.channelTypes,
         conditions: conditions.conditions,
@@ -192,7 +192,7 @@ dynamic _nonNullChannelTypePreferencesToJson(ChannelTypePreferences value) {
       json = value.value;
     } else {
       final conditions = value.conditions ?? [];
-      json = _ConditionsJson(conditions: conditions).toJson();
+      json = ConditionsJson(conditions: conditions).toJson();
     }
     return MapEntry(key.apiValue, json);
   });
@@ -207,7 +207,7 @@ ChannelTypePreferences? _nonNullChannelTypePreferencesFromJson(
       if (value is bool) {
         setting = ChannelTypePreference(value: value);
       } else {
-        final parsed = _ConditionsJson.fromJson(value);
+        final parsed = ConditionsJson.fromJson(value);
         final conditions = parsed.conditions ?? [];
         setting = ChannelTypePreference(conditions: conditions);
       }

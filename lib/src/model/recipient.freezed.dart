@@ -1,5 +1,5 @@
-// coverage:ignore-file
 // GENERATED CODE - DO NOT MODIFY BY HAND
+// coverage:ignore-file
 // ignore_for_file: type=lint
 // ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target, unnecessary_question_mark
 
@@ -9,75 +9,239 @@ part of 'recipient.dart';
 // FreezedGenerator
 // **************************************************************************
 
+// dart format off
 T _$identity<T>(T value) => value;
-
-final _privateConstructorUsedError = UnsupportedError(
-    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#adding-getters-and-methods-to-our-models');
 
 /// @nodoc
 mixin _$Recipient {
-  @optionalTypeArgs
-  TResult when<TResult extends Object?>({
-    required TResult Function(User user) user,
-    required TResult Function(KnockObject object) knockObject,
-  }) =>
-      throw _privateConstructorUsedError;
-  @optionalTypeArgs
-  TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function(User user)? user,
-    TResult? Function(KnockObject object)? knockObject,
-  }) =>
-      throw _privateConstructorUsedError;
-  @optionalTypeArgs
-  TResult maybeWhen<TResult extends Object?>({
-    TResult Function(User user)? user,
-    TResult Function(KnockObject object)? knockObject,
-    required TResult orElse(),
-  }) =>
-      throw _privateConstructorUsedError;
-  @optionalTypeArgs
-  TResult map<TResult extends Object?>({
-    required TResult Function(RecipientUser value) user,
-    required TResult Function(RecipientKnockObject value) knockObject,
-  }) =>
-      throw _privateConstructorUsedError;
-  @optionalTypeArgs
-  TResult? mapOrNull<TResult extends Object?>({
-    TResult? Function(RecipientUser value)? user,
-    TResult? Function(RecipientKnockObject value)? knockObject,
-  }) =>
-      throw _privateConstructorUsedError;
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType && other is Recipient);
+  }
+
+  @override
+  int get hashCode => runtimeType.hashCode;
+
+  @override
+  String toString() {
+    return 'Recipient()';
+  }
+}
+
+/// @nodoc
+class $RecipientCopyWith<$Res> {
+  $RecipientCopyWith(Recipient _, $Res Function(Recipient) __);
+}
+
+/// Adds pattern-matching-related methods to [Recipient].
+extension RecipientPatterns on Recipient {
+  /// A variant of `map` that fallback to returning `orElse`.
+  ///
+  /// It is equivalent to doing:
+  /// ```dart
+  /// switch (sealedClass) {
+  ///   case final Subclass value:
+  ///     return ...;
+  ///   case _:
+  ///     return orElse();
+  /// }
+  /// ```
+
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(RecipientUser value)? user,
     TResult Function(RecipientKnockObject value)? knockObject,
     required TResult orElse(),
-  }) =>
-      throw _privateConstructorUsedError;
+  }) {
+    final _that = this;
+    switch (_that) {
+      case RecipientUser() when user != null:
+        return user(_that);
+      case RecipientKnockObject() when knockObject != null:
+        return knockObject(_that);
+      case _:
+        return orElse();
+    }
+  }
+
+  /// A `switch`-like method, using callbacks.
+  ///
+  /// Callbacks receives the raw object, upcasted.
+  /// It is equivalent to doing:
+  /// ```dart
+  /// switch (sealedClass) {
+  ///   case final Subclass value:
+  ///     return ...;
+  ///   case final Subclass2 value:
+  ///     return ...;
+  /// }
+  /// ```
+
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(RecipientUser value) user,
+    required TResult Function(RecipientKnockObject value) knockObject,
+  }) {
+    final _that = this;
+    switch (_that) {
+      case RecipientUser():
+        return user(_that);
+      case RecipientKnockObject():
+        return knockObject(_that);
+    }
+  }
+
+  /// A variant of `map` that fallback to returning `null`.
+  ///
+  /// It is equivalent to doing:
+  /// ```dart
+  /// switch (sealedClass) {
+  ///   case final Subclass value:
+  ///     return ...;
+  ///   case _:
+  ///     return null;
+  /// }
+  /// ```
+
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(RecipientUser value)? user,
+    TResult? Function(RecipientKnockObject value)? knockObject,
+  }) {
+    final _that = this;
+    switch (_that) {
+      case RecipientUser() when user != null:
+        return user(_that);
+      case RecipientKnockObject() when knockObject != null:
+        return knockObject(_that);
+      case _:
+        return null;
+    }
+  }
+
+  /// A variant of `when` that fallback to an `orElse` callback.
+  ///
+  /// It is equivalent to doing:
+  /// ```dart
+  /// switch (sealedClass) {
+  ///   case Subclass(:final field):
+  ///     return ...;
+  ///   case _:
+  ///     return orElse();
+  /// }
+  /// ```
+
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function(User user)? user,
+    TResult Function(KnockObject object)? knockObject,
+    required TResult orElse(),
+  }) {
+    final _that = this;
+    switch (_that) {
+      case RecipientUser() when user != null:
+        return user(_that.user);
+      case RecipientKnockObject() when knockObject != null:
+        return knockObject(_that.object);
+      case _:
+        return orElse();
+    }
+  }
+
+  /// A `switch`-like method, using callbacks.
+  ///
+  /// As opposed to `map`, this offers destructuring.
+  /// It is equivalent to doing:
+  /// ```dart
+  /// switch (sealedClass) {
+  ///   case Subclass(:final field):
+  ///     return ...;
+  ///   case Subclass2(:final field2):
+  ///     return ...;
+  /// }
+  /// ```
+
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function(User user) user,
+    required TResult Function(KnockObject object) knockObject,
+  }) {
+    final _that = this;
+    switch (_that) {
+      case RecipientUser():
+        return user(_that.user);
+      case RecipientKnockObject():
+        return knockObject(_that.object);
+    }
+  }
+
+  /// A variant of `when` that fallback to returning `null`
+  ///
+  /// It is equivalent to doing:
+  /// ```dart
+  /// switch (sealedClass) {
+  ///   case Subclass(:final field):
+  ///     return ...;
+  ///   case _:
+  ///     return null;
+  /// }
+  /// ```
+
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function(User user)? user,
+    TResult? Function(KnockObject object)? knockObject,
+  }) {
+    final _that = this;
+    switch (_that) {
+      case RecipientUser() when user != null:
+        return user(_that.user);
+      case RecipientKnockObject() when knockObject != null:
+        return knockObject(_that.object);
+      case _:
+        return null;
+    }
+  }
 }
 
 /// @nodoc
-abstract class $RecipientCopyWith<$Res> {
-  factory $RecipientCopyWith(Recipient value, $Res Function(Recipient) then) =
-      _$RecipientCopyWithImpl<$Res, Recipient>;
+
+class RecipientUser extends Recipient {
+  RecipientUser(this.user) : super._();
+
+  final User user;
+
+  /// Create a copy of Recipient
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  @pragma('vm:prefer-inline')
+  $RecipientUserCopyWith<RecipientUser> get copyWith =>
+      _$RecipientUserCopyWithImpl<RecipientUser>(this, _$identity);
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is RecipientUser &&
+            (identical(other.user, user) || other.user == user));
+  }
+
+  @override
+  int get hashCode => Object.hash(runtimeType, user);
+
+  @override
+  String toString() {
+    return 'Recipient.user(user: $user)';
+  }
 }
 
 /// @nodoc
-class _$RecipientCopyWithImpl<$Res, $Val extends Recipient>
+abstract mixin class $RecipientUserCopyWith<$Res>
     implements $RecipientCopyWith<$Res> {
-  _$RecipientCopyWithImpl(this._value, this._then);
-
-  // ignore: unused_field
-  final $Val _value;
-  // ignore: unused_field
-  final $Res Function($Val) _then;
-}
-
-/// @nodoc
-abstract class _$$RecipientUserImplCopyWith<$Res> {
-  factory _$$RecipientUserImplCopyWith(
-          _$RecipientUserImpl value, $Res Function(_$RecipientUserImpl) then) =
-      __$$RecipientUserImplCopyWithImpl<$Res>;
+  factory $RecipientUserCopyWith(
+          RecipientUser value, $Res Function(RecipientUser) _then) =
+      _$RecipientUserCopyWithImpl;
   @useResult
   $Res call({User user});
 
@@ -85,143 +249,76 @@ abstract class _$$RecipientUserImplCopyWith<$Res> {
 }
 
 /// @nodoc
-class __$$RecipientUserImplCopyWithImpl<$Res>
-    extends _$RecipientCopyWithImpl<$Res, _$RecipientUserImpl>
-    implements _$$RecipientUserImplCopyWith<$Res> {
-  __$$RecipientUserImplCopyWithImpl(
-      _$RecipientUserImpl _value, $Res Function(_$RecipientUserImpl) _then)
-      : super(_value, _then);
+class _$RecipientUserCopyWithImpl<$Res>
+    implements $RecipientUserCopyWith<$Res> {
+  _$RecipientUserCopyWithImpl(this._self, this._then);
 
+  final RecipientUser _self;
+  final $Res Function(RecipientUser) _then;
+
+  /// Create a copy of Recipient
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
-  @override
   $Res call({
     Object? user = null,
   }) {
-    return _then(_$RecipientUserImpl(
+    return _then(RecipientUser(
       null == user
-          ? _value.user
+          ? _self.user
           : user // ignore: cast_nullable_to_non_nullable
               as User,
     ));
   }
 
+  /// Create a copy of Recipient
+  /// with the given fields replaced by the non-null parameter values.
   @override
   @pragma('vm:prefer-inline')
   $UserCopyWith<$Res> get user {
-    return $UserCopyWith<$Res>(_value.user, (value) {
-      return _then(_value.copyWith(user: value));
+    return $UserCopyWith<$Res>(_self.user, (value) {
+      return _then(_self.copyWith(user: value));
     });
   }
 }
 
 /// @nodoc
 
-class _$RecipientUserImpl extends RecipientUser {
-  _$RecipientUserImpl(this.user) : super._();
+class RecipientKnockObject extends Recipient {
+  RecipientKnockObject(this.object) : super._();
 
-  @override
-  final User user;
+  final KnockObject object;
 
-  @override
-  String toString() {
-    return 'Recipient.user(user: $user)';
-  }
+  /// Create a copy of Recipient
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  @pragma('vm:prefer-inline')
+  $RecipientKnockObjectCopyWith<RecipientKnockObject> get copyWith =>
+      _$RecipientKnockObjectCopyWithImpl<RecipientKnockObject>(
+          this, _$identity);
 
   @override
   bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$RecipientUserImpl &&
-            (identical(other.user, user) || other.user == user));
+            other is RecipientKnockObject &&
+            (identical(other.object, object) || other.object == object));
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, user);
-
-  @JsonKey(ignore: true)
-  @override
-  @pragma('vm:prefer-inline')
-  _$$RecipientUserImplCopyWith<_$RecipientUserImpl> get copyWith =>
-      __$$RecipientUserImplCopyWithImpl<_$RecipientUserImpl>(this, _$identity);
+  int get hashCode => Object.hash(runtimeType, object);
 
   @override
-  @optionalTypeArgs
-  TResult when<TResult extends Object?>({
-    required TResult Function(User user) user,
-    required TResult Function(KnockObject object) knockObject,
-  }) {
-    return user(this.user);
+  String toString() {
+    return 'Recipient.knockObject(object: $object)';
   }
-
-  @override
-  @optionalTypeArgs
-  TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function(User user)? user,
-    TResult? Function(KnockObject object)? knockObject,
-  }) {
-    return user?.call(this.user);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult maybeWhen<TResult extends Object?>({
-    TResult Function(User user)? user,
-    TResult Function(KnockObject object)? knockObject,
-    required TResult orElse(),
-  }) {
-    if (user != null) {
-      return user(this.user);
-    }
-    return orElse();
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult map<TResult extends Object?>({
-    required TResult Function(RecipientUser value) user,
-    required TResult Function(RecipientKnockObject value) knockObject,
-  }) {
-    return user(this);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult? mapOrNull<TResult extends Object?>({
-    TResult? Function(RecipientUser value)? user,
-    TResult? Function(RecipientKnockObject value)? knockObject,
-  }) {
-    return user?.call(this);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult maybeMap<TResult extends Object?>({
-    TResult Function(RecipientUser value)? user,
-    TResult Function(RecipientKnockObject value)? knockObject,
-    required TResult orElse(),
-  }) {
-    if (user != null) {
-      return user(this);
-    }
-    return orElse();
-  }
-}
-
-abstract class RecipientUser extends Recipient {
-  factory RecipientUser(final User user) = _$RecipientUserImpl;
-  RecipientUser._() : super._();
-
-  User get user;
-  @JsonKey(ignore: true)
-  _$$RecipientUserImplCopyWith<_$RecipientUserImpl> get copyWith =>
-      throw _privateConstructorUsedError;
 }
 
 /// @nodoc
-abstract class _$$RecipientKnockObjectImplCopyWith<$Res> {
-  factory _$$RecipientKnockObjectImplCopyWith(_$RecipientKnockObjectImpl value,
-          $Res Function(_$RecipientKnockObjectImpl) then) =
-      __$$RecipientKnockObjectImplCopyWithImpl<$Res>;
+abstract mixin class $RecipientKnockObjectCopyWith<$Res>
+    implements $RecipientCopyWith<$Res> {
+  factory $RecipientKnockObjectCopyWith(RecipientKnockObject value,
+          $Res Function(RecipientKnockObject) _then) =
+      _$RecipientKnockObjectCopyWithImpl;
   @useResult
   $Res call({KnockObject object});
 
@@ -229,137 +326,36 @@ abstract class _$$RecipientKnockObjectImplCopyWith<$Res> {
 }
 
 /// @nodoc
-class __$$RecipientKnockObjectImplCopyWithImpl<$Res>
-    extends _$RecipientCopyWithImpl<$Res, _$RecipientKnockObjectImpl>
-    implements _$$RecipientKnockObjectImplCopyWith<$Res> {
-  __$$RecipientKnockObjectImplCopyWithImpl(_$RecipientKnockObjectImpl _value,
-      $Res Function(_$RecipientKnockObjectImpl) _then)
-      : super(_value, _then);
+class _$RecipientKnockObjectCopyWithImpl<$Res>
+    implements $RecipientKnockObjectCopyWith<$Res> {
+  _$RecipientKnockObjectCopyWithImpl(this._self, this._then);
 
+  final RecipientKnockObject _self;
+  final $Res Function(RecipientKnockObject) _then;
+
+  /// Create a copy of Recipient
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
-  @override
   $Res call({
     Object? object = null,
   }) {
-    return _then(_$RecipientKnockObjectImpl(
+    return _then(RecipientKnockObject(
       null == object
-          ? _value.object
+          ? _self.object
           : object // ignore: cast_nullable_to_non_nullable
               as KnockObject,
     ));
   }
 
+  /// Create a copy of Recipient
+  /// with the given fields replaced by the non-null parameter values.
   @override
   @pragma('vm:prefer-inline')
   $KnockObjectCopyWith<$Res> get object {
-    return $KnockObjectCopyWith<$Res>(_value.object, (value) {
-      return _then(_value.copyWith(object: value));
+    return $KnockObjectCopyWith<$Res>(_self.object, (value) {
+      return _then(_self.copyWith(object: value));
     });
   }
 }
 
-/// @nodoc
-
-class _$RecipientKnockObjectImpl extends RecipientKnockObject {
-  _$RecipientKnockObjectImpl(this.object) : super._();
-
-  @override
-  final KnockObject object;
-
-  @override
-  String toString() {
-    return 'Recipient.knockObject(object: $object)';
-  }
-
-  @override
-  bool operator ==(Object other) {
-    return identical(this, other) ||
-        (other.runtimeType == runtimeType &&
-            other is _$RecipientKnockObjectImpl &&
-            (identical(other.object, object) || other.object == object));
-  }
-
-  @override
-  int get hashCode => Object.hash(runtimeType, object);
-
-  @JsonKey(ignore: true)
-  @override
-  @pragma('vm:prefer-inline')
-  _$$RecipientKnockObjectImplCopyWith<_$RecipientKnockObjectImpl>
-      get copyWith =>
-          __$$RecipientKnockObjectImplCopyWithImpl<_$RecipientKnockObjectImpl>(
-              this, _$identity);
-
-  @override
-  @optionalTypeArgs
-  TResult when<TResult extends Object?>({
-    required TResult Function(User user) user,
-    required TResult Function(KnockObject object) knockObject,
-  }) {
-    return knockObject(object);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function(User user)? user,
-    TResult? Function(KnockObject object)? knockObject,
-  }) {
-    return knockObject?.call(object);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult maybeWhen<TResult extends Object?>({
-    TResult Function(User user)? user,
-    TResult Function(KnockObject object)? knockObject,
-    required TResult orElse(),
-  }) {
-    if (knockObject != null) {
-      return knockObject(object);
-    }
-    return orElse();
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult map<TResult extends Object?>({
-    required TResult Function(RecipientUser value) user,
-    required TResult Function(RecipientKnockObject value) knockObject,
-  }) {
-    return knockObject(this);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult? mapOrNull<TResult extends Object?>({
-    TResult? Function(RecipientUser value)? user,
-    TResult? Function(RecipientKnockObject value)? knockObject,
-  }) {
-    return knockObject?.call(this);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult maybeMap<TResult extends Object?>({
-    TResult Function(RecipientUser value)? user,
-    TResult Function(RecipientKnockObject value)? knockObject,
-    required TResult orElse(),
-  }) {
-    if (knockObject != null) {
-      return knockObject(this);
-    }
-    return orElse();
-  }
-}
-
-abstract class RecipientKnockObject extends Recipient {
-  factory RecipientKnockObject(final KnockObject object) =
-      _$RecipientKnockObjectImpl;
-  RecipientKnockObject._() : super._();
-
-  KnockObject get object;
-  @JsonKey(ignore: true)
-  _$$RecipientKnockObjectImplCopyWith<_$RecipientKnockObjectImpl>
-      get copyWith => throw _privateConstructorUsedError;
-}
+// dart format on

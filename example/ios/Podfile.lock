@@ -20,8 +20,8 @@ EXTERNAL SOURCES:
 
 SPEC CHECKSUMS:
   Flutter: cabc95a1d2626b1b06e7179b784ebcf0c0cde467
-  flutter_timezone: ee50ce7786b5fde27e2fe5375bbc8c9661ffc13f
-  knock_flutter: 637373a58a2c6921841282d465b48844f3483473
+  flutter_timezone: ac3da59ac941ff1c98a2e1f0293420e020120282
+  knock_flutter: f71affd25f3f536326ecd04dbacf6cc5e6e1c550
 
 PODFILE CHECKSUM: a57f30d18f102dd3ce366b1d62a55ecbef2158e5
 

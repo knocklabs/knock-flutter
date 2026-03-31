@@ -7,7 +7,7 @@ part 'feed_response.freezed.dart';
 part 'feed_response.g.dart';
 
 @freezed
-class OnNewMessageResponse with _$OnNewMessageResponse {
+abstract class OnNewMessageResponse with _$OnNewMessageResponse {
   @JsonSerializable(explicitToJson: true)
   const factory OnNewMessageResponse({
     required FeedMetadata metadata,

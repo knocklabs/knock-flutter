@@ -27,7 +27,7 @@ enum KnockMessageEngagementStatus {
 
 /// A Knock message represents a notification sent to a user via a channel.
 @freezed
-class KnockMessage with _$KnockMessage {
+abstract class KnockMessage with _$KnockMessage {
   @JsonSerializable(explicitToJson: true)
   const factory KnockMessage({
     /// The unique identifier for this message.
@@ -119,7 +119,7 @@ class KnockMessage with _$KnockMessage {
 
 /// Information about the source workflow that triggered a message.
 @freezed
-class KnockMessageSource with _$KnockMessageSource {
+abstract class KnockMessageSource with _$KnockMessageSource {
   @JsonSerializable(explicitToJson: true)
   const factory KnockMessageSource({
     /// The workflow key.

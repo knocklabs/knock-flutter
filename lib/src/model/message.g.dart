@@ -8,8 +8,8 @@ part of 'message.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-_$KnockMessageImpl _$$KnockMessageImplFromJson(Map<String, dynamic> json) =>
-    _$KnockMessageImpl(
+_KnockMessage _$KnockMessageFromJson(Map<String, dynamic> json) =>
+    _KnockMessage(
       id: json['id'] as String,
       channelId: json['channel_id'] as String,
       recipient: Recipient.fromJson(json['recipient'] as Map<String, dynamic>),
@@ -46,7 +46,7 @@ _$KnockMessageImpl _$$KnockMessageImplFromJson(Map<String, dynamic> json) =>
       metadata: json['metadata'] as Map<String, dynamic>? ?? const {},
     );
 
-Map<String, dynamic> _$$KnockMessageImplToJson(_$KnockMessageImpl instance) =>
+Map<String, dynamic> _$KnockMessageToJson(_KnockMessage instance) =>
     <String, dynamic>{
       'id': instance.id,
       'channel_id': instance.channelId,
@@ -105,9 +105,8 @@ Json? _$JsonConverterToJson<Json, Value>(
 ) =>
     value == null ? null : toJson(value);
 
-_$KnockMessageSourceImpl _$$KnockMessageSourceImplFromJson(
-        Map<String, dynamic> json) =>
-    _$KnockMessageSourceImpl(
+_KnockMessageSource _$KnockMessageSourceFromJson(Map<String, dynamic> json) =>
+    _KnockMessageSource(
       key: json['key'] as String,
       versionId: json['version_id'] as String,
       categories: (json['categories'] as List<dynamic>?)
@@ -117,8 +116,7 @@ _$KnockMessageSourceImpl _$$KnockMessageSourceImplFromJson(
       stepRef: json['step_ref'] as String?,
     );
 
-Map<String, dynamic> _$$KnockMessageSourceImplToJson(
-        _$KnockMessageSourceImpl instance) =>
+Map<String, dynamic> _$KnockMessageSourceToJson(_KnockMessageSource instance) =>
     <String, dynamic>{
       'key': instance.key,
       'version_id': instance.versionId,

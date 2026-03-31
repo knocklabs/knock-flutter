@@ -13,7 +13,7 @@ enum NetworkStatus {
 }
 
 @freezed
-class Feed with _$Feed {
+abstract class Feed with _$Feed {
   @JsonSerializable(explicitToJson: true)
   const factory Feed({
     @JsonKey(name: 'entries') required List<FeedItem> items,
@@ -47,7 +47,7 @@ class Feed with _$Feed {
 }
 
 @freezed
-class FeedItem with _$FeedItem {
+abstract class FeedItem with _$FeedItem {
   @JsonSerializable(explicitToJson: true)
   const factory FeedItem({
     @JsonKey(name: '__cursor') required String knockInternalCursor,
@@ -85,7 +85,7 @@ class FeedItem with _$FeedItem {
 }
 
 @freezed
-class Activity with _$Activity {
+abstract class Activity with _$Activity {
   @JsonSerializable(explicitToJson: true)
   const factory Activity({
     required String id,
@@ -112,7 +112,7 @@ enum ContentBlockType {
 }
 
 @freezed
-class ContentBlock with _$ContentBlock {
+abstract class ContentBlock with _$ContentBlock {
   const ContentBlock._(); // Private constructor for the base class
 
   const factory ContentBlock.markdown({
@@ -145,7 +145,7 @@ Map<String, dynamic> modifyJsonForContentBlock(Map<String, dynamic> json) {
 }
 
 @freezed
-class BlockActionButton with _$BlockActionButton {
+abstract class BlockActionButton with _$BlockActionButton {
   @JsonSerializable(explicitToJson: true)
   const factory BlockActionButton({
     required String name,
@@ -158,7 +158,7 @@ class BlockActionButton with _$BlockActionButton {
 }
 
 @freezed
-class NotificationSource with _$NotificationSource {
+abstract class NotificationSource with _$NotificationSource {
   @JsonSerializable(explicitToJson: true)
   const factory NotificationSource({
     required String key,
@@ -170,7 +170,7 @@ class NotificationSource with _$NotificationSource {
 }
 
 @freezed
-class PageInfo with _$PageInfo {
+abstract class PageInfo with _$PageInfo {
   @JsonSerializable(explicitToJson: true)
   const factory PageInfo({
     required String? after,
@@ -183,7 +183,7 @@ class PageInfo with _$PageInfo {
 }
 
 @freezed
-class FeedMetadata with _$FeedMetadata {
+abstract class FeedMetadata with _$FeedMetadata {
   @JsonSerializable(explicitToJson: true)
   const factory FeedMetadata({
     @JsonKey(name: 'total_count') required int totalCount,

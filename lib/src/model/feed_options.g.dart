@@ -8,24 +8,22 @@ part of 'feed_options.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-_$InsertedAtDateRangeImpl _$$InsertedAtDateRangeImplFromJson(
-        Map<String, dynamic> json) =>
-    _$InsertedAtDateRangeImpl(
+_InsertedAtDateRange _$InsertedAtDateRangeFromJson(Map<String, dynamic> json) =>
+    _InsertedAtDateRange(
       start: json['start'] as String?,
       end: json['end'] as String?,
       inclusive: json['inclusive'] as bool?,
     );
 
-Map<String, dynamic> _$$InsertedAtDateRangeImplToJson(
-        _$InsertedAtDateRangeImpl instance) =>
+Map<String, dynamic> _$InsertedAtDateRangeToJson(
+        _InsertedAtDateRange instance) =>
     <String, dynamic>{
       'start': instance.start,
       'end': instance.end,
       'inclusive': instance.inclusive,
     };
 
-_$FeedOptionsImpl _$$FeedOptionsImplFromJson(Map<String, dynamic> json) =>
-    _$FeedOptionsImpl(
+_FeedOptions _$FeedOptionsFromJson(Map<String, dynamic> json) => _FeedOptions(
       before: json['before'] as String?,
       after: json['after'] as String?,
       pageSize: (json['page_size'] as num?)?.toInt(),
@@ -46,7 +44,7 @@ _$FeedOptionsImpl _$$FeedOptionsImplFromJson(Map<String, dynamic> json) =>
               json['inserted_at_date_range'] as Map<String, dynamic>),
     );
 
-Map<String, dynamic> _$$FeedOptionsImplToJson(_$FeedOptionsImpl instance) =>
+Map<String, dynamic> _$FeedOptionsToJson(_FeedOptions instance) =>
     <String, dynamic>{
       'before': instance.before,
       'after': instance.after,

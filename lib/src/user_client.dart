@@ -87,7 +87,8 @@ class UserClient {
     final locale = PlatformDispatcher.instance.locale.toLanguageTag();
     String? timezone;
     try {
-      timezone = await FlutterTimezone.getLocalTimezone();
+      final timezoneInfo = await FlutterTimezone.getLocalTimezone();
+      timezone = timezoneInfo.identifier;
     } catch (error) {
       // Continue without timezone if we can't get it
       timezone = null;

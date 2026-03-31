@@ -8,37 +8,33 @@ part of 'preferences.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-_$_ChannelTypesJsonImpl _$$_ChannelTypesJsonImplFromJson(
-        Map<String, dynamic> json) =>
-    _$_ChannelTypesJsonImpl(
+_ChannelTypesJson _$ChannelTypesJsonFromJson(Map<String, dynamic> json) =>
+    _ChannelTypesJson(
       channelTypes: _nonNullChannelTypePreferencesFromJson(
           json['channel_types'] as Map<String, dynamic>?),
     );
 
-Map<String, dynamic> _$$_ChannelTypesJsonImplToJson(
-        _$_ChannelTypesJsonImpl instance) =>
+Map<String, dynamic> _$ChannelTypesJsonToJson(_ChannelTypesJson instance) =>
     <String, dynamic>{
       'channel_types':
           _nonNullChannelTypePreferencesToJson(instance.channelTypes),
     };
 
-_$_ConditionsJsonImpl _$$_ConditionsJsonImplFromJson(
-        Map<String, dynamic> json) =>
-    _$_ConditionsJsonImpl(
+_ConditionsJson _$ConditionsJsonFromJson(Map<String, dynamic> json) =>
+    _ConditionsJson(
       conditions: (json['conditions'] as List<dynamic>?)
           ?.map((e) => PreferenceCondition.fromJson(e as Map<String, dynamic>))
           .toList(),
     );
 
-Map<String, dynamic> _$$_ConditionsJsonImplToJson(
-        _$_ConditionsJsonImpl instance) =>
+Map<String, dynamic> _$ConditionsJsonToJson(_ConditionsJson instance) =>
     <String, dynamic>{
       'conditions': instance.conditions?.map((e) => e.toJson()).toList(),
     };
 
-_$SetPreferencesPropertiesImpl _$$SetPreferencesPropertiesImplFromJson(
+_SetPreferencesProperties _$SetPreferencesPropertiesFromJson(
         Map<String, dynamic> json) =>
-    _$SetPreferencesPropertiesImpl(
+    _SetPreferencesProperties(
       channelTypes: _channelTypePreferencesFromJson(
           json['channel_types'] as Map<String, dynamic>?),
       workflows: _workflowPreferencesFromJson(
@@ -47,16 +43,16 @@ _$SetPreferencesPropertiesImpl _$$SetPreferencesPropertiesImplFromJson(
           json['categories'] as Map<String, dynamic>?),
     );
 
-Map<String, dynamic> _$$SetPreferencesPropertiesImplToJson(
-        _$SetPreferencesPropertiesImpl instance) =>
+Map<String, dynamic> _$SetPreferencesPropertiesToJson(
+        _SetPreferencesProperties instance) =>
     <String, dynamic>{
       'channel_types': _channelTypePreferencesToJson(instance.channelTypes),
       'workflows': _workflowPreferencesToJson(instance.workflows),
       'categories': _workflowPreferencesToJson(instance.categories),
     };
 
-_$PreferenceSetImpl _$$PreferenceSetImplFromJson(Map<String, dynamic> json) =>
-    _$PreferenceSetImpl(
+_PreferenceSet _$PreferenceSetFromJson(Map<String, dynamic> json) =>
+    _PreferenceSet(
       id: json['id'] as String,
       channelTypes: _channelTypePreferencesFromJson(
           json['channel_types'] as Map<String, dynamic>?),
@@ -66,7 +62,7 @@ _$PreferenceSetImpl _$$PreferenceSetImplFromJson(Map<String, dynamic> json) =>
           json['categories'] as Map<String, dynamic>?),
     );
 
-Map<String, dynamic> _$$PreferenceSetImplToJson(_$PreferenceSetImpl instance) =>
+Map<String, dynamic> _$PreferenceSetToJson(_PreferenceSet instance) =>
     <String, dynamic>{
       'id': instance.id,
       'channel_types': _channelTypePreferencesToJson(instance.channelTypes),
@@ -74,16 +70,15 @@ Map<String, dynamic> _$$PreferenceSetImplToJson(_$PreferenceSetImpl instance) =>
       'categories': _workflowPreferencesToJson(instance.categories),
     };
 
-_$PreferenceConditionImpl _$$PreferenceConditionImplFromJson(
-        Map<String, dynamic> json) =>
-    _$PreferenceConditionImpl(
+_PreferenceCondition _$PreferenceConditionFromJson(Map<String, dynamic> json) =>
+    _PreferenceCondition(
       variable: json['variable'] as String,
       operator: json['operator'] as String,
       argument: json['argument'] as String,
     );
 
-Map<String, dynamic> _$$PreferenceConditionImplToJson(
-        _$PreferenceConditionImpl instance) =>
+Map<String, dynamic> _$PreferenceConditionToJson(
+        _PreferenceCondition instance) =>
     <String, dynamic>{
       'variable': instance.variable,
       'operator': instance.operator,

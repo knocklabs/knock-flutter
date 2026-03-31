@@ -1,5 +1,5 @@
-// coverage:ignore-file
 // GENERATED CODE - DO NOT MODIFY BY HAND
+// coverage:ignore-file
 // ignore_for_file: type=lint
 // ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target, unnecessary_question_mark
 
@@ -9,86 +9,63 @@ part of 'channel.dart';
 // FreezedGenerator
 // **************************************************************************
 
+// dart format off
 T _$identity<T>(T value) => value;
-
-final _privateConstructorUsedError = UnsupportedError(
-    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#adding-getters-and-methods-to-our-models');
-
-Device _$DeviceFromJson(Map<String, dynamic> json) {
-  return _Device.fromJson(json);
-}
 
 /// @nodoc
 mixin _$Device {
-  String get token => throw _privateConstructorUsedError;
-  String? get locale => throw _privateConstructorUsedError;
-  String? get timezone => throw _privateConstructorUsedError;
+  String get token;
+  String? get locale;
+  String? get timezone;
 
-  Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
-  @JsonKey(ignore: true)
-  $DeviceCopyWith<Device> get copyWith => throw _privateConstructorUsedError;
-}
-
-/// @nodoc
-abstract class $DeviceCopyWith<$Res> {
-  factory $DeviceCopyWith(Device value, $Res Function(Device) then) =
-      _$DeviceCopyWithImpl<$Res, Device>;
-  @useResult
-  $Res call({String token, String? locale, String? timezone});
-}
-
-/// @nodoc
-class _$DeviceCopyWithImpl<$Res, $Val extends Device>
-    implements $DeviceCopyWith<$Res> {
-  _$DeviceCopyWithImpl(this._value, this._then);
-
-  // ignore: unused_field
-  final $Val _value;
-  // ignore: unused_field
-  final $Res Function($Val) _then;
-
+  /// Create a copy of Device
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @pragma('vm:prefer-inline')
+  $DeviceCopyWith<Device> get copyWith =>
+      _$DeviceCopyWithImpl<Device>(this as Device, _$identity);
+
+  /// Serializes this Device to a JSON map.
+  Map<String, dynamic> toJson();
+
   @override
-  $Res call({
-    Object? token = null,
-    Object? locale = freezed,
-    Object? timezone = freezed,
-  }) {
-    return _then(_value.copyWith(
-      token: null == token
-          ? _value.token
-          : token // ignore: cast_nullable_to_non_nullable
-              as String,
-      locale: freezed == locale
-          ? _value.locale
-          : locale // ignore: cast_nullable_to_non_nullable
-              as String?,
-      timezone: freezed == timezone
-          ? _value.timezone
-          : timezone // ignore: cast_nullable_to_non_nullable
-              as String?,
-    ) as $Val);
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is Device &&
+            (identical(other.token, token) || other.token == token) &&
+            (identical(other.locale, locale) || other.locale == locale) &&
+            (identical(other.timezone, timezone) ||
+                other.timezone == timezone));
+  }
+
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  @override
+  int get hashCode => Object.hash(runtimeType, token, locale, timezone);
+
+  @override
+  String toString() {
+    return 'Device(token: $token, locale: $locale, timezone: $timezone)';
   }
 }
 
 /// @nodoc
-abstract class _$$DeviceImplCopyWith<$Res> implements $DeviceCopyWith<$Res> {
-  factory _$$DeviceImplCopyWith(
-          _$DeviceImpl value, $Res Function(_$DeviceImpl) then) =
-      __$$DeviceImplCopyWithImpl<$Res>;
-  @override
+abstract mixin class $DeviceCopyWith<$Res> {
+  factory $DeviceCopyWith(Device value, $Res Function(Device) _then) =
+      _$DeviceCopyWithImpl;
   @useResult
   $Res call({String token, String? locale, String? timezone});
 }
 
 /// @nodoc
-class __$$DeviceImplCopyWithImpl<$Res>
-    extends _$DeviceCopyWithImpl<$Res, _$DeviceImpl>
-    implements _$$DeviceImplCopyWith<$Res> {
-  __$$DeviceImplCopyWithImpl(
-      _$DeviceImpl _value, $Res Function(_$DeviceImpl) _then)
-      : super(_value, _then);
+class _$DeviceCopyWithImpl<$Res> implements $DeviceCopyWith<$Res> {
+  _$DeviceCopyWithImpl(this._self, this._then);
 
+  final Device _self;
+  final $Res Function(Device) _then;
+
+  /// Create a copy of Device
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -96,31 +73,187 @@ class __$$DeviceImplCopyWithImpl<$Res>
     Object? locale = freezed,
     Object? timezone = freezed,
   }) {
-    return _then(_$DeviceImpl(
+    return _then(_self.copyWith(
       token: null == token
-          ? _value.token
+          ? _self.token
           : token // ignore: cast_nullable_to_non_nullable
               as String,
       locale: freezed == locale
-          ? _value.locale
+          ? _self.locale
           : locale // ignore: cast_nullable_to_non_nullable
               as String?,
       timezone: freezed == timezone
-          ? _value.timezone
+          ? _self.timezone
           : timezone // ignore: cast_nullable_to_non_nullable
               as String?,
     ));
   }
 }
 
+/// Adds pattern-matching-related methods to [Device].
+extension DevicePatterns on Device {
+  /// A variant of `map` that fallback to returning `orElse`.
+  ///
+  /// It is equivalent to doing:
+  /// ```dart
+  /// switch (sealedClass) {
+  ///   case final Subclass value:
+  ///     return ...;
+  ///   case _:
+  ///     return orElse();
+  /// }
+  /// ```
+
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>(
+    TResult Function(_Device value)? $default, {
+    required TResult orElse(),
+  }) {
+    final _that = this;
+    switch (_that) {
+      case _Device() when $default != null:
+        return $default(_that);
+      case _:
+        return orElse();
+    }
+  }
+
+  /// A `switch`-like method, using callbacks.
+  ///
+  /// Callbacks receives the raw object, upcasted.
+  /// It is equivalent to doing:
+  /// ```dart
+  /// switch (sealedClass) {
+  ///   case final Subclass value:
+  ///     return ...;
+  ///   case final Subclass2 value:
+  ///     return ...;
+  /// }
+  /// ```
+
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>(
+    TResult Function(_Device value) $default,
+  ) {
+    final _that = this;
+    switch (_that) {
+      case _Device():
+        return $default(_that);
+      case _:
+        throw StateError('Unexpected subclass');
+    }
+  }
+
+  /// A variant of `map` that fallback to returning `null`.
+  ///
+  /// It is equivalent to doing:
+  /// ```dart
+  /// switch (sealedClass) {
+  ///   case final Subclass value:
+  ///     return ...;
+  ///   case _:
+  ///     return null;
+  /// }
+  /// ```
+
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>(
+    TResult? Function(_Device value)? $default,
+  ) {
+    final _that = this;
+    switch (_that) {
+      case _Device() when $default != null:
+        return $default(_that);
+      case _:
+        return null;
+    }
+  }
+
+  /// A variant of `when` that fallback to an `orElse` callback.
+  ///
+  /// It is equivalent to doing:
+  /// ```dart
+  /// switch (sealedClass) {
+  ///   case Subclass(:final field):
+  ///     return ...;
+  ///   case _:
+  ///     return orElse();
+  /// }
+  /// ```
+
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>(
+    TResult Function(String token, String? locale, String? timezone)?
+        $default, {
+    required TResult orElse(),
+  }) {
+    final _that = this;
+    switch (_that) {
+      case _Device() when $default != null:
+        return $default(_that.token, _that.locale, _that.timezone);
+      case _:
+        return orElse();
+    }
+  }
+
+  /// A `switch`-like method, using callbacks.
+  ///
+  /// As opposed to `map`, this offers destructuring.
+  /// It is equivalent to doing:
+  /// ```dart
+  /// switch (sealedClass) {
+  ///   case Subclass(:final field):
+  ///     return ...;
+  ///   case Subclass2(:final field2):
+  ///     return ...;
+  /// }
+  /// ```
+
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>(
+    TResult Function(String token, String? locale, String? timezone) $default,
+  ) {
+    final _that = this;
+    switch (_that) {
+      case _Device():
+        return $default(_that.token, _that.locale, _that.timezone);
+      case _:
+        throw StateError('Unexpected subclass');
+    }
+  }
+
+  /// A variant of `when` that fallback to returning `null`
+  ///
+  /// It is equivalent to doing:
+  /// ```dart
+  /// switch (sealedClass) {
+  ///   case Subclass(:final field):
+  ///     return ...;
+  ///   case _:
+  ///     return null;
+  /// }
+  /// ```
+
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>(
+    TResult? Function(String token, String? locale, String? timezone)? $default,
+  ) {
+    final _that = this;
+    switch (_that) {
+      case _Device() when $default != null:
+        return $default(_that.token, _that.locale, _that.timezone);
+      case _:
+        return null;
+    }
+  }
+}
+
 /// @nodoc
 
 @JsonSerializable(explicitToJson: true)
-class _$DeviceImpl implements _Device {
-  const _$DeviceImpl({required this.token, this.locale, this.timezone});
-
-  factory _$DeviceImpl.fromJson(Map<String, dynamic> json) =>
-      _$$DeviceImplFromJson(json);
+class _Device implements Device {
+  const _Device({required this.token, this.locale, this.timezone});
+  factory _Device.fromJson(Map<String, dynamic> json) => _$DeviceFromJson(json);
 
   @override
   final String token;
@@ -129,79 +262,121 @@ class _$DeviceImpl implements _Device {
   @override
   final String? timezone;
 
+  /// Create a copy of Device
+  /// with the given fields replaced by the non-null parameter values.
   @override
-  String toString() {
-    return 'Device(token: $token, locale: $locale, timezone: $timezone)';
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  @pragma('vm:prefer-inline')
+  _$DeviceCopyWith<_Device> get copyWith =>
+      __$DeviceCopyWithImpl<_Device>(this, _$identity);
+
+  @override
+  Map<String, dynamic> toJson() {
+    return _$DeviceToJson(
+      this,
+    );
   }
 
   @override
   bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$DeviceImpl &&
+            other is _Device &&
             (identical(other.token, token) || other.token == token) &&
             (identical(other.locale, locale) || other.locale == locale) &&
             (identical(other.timezone, timezone) ||
                 other.timezone == timezone));
   }
 
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   int get hashCode => Object.hash(runtimeType, token, locale, timezone);
 
-  @JsonKey(ignore: true)
   @override
-  @pragma('vm:prefer-inline')
-  _$$DeviceImplCopyWith<_$DeviceImpl> get copyWith =>
-      __$$DeviceImplCopyWithImpl<_$DeviceImpl>(this, _$identity);
-
-  @override
-  Map<String, dynamic> toJson() {
-    return _$$DeviceImplToJson(
-      this,
-    );
+  String toString() {
+    return 'Device(token: $token, locale: $locale, timezone: $timezone)';
   }
 }
 
-abstract class _Device implements Device {
-  const factory _Device(
-      {required final String token,
-      final String? locale,
-      final String? timezone}) = _$DeviceImpl;
-
-  factory _Device.fromJson(Map<String, dynamic> json) = _$DeviceImpl.fromJson;
-
+/// @nodoc
+abstract mixin class _$DeviceCopyWith<$Res> implements $DeviceCopyWith<$Res> {
+  factory _$DeviceCopyWith(_Device value, $Res Function(_Device) _then) =
+      __$DeviceCopyWithImpl;
   @override
-  String get token;
-  @override
-  String? get locale;
-  @override
-  String? get timezone;
-  @override
-  @JsonKey(ignore: true)
-  _$$DeviceImplCopyWith<_$DeviceImpl> get copyWith =>
-      throw _privateConstructorUsedError;
+  @useResult
+  $Res call({String token, String? locale, String? timezone});
 }
 
-ChannelData _$ChannelDataFromJson(Map<String, dynamic> json) {
-  return _ChannelData.fromJson(json);
+/// @nodoc
+class __$DeviceCopyWithImpl<$Res> implements _$DeviceCopyWith<$Res> {
+  __$DeviceCopyWithImpl(this._self, this._then);
+
+  final _Device _self;
+  final $Res Function(_Device) _then;
+
+  /// Create a copy of Device
+  /// with the given fields replaced by the non-null parameter values.
+  @override
+  @pragma('vm:prefer-inline')
+  $Res call({
+    Object? token = null,
+    Object? locale = freezed,
+    Object? timezone = freezed,
+  }) {
+    return _then(_Device(
+      token: null == token
+          ? _self.token
+          : token // ignore: cast_nullable_to_non_nullable
+              as String,
+      locale: freezed == locale
+          ? _self.locale
+          : locale // ignore: cast_nullable_to_non_nullable
+              as String?,
+      timezone: freezed == timezone
+          ? _self.timezone
+          : timezone // ignore: cast_nullable_to_non_nullable
+              as String?,
+    ));
+  }
 }
 
 /// @nodoc
 mixin _$ChannelData {
-  ChannelProviderData get data => throw _privateConstructorUsedError;
+  ChannelProviderData get data;
 
-  Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
-  @JsonKey(ignore: true)
+  /// Create a copy of ChannelData
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  @pragma('vm:prefer-inline')
   $ChannelDataCopyWith<ChannelData> get copyWith =>
-      throw _privateConstructorUsedError;
+      _$ChannelDataCopyWithImpl<ChannelData>(this as ChannelData, _$identity);
+
+  /// Serializes this ChannelData to a JSON map.
+  Map<String, dynamic> toJson();
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is ChannelData &&
+            (identical(other.data, data) || other.data == data));
+  }
+
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  @override
+  int get hashCode => Object.hash(runtimeType, data);
+
+  @override
+  String toString() {
+    return 'ChannelData(data: $data)';
+  }
 }
 
 /// @nodoc
-abstract class $ChannelDataCopyWith<$Res> {
+abstract mixin class $ChannelDataCopyWith<$Res> {
   factory $ChannelDataCopyWith(
-          ChannelData value, $Res Function(ChannelData) then) =
-      _$ChannelDataCopyWithImpl<$Res, ChannelData>;
+          ChannelData value, $Res Function(ChannelData) _then) =
+      _$ChannelDataCopyWithImpl;
   @useResult
   $Res call({ChannelProviderData data});
 
@@ -209,220 +384,518 @@ abstract class $ChannelDataCopyWith<$Res> {
 }
 
 /// @nodoc
-class _$ChannelDataCopyWithImpl<$Res, $Val extends ChannelData>
-    implements $ChannelDataCopyWith<$Res> {
-  _$ChannelDataCopyWithImpl(this._value, this._then);
+class _$ChannelDataCopyWithImpl<$Res> implements $ChannelDataCopyWith<$Res> {
+  _$ChannelDataCopyWithImpl(this._self, this._then);
 
-  // ignore: unused_field
-  final $Val _value;
-  // ignore: unused_field
-  final $Res Function($Val) _then;
+  final ChannelData _self;
+  final $Res Function(ChannelData) _then;
 
+  /// Create a copy of ChannelData
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
     Object? data = null,
   }) {
-    return _then(_value.copyWith(
+    return _then(_self.copyWith(
       data: null == data
-          ? _value.data
+          ? _self.data
           : data // ignore: cast_nullable_to_non_nullable
               as ChannelProviderData,
-    ) as $Val);
+    ));
   }
 
+  /// Create a copy of ChannelData
+  /// with the given fields replaced by the non-null parameter values.
   @override
   @pragma('vm:prefer-inline')
   $ChannelProviderDataCopyWith<$Res> get data {
-    return $ChannelProviderDataCopyWith<$Res>(_value.data, (value) {
-      return _then(_value.copyWith(data: value) as $Val);
+    return $ChannelProviderDataCopyWith<$Res>(_self.data, (value) {
+      return _then(_self.copyWith(data: value));
     });
   }
 }
 
-/// @nodoc
-abstract class _$$ChannelDataImplCopyWith<$Res>
-    implements $ChannelDataCopyWith<$Res> {
-  factory _$$ChannelDataImplCopyWith(
-          _$ChannelDataImpl value, $Res Function(_$ChannelDataImpl) then) =
-      __$$ChannelDataImplCopyWithImpl<$Res>;
-  @override
-  @useResult
-  $Res call({ChannelProviderData data});
+/// Adds pattern-matching-related methods to [ChannelData].
+extension ChannelDataPatterns on ChannelData {
+  /// A variant of `map` that fallback to returning `orElse`.
+  ///
+  /// It is equivalent to doing:
+  /// ```dart
+  /// switch (sealedClass) {
+  ///   case final Subclass value:
+  ///     return ...;
+  ///   case _:
+  ///     return orElse();
+  /// }
+  /// ```
 
-  @override
-  $ChannelProviderDataCopyWith<$Res> get data;
-}
-
-/// @nodoc
-class __$$ChannelDataImplCopyWithImpl<$Res>
-    extends _$ChannelDataCopyWithImpl<$Res, _$ChannelDataImpl>
-    implements _$$ChannelDataImplCopyWith<$Res> {
-  __$$ChannelDataImplCopyWithImpl(
-      _$ChannelDataImpl _value, $Res Function(_$ChannelDataImpl) _then)
-      : super(_value, _then);
-
-  @pragma('vm:prefer-inline')
-  @override
-  $Res call({
-    Object? data = null,
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>(
+    TResult Function(_ChannelData value)? $default, {
+    required TResult orElse(),
   }) {
-    return _then(_$ChannelDataImpl(
-      data: null == data
-          ? _value.data
-          : data // ignore: cast_nullable_to_non_nullable
-              as ChannelProviderData,
-    ));
+    final _that = this;
+    switch (_that) {
+      case _ChannelData() when $default != null:
+        return $default(_that);
+      case _:
+        return orElse();
+    }
+  }
+
+  /// A `switch`-like method, using callbacks.
+  ///
+  /// Callbacks receives the raw object, upcasted.
+  /// It is equivalent to doing:
+  /// ```dart
+  /// switch (sealedClass) {
+  ///   case final Subclass value:
+  ///     return ...;
+  ///   case final Subclass2 value:
+  ///     return ...;
+  /// }
+  /// ```
+
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>(
+    TResult Function(_ChannelData value) $default,
+  ) {
+    final _that = this;
+    switch (_that) {
+      case _ChannelData():
+        return $default(_that);
+      case _:
+        throw StateError('Unexpected subclass');
+    }
+  }
+
+  /// A variant of `map` that fallback to returning `null`.
+  ///
+  /// It is equivalent to doing:
+  /// ```dart
+  /// switch (sealedClass) {
+  ///   case final Subclass value:
+  ///     return ...;
+  ///   case _:
+  ///     return null;
+  /// }
+  /// ```
+
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>(
+    TResult? Function(_ChannelData value)? $default,
+  ) {
+    final _that = this;
+    switch (_that) {
+      case _ChannelData() when $default != null:
+        return $default(_that);
+      case _:
+        return null;
+    }
+  }
+
+  /// A variant of `when` that fallback to an `orElse` callback.
+  ///
+  /// It is equivalent to doing:
+  /// ```dart
+  /// switch (sealedClass) {
+  ///   case Subclass(:final field):
+  ///     return ...;
+  ///   case _:
+  ///     return orElse();
+  /// }
+  /// ```
+
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>(
+    TResult Function(ChannelProviderData data)? $default, {
+    required TResult orElse(),
+  }) {
+    final _that = this;
+    switch (_that) {
+      case _ChannelData() when $default != null:
+        return $default(_that.data);
+      case _:
+        return orElse();
+    }
+  }
+
+  /// A `switch`-like method, using callbacks.
+  ///
+  /// As opposed to `map`, this offers destructuring.
+  /// It is equivalent to doing:
+  /// ```dart
+  /// switch (sealedClass) {
+  ///   case Subclass(:final field):
+  ///     return ...;
+  ///   case Subclass2(:final field2):
+  ///     return ...;
+  /// }
+  /// ```
+
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>(
+    TResult Function(ChannelProviderData data) $default,
+  ) {
+    final _that = this;
+    switch (_that) {
+      case _ChannelData():
+        return $default(_that.data);
+      case _:
+        throw StateError('Unexpected subclass');
+    }
+  }
+
+  /// A variant of `when` that fallback to returning `null`
+  ///
+  /// It is equivalent to doing:
+  /// ```dart
+  /// switch (sealedClass) {
+  ///   case Subclass(:final field):
+  ///     return ...;
+  ///   case _:
+  ///     return null;
+  /// }
+  /// ```
+
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>(
+    TResult? Function(ChannelProviderData data)? $default,
+  ) {
+    final _that = this;
+    switch (_that) {
+      case _ChannelData() when $default != null:
+        return $default(_that.data);
+      case _:
+        return null;
+    }
   }
 }
 
 /// @nodoc
 
 @JsonSerializable(explicitToJson: true)
-class _$ChannelDataImpl implements _ChannelData {
-  const _$ChannelDataImpl({required this.data});
-
-  factory _$ChannelDataImpl.fromJson(Map<String, dynamic> json) =>
-      _$$ChannelDataImplFromJson(json);
+class _ChannelData implements ChannelData {
+  const _ChannelData({required this.data});
+  factory _ChannelData.fromJson(Map<String, dynamic> json) =>
+      _$ChannelDataFromJson(json);
 
   @override
   final ChannelProviderData data;
 
+  /// Create a copy of ChannelData
+  /// with the given fields replaced by the non-null parameter values.
   @override
-  String toString() {
-    return 'ChannelData(data: $data)';
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  @pragma('vm:prefer-inline')
+  _$ChannelDataCopyWith<_ChannelData> get copyWith =>
+      __$ChannelDataCopyWithImpl<_ChannelData>(this, _$identity);
+
+  @override
+  Map<String, dynamic> toJson() {
+    return _$ChannelDataToJson(
+      this,
+    );
   }
 
   @override
   bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$ChannelDataImpl &&
+            other is _ChannelData &&
             (identical(other.data, data) || other.data == data));
   }
 
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   int get hashCode => Object.hash(runtimeType, data);
 
-  @JsonKey(ignore: true)
   @override
-  @pragma('vm:prefer-inline')
-  _$$ChannelDataImplCopyWith<_$ChannelDataImpl> get copyWith =>
-      __$$ChannelDataImplCopyWithImpl<_$ChannelDataImpl>(this, _$identity);
-
-  @override
-  Map<String, dynamic> toJson() {
-    return _$$ChannelDataImplToJson(
-      this,
-    );
+  String toString() {
+    return 'ChannelData(data: $data)';
   }
 }
 
-abstract class _ChannelData implements ChannelData {
-  const factory _ChannelData({required final ChannelProviderData data}) =
-      _$ChannelDataImpl;
-
-  factory _ChannelData.fromJson(Map<String, dynamic> json) =
-      _$ChannelDataImpl.fromJson;
+/// @nodoc
+abstract mixin class _$ChannelDataCopyWith<$Res>
+    implements $ChannelDataCopyWith<$Res> {
+  factory _$ChannelDataCopyWith(
+          _ChannelData value, $Res Function(_ChannelData) _then) =
+      __$ChannelDataCopyWithImpl;
+  @override
+  @useResult
+  $Res call({ChannelProviderData data});
 
   @override
-  ChannelProviderData get data;
-  @override
-  @JsonKey(ignore: true)
-  _$$ChannelDataImplCopyWith<_$ChannelDataImpl> get copyWith =>
-      throw _privateConstructorUsedError;
+  $ChannelProviderDataCopyWith<$Res> get data;
 }
 
-ChannelProviderData _$ChannelProviderDataFromJson(Map<String, dynamic> json) {
-  return _ChannelProviderData.fromJson(json);
+/// @nodoc
+class __$ChannelDataCopyWithImpl<$Res> implements _$ChannelDataCopyWith<$Res> {
+  __$ChannelDataCopyWithImpl(this._self, this._then);
+
+  final _ChannelData _self;
+  final $Res Function(_ChannelData) _then;
+
+  /// Create a copy of ChannelData
+  /// with the given fields replaced by the non-null parameter values.
+  @override
+  @pragma('vm:prefer-inline')
+  $Res call({
+    Object? data = null,
+  }) {
+    return _then(_ChannelData(
+      data: null == data
+          ? _self.data
+          : data // ignore: cast_nullable_to_non_nullable
+              as ChannelProviderData,
+    ));
+  }
+
+  /// Create a copy of ChannelData
+  /// with the given fields replaced by the non-null parameter values.
+  @override
+  @pragma('vm:prefer-inline')
+  $ChannelProviderDataCopyWith<$Res> get data {
+    return $ChannelProviderDataCopyWith<$Res>(_self.data, (value) {
+      return _then(_self.copyWith(data: value));
+    });
+  }
 }
 
 /// @nodoc
 mixin _$ChannelProviderData {
-  List<Device> get devices => throw _privateConstructorUsedError;
+  List<Device> get devices;
 
-  Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
-  @JsonKey(ignore: true)
-  $ChannelProviderDataCopyWith<ChannelProviderData> get copyWith =>
-      throw _privateConstructorUsedError;
-}
-
-/// @nodoc
-abstract class $ChannelProviderDataCopyWith<$Res> {
-  factory $ChannelProviderDataCopyWith(
-          ChannelProviderData value, $Res Function(ChannelProviderData) then) =
-      _$ChannelProviderDataCopyWithImpl<$Res, ChannelProviderData>;
-  @useResult
-  $Res call({List<Device> devices});
-}
-
-/// @nodoc
-class _$ChannelProviderDataCopyWithImpl<$Res, $Val extends ChannelProviderData>
-    implements $ChannelProviderDataCopyWith<$Res> {
-  _$ChannelProviderDataCopyWithImpl(this._value, this._then);
-
-  // ignore: unused_field
-  final $Val _value;
-  // ignore: unused_field
-  final $Res Function($Val) _then;
-
+  /// Create a copy of ChannelProviderData
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @pragma('vm:prefer-inline')
+  $ChannelProviderDataCopyWith<ChannelProviderData> get copyWith =>
+      _$ChannelProviderDataCopyWithImpl<ChannelProviderData>(
+          this as ChannelProviderData, _$identity);
+
+  /// Serializes this ChannelProviderData to a JSON map.
+  Map<String, dynamic> toJson();
+
   @override
-  $Res call({
-    Object? devices = null,
-  }) {
-    return _then(_value.copyWith(
-      devices: null == devices
-          ? _value.devices
-          : devices // ignore: cast_nullable_to_non_nullable
-              as List<Device>,
-    ) as $Val);
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is ChannelProviderData &&
+            const DeepCollectionEquality().equals(other.devices, devices));
+  }
+
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  @override
+  int get hashCode =>
+      Object.hash(runtimeType, const DeepCollectionEquality().hash(devices));
+
+  @override
+  String toString() {
+    return 'ChannelProviderData(devices: $devices)';
   }
 }
 
 /// @nodoc
-abstract class _$$ChannelProviderDataImplCopyWith<$Res>
-    implements $ChannelProviderDataCopyWith<$Res> {
-  factory _$$ChannelProviderDataImplCopyWith(_$ChannelProviderDataImpl value,
-          $Res Function(_$ChannelProviderDataImpl) then) =
-      __$$ChannelProviderDataImplCopyWithImpl<$Res>;
-  @override
+abstract mixin class $ChannelProviderDataCopyWith<$Res> {
+  factory $ChannelProviderDataCopyWith(
+          ChannelProviderData value, $Res Function(ChannelProviderData) _then) =
+      _$ChannelProviderDataCopyWithImpl;
   @useResult
   $Res call({List<Device> devices});
 }
 
 /// @nodoc
-class __$$ChannelProviderDataImplCopyWithImpl<$Res>
-    extends _$ChannelProviderDataCopyWithImpl<$Res, _$ChannelProviderDataImpl>
-    implements _$$ChannelProviderDataImplCopyWith<$Res> {
-  __$$ChannelProviderDataImplCopyWithImpl(_$ChannelProviderDataImpl _value,
-      $Res Function(_$ChannelProviderDataImpl) _then)
-      : super(_value, _then);
+class _$ChannelProviderDataCopyWithImpl<$Res>
+    implements $ChannelProviderDataCopyWith<$Res> {
+  _$ChannelProviderDataCopyWithImpl(this._self, this._then);
 
+  final ChannelProviderData _self;
+  final $Res Function(ChannelProviderData) _then;
+
+  /// Create a copy of ChannelProviderData
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
     Object? devices = null,
   }) {
-    return _then(_$ChannelProviderDataImpl(
+    return _then(_self.copyWith(
       devices: null == devices
-          ? _value._devices
+          ? _self.devices
           : devices // ignore: cast_nullable_to_non_nullable
               as List<Device>,
     ));
   }
 }
 
+/// Adds pattern-matching-related methods to [ChannelProviderData].
+extension ChannelProviderDataPatterns on ChannelProviderData {
+  /// A variant of `map` that fallback to returning `orElse`.
+  ///
+  /// It is equivalent to doing:
+  /// ```dart
+  /// switch (sealedClass) {
+  ///   case final Subclass value:
+  ///     return ...;
+  ///   case _:
+  ///     return orElse();
+  /// }
+  /// ```
+
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>(
+    TResult Function(_ChannelProviderData value)? $default, {
+    required TResult orElse(),
+  }) {
+    final _that = this;
+    switch (_that) {
+      case _ChannelProviderData() when $default != null:
+        return $default(_that);
+      case _:
+        return orElse();
+    }
+  }
+
+  /// A `switch`-like method, using callbacks.
+  ///
+  /// Callbacks receives the raw object, upcasted.
+  /// It is equivalent to doing:
+  /// ```dart
+  /// switch (sealedClass) {
+  ///   case final Subclass value:
+  ///     return ...;
+  ///   case final Subclass2 value:
+  ///     return ...;
+  /// }
+  /// ```
+
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>(
+    TResult Function(_ChannelProviderData value) $default,
+  ) {
+    final _that = this;
+    switch (_that) {
+      case _ChannelProviderData():
+        return $default(_that);
+      case _:
+        throw StateError('Unexpected subclass');
+    }
+  }
+
+  /// A variant of `map` that fallback to returning `null`.
+  ///
+  /// It is equivalent to doing:
+  /// ```dart
+  /// switch (sealedClass) {
+  ///   case final Subclass value:
+  ///     return ...;
+  ///   case _:
+  ///     return null;
+  /// }
+  /// ```
+
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>(
+    TResult? Function(_ChannelProviderData value)? $default,
+  ) {
+    final _that = this;
+    switch (_that) {
+      case _ChannelProviderData() when $default != null:
+        return $default(_that);
+      case _:
+        return null;
+    }
+  }
+
+  /// A variant of `when` that fallback to an `orElse` callback.
+  ///
+  /// It is equivalent to doing:
+  /// ```dart
+  /// switch (sealedClass) {
+  ///   case Subclass(:final field):
+  ///     return ...;
+  ///   case _:
+  ///     return orElse();
+  /// }
+  /// ```
+
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>(
+    TResult Function(List<Device> devices)? $default, {
+    required TResult orElse(),
+  }) {
+    final _that = this;
+    switch (_that) {
+      case _ChannelProviderData() when $default != null:
+        return $default(_that.devices);
+      case _:
+        return orElse();
+    }
+  }
+
+  /// A `switch`-like method, using callbacks.
+  ///
+  /// As opposed to `map`, this offers destructuring.
+  /// It is equivalent to doing:
+  /// ```dart
+  /// switch (sealedClass) {
+  ///   case Subclass(:final field):
+  ///     return ...;
+  ///   case Subclass2(:final field2):
+  ///     return ...;
+  /// }
+  /// ```
+
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>(
+    TResult Function(List<Device> devices) $default,
+  ) {
+    final _that = this;
+    switch (_that) {
+      case _ChannelProviderData():
+        return $default(_that.devices);
+      case _:
+        throw StateError('Unexpected subclass');
+    }
+  }
+
+  /// A variant of `when` that fallback to returning `null`
+  ///
+  /// It is equivalent to doing:
+  /// ```dart
+  /// switch (sealedClass) {
+  ///   case Subclass(:final field):
+  ///     return ...;
+  ///   case _:
+  ///     return null;
+  /// }
+  /// ```
+
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>(
+    TResult? Function(List<Device> devices)? $default,
+  ) {
+    final _that = this;
+    switch (_that) {
+      case _ChannelProviderData() when $default != null:
+        return $default(_that.devices);
+      case _:
+        return null;
+    }
+  }
+}
+
 /// @nodoc
 
 @JsonSerializable(explicitToJson: true)
-class _$ChannelProviderDataImpl implements _ChannelProviderData {
-  const _$ChannelProviderDataImpl({required final List<Device> devices})
+class _ChannelProviderData implements ChannelProviderData {
+  const _ChannelProviderData({required final List<Device> devices})
       : _devices = devices;
-
-  factory _$ChannelProviderDataImpl.fromJson(Map<String, dynamic> json) =>
-      _$$ChannelProviderDataImplFromJson(json);
+  factory _ChannelProviderData.fromJson(Map<String, dynamic> json) =>
+      _$ChannelProviderDataFromJson(json);
 
   final List<Device> _devices;
   @override
@@ -432,50 +905,74 @@ class _$ChannelProviderDataImpl implements _ChannelProviderData {
     return EqualUnmodifiableListView(_devices);
   }
 
+  /// Create a copy of ChannelProviderData
+  /// with the given fields replaced by the non-null parameter values.
   @override
-  String toString() {
-    return 'ChannelProviderData(devices: $devices)';
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  @pragma('vm:prefer-inline')
+  _$ChannelProviderDataCopyWith<_ChannelProviderData> get copyWith =>
+      __$ChannelProviderDataCopyWithImpl<_ChannelProviderData>(
+          this, _$identity);
+
+  @override
+  Map<String, dynamic> toJson() {
+    return _$ChannelProviderDataToJson(
+      this,
+    );
   }
 
   @override
   bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$ChannelProviderDataImpl &&
+            other is _ChannelProviderData &&
             const DeepCollectionEquality().equals(other._devices, _devices));
   }
 
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   int get hashCode =>
       Object.hash(runtimeType, const DeepCollectionEquality().hash(_devices));
 
-  @JsonKey(ignore: true)
   @override
-  @pragma('vm:prefer-inline')
-  _$$ChannelProviderDataImplCopyWith<_$ChannelProviderDataImpl> get copyWith =>
-      __$$ChannelProviderDataImplCopyWithImpl<_$ChannelProviderDataImpl>(
-          this, _$identity);
-
-  @override
-  Map<String, dynamic> toJson() {
-    return _$$ChannelProviderDataImplToJson(
-      this,
-    );
+  String toString() {
+    return 'ChannelProviderData(devices: $devices)';
   }
 }
 
-abstract class _ChannelProviderData implements ChannelProviderData {
-  const factory _ChannelProviderData({required final List<Device> devices}) =
-      _$ChannelProviderDataImpl;
-
-  factory _ChannelProviderData.fromJson(Map<String, dynamic> json) =
-      _$ChannelProviderDataImpl.fromJson;
-
+/// @nodoc
+abstract mixin class _$ChannelProviderDataCopyWith<$Res>
+    implements $ChannelProviderDataCopyWith<$Res> {
+  factory _$ChannelProviderDataCopyWith(_ChannelProviderData value,
+          $Res Function(_ChannelProviderData) _then) =
+      __$ChannelProviderDataCopyWithImpl;
   @override
-  List<Device> get devices;
-  @override
-  @JsonKey(ignore: true)
-  _$$ChannelProviderDataImplCopyWith<_$ChannelProviderDataImpl> get copyWith =>
-      throw _privateConstructorUsedError;
+  @useResult
+  $Res call({List<Device> devices});
 }
+
+/// @nodoc
+class __$ChannelProviderDataCopyWithImpl<$Res>
+    implements _$ChannelProviderDataCopyWith<$Res> {
+  __$ChannelProviderDataCopyWithImpl(this._self, this._then);
+
+  final _ChannelProviderData _self;
+  final $Res Function(_ChannelProviderData) _then;
+
+  /// Create a copy of ChannelProviderData
+  /// with the given fields replaced by the non-null parameter values.
+  @override
+  @pragma('vm:prefer-inline')
+  $Res call({
+    Object? devices = null,
+  }) {
+    return _then(_ChannelProviderData(
+      devices: null == devices
+          ? _self._devices
+          : devices // ignore: cast_nullable_to_non_nullable
+              as List<Device>,
+    ));
+  }
+}
+
+// dart format on

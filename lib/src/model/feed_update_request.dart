@@ -7,7 +7,7 @@ part 'feed_update_request.freezed.dart';
 part 'feed_update_request.g.dart';
 
 @Freezed(toJson: true)
-class FeedStatusUpdateRequest with _$FeedStatusUpdateRequest {
+abstract class FeedStatusUpdateRequest with _$FeedStatusUpdateRequest {
   @JsonSerializable(explicitToJson: true)
   const factory FeedStatusUpdateRequest({
     @JsonKey(name: 'message_ids') required List<String> ids,
@@ -15,7 +15,7 @@ class FeedStatusUpdateRequest with _$FeedStatusUpdateRequest {
 }
 
 @Freezed(toJson: true)
-class BulkFeedStatusUpdateRequest with _$BulkFeedStatusUpdateRequest {
+abstract class BulkFeedStatusUpdateRequest with _$BulkFeedStatusUpdateRequest {
   @JsonSerializable(explicitToJson: true)
   const factory BulkFeedStatusUpdateRequest({
     @JsonKey(name: 'user_ids') required List<String> userIds,

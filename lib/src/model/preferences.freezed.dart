@@ -1,5 +1,5 @@
-// coverage:ignore-file
 // GENERATED CODE - DO NOT MODIFY BY HAND
+// coverage:ignore-file
 // ignore_for_file: type=lint
 // ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target, unnecessary_question_mark
 
@@ -9,108 +9,247 @@ part of 'preferences.dart';
 // FreezedGenerator
 // **************************************************************************
 
+// dart format off
 T _$identity<T>(T value) => value;
-
-final _privateConstructorUsedError = UnsupportedError(
-    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#adding-getters-and-methods-to-our-models');
 
 /// @nodoc
 mixin _$ChannelTypePreference {
   /// If [value] is set then [conditions] should not be set.
-  bool? get value => throw _privateConstructorUsedError;
+  bool? get value;
 
   /// If [conditions] is set then [value] should not be set.
-  List<PreferenceCondition>? get conditions =>
-      throw _privateConstructorUsedError;
+  List<PreferenceCondition>? get conditions;
 
-  @JsonKey(ignore: true)
-  $ChannelTypePreferenceCopyWith<ChannelTypePreference> get copyWith =>
-      throw _privateConstructorUsedError;
-}
-
-/// @nodoc
-abstract class $ChannelTypePreferenceCopyWith<$Res> {
-  factory $ChannelTypePreferenceCopyWith(ChannelTypePreference value,
-          $Res Function(ChannelTypePreference) then) =
-      _$ChannelTypePreferenceCopyWithImpl<$Res, ChannelTypePreference>;
-  @useResult
-  $Res call({bool? value, List<PreferenceCondition>? conditions});
-}
-
-/// @nodoc
-class _$ChannelTypePreferenceCopyWithImpl<$Res,
-        $Val extends ChannelTypePreference>
-    implements $ChannelTypePreferenceCopyWith<$Res> {
-  _$ChannelTypePreferenceCopyWithImpl(this._value, this._then);
-
-  // ignore: unused_field
-  final $Val _value;
-  // ignore: unused_field
-  final $Res Function($Val) _then;
-
+  /// Create a copy of ChannelTypePreference
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @pragma('vm:prefer-inline')
+  $ChannelTypePreferenceCopyWith<ChannelTypePreference> get copyWith =>
+      _$ChannelTypePreferenceCopyWithImpl<ChannelTypePreference>(
+          this as ChannelTypePreference, _$identity);
+
   @override
-  $Res call({
-    Object? value = freezed,
-    Object? conditions = freezed,
-  }) {
-    return _then(_value.copyWith(
-      value: freezed == value
-          ? _value.value
-          : value // ignore: cast_nullable_to_non_nullable
-              as bool?,
-      conditions: freezed == conditions
-          ? _value.conditions
-          : conditions // ignore: cast_nullable_to_non_nullable
-              as List<PreferenceCondition>?,
-    ) as $Val);
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is ChannelTypePreference &&
+            (identical(other.value, value) || other.value == value) &&
+            const DeepCollectionEquality()
+                .equals(other.conditions, conditions));
+  }
+
+  @override
+  int get hashCode => Object.hash(
+      runtimeType, value, const DeepCollectionEquality().hash(conditions));
+
+  @override
+  String toString() {
+    return 'ChannelTypePreference(value: $value, conditions: $conditions)';
   }
 }
 
 /// @nodoc
-abstract class _$$ChannelTypePreferenceImplCopyWith<$Res>
-    implements $ChannelTypePreferenceCopyWith<$Res> {
-  factory _$$ChannelTypePreferenceImplCopyWith(
-          _$ChannelTypePreferenceImpl value,
-          $Res Function(_$ChannelTypePreferenceImpl) then) =
-      __$$ChannelTypePreferenceImplCopyWithImpl<$Res>;
-  @override
+abstract mixin class $ChannelTypePreferenceCopyWith<$Res> {
+  factory $ChannelTypePreferenceCopyWith(ChannelTypePreference value,
+          $Res Function(ChannelTypePreference) _then) =
+      _$ChannelTypePreferenceCopyWithImpl;
   @useResult
   $Res call({bool? value, List<PreferenceCondition>? conditions});
 }
 
 /// @nodoc
-class __$$ChannelTypePreferenceImplCopyWithImpl<$Res>
-    extends _$ChannelTypePreferenceCopyWithImpl<$Res,
-        _$ChannelTypePreferenceImpl>
-    implements _$$ChannelTypePreferenceImplCopyWith<$Res> {
-  __$$ChannelTypePreferenceImplCopyWithImpl(_$ChannelTypePreferenceImpl _value,
-      $Res Function(_$ChannelTypePreferenceImpl) _then)
-      : super(_value, _then);
+class _$ChannelTypePreferenceCopyWithImpl<$Res>
+    implements $ChannelTypePreferenceCopyWith<$Res> {
+  _$ChannelTypePreferenceCopyWithImpl(this._self, this._then);
 
+  final ChannelTypePreference _self;
+  final $Res Function(ChannelTypePreference) _then;
+
+  /// Create a copy of ChannelTypePreference
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
     Object? value = freezed,
     Object? conditions = freezed,
   }) {
-    return _then(_$ChannelTypePreferenceImpl(
+    return _then(_self.copyWith(
       value: freezed == value
-          ? _value.value
+          ? _self.value
           : value // ignore: cast_nullable_to_non_nullable
               as bool?,
       conditions: freezed == conditions
-          ? _value._conditions
+          ? _self.conditions
           : conditions // ignore: cast_nullable_to_non_nullable
               as List<PreferenceCondition>?,
     ));
   }
 }
 
+/// Adds pattern-matching-related methods to [ChannelTypePreference].
+extension ChannelTypePreferencePatterns on ChannelTypePreference {
+  /// A variant of `map` that fallback to returning `orElse`.
+  ///
+  /// It is equivalent to doing:
+  /// ```dart
+  /// switch (sealedClass) {
+  ///   case final Subclass value:
+  ///     return ...;
+  ///   case _:
+  ///     return orElse();
+  /// }
+  /// ```
+
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>(
+    TResult Function(_ChannelTypePreference value)? $default, {
+    required TResult orElse(),
+  }) {
+    final _that = this;
+    switch (_that) {
+      case _ChannelTypePreference() when $default != null:
+        return $default(_that);
+      case _:
+        return orElse();
+    }
+  }
+
+  /// A `switch`-like method, using callbacks.
+  ///
+  /// Callbacks receives the raw object, upcasted.
+  /// It is equivalent to doing:
+  /// ```dart
+  /// switch (sealedClass) {
+  ///   case final Subclass value:
+  ///     return ...;
+  ///   case final Subclass2 value:
+  ///     return ...;
+  /// }
+  /// ```
+
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>(
+    TResult Function(_ChannelTypePreference value) $default,
+  ) {
+    final _that = this;
+    switch (_that) {
+      case _ChannelTypePreference():
+        return $default(_that);
+      case _:
+        throw StateError('Unexpected subclass');
+    }
+  }
+
+  /// A variant of `map` that fallback to returning `null`.
+  ///
+  /// It is equivalent to doing:
+  /// ```dart
+  /// switch (sealedClass) {
+  ///   case final Subclass value:
+  ///     return ...;
+  ///   case _:
+  ///     return null;
+  /// }
+  /// ```
+
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>(
+    TResult? Function(_ChannelTypePreference value)? $default,
+  ) {
+    final _that = this;
+    switch (_that) {
+      case _ChannelTypePreference() when $default != null:
+        return $default(_that);
+      case _:
+        return null;
+    }
+  }
+
+  /// A variant of `when` that fallback to an `orElse` callback.
+  ///
+  /// It is equivalent to doing:
+  /// ```dart
+  /// switch (sealedClass) {
+  ///   case Subclass(:final field):
+  ///     return ...;
+  ///   case _:
+  ///     return orElse();
+  /// }
+  /// ```
+
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>(
+    TResult Function(bool? value, List<PreferenceCondition>? conditions)?
+        $default, {
+    required TResult orElse(),
+  }) {
+    final _that = this;
+    switch (_that) {
+      case _ChannelTypePreference() when $default != null:
+        return $default(_that.value, _that.conditions);
+      case _:
+        return orElse();
+    }
+  }
+
+  /// A `switch`-like method, using callbacks.
+  ///
+  /// As opposed to `map`, this offers destructuring.
+  /// It is equivalent to doing:
+  /// ```dart
+  /// switch (sealedClass) {
+  ///   case Subclass(:final field):
+  ///     return ...;
+  ///   case Subclass2(:final field2):
+  ///     return ...;
+  /// }
+  /// ```
+
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>(
+    TResult Function(bool? value, List<PreferenceCondition>? conditions)
+        $default,
+  ) {
+    final _that = this;
+    switch (_that) {
+      case _ChannelTypePreference():
+        return $default(_that.value, _that.conditions);
+      case _:
+        throw StateError('Unexpected subclass');
+    }
+  }
+
+  /// A variant of `when` that fallback to returning `null`
+  ///
+  /// It is equivalent to doing:
+  /// ```dart
+  /// switch (sealedClass) {
+  ///   case Subclass(:final field):
+  ///     return ...;
+  ///   case _:
+  ///     return null;
+  /// }
+  /// ```
+
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>(
+    TResult? Function(bool? value, List<PreferenceCondition>? conditions)?
+        $default,
+  ) {
+    final _that = this;
+    switch (_that) {
+      case _ChannelTypePreference() when $default != null:
+        return $default(_that.value, _that.conditions);
+      case _:
+        return null;
+    }
+  }
+}
+
 /// @nodoc
 
-class _$ChannelTypePreferenceImpl implements _ChannelTypePreference {
-  _$ChannelTypePreferenceImpl(
+class _ChannelTypePreference implements ChannelTypePreference {
+  _ChannelTypePreference(
       {this.value, final List<PreferenceCondition>? conditions})
       : _conditions = conditions;
 
@@ -131,16 +270,20 @@ class _$ChannelTypePreferenceImpl implements _ChannelTypePreference {
     return EqualUnmodifiableListView(value);
   }
 
+  /// Create a copy of ChannelTypePreference
+  /// with the given fields replaced by the non-null parameter values.
   @override
-  String toString() {
-    return 'ChannelTypePreference(value: $value, conditions: $conditions)';
-  }
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  @pragma('vm:prefer-inline')
+  _$ChannelTypePreferenceCopyWith<_ChannelTypePreference> get copyWith =>
+      __$ChannelTypePreferenceCopyWithImpl<_ChannelTypePreference>(
+          this, _$identity);
 
   @override
   bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$ChannelTypePreferenceImpl &&
+            other is _ChannelTypePreference &&
             (identical(other.value, value) || other.value == value) &&
             const DeepCollectionEquality()
                 .equals(other._conditions, _conditions));
@@ -150,142 +293,46 @@ class _$ChannelTypePreferenceImpl implements _ChannelTypePreference {
   int get hashCode => Object.hash(
       runtimeType, value, const DeepCollectionEquality().hash(_conditions));
 
-  @JsonKey(ignore: true)
   @override
-  @pragma('vm:prefer-inline')
-  _$$ChannelTypePreferenceImplCopyWith<_$ChannelTypePreferenceImpl>
-      get copyWith => __$$ChannelTypePreferenceImplCopyWithImpl<
-          _$ChannelTypePreferenceImpl>(this, _$identity);
-}
-
-abstract class _ChannelTypePreference implements ChannelTypePreference {
-  factory _ChannelTypePreference(
-          {final bool? value, final List<PreferenceCondition>? conditions}) =
-      _$ChannelTypePreferenceImpl;
-
-  @override
-
-  /// If [value] is set then [conditions] should not be set.
-  bool? get value;
-  @override
-
-  /// If [conditions] is set then [value] should not be set.
-  List<PreferenceCondition>? get conditions;
-  @override
-  @JsonKey(ignore: true)
-  _$$ChannelTypePreferenceImplCopyWith<_$ChannelTypePreferenceImpl>
-      get copyWith => throw _privateConstructorUsedError;
-}
-
-/// @nodoc
-mixin _$WorkflowPreferenceSetting {
-  /// If [value] is set then [channelTypePreferences] and [conditions] should
-  /// not be set.
-  bool? get value => throw _privateConstructorUsedError;
-
-  /// If [channelTypePreferences] is set then [value] should not be set.
-  Map<ChannelType, ChannelTypePreference>? get channelTypePreferences =>
-      throw _privateConstructorUsedError;
-
-  /// If [conditions] is set then [value] should not be set.
-  List<PreferenceCondition>? get conditions =>
-      throw _privateConstructorUsedError;
-
-  @JsonKey(ignore: true)
-  $WorkflowPreferenceSettingCopyWith<WorkflowPreferenceSetting> get copyWith =>
-      throw _privateConstructorUsedError;
-}
-
-/// @nodoc
-abstract class $WorkflowPreferenceSettingCopyWith<$Res> {
-  factory $WorkflowPreferenceSettingCopyWith(WorkflowPreferenceSetting value,
-          $Res Function(WorkflowPreferenceSetting) then) =
-      _$WorkflowPreferenceSettingCopyWithImpl<$Res, WorkflowPreferenceSetting>;
-  @useResult
-  $Res call(
-      {bool? value,
-      Map<ChannelType, ChannelTypePreference>? channelTypePreferences,
-      List<PreferenceCondition>? conditions});
-}
-
-/// @nodoc
-class _$WorkflowPreferenceSettingCopyWithImpl<$Res,
-        $Val extends WorkflowPreferenceSetting>
-    implements $WorkflowPreferenceSettingCopyWith<$Res> {
-  _$WorkflowPreferenceSettingCopyWithImpl(this._value, this._then);
-
-  // ignore: unused_field
-  final $Val _value;
-  // ignore: unused_field
-  final $Res Function($Val) _then;
-
-  @pragma('vm:prefer-inline')
-  @override
-  $Res call({
-    Object? value = freezed,
-    Object? channelTypePreferences = freezed,
-    Object? conditions = freezed,
-  }) {
-    return _then(_value.copyWith(
-      value: freezed == value
-          ? _value.value
-          : value // ignore: cast_nullable_to_non_nullable
-              as bool?,
-      channelTypePreferences: freezed == channelTypePreferences
-          ? _value.channelTypePreferences
-          : channelTypePreferences // ignore: cast_nullable_to_non_nullable
-              as Map<ChannelType, ChannelTypePreference>?,
-      conditions: freezed == conditions
-          ? _value.conditions
-          : conditions // ignore: cast_nullable_to_non_nullable
-              as List<PreferenceCondition>?,
-    ) as $Val);
+  String toString() {
+    return 'ChannelTypePreference(value: $value, conditions: $conditions)';
   }
 }
 
 /// @nodoc
-abstract class _$$WorkflowPreferenceSettingImplCopyWith<$Res>
-    implements $WorkflowPreferenceSettingCopyWith<$Res> {
-  factory _$$WorkflowPreferenceSettingImplCopyWith(
-          _$WorkflowPreferenceSettingImpl value,
-          $Res Function(_$WorkflowPreferenceSettingImpl) then) =
-      __$$WorkflowPreferenceSettingImplCopyWithImpl<$Res>;
+abstract mixin class _$ChannelTypePreferenceCopyWith<$Res>
+    implements $ChannelTypePreferenceCopyWith<$Res> {
+  factory _$ChannelTypePreferenceCopyWith(_ChannelTypePreference value,
+          $Res Function(_ChannelTypePreference) _then) =
+      __$ChannelTypePreferenceCopyWithImpl;
   @override
   @useResult
-  $Res call(
-      {bool? value,
-      Map<ChannelType, ChannelTypePreference>? channelTypePreferences,
-      List<PreferenceCondition>? conditions});
+  $Res call({bool? value, List<PreferenceCondition>? conditions});
 }
 
 /// @nodoc
-class __$$WorkflowPreferenceSettingImplCopyWithImpl<$Res>
-    extends _$WorkflowPreferenceSettingCopyWithImpl<$Res,
-        _$WorkflowPreferenceSettingImpl>
-    implements _$$WorkflowPreferenceSettingImplCopyWith<$Res> {
-  __$$WorkflowPreferenceSettingImplCopyWithImpl(
-      _$WorkflowPreferenceSettingImpl _value,
-      $Res Function(_$WorkflowPreferenceSettingImpl) _then)
-      : super(_value, _then);
+class __$ChannelTypePreferenceCopyWithImpl<$Res>
+    implements _$ChannelTypePreferenceCopyWith<$Res> {
+  __$ChannelTypePreferenceCopyWithImpl(this._self, this._then);
 
-  @pragma('vm:prefer-inline')
+  final _ChannelTypePreference _self;
+  final $Res Function(_ChannelTypePreference) _then;
+
+  /// Create a copy of ChannelTypePreference
+  /// with the given fields replaced by the non-null parameter values.
   @override
+  @pragma('vm:prefer-inline')
   $Res call({
     Object? value = freezed,
-    Object? channelTypePreferences = freezed,
     Object? conditions = freezed,
   }) {
-    return _then(_$WorkflowPreferenceSettingImpl(
+    return _then(_ChannelTypePreference(
       value: freezed == value
-          ? _value.value
+          ? _self.value
           : value // ignore: cast_nullable_to_non_nullable
               as bool?,
-      channelTypePreferences: freezed == channelTypePreferences
-          ? _value._channelTypePreferences
-          : channelTypePreferences // ignore: cast_nullable_to_non_nullable
-              as Map<ChannelType, ChannelTypePreference>?,
       conditions: freezed == conditions
-          ? _value._conditions
+          ? _self._conditions
           : conditions // ignore: cast_nullable_to_non_nullable
               as List<PreferenceCondition>?,
     ));
@@ -293,11 +340,274 @@ class __$$WorkflowPreferenceSettingImplCopyWithImpl<$Res>
 }
 
 /// @nodoc
+mixin _$WorkflowPreferenceSetting {
+  /// If [value] is set then [channelTypePreferences] and [conditions] should
+  /// not be set.
+  bool? get value;
 
-class _$WorkflowPreferenceSettingImpl implements _WorkflowPreferenceSetting {
-  _$WorkflowPreferenceSettingImpl(
+  /// If [channelTypePreferences] is set then [value] should not be set.
+  ChannelTypePreferences? get channelTypePreferences;
+
+  /// If [conditions] is set then [value] should not be set.
+  List<PreferenceCondition>? get conditions;
+
+  /// Create a copy of WorkflowPreferenceSetting
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  @pragma('vm:prefer-inline')
+  $WorkflowPreferenceSettingCopyWith<WorkflowPreferenceSetting> get copyWith =>
+      _$WorkflowPreferenceSettingCopyWithImpl<WorkflowPreferenceSetting>(
+          this as WorkflowPreferenceSetting, _$identity);
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is WorkflowPreferenceSetting &&
+            (identical(other.value, value) || other.value == value) &&
+            const DeepCollectionEquality()
+                .equals(other.channelTypePreferences, channelTypePreferences) &&
+            const DeepCollectionEquality()
+                .equals(other.conditions, conditions));
+  }
+
+  @override
+  int get hashCode => Object.hash(
+      runtimeType,
+      value,
+      const DeepCollectionEquality().hash(channelTypePreferences),
+      const DeepCollectionEquality().hash(conditions));
+
+  @override
+  String toString() {
+    return 'WorkflowPreferenceSetting(value: $value, channelTypePreferences: $channelTypePreferences, conditions: $conditions)';
+  }
+}
+
+/// @nodoc
+abstract mixin class $WorkflowPreferenceSettingCopyWith<$Res> {
+  factory $WorkflowPreferenceSettingCopyWith(WorkflowPreferenceSetting value,
+          $Res Function(WorkflowPreferenceSetting) _then) =
+      _$WorkflowPreferenceSettingCopyWithImpl;
+  @useResult
+  $Res call(
+      {bool? value,
+      ChannelTypePreferences? channelTypePreferences,
+      List<PreferenceCondition>? conditions});
+}
+
+/// @nodoc
+class _$WorkflowPreferenceSettingCopyWithImpl<$Res>
+    implements $WorkflowPreferenceSettingCopyWith<$Res> {
+  _$WorkflowPreferenceSettingCopyWithImpl(this._self, this._then);
+
+  final WorkflowPreferenceSetting _self;
+  final $Res Function(WorkflowPreferenceSetting) _then;
+
+  /// Create a copy of WorkflowPreferenceSetting
+  /// with the given fields replaced by the non-null parameter values.
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? value = freezed,
+    Object? channelTypePreferences = freezed,
+    Object? conditions = freezed,
+  }) {
+    return _then(_self.copyWith(
+      value: freezed == value
+          ? _self.value
+          : value // ignore: cast_nullable_to_non_nullable
+              as bool?,
+      channelTypePreferences: freezed == channelTypePreferences
+          ? _self.channelTypePreferences
+          : channelTypePreferences // ignore: cast_nullable_to_non_nullable
+              as ChannelTypePreferences?,
+      conditions: freezed == conditions
+          ? _self.conditions
+          : conditions // ignore: cast_nullable_to_non_nullable
+              as List<PreferenceCondition>?,
+    ));
+  }
+}
+
+/// Adds pattern-matching-related methods to [WorkflowPreferenceSetting].
+extension WorkflowPreferenceSettingPatterns on WorkflowPreferenceSetting {
+  /// A variant of `map` that fallback to returning `orElse`.
+  ///
+  /// It is equivalent to doing:
+  /// ```dart
+  /// switch (sealedClass) {
+  ///   case final Subclass value:
+  ///     return ...;
+  ///   case _:
+  ///     return orElse();
+  /// }
+  /// ```
+
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>(
+    TResult Function(_WorkflowPreferenceSetting value)? $default, {
+    required TResult orElse(),
+  }) {
+    final _that = this;
+    switch (_that) {
+      case _WorkflowPreferenceSetting() when $default != null:
+        return $default(_that);
+      case _:
+        return orElse();
+    }
+  }
+
+  /// A `switch`-like method, using callbacks.
+  ///
+  /// Callbacks receives the raw object, upcasted.
+  /// It is equivalent to doing:
+  /// ```dart
+  /// switch (sealedClass) {
+  ///   case final Subclass value:
+  ///     return ...;
+  ///   case final Subclass2 value:
+  ///     return ...;
+  /// }
+  /// ```
+
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>(
+    TResult Function(_WorkflowPreferenceSetting value) $default,
+  ) {
+    final _that = this;
+    switch (_that) {
+      case _WorkflowPreferenceSetting():
+        return $default(_that);
+      case _:
+        throw StateError('Unexpected subclass');
+    }
+  }
+
+  /// A variant of `map` that fallback to returning `null`.
+  ///
+  /// It is equivalent to doing:
+  /// ```dart
+  /// switch (sealedClass) {
+  ///   case final Subclass value:
+  ///     return ...;
+  ///   case _:
+  ///     return null;
+  /// }
+  /// ```
+
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>(
+    TResult? Function(_WorkflowPreferenceSetting value)? $default,
+  ) {
+    final _that = this;
+    switch (_that) {
+      case _WorkflowPreferenceSetting() when $default != null:
+        return $default(_that);
+      case _:
+        return null;
+    }
+  }
+
+  /// A variant of `when` that fallback to an `orElse` callback.
+  ///
+  /// It is equivalent to doing:
+  /// ```dart
+  /// switch (sealedClass) {
+  ///   case Subclass(:final field):
+  ///     return ...;
+  ///   case _:
+  ///     return orElse();
+  /// }
+  /// ```
+
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>(
+    TResult Function(
+            bool? value,
+            ChannelTypePreferences? channelTypePreferences,
+            List<PreferenceCondition>? conditions)?
+        $default, {
+    required TResult orElse(),
+  }) {
+    final _that = this;
+    switch (_that) {
+      case _WorkflowPreferenceSetting() when $default != null:
+        return $default(
+            _that.value, _that.channelTypePreferences, _that.conditions);
+      case _:
+        return orElse();
+    }
+  }
+
+  /// A `switch`-like method, using callbacks.
+  ///
+  /// As opposed to `map`, this offers destructuring.
+  /// It is equivalent to doing:
+  /// ```dart
+  /// switch (sealedClass) {
+  ///   case Subclass(:final field):
+  ///     return ...;
+  ///   case Subclass2(:final field2):
+  ///     return ...;
+  /// }
+  /// ```
+
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>(
+    TResult Function(
+            bool? value,
+            ChannelTypePreferences? channelTypePreferences,
+            List<PreferenceCondition>? conditions)
+        $default,
+  ) {
+    final _that = this;
+    switch (_that) {
+      case _WorkflowPreferenceSetting():
+        return $default(
+            _that.value, _that.channelTypePreferences, _that.conditions);
+      case _:
+        throw StateError('Unexpected subclass');
+    }
+  }
+
+  /// A variant of `when` that fallback to returning `null`
+  ///
+  /// It is equivalent to doing:
+  /// ```dart
+  /// switch (sealedClass) {
+  ///   case Subclass(:final field):
+  ///     return ...;
+  ///   case _:
+  ///     return null;
+  /// }
+  /// ```
+
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>(
+    TResult? Function(
+            bool? value,
+            ChannelTypePreferences? channelTypePreferences,
+            List<PreferenceCondition>? conditions)?
+        $default,
+  ) {
+    final _that = this;
+    switch (_that) {
+      case _WorkflowPreferenceSetting() when $default != null:
+        return $default(
+            _that.value, _that.channelTypePreferences, _that.conditions);
+      case _:
+        return null;
+    }
+  }
+}
+
+/// @nodoc
+
+class _WorkflowPreferenceSetting implements WorkflowPreferenceSetting {
+  _WorkflowPreferenceSetting(
       {this.value,
-      final Map<ChannelType, ChannelTypePreference>? channelTypePreferences,
+      final ChannelTypePreferences? channelTypePreferences,
       final List<PreferenceCondition>? conditions})
       : _channelTypePreferences = channelTypePreferences,
         _conditions = conditions;
@@ -308,11 +618,11 @@ class _$WorkflowPreferenceSettingImpl implements _WorkflowPreferenceSetting {
   final bool? value;
 
   /// If [channelTypePreferences] is set then [value] should not be set.
-  final Map<ChannelType, ChannelTypePreference>? _channelTypePreferences;
+  final ChannelTypePreferences? _channelTypePreferences;
 
   /// If [channelTypePreferences] is set then [value] should not be set.
   @override
-  Map<ChannelType, ChannelTypePreference>? get channelTypePreferences {
+  ChannelTypePreferences? get channelTypePreferences {
     final value = _channelTypePreferences;
     if (value == null) return null;
     if (_channelTypePreferences is EqualUnmodifiableMapView)
@@ -334,16 +644,21 @@ class _$WorkflowPreferenceSettingImpl implements _WorkflowPreferenceSetting {
     return EqualUnmodifiableListView(value);
   }
 
+  /// Create a copy of WorkflowPreferenceSetting
+  /// with the given fields replaced by the non-null parameter values.
   @override
-  String toString() {
-    return 'WorkflowPreferenceSetting(value: $value, channelTypePreferences: $channelTypePreferences, conditions: $conditions)';
-  }
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  @pragma('vm:prefer-inline')
+  _$WorkflowPreferenceSettingCopyWith<_WorkflowPreferenceSetting>
+      get copyWith =>
+          __$WorkflowPreferenceSettingCopyWithImpl<_WorkflowPreferenceSetting>(
+              this, _$identity);
 
   @override
   bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$WorkflowPreferenceSettingImpl &&
+            other is _WorkflowPreferenceSetting &&
             (identical(other.value, value) || other.value == value) &&
             const DeepCollectionEquality().equals(
                 other._channelTypePreferences, _channelTypePreferences) &&
@@ -358,42 +673,58 @@ class _$WorkflowPreferenceSettingImpl implements _WorkflowPreferenceSetting {
       const DeepCollectionEquality().hash(_channelTypePreferences),
       const DeepCollectionEquality().hash(_conditions));
 
-  @JsonKey(ignore: true)
+  @override
+  String toString() {
+    return 'WorkflowPreferenceSetting(value: $value, channelTypePreferences: $channelTypePreferences, conditions: $conditions)';
+  }
+}
+
+/// @nodoc
+abstract mixin class _$WorkflowPreferenceSettingCopyWith<$Res>
+    implements $WorkflowPreferenceSettingCopyWith<$Res> {
+  factory _$WorkflowPreferenceSettingCopyWith(_WorkflowPreferenceSetting value,
+          $Res Function(_WorkflowPreferenceSetting) _then) =
+      __$WorkflowPreferenceSettingCopyWithImpl;
+  @override
+  @useResult
+  $Res call(
+      {bool? value,
+      ChannelTypePreferences? channelTypePreferences,
+      List<PreferenceCondition>? conditions});
+}
+
+/// @nodoc
+class __$WorkflowPreferenceSettingCopyWithImpl<$Res>
+    implements _$WorkflowPreferenceSettingCopyWith<$Res> {
+  __$WorkflowPreferenceSettingCopyWithImpl(this._self, this._then);
+
+  final _WorkflowPreferenceSetting _self;
+  final $Res Function(_WorkflowPreferenceSetting) _then;
+
+  /// Create a copy of WorkflowPreferenceSetting
+  /// with the given fields replaced by the non-null parameter values.
   @override
   @pragma('vm:prefer-inline')
-  _$$WorkflowPreferenceSettingImplCopyWith<_$WorkflowPreferenceSettingImpl>
-      get copyWith => __$$WorkflowPreferenceSettingImplCopyWithImpl<
-          _$WorkflowPreferenceSettingImpl>(this, _$identity);
-}
-
-abstract class _WorkflowPreferenceSetting implements WorkflowPreferenceSetting {
-  factory _WorkflowPreferenceSetting(
-          {final bool? value,
-          final Map<ChannelType, ChannelTypePreference>? channelTypePreferences,
-          final List<PreferenceCondition>? conditions}) =
-      _$WorkflowPreferenceSettingImpl;
-
-  @override
-
-  /// If [value] is set then [channelTypePreferences] and [conditions] should
-  /// not be set.
-  bool? get value;
-  @override
-
-  /// If [channelTypePreferences] is set then [value] should not be set.
-  Map<ChannelType, ChannelTypePreference>? get channelTypePreferences;
-  @override
-
-  /// If [conditions] is set then [value] should not be set.
-  List<PreferenceCondition>? get conditions;
-  @override
-  @JsonKey(ignore: true)
-  _$$WorkflowPreferenceSettingImplCopyWith<_$WorkflowPreferenceSettingImpl>
-      get copyWith => throw _privateConstructorUsedError;
-}
-
-_ChannelTypesJson _$ChannelTypesJsonFromJson(Map<String, dynamic> json) {
-  return __ChannelTypesJson.fromJson(json);
+  $Res call({
+    Object? value = freezed,
+    Object? channelTypePreferences = freezed,
+    Object? conditions = freezed,
+  }) {
+    return _then(_WorkflowPreferenceSetting(
+      value: freezed == value
+          ? _self.value
+          : value // ignore: cast_nullable_to_non_nullable
+              as bool?,
+      channelTypePreferences: freezed == channelTypePreferences
+          ? _self._channelTypePreferences
+          : channelTypePreferences // ignore: cast_nullable_to_non_nullable
+              as ChannelTypePreferences?,
+      conditions: freezed == conditions
+          ? _self._conditions
+          : conditions // ignore: cast_nullable_to_non_nullable
+              as List<PreferenceCondition>?,
+    ));
+  }
 }
 
 /// @nodoc
@@ -402,59 +733,44 @@ mixin _$ChannelTypesJson {
       name: 'channel_types',
       toJson: _nonNullChannelTypePreferencesToJson,
       fromJson: _nonNullChannelTypePreferencesFromJson)
-  dynamic get channelTypes => throw _privateConstructorUsedError;
+  dynamic get channelTypes;
 
-  Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
-  @JsonKey(ignore: true)
-  _$ChannelTypesJsonCopyWith<_ChannelTypesJson> get copyWith =>
-      throw _privateConstructorUsedError;
-}
-
-/// @nodoc
-abstract class _$ChannelTypesJsonCopyWith<$Res> {
-  factory _$ChannelTypesJsonCopyWith(
-          _ChannelTypesJson value, $Res Function(_ChannelTypesJson) then) =
-      __$ChannelTypesJsonCopyWithImpl<$Res, _ChannelTypesJson>;
-  @useResult
-  $Res call(
-      {@JsonKey(
-          name: 'channel_types',
-          toJson: _nonNullChannelTypePreferencesToJson,
-          fromJson: _nonNullChannelTypePreferencesFromJson)
-      dynamic channelTypes});
-}
-
-/// @nodoc
-class __$ChannelTypesJsonCopyWithImpl<$Res, $Val extends _ChannelTypesJson>
-    implements _$ChannelTypesJsonCopyWith<$Res> {
-  __$ChannelTypesJsonCopyWithImpl(this._value, this._then);
-
-  // ignore: unused_field
-  final $Val _value;
-  // ignore: unused_field
-  final $Res Function($Val) _then;
-
+  /// Create a copy of ChannelTypesJson
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @pragma('vm:prefer-inline')
+  $ChannelTypesJsonCopyWith<ChannelTypesJson> get copyWith =>
+      _$ChannelTypesJsonCopyWithImpl<ChannelTypesJson>(
+          this as ChannelTypesJson, _$identity);
+
+  /// Serializes this ChannelTypesJson to a JSON map.
+  Map<String, dynamic> toJson();
+
   @override
-  $Res call({
-    Object? channelTypes = freezed,
-  }) {
-    return _then(_value.copyWith(
-      channelTypes: freezed == channelTypes
-          ? _value.channelTypes
-          : channelTypes // ignore: cast_nullable_to_non_nullable
-              as dynamic,
-    ) as $Val);
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is ChannelTypesJson &&
+            const DeepCollectionEquality()
+                .equals(other.channelTypes, channelTypes));
+  }
+
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  @override
+  int get hashCode => Object.hash(
+      runtimeType, const DeepCollectionEquality().hash(channelTypes));
+
+  @override
+  String toString() {
+    return 'ChannelTypesJson(channelTypes: $channelTypes)';
   }
 }
 
 /// @nodoc
-abstract class _$$_ChannelTypesJsonImplCopyWith<$Res>
-    implements _$ChannelTypesJsonCopyWith<$Res> {
-  factory _$$_ChannelTypesJsonImplCopyWith(_$_ChannelTypesJsonImpl value,
-          $Res Function(_$_ChannelTypesJsonImpl) then) =
-      __$$_ChannelTypesJsonImplCopyWithImpl<$Res>;
-  @override
+abstract mixin class $ChannelTypesJsonCopyWith<$Res> {
+  factory $ChannelTypesJsonCopyWith(
+          ChannelTypesJson value, $Res Function(ChannelTypesJson) _then) =
+      _$ChannelTypesJsonCopyWithImpl;
   @useResult
   $Res call(
       {@JsonKey(
@@ -465,40 +781,216 @@ abstract class _$$_ChannelTypesJsonImplCopyWith<$Res>
 }
 
 /// @nodoc
-class __$$_ChannelTypesJsonImplCopyWithImpl<$Res>
-    extends __$ChannelTypesJsonCopyWithImpl<$Res, _$_ChannelTypesJsonImpl>
-    implements _$$_ChannelTypesJsonImplCopyWith<$Res> {
-  __$$_ChannelTypesJsonImplCopyWithImpl(_$_ChannelTypesJsonImpl _value,
-      $Res Function(_$_ChannelTypesJsonImpl) _then)
-      : super(_value, _then);
+class _$ChannelTypesJsonCopyWithImpl<$Res>
+    implements $ChannelTypesJsonCopyWith<$Res> {
+  _$ChannelTypesJsonCopyWithImpl(this._self, this._then);
 
+  final ChannelTypesJson _self;
+  final $Res Function(ChannelTypesJson) _then;
+
+  /// Create a copy of ChannelTypesJson
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
     Object? channelTypes = freezed,
   }) {
-    return _then(_$_ChannelTypesJsonImpl(
+    return _then(_self.copyWith(
       channelTypes: freezed == channelTypes
-          ? _value.channelTypes
+          ? _self.channelTypes
           : channelTypes // ignore: cast_nullable_to_non_nullable
               as dynamic,
     ));
   }
 }
 
+/// Adds pattern-matching-related methods to [ChannelTypesJson].
+extension ChannelTypesJsonPatterns on ChannelTypesJson {
+  /// A variant of `map` that fallback to returning `orElse`.
+  ///
+  /// It is equivalent to doing:
+  /// ```dart
+  /// switch (sealedClass) {
+  ///   case final Subclass value:
+  ///     return ...;
+  ///   case _:
+  ///     return orElse();
+  /// }
+  /// ```
+
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>(
+    TResult Function(_ChannelTypesJson value)? $default, {
+    required TResult orElse(),
+  }) {
+    final _that = this;
+    switch (_that) {
+      case _ChannelTypesJson() when $default != null:
+        return $default(_that);
+      case _:
+        return orElse();
+    }
+  }
+
+  /// A `switch`-like method, using callbacks.
+  ///
+  /// Callbacks receives the raw object, upcasted.
+  /// It is equivalent to doing:
+  /// ```dart
+  /// switch (sealedClass) {
+  ///   case final Subclass value:
+  ///     return ...;
+  ///   case final Subclass2 value:
+  ///     return ...;
+  /// }
+  /// ```
+
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>(
+    TResult Function(_ChannelTypesJson value) $default,
+  ) {
+    final _that = this;
+    switch (_that) {
+      case _ChannelTypesJson():
+        return $default(_that);
+      case _:
+        throw StateError('Unexpected subclass');
+    }
+  }
+
+  /// A variant of `map` that fallback to returning `null`.
+  ///
+  /// It is equivalent to doing:
+  /// ```dart
+  /// switch (sealedClass) {
+  ///   case final Subclass value:
+  ///     return ...;
+  ///   case _:
+  ///     return null;
+  /// }
+  /// ```
+
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>(
+    TResult? Function(_ChannelTypesJson value)? $default,
+  ) {
+    final _that = this;
+    switch (_that) {
+      case _ChannelTypesJson() when $default != null:
+        return $default(_that);
+      case _:
+        return null;
+    }
+  }
+
+  /// A variant of `when` that fallback to an `orElse` callback.
+  ///
+  /// It is equivalent to doing:
+  /// ```dart
+  /// switch (sealedClass) {
+  ///   case Subclass(:final field):
+  ///     return ...;
+  ///   case _:
+  ///     return orElse();
+  /// }
+  /// ```
+
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>(
+    TResult Function(
+            @JsonKey(
+                name: 'channel_types',
+                toJson: _nonNullChannelTypePreferencesToJson,
+                fromJson: _nonNullChannelTypePreferencesFromJson)
+            dynamic channelTypes)?
+        $default, {
+    required TResult orElse(),
+  }) {
+    final _that = this;
+    switch (_that) {
+      case _ChannelTypesJson() when $default != null:
+        return $default(_that.channelTypes);
+      case _:
+        return orElse();
+    }
+  }
+
+  /// A `switch`-like method, using callbacks.
+  ///
+  /// As opposed to `map`, this offers destructuring.
+  /// It is equivalent to doing:
+  /// ```dart
+  /// switch (sealedClass) {
+  ///   case Subclass(:final field):
+  ///     return ...;
+  ///   case Subclass2(:final field2):
+  ///     return ...;
+  /// }
+  /// ```
+
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>(
+    TResult Function(
+            @JsonKey(
+                name: 'channel_types',
+                toJson: _nonNullChannelTypePreferencesToJson,
+                fromJson: _nonNullChannelTypePreferencesFromJson)
+            dynamic channelTypes)
+        $default,
+  ) {
+    final _that = this;
+    switch (_that) {
+      case _ChannelTypesJson():
+        return $default(_that.channelTypes);
+      case _:
+        throw StateError('Unexpected subclass');
+    }
+  }
+
+  /// A variant of `when` that fallback to returning `null`
+  ///
+  /// It is equivalent to doing:
+  /// ```dart
+  /// switch (sealedClass) {
+  ///   case Subclass(:final field):
+  ///     return ...;
+  ///   case _:
+  ///     return null;
+  /// }
+  /// ```
+
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>(
+    TResult? Function(
+            @JsonKey(
+                name: 'channel_types',
+                toJson: _nonNullChannelTypePreferencesToJson,
+                fromJson: _nonNullChannelTypePreferencesFromJson)
+            dynamic channelTypes)?
+        $default,
+  ) {
+    final _that = this;
+    switch (_that) {
+      case _ChannelTypesJson() when $default != null:
+        return $default(_that.channelTypes);
+      case _:
+        return null;
+    }
+  }
+}
+
 /// @nodoc
 
 @JsonSerializable(explicitToJson: true)
-class _$_ChannelTypesJsonImpl implements __ChannelTypesJson {
-  const _$_ChannelTypesJsonImpl(
+class _ChannelTypesJson implements ChannelTypesJson {
+  const _ChannelTypesJson(
       {@JsonKey(
           name: 'channel_types',
           toJson: _nonNullChannelTypePreferencesToJson,
           fromJson: _nonNullChannelTypePreferencesFromJson)
       required this.channelTypes});
-
-  factory _$_ChannelTypesJsonImpl.fromJson(Map<String, dynamic> json) =>
-      _$$_ChannelTypesJsonImplFromJson(json);
+  factory _ChannelTypesJson.fromJson(Map<String, dynamic> json) =>
+      _$ChannelTypesJsonFromJson(json);
 
   @override
   @JsonKey(
@@ -507,154 +999,314 @@ class _$_ChannelTypesJsonImpl implements __ChannelTypesJson {
       fromJson: _nonNullChannelTypePreferencesFromJson)
   final dynamic channelTypes;
 
+  /// Create a copy of ChannelTypesJson
+  /// with the given fields replaced by the non-null parameter values.
   @override
-  String toString() {
-    return '_ChannelTypesJson(channelTypes: $channelTypes)';
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  @pragma('vm:prefer-inline')
+  _$ChannelTypesJsonCopyWith<_ChannelTypesJson> get copyWith =>
+      __$ChannelTypesJsonCopyWithImpl<_ChannelTypesJson>(this, _$identity);
+
+  @override
+  Map<String, dynamic> toJson() {
+    return _$ChannelTypesJsonToJson(
+      this,
+    );
   }
 
   @override
   bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$_ChannelTypesJsonImpl &&
+            other is _ChannelTypesJson &&
             const DeepCollectionEquality()
                 .equals(other.channelTypes, channelTypes));
   }
 
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   int get hashCode => Object.hash(
       runtimeType, const DeepCollectionEquality().hash(channelTypes));
 
-  @JsonKey(ignore: true)
   @override
-  @pragma('vm:prefer-inline')
-  _$$_ChannelTypesJsonImplCopyWith<_$_ChannelTypesJsonImpl> get copyWith =>
-      __$$_ChannelTypesJsonImplCopyWithImpl<_$_ChannelTypesJsonImpl>(
-          this, _$identity);
-
-  @override
-  Map<String, dynamic> toJson() {
-    return _$$_ChannelTypesJsonImplToJson(
-      this,
-    );
+  String toString() {
+    return 'ChannelTypesJson(channelTypes: $channelTypes)';
   }
 }
 
-abstract class __ChannelTypesJson implements _ChannelTypesJson {
-  const factory __ChannelTypesJson(
+/// @nodoc
+abstract mixin class _$ChannelTypesJsonCopyWith<$Res>
+    implements $ChannelTypesJsonCopyWith<$Res> {
+  factory _$ChannelTypesJsonCopyWith(
+          _ChannelTypesJson value, $Res Function(_ChannelTypesJson) _then) =
+      __$ChannelTypesJsonCopyWithImpl;
+  @override
+  @useResult
+  $Res call(
       {@JsonKey(
           name: 'channel_types',
           toJson: _nonNullChannelTypePreferencesToJson,
           fromJson: _nonNullChannelTypePreferencesFromJson)
-      required final dynamic channelTypes}) = _$_ChannelTypesJsonImpl;
+      dynamic channelTypes});
+}
 
-  factory __ChannelTypesJson.fromJson(Map<String, dynamic> json) =
-      _$_ChannelTypesJsonImpl.fromJson;
+/// @nodoc
+class __$ChannelTypesJsonCopyWithImpl<$Res>
+    implements _$ChannelTypesJsonCopyWith<$Res> {
+  __$ChannelTypesJsonCopyWithImpl(this._self, this._then);
 
+  final _ChannelTypesJson _self;
+  final $Res Function(_ChannelTypesJson) _then;
+
+  /// Create a copy of ChannelTypesJson
+  /// with the given fields replaced by the non-null parameter values.
   @override
-  @JsonKey(
-      name: 'channel_types',
-      toJson: _nonNullChannelTypePreferencesToJson,
-      fromJson: _nonNullChannelTypePreferencesFromJson)
-  dynamic get channelTypes;
-  @override
-  @JsonKey(ignore: true)
-  _$$_ChannelTypesJsonImplCopyWith<_$_ChannelTypesJsonImpl> get copyWith =>
-      throw _privateConstructorUsedError;
-}
-
-_ConditionsJson _$ConditionsJsonFromJson(Map<String, dynamic> json) {
-  return __ConditionsJson.fromJson(json);
-}
-
-/// @nodoc
-mixin _$ConditionsJson {
-  List<PreferenceCondition>? get conditions =>
-      throw _privateConstructorUsedError;
-
-  Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
-  @JsonKey(ignore: true)
-  _$ConditionsJsonCopyWith<_ConditionsJson> get copyWith =>
-      throw _privateConstructorUsedError;
-}
-
-/// @nodoc
-abstract class _$ConditionsJsonCopyWith<$Res> {
-  factory _$ConditionsJsonCopyWith(
-          _ConditionsJson value, $Res Function(_ConditionsJson) then) =
-      __$ConditionsJsonCopyWithImpl<$Res, _ConditionsJson>;
-  @useResult
-  $Res call({List<PreferenceCondition>? conditions});
-}
-
-/// @nodoc
-class __$ConditionsJsonCopyWithImpl<$Res, $Val extends _ConditionsJson>
-    implements _$ConditionsJsonCopyWith<$Res> {
-  __$ConditionsJsonCopyWithImpl(this._value, this._then);
-
-  // ignore: unused_field
-  final $Val _value;
-  // ignore: unused_field
-  final $Res Function($Val) _then;
-
   @pragma('vm:prefer-inline')
-  @override
   $Res call({
-    Object? conditions = freezed,
+    Object? channelTypes = freezed,
   }) {
-    return _then(_value.copyWith(
-      conditions: freezed == conditions
-          ? _value.conditions
-          : conditions // ignore: cast_nullable_to_non_nullable
-              as List<PreferenceCondition>?,
-    ) as $Val);
+    return _then(_ChannelTypesJson(
+      channelTypes: freezed == channelTypes
+          ? _self.channelTypes
+          : channelTypes // ignore: cast_nullable_to_non_nullable
+              as dynamic,
+    ));
   }
 }
 
 /// @nodoc
-abstract class _$$_ConditionsJsonImplCopyWith<$Res>
-    implements _$ConditionsJsonCopyWith<$Res> {
-  factory _$$_ConditionsJsonImplCopyWith(_$_ConditionsJsonImpl value,
-          $Res Function(_$_ConditionsJsonImpl) then) =
-      __$$_ConditionsJsonImplCopyWithImpl<$Res>;
+mixin _$ConditionsJson {
+  List<PreferenceCondition>? get conditions;
+
+  /// Create a copy of ConditionsJson
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  @pragma('vm:prefer-inline')
+  $ConditionsJsonCopyWith<ConditionsJson> get copyWith =>
+      _$ConditionsJsonCopyWithImpl<ConditionsJson>(
+          this as ConditionsJson, _$identity);
+
+  /// Serializes this ConditionsJson to a JSON map.
+  Map<String, dynamic> toJson();
+
   @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is ConditionsJson &&
+            const DeepCollectionEquality()
+                .equals(other.conditions, conditions));
+  }
+
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  @override
+  int get hashCode =>
+      Object.hash(runtimeType, const DeepCollectionEquality().hash(conditions));
+
+  @override
+  String toString() {
+    return 'ConditionsJson(conditions: $conditions)';
+  }
+}
+
+/// @nodoc
+abstract mixin class $ConditionsJsonCopyWith<$Res> {
+  factory $ConditionsJsonCopyWith(
+          ConditionsJson value, $Res Function(ConditionsJson) _then) =
+      _$ConditionsJsonCopyWithImpl;
   @useResult
   $Res call({List<PreferenceCondition>? conditions});
 }
 
 /// @nodoc
-class __$$_ConditionsJsonImplCopyWithImpl<$Res>
-    extends __$ConditionsJsonCopyWithImpl<$Res, _$_ConditionsJsonImpl>
-    implements _$$_ConditionsJsonImplCopyWith<$Res> {
-  __$$_ConditionsJsonImplCopyWithImpl(
-      _$_ConditionsJsonImpl _value, $Res Function(_$_ConditionsJsonImpl) _then)
-      : super(_value, _then);
+class _$ConditionsJsonCopyWithImpl<$Res>
+    implements $ConditionsJsonCopyWith<$Res> {
+  _$ConditionsJsonCopyWithImpl(this._self, this._then);
 
+  final ConditionsJson _self;
+  final $Res Function(ConditionsJson) _then;
+
+  /// Create a copy of ConditionsJson
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
     Object? conditions = freezed,
   }) {
-    return _then(_$_ConditionsJsonImpl(
+    return _then(_self.copyWith(
       conditions: freezed == conditions
-          ? _value._conditions
+          ? _self.conditions
           : conditions // ignore: cast_nullable_to_non_nullable
               as List<PreferenceCondition>?,
     ));
   }
 }
 
+/// Adds pattern-matching-related methods to [ConditionsJson].
+extension ConditionsJsonPatterns on ConditionsJson {
+  /// A variant of `map` that fallback to returning `orElse`.
+  ///
+  /// It is equivalent to doing:
+  /// ```dart
+  /// switch (sealedClass) {
+  ///   case final Subclass value:
+  ///     return ...;
+  ///   case _:
+  ///     return orElse();
+  /// }
+  /// ```
+
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>(
+    TResult Function(_ConditionsJson value)? $default, {
+    required TResult orElse(),
+  }) {
+    final _that = this;
+    switch (_that) {
+      case _ConditionsJson() when $default != null:
+        return $default(_that);
+      case _:
+        return orElse();
+    }
+  }
+
+  /// A `switch`-like method, using callbacks.
+  ///
+  /// Callbacks receives the raw object, upcasted.
+  /// It is equivalent to doing:
+  /// ```dart
+  /// switch (sealedClass) {
+  ///   case final Subclass value:
+  ///     return ...;
+  ///   case final Subclass2 value:
+  ///     return ...;
+  /// }
+  /// ```
+
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>(
+    TResult Function(_ConditionsJson value) $default,
+  ) {
+    final _that = this;
+    switch (_that) {
+      case _ConditionsJson():
+        return $default(_that);
+      case _:
+        throw StateError('Unexpected subclass');
+    }
+  }
+
+  /// A variant of `map` that fallback to returning `null`.
+  ///
+  /// It is equivalent to doing:
+  /// ```dart
+  /// switch (sealedClass) {
+  ///   case final Subclass value:
+  ///     return ...;
+  ///   case _:
+  ///     return null;
+  /// }
+  /// ```
+
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>(
+    TResult? Function(_ConditionsJson value)? $default,
+  ) {
+    final _that = this;
+    switch (_that) {
+      case _ConditionsJson() when $default != null:
+        return $default(_that);
+      case _:
+        return null;
+    }
+  }
+
+  /// A variant of `when` that fallback to an `orElse` callback.
+  ///
+  /// It is equivalent to doing:
+  /// ```dart
+  /// switch (sealedClass) {
+  ///   case Subclass(:final field):
+  ///     return ...;
+  ///   case _:
+  ///     return orElse();
+  /// }
+  /// ```
+
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>(
+    TResult Function(List<PreferenceCondition>? conditions)? $default, {
+    required TResult orElse(),
+  }) {
+    final _that = this;
+    switch (_that) {
+      case _ConditionsJson() when $default != null:
+        return $default(_that.conditions);
+      case _:
+        return orElse();
+    }
+  }
+
+  /// A `switch`-like method, using callbacks.
+  ///
+  /// As opposed to `map`, this offers destructuring.
+  /// It is equivalent to doing:
+  /// ```dart
+  /// switch (sealedClass) {
+  ///   case Subclass(:final field):
+  ///     return ...;
+  ///   case Subclass2(:final field2):
+  ///     return ...;
+  /// }
+  /// ```
+
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>(
+    TResult Function(List<PreferenceCondition>? conditions) $default,
+  ) {
+    final _that = this;
+    switch (_that) {
+      case _ConditionsJson():
+        return $default(_that.conditions);
+      case _:
+        throw StateError('Unexpected subclass');
+    }
+  }
+
+  /// A variant of `when` that fallback to returning `null`
+  ///
+  /// It is equivalent to doing:
+  /// ```dart
+  /// switch (sealedClass) {
+  ///   case Subclass(:final field):
+  ///     return ...;
+  ///   case _:
+  ///     return null;
+  /// }
+  /// ```
+
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>(
+    TResult? Function(List<PreferenceCondition>? conditions)? $default,
+  ) {
+    final _that = this;
+    switch (_that) {
+      case _ConditionsJson() when $default != null:
+        return $default(_that.conditions);
+      case _:
+        return null;
+    }
+  }
+}
+
 /// @nodoc
 
 @JsonSerializable(explicitToJson: true)
-class _$_ConditionsJsonImpl implements __ConditionsJson {
-  const _$_ConditionsJsonImpl(
-      {required final List<PreferenceCondition>? conditions})
+class _ConditionsJson implements ConditionsJson {
+  const _ConditionsJson({required final List<PreferenceCondition>? conditions})
       : _conditions = conditions;
-
-  factory _$_ConditionsJsonImpl.fromJson(Map<String, dynamic> json) =>
-      _$$_ConditionsJsonImplFromJson(json);
+  factory _ConditionsJson.fromJson(Map<String, dynamic> json) =>
+      _$ConditionsJsonFromJson(json);
 
   final List<PreferenceCondition>? _conditions;
   @override
@@ -666,54 +1318,74 @@ class _$_ConditionsJsonImpl implements __ConditionsJson {
     return EqualUnmodifiableListView(value);
   }
 
+  /// Create a copy of ConditionsJson
+  /// with the given fields replaced by the non-null parameter values.
   @override
-  String toString() {
-    return '_ConditionsJson(conditions: $conditions)';
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  @pragma('vm:prefer-inline')
+  _$ConditionsJsonCopyWith<_ConditionsJson> get copyWith =>
+      __$ConditionsJsonCopyWithImpl<_ConditionsJson>(this, _$identity);
+
+  @override
+  Map<String, dynamic> toJson() {
+    return _$ConditionsJsonToJson(
+      this,
+    );
   }
 
   @override
   bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$_ConditionsJsonImpl &&
+            other is _ConditionsJson &&
             const DeepCollectionEquality()
                 .equals(other._conditions, _conditions));
   }
 
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   int get hashCode => Object.hash(
       runtimeType, const DeepCollectionEquality().hash(_conditions));
 
-  @JsonKey(ignore: true)
   @override
-  @pragma('vm:prefer-inline')
-  _$$_ConditionsJsonImplCopyWith<_$_ConditionsJsonImpl> get copyWith =>
-      __$$_ConditionsJsonImplCopyWithImpl<_$_ConditionsJsonImpl>(
-          this, _$identity);
-
-  @override
-  Map<String, dynamic> toJson() {
-    return _$$_ConditionsJsonImplToJson(
-      this,
-    );
+  String toString() {
+    return 'ConditionsJson(conditions: $conditions)';
   }
 }
 
-abstract class __ConditionsJson implements _ConditionsJson {
-  const factory __ConditionsJson(
-          {required final List<PreferenceCondition>? conditions}) =
-      _$_ConditionsJsonImpl;
-
-  factory __ConditionsJson.fromJson(Map<String, dynamic> json) =
-      _$_ConditionsJsonImpl.fromJson;
-
+/// @nodoc
+abstract mixin class _$ConditionsJsonCopyWith<$Res>
+    implements $ConditionsJsonCopyWith<$Res> {
+  factory _$ConditionsJsonCopyWith(
+          _ConditionsJson value, $Res Function(_ConditionsJson) _then) =
+      __$ConditionsJsonCopyWithImpl;
   @override
-  List<PreferenceCondition>? get conditions;
+  @useResult
+  $Res call({List<PreferenceCondition>? conditions});
+}
+
+/// @nodoc
+class __$ConditionsJsonCopyWithImpl<$Res>
+    implements _$ConditionsJsonCopyWith<$Res> {
+  __$ConditionsJsonCopyWithImpl(this._self, this._then);
+
+  final _ConditionsJson _self;
+  final $Res Function(_ConditionsJson) _then;
+
+  /// Create a copy of ConditionsJson
+  /// with the given fields replaced by the non-null parameter values.
   @override
-  @JsonKey(ignore: true)
-  _$$_ConditionsJsonImplCopyWith<_$_ConditionsJsonImpl> get copyWith =>
-      throw _privateConstructorUsedError;
+  @pragma('vm:prefer-inline')
+  $Res call({
+    Object? conditions = freezed,
+  }) {
+    return _then(_ConditionsJson(
+      conditions: freezed == conditions
+          ? _self._conditions
+          : conditions // ignore: cast_nullable_to_non_nullable
+              as List<PreferenceCondition>?,
+    ));
+  }
 }
 
 /// @nodoc
@@ -722,117 +1394,85 @@ mixin _$SetPreferencesProperties {
       name: 'channel_types',
       toJson: _channelTypePreferencesToJson,
       fromJson: _channelTypePreferencesFromJson)
-  Map<ChannelType, ChannelTypePreference>? get channelTypes =>
-      throw _privateConstructorUsedError;
+  ChannelTypePreferences? get channelTypes;
   @JsonKey(
       toJson: _workflowPreferencesToJson,
       fromJson: _workflowPreferencesFromJson)
-  Map<String, WorkflowPreferenceSetting>? get workflows =>
-      throw _privateConstructorUsedError;
+  WorkflowPreferences? get workflows;
   @JsonKey(
       toJson: _workflowPreferencesToJson,
       fromJson: _workflowPreferencesFromJson)
-  Map<String, WorkflowPreferenceSetting>? get categories =>
-      throw _privateConstructorUsedError;
+  WorkflowPreferences? get categories;
 
-  Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
-  @JsonKey(ignore: true)
-  $SetPreferencesPropertiesCopyWith<SetPreferencesProperties> get copyWith =>
-      throw _privateConstructorUsedError;
-}
-
-/// @nodoc
-abstract class $SetPreferencesPropertiesCopyWith<$Res> {
-  factory $SetPreferencesPropertiesCopyWith(SetPreferencesProperties value,
-          $Res Function(SetPreferencesProperties) then) =
-      _$SetPreferencesPropertiesCopyWithImpl<$Res, SetPreferencesProperties>;
-  @useResult
-  $Res call(
-      {@JsonKey(
-          name: 'channel_types',
-          toJson: _channelTypePreferencesToJson,
-          fromJson: _channelTypePreferencesFromJson)
-      Map<ChannelType, ChannelTypePreference>? channelTypes,
-      @JsonKey(
-          toJson: _workflowPreferencesToJson,
-          fromJson: _workflowPreferencesFromJson)
-      Map<String, WorkflowPreferenceSetting>? workflows,
-      @JsonKey(
-          toJson: _workflowPreferencesToJson,
-          fromJson: _workflowPreferencesFromJson)
-      Map<String, WorkflowPreferenceSetting>? categories});
-}
-
-/// @nodoc
-class _$SetPreferencesPropertiesCopyWithImpl<$Res,
-        $Val extends SetPreferencesProperties>
-    implements $SetPreferencesPropertiesCopyWith<$Res> {
-  _$SetPreferencesPropertiesCopyWithImpl(this._value, this._then);
-
-  // ignore: unused_field
-  final $Val _value;
-  // ignore: unused_field
-  final $Res Function($Val) _then;
-
+  /// Create a copy of SetPreferencesProperties
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @pragma('vm:prefer-inline')
+  $SetPreferencesPropertiesCopyWith<SetPreferencesProperties> get copyWith =>
+      _$SetPreferencesPropertiesCopyWithImpl<SetPreferencesProperties>(
+          this as SetPreferencesProperties, _$identity);
+
+  /// Serializes this SetPreferencesProperties to a JSON map.
+  Map<String, dynamic> toJson();
+
   @override
-  $Res call({
-    Object? channelTypes = freezed,
-    Object? workflows = freezed,
-    Object? categories = freezed,
-  }) {
-    return _then(_value.copyWith(
-      channelTypes: freezed == channelTypes
-          ? _value.channelTypes
-          : channelTypes // ignore: cast_nullable_to_non_nullable
-              as Map<ChannelType, ChannelTypePreference>?,
-      workflows: freezed == workflows
-          ? _value.workflows
-          : workflows // ignore: cast_nullable_to_non_nullable
-              as Map<String, WorkflowPreferenceSetting>?,
-      categories: freezed == categories
-          ? _value.categories
-          : categories // ignore: cast_nullable_to_non_nullable
-              as Map<String, WorkflowPreferenceSetting>?,
-    ) as $Val);
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is SetPreferencesProperties &&
+            const DeepCollectionEquality()
+                .equals(other.channelTypes, channelTypes) &&
+            const DeepCollectionEquality().equals(other.workflows, workflows) &&
+            const DeepCollectionEquality()
+                .equals(other.categories, categories));
+  }
+
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  @override
+  int get hashCode => Object.hash(
+      runtimeType,
+      const DeepCollectionEquality().hash(channelTypes),
+      const DeepCollectionEquality().hash(workflows),
+      const DeepCollectionEquality().hash(categories));
+
+  @override
+  String toString() {
+    return 'SetPreferencesProperties(channelTypes: $channelTypes, workflows: $workflows, categories: $categories)';
   }
 }
 
 /// @nodoc
-abstract class _$$SetPreferencesPropertiesImplCopyWith<$Res>
-    implements $SetPreferencesPropertiesCopyWith<$Res> {
-  factory _$$SetPreferencesPropertiesImplCopyWith(
-          _$SetPreferencesPropertiesImpl value,
-          $Res Function(_$SetPreferencesPropertiesImpl) then) =
-      __$$SetPreferencesPropertiesImplCopyWithImpl<$Res>;
-  @override
+abstract mixin class $SetPreferencesPropertiesCopyWith<$Res> {
+  factory $SetPreferencesPropertiesCopyWith(SetPreferencesProperties value,
+          $Res Function(SetPreferencesProperties) _then) =
+      _$SetPreferencesPropertiesCopyWithImpl;
   @useResult
   $Res call(
       {@JsonKey(
           name: 'channel_types',
           toJson: _channelTypePreferencesToJson,
           fromJson: _channelTypePreferencesFromJson)
-      Map<ChannelType, ChannelTypePreference>? channelTypes,
+      ChannelTypePreferences? channelTypes,
       @JsonKey(
           toJson: _workflowPreferencesToJson,
           fromJson: _workflowPreferencesFromJson)
-      Map<String, WorkflowPreferenceSetting>? workflows,
+      WorkflowPreferences? workflows,
       @JsonKey(
           toJson: _workflowPreferencesToJson,
           fromJson: _workflowPreferencesFromJson)
-      Map<String, WorkflowPreferenceSetting>? categories});
+      WorkflowPreferences? categories});
 }
 
 /// @nodoc
-class __$$SetPreferencesPropertiesImplCopyWithImpl<$Res>
-    extends _$SetPreferencesPropertiesCopyWithImpl<$Res,
-        _$SetPreferencesPropertiesImpl>
-    implements _$$SetPreferencesPropertiesImplCopyWith<$Res> {
-  __$$SetPreferencesPropertiesImplCopyWithImpl(
-      _$SetPreferencesPropertiesImpl _value,
-      $Res Function(_$SetPreferencesPropertiesImpl) _then)
-      : super(_value, _then);
+class _$SetPreferencesPropertiesCopyWithImpl<$Res>
+    implements $SetPreferencesPropertiesCopyWith<$Res> {
+  _$SetPreferencesPropertiesCopyWithImpl(this._self, this._then);
 
+  final SetPreferencesProperties _self;
+  final $Res Function(SetPreferencesProperties) _then;
+
+  /// Create a copy of SetPreferencesProperties
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -840,52 +1480,251 @@ class __$$SetPreferencesPropertiesImplCopyWithImpl<$Res>
     Object? workflows = freezed,
     Object? categories = freezed,
   }) {
-    return _then(_$SetPreferencesPropertiesImpl(
+    return _then(_self.copyWith(
       channelTypes: freezed == channelTypes
-          ? _value._channelTypes
+          ? _self.channelTypes
           : channelTypes // ignore: cast_nullable_to_non_nullable
-              as Map<ChannelType, ChannelTypePreference>?,
+              as ChannelTypePreferences?,
       workflows: freezed == workflows
-          ? _value._workflows
+          ? _self.workflows
           : workflows // ignore: cast_nullable_to_non_nullable
-              as Map<String, WorkflowPreferenceSetting>?,
+              as WorkflowPreferences?,
       categories: freezed == categories
-          ? _value._categories
+          ? _self.categories
           : categories // ignore: cast_nullable_to_non_nullable
-              as Map<String, WorkflowPreferenceSetting>?,
+              as WorkflowPreferences?,
     ));
+  }
+}
+
+/// Adds pattern-matching-related methods to [SetPreferencesProperties].
+extension SetPreferencesPropertiesPatterns on SetPreferencesProperties {
+  /// A variant of `map` that fallback to returning `orElse`.
+  ///
+  /// It is equivalent to doing:
+  /// ```dart
+  /// switch (sealedClass) {
+  ///   case final Subclass value:
+  ///     return ...;
+  ///   case _:
+  ///     return orElse();
+  /// }
+  /// ```
+
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>(
+    TResult Function(_SetPreferencesProperties value)? $default, {
+    required TResult orElse(),
+  }) {
+    final _that = this;
+    switch (_that) {
+      case _SetPreferencesProperties() when $default != null:
+        return $default(_that);
+      case _:
+        return orElse();
+    }
+  }
+
+  /// A `switch`-like method, using callbacks.
+  ///
+  /// Callbacks receives the raw object, upcasted.
+  /// It is equivalent to doing:
+  /// ```dart
+  /// switch (sealedClass) {
+  ///   case final Subclass value:
+  ///     return ...;
+  ///   case final Subclass2 value:
+  ///     return ...;
+  /// }
+  /// ```
+
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>(
+    TResult Function(_SetPreferencesProperties value) $default,
+  ) {
+    final _that = this;
+    switch (_that) {
+      case _SetPreferencesProperties():
+        return $default(_that);
+      case _:
+        throw StateError('Unexpected subclass');
+    }
+  }
+
+  /// A variant of `map` that fallback to returning `null`.
+  ///
+  /// It is equivalent to doing:
+  /// ```dart
+  /// switch (sealedClass) {
+  ///   case final Subclass value:
+  ///     return ...;
+  ///   case _:
+  ///     return null;
+  /// }
+  /// ```
+
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>(
+    TResult? Function(_SetPreferencesProperties value)? $default,
+  ) {
+    final _that = this;
+    switch (_that) {
+      case _SetPreferencesProperties() when $default != null:
+        return $default(_that);
+      case _:
+        return null;
+    }
+  }
+
+  /// A variant of `when` that fallback to an `orElse` callback.
+  ///
+  /// It is equivalent to doing:
+  /// ```dart
+  /// switch (sealedClass) {
+  ///   case Subclass(:final field):
+  ///     return ...;
+  ///   case _:
+  ///     return orElse();
+  /// }
+  /// ```
+
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>(
+    TResult Function(
+            @JsonKey(
+                name: 'channel_types',
+                toJson: _channelTypePreferencesToJson,
+                fromJson: _channelTypePreferencesFromJson)
+            ChannelTypePreferences? channelTypes,
+            @JsonKey(
+                toJson: _workflowPreferencesToJson,
+                fromJson: _workflowPreferencesFromJson)
+            WorkflowPreferences? workflows,
+            @JsonKey(
+                toJson: _workflowPreferencesToJson,
+                fromJson: _workflowPreferencesFromJson)
+            WorkflowPreferences? categories)?
+        $default, {
+    required TResult orElse(),
+  }) {
+    final _that = this;
+    switch (_that) {
+      case _SetPreferencesProperties() when $default != null:
+        return $default(_that.channelTypes, _that.workflows, _that.categories);
+      case _:
+        return orElse();
+    }
+  }
+
+  /// A `switch`-like method, using callbacks.
+  ///
+  /// As opposed to `map`, this offers destructuring.
+  /// It is equivalent to doing:
+  /// ```dart
+  /// switch (sealedClass) {
+  ///   case Subclass(:final field):
+  ///     return ...;
+  ///   case Subclass2(:final field2):
+  ///     return ...;
+  /// }
+  /// ```
+
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>(
+    TResult Function(
+            @JsonKey(
+                name: 'channel_types',
+                toJson: _channelTypePreferencesToJson,
+                fromJson: _channelTypePreferencesFromJson)
+            ChannelTypePreferences? channelTypes,
+            @JsonKey(
+                toJson: _workflowPreferencesToJson,
+                fromJson: _workflowPreferencesFromJson)
+            WorkflowPreferences? workflows,
+            @JsonKey(
+                toJson: _workflowPreferencesToJson,
+                fromJson: _workflowPreferencesFromJson)
+            WorkflowPreferences? categories)
+        $default,
+  ) {
+    final _that = this;
+    switch (_that) {
+      case _SetPreferencesProperties():
+        return $default(_that.channelTypes, _that.workflows, _that.categories);
+      case _:
+        throw StateError('Unexpected subclass');
+    }
+  }
+
+  /// A variant of `when` that fallback to returning `null`
+  ///
+  /// It is equivalent to doing:
+  /// ```dart
+  /// switch (sealedClass) {
+  ///   case Subclass(:final field):
+  ///     return ...;
+  ///   case _:
+  ///     return null;
+  /// }
+  /// ```
+
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>(
+    TResult? Function(
+            @JsonKey(
+                name: 'channel_types',
+                toJson: _channelTypePreferencesToJson,
+                fromJson: _channelTypePreferencesFromJson)
+            ChannelTypePreferences? channelTypes,
+            @JsonKey(
+                toJson: _workflowPreferencesToJson,
+                fromJson: _workflowPreferencesFromJson)
+            WorkflowPreferences? workflows,
+            @JsonKey(
+                toJson: _workflowPreferencesToJson,
+                fromJson: _workflowPreferencesFromJson)
+            WorkflowPreferences? categories)?
+        $default,
+  ) {
+    final _that = this;
+    switch (_that) {
+      case _SetPreferencesProperties() when $default != null:
+        return $default(_that.channelTypes, _that.workflows, _that.categories);
+      case _:
+        return null;
+    }
   }
 }
 
 /// @nodoc
 
 @JsonSerializable(explicitToJson: true)
-class _$SetPreferencesPropertiesImpl implements _SetPreferencesProperties {
-  const _$SetPreferencesPropertiesImpl(
+class _SetPreferencesProperties implements SetPreferencesProperties {
+  const _SetPreferencesProperties(
       {@JsonKey(
           name: 'channel_types',
           toJson: _channelTypePreferencesToJson,
           fromJson: _channelTypePreferencesFromJson)
-      required final Map<ChannelType, ChannelTypePreference>? channelTypes,
+      required final ChannelTypePreferences? channelTypes,
       @JsonKey(
           toJson: _workflowPreferencesToJson,
           fromJson: _workflowPreferencesFromJson)
-      required final Map<String, WorkflowPreferenceSetting>? workflows,
+      required final WorkflowPreferences? workflows,
       @JsonKey(
           toJson: _workflowPreferencesToJson,
           fromJson: _workflowPreferencesFromJson)
-      required final Map<String, WorkflowPreferenceSetting>? categories})
+      required final WorkflowPreferences? categories})
       : _channelTypes = channelTypes,
         _workflows = workflows,
         _categories = categories;
 
-  final Map<ChannelType, ChannelTypePreference>? _channelTypes;
+  final ChannelTypePreferences? _channelTypes;
   @override
   @JsonKey(
       name: 'channel_types',
       toJson: _channelTypePreferencesToJson,
       fromJson: _channelTypePreferencesFromJson)
-  Map<ChannelType, ChannelTypePreference>? get channelTypes {
+  ChannelTypePreferences? get channelTypes {
     final value = _channelTypes;
     if (value == null) return null;
     if (_channelTypes is EqualUnmodifiableMapView) return _channelTypes;
@@ -893,12 +1732,12 @@ class _$SetPreferencesPropertiesImpl implements _SetPreferencesProperties {
     return EqualUnmodifiableMapView(value);
   }
 
-  final Map<String, WorkflowPreferenceSetting>? _workflows;
+  final WorkflowPreferences? _workflows;
   @override
   @JsonKey(
       toJson: _workflowPreferencesToJson,
       fromJson: _workflowPreferencesFromJson)
-  Map<String, WorkflowPreferenceSetting>? get workflows {
+  WorkflowPreferences? get workflows {
     final value = _workflows;
     if (value == null) return null;
     if (_workflows is EqualUnmodifiableMapView) return _workflows;
@@ -906,12 +1745,12 @@ class _$SetPreferencesPropertiesImpl implements _SetPreferencesProperties {
     return EqualUnmodifiableMapView(value);
   }
 
-  final Map<String, WorkflowPreferenceSetting>? _categories;
+  final WorkflowPreferences? _categories;
   @override
   @JsonKey(
       toJson: _workflowPreferencesToJson,
       fromJson: _workflowPreferencesFromJson)
-  Map<String, WorkflowPreferenceSetting>? get categories {
+  WorkflowPreferences? get categories {
     final value = _categories;
     if (value == null) return null;
     if (_categories is EqualUnmodifiableMapView) return _categories;
@@ -919,16 +1758,27 @@ class _$SetPreferencesPropertiesImpl implements _SetPreferencesProperties {
     return EqualUnmodifiableMapView(value);
   }
 
+  /// Create a copy of SetPreferencesProperties
+  /// with the given fields replaced by the non-null parameter values.
   @override
-  String toString() {
-    return 'SetPreferencesProperties(channelTypes: $channelTypes, workflows: $workflows, categories: $categories)';
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  @pragma('vm:prefer-inline')
+  _$SetPreferencesPropertiesCopyWith<_SetPreferencesProperties> get copyWith =>
+      __$SetPreferencesPropertiesCopyWithImpl<_SetPreferencesProperties>(
+          this, _$identity);
+
+  @override
+  Map<String, dynamic> toJson() {
+    return _$SetPreferencesPropertiesToJson(
+      this,
+    );
   }
 
   @override
   bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$SetPreferencesPropertiesImpl &&
+            other is _SetPreferencesProperties &&
             const DeepCollectionEquality()
                 .equals(other._channelTypes, _channelTypes) &&
             const DeepCollectionEquality()
@@ -937,7 +1787,7 @@ class _$SetPreferencesPropertiesImpl implements _SetPreferencesProperties {
                 .equals(other._categories, _categories));
   }
 
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   int get hashCode => Object.hash(
       runtimeType,
@@ -945,159 +1795,131 @@ class _$SetPreferencesPropertiesImpl implements _SetPreferencesProperties {
       const DeepCollectionEquality().hash(_workflows),
       const DeepCollectionEquality().hash(_categories));
 
-  @JsonKey(ignore: true)
   @override
-  @pragma('vm:prefer-inline')
-  _$$SetPreferencesPropertiesImplCopyWith<_$SetPreferencesPropertiesImpl>
-      get copyWith => __$$SetPreferencesPropertiesImplCopyWithImpl<
-          _$SetPreferencesPropertiesImpl>(this, _$identity);
-
-  @override
-  Map<String, dynamic> toJson() {
-    return _$$SetPreferencesPropertiesImplToJson(
-      this,
-    );
+  String toString() {
+    return 'SetPreferencesProperties(channelTypes: $channelTypes, workflows: $workflows, categories: $categories)';
   }
 }
 
-abstract class _SetPreferencesProperties implements SetPreferencesProperties {
-  const factory _SetPreferencesProperties(
-          {@JsonKey(
-              name: 'channel_types',
-              toJson: _channelTypePreferencesToJson,
-              fromJson: _channelTypePreferencesFromJson)
-          required final Map<ChannelType, ChannelTypePreference>? channelTypes,
-          @JsonKey(
-              toJson: _workflowPreferencesToJson,
-              fromJson: _workflowPreferencesFromJson)
-          required final Map<String, WorkflowPreferenceSetting>? workflows,
-          @JsonKey(
-              toJson: _workflowPreferencesToJson,
-              fromJson: _workflowPreferencesFromJson)
-          required final Map<String, WorkflowPreferenceSetting>? categories}) =
-      _$SetPreferencesPropertiesImpl;
-
+/// @nodoc
+abstract mixin class _$SetPreferencesPropertiesCopyWith<$Res>
+    implements $SetPreferencesPropertiesCopyWith<$Res> {
+  factory _$SetPreferencesPropertiesCopyWith(_SetPreferencesProperties value,
+          $Res Function(_SetPreferencesProperties) _then) =
+      __$SetPreferencesPropertiesCopyWithImpl;
   @override
-  @JsonKey(
-      name: 'channel_types',
-      toJson: _channelTypePreferencesToJson,
-      fromJson: _channelTypePreferencesFromJson)
-  Map<ChannelType, ChannelTypePreference>? get channelTypes;
-  @override
-  @JsonKey(
-      toJson: _workflowPreferencesToJson,
-      fromJson: _workflowPreferencesFromJson)
-  Map<String, WorkflowPreferenceSetting>? get workflows;
-  @override
-  @JsonKey(
-      toJson: _workflowPreferencesToJson,
-      fromJson: _workflowPreferencesFromJson)
-  Map<String, WorkflowPreferenceSetting>? get categories;
-  @override
-  @JsonKey(ignore: true)
-  _$$SetPreferencesPropertiesImplCopyWith<_$SetPreferencesPropertiesImpl>
-      get copyWith => throw _privateConstructorUsedError;
+  @useResult
+  $Res call(
+      {@JsonKey(
+          name: 'channel_types',
+          toJson: _channelTypePreferencesToJson,
+          fromJson: _channelTypePreferencesFromJson)
+      ChannelTypePreferences? channelTypes,
+      @JsonKey(
+          toJson: _workflowPreferencesToJson,
+          fromJson: _workflowPreferencesFromJson)
+      WorkflowPreferences? workflows,
+      @JsonKey(
+          toJson: _workflowPreferencesToJson,
+          fromJson: _workflowPreferencesFromJson)
+      WorkflowPreferences? categories});
 }
 
-PreferenceSet _$PreferenceSetFromJson(Map<String, dynamic> json) {
-  return _PreferenceSet.fromJson(json);
+/// @nodoc
+class __$SetPreferencesPropertiesCopyWithImpl<$Res>
+    implements _$SetPreferencesPropertiesCopyWith<$Res> {
+  __$SetPreferencesPropertiesCopyWithImpl(this._self, this._then);
+
+  final _SetPreferencesProperties _self;
+  final $Res Function(_SetPreferencesProperties) _then;
+
+  /// Create a copy of SetPreferencesProperties
+  /// with the given fields replaced by the non-null parameter values.
+  @override
+  @pragma('vm:prefer-inline')
+  $Res call({
+    Object? channelTypes = freezed,
+    Object? workflows = freezed,
+    Object? categories = freezed,
+  }) {
+    return _then(_SetPreferencesProperties(
+      channelTypes: freezed == channelTypes
+          ? _self._channelTypes
+          : channelTypes // ignore: cast_nullable_to_non_nullable
+              as ChannelTypePreferences?,
+      workflows: freezed == workflows
+          ? _self._workflows
+          : workflows // ignore: cast_nullable_to_non_nullable
+              as WorkflowPreferences?,
+      categories: freezed == categories
+          ? _self._categories
+          : categories // ignore: cast_nullable_to_non_nullable
+              as WorkflowPreferences?,
+    ));
+  }
 }
 
 /// @nodoc
 mixin _$PreferenceSet {
-  String get id => throw _privateConstructorUsedError;
+  String get id;
   @JsonKey(
       name: 'channel_types',
       toJson: _channelTypePreferencesToJson,
       fromJson: _channelTypePreferencesFromJson)
-  Map<ChannelType, ChannelTypePreference>? get channelTypes =>
-      throw _privateConstructorUsedError;
+  ChannelTypePreferences? get channelTypes;
   @JsonKey(
       toJson: _workflowPreferencesToJson,
       fromJson: _workflowPreferencesFromJson)
-  Map<String, WorkflowPreferenceSetting>? get workflows =>
-      throw _privateConstructorUsedError;
+  WorkflowPreferences? get workflows;
   @JsonKey(
       toJson: _workflowPreferencesToJson,
       fromJson: _workflowPreferencesFromJson)
-  Map<String, WorkflowPreferenceSetting>? get categories =>
-      throw _privateConstructorUsedError;
+  WorkflowPreferences? get categories;
 
-  Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
-  @JsonKey(ignore: true)
-  $PreferenceSetCopyWith<PreferenceSet> get copyWith =>
-      throw _privateConstructorUsedError;
-}
-
-/// @nodoc
-abstract class $PreferenceSetCopyWith<$Res> {
-  factory $PreferenceSetCopyWith(
-          PreferenceSet value, $Res Function(PreferenceSet) then) =
-      _$PreferenceSetCopyWithImpl<$Res, PreferenceSet>;
-  @useResult
-  $Res call(
-      {String id,
-      @JsonKey(
-          name: 'channel_types',
-          toJson: _channelTypePreferencesToJson,
-          fromJson: _channelTypePreferencesFromJson)
-      Map<ChannelType, ChannelTypePreference>? channelTypes,
-      @JsonKey(
-          toJson: _workflowPreferencesToJson,
-          fromJson: _workflowPreferencesFromJson)
-      Map<String, WorkflowPreferenceSetting>? workflows,
-      @JsonKey(
-          toJson: _workflowPreferencesToJson,
-          fromJson: _workflowPreferencesFromJson)
-      Map<String, WorkflowPreferenceSetting>? categories});
-}
-
-/// @nodoc
-class _$PreferenceSetCopyWithImpl<$Res, $Val extends PreferenceSet>
-    implements $PreferenceSetCopyWith<$Res> {
-  _$PreferenceSetCopyWithImpl(this._value, this._then);
-
-  // ignore: unused_field
-  final $Val _value;
-  // ignore: unused_field
-  final $Res Function($Val) _then;
-
+  /// Create a copy of PreferenceSet
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @pragma('vm:prefer-inline')
+  $PreferenceSetCopyWith<PreferenceSet> get copyWith =>
+      _$PreferenceSetCopyWithImpl<PreferenceSet>(
+          this as PreferenceSet, _$identity);
+
+  /// Serializes this PreferenceSet to a JSON map.
+  Map<String, dynamic> toJson();
+
   @override
-  $Res call({
-    Object? id = null,
-    Object? channelTypes = freezed,
-    Object? workflows = freezed,
-    Object? categories = freezed,
-  }) {
-    return _then(_value.copyWith(
-      id: null == id
-          ? _value.id
-          : id // ignore: cast_nullable_to_non_nullable
-              as String,
-      channelTypes: freezed == channelTypes
-          ? _value.channelTypes
-          : channelTypes // ignore: cast_nullable_to_non_nullable
-              as Map<ChannelType, ChannelTypePreference>?,
-      workflows: freezed == workflows
-          ? _value.workflows
-          : workflows // ignore: cast_nullable_to_non_nullable
-              as Map<String, WorkflowPreferenceSetting>?,
-      categories: freezed == categories
-          ? _value.categories
-          : categories // ignore: cast_nullable_to_non_nullable
-              as Map<String, WorkflowPreferenceSetting>?,
-    ) as $Val);
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is PreferenceSet &&
+            (identical(other.id, id) || other.id == id) &&
+            const DeepCollectionEquality()
+                .equals(other.channelTypes, channelTypes) &&
+            const DeepCollectionEquality().equals(other.workflows, workflows) &&
+            const DeepCollectionEquality()
+                .equals(other.categories, categories));
+  }
+
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  @override
+  int get hashCode => Object.hash(
+      runtimeType,
+      id,
+      const DeepCollectionEquality().hash(channelTypes),
+      const DeepCollectionEquality().hash(workflows),
+      const DeepCollectionEquality().hash(categories));
+
+  @override
+  String toString() {
+    return 'PreferenceSet(id: $id, channelTypes: $channelTypes, workflows: $workflows, categories: $categories)';
   }
 }
 
 /// @nodoc
-abstract class _$$PreferenceSetImplCopyWith<$Res>
-    implements $PreferenceSetCopyWith<$Res> {
-  factory _$$PreferenceSetImplCopyWith(
-          _$PreferenceSetImpl value, $Res Function(_$PreferenceSetImpl) then) =
-      __$$PreferenceSetImplCopyWithImpl<$Res>;
-  @override
+abstract mixin class $PreferenceSetCopyWith<$Res> {
+  factory $PreferenceSetCopyWith(
+          PreferenceSet value, $Res Function(PreferenceSet) _then) =
+      _$PreferenceSetCopyWithImpl;
   @useResult
   $Res call(
       {String id,
@@ -1105,25 +1927,27 @@ abstract class _$$PreferenceSetImplCopyWith<$Res>
           name: 'channel_types',
           toJson: _channelTypePreferencesToJson,
           fromJson: _channelTypePreferencesFromJson)
-      Map<ChannelType, ChannelTypePreference>? channelTypes,
+      ChannelTypePreferences? channelTypes,
       @JsonKey(
           toJson: _workflowPreferencesToJson,
           fromJson: _workflowPreferencesFromJson)
-      Map<String, WorkflowPreferenceSetting>? workflows,
+      WorkflowPreferences? workflows,
       @JsonKey(
           toJson: _workflowPreferencesToJson,
           fromJson: _workflowPreferencesFromJson)
-      Map<String, WorkflowPreferenceSetting>? categories});
+      WorkflowPreferences? categories});
 }
 
 /// @nodoc
-class __$$PreferenceSetImplCopyWithImpl<$Res>
-    extends _$PreferenceSetCopyWithImpl<$Res, _$PreferenceSetImpl>
-    implements _$$PreferenceSetImplCopyWith<$Res> {
-  __$$PreferenceSetImplCopyWithImpl(
-      _$PreferenceSetImpl _value, $Res Function(_$PreferenceSetImpl) _then)
-      : super(_value, _then);
+class _$PreferenceSetCopyWithImpl<$Res>
+    implements $PreferenceSetCopyWith<$Res> {
+  _$PreferenceSetCopyWithImpl(this._self, this._then);
 
+  final PreferenceSet _self;
+  final $Res Function(PreferenceSet) _then;
+
+  /// Create a copy of PreferenceSet
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -1132,62 +1956,266 @@ class __$$PreferenceSetImplCopyWithImpl<$Res>
     Object? workflows = freezed,
     Object? categories = freezed,
   }) {
-    return _then(_$PreferenceSetImpl(
+    return _then(_self.copyWith(
       id: null == id
-          ? _value.id
+          ? _self.id
           : id // ignore: cast_nullable_to_non_nullable
               as String,
       channelTypes: freezed == channelTypes
-          ? _value._channelTypes
+          ? _self.channelTypes
           : channelTypes // ignore: cast_nullable_to_non_nullable
-              as Map<ChannelType, ChannelTypePreference>?,
+              as ChannelTypePreferences?,
       workflows: freezed == workflows
-          ? _value._workflows
+          ? _self.workflows
           : workflows // ignore: cast_nullable_to_non_nullable
-              as Map<String, WorkflowPreferenceSetting>?,
+              as WorkflowPreferences?,
       categories: freezed == categories
-          ? _value._categories
+          ? _self.categories
           : categories // ignore: cast_nullable_to_non_nullable
-              as Map<String, WorkflowPreferenceSetting>?,
+              as WorkflowPreferences?,
     ));
+  }
+}
+
+/// Adds pattern-matching-related methods to [PreferenceSet].
+extension PreferenceSetPatterns on PreferenceSet {
+  /// A variant of `map` that fallback to returning `orElse`.
+  ///
+  /// It is equivalent to doing:
+  /// ```dart
+  /// switch (sealedClass) {
+  ///   case final Subclass value:
+  ///     return ...;
+  ///   case _:
+  ///     return orElse();
+  /// }
+  /// ```
+
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>(
+    TResult Function(_PreferenceSet value)? $default, {
+    required TResult orElse(),
+  }) {
+    final _that = this;
+    switch (_that) {
+      case _PreferenceSet() when $default != null:
+        return $default(_that);
+      case _:
+        return orElse();
+    }
+  }
+
+  /// A `switch`-like method, using callbacks.
+  ///
+  /// Callbacks receives the raw object, upcasted.
+  /// It is equivalent to doing:
+  /// ```dart
+  /// switch (sealedClass) {
+  ///   case final Subclass value:
+  ///     return ...;
+  ///   case final Subclass2 value:
+  ///     return ...;
+  /// }
+  /// ```
+
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>(
+    TResult Function(_PreferenceSet value) $default,
+  ) {
+    final _that = this;
+    switch (_that) {
+      case _PreferenceSet():
+        return $default(_that);
+      case _:
+        throw StateError('Unexpected subclass');
+    }
+  }
+
+  /// A variant of `map` that fallback to returning `null`.
+  ///
+  /// It is equivalent to doing:
+  /// ```dart
+  /// switch (sealedClass) {
+  ///   case final Subclass value:
+  ///     return ...;
+  ///   case _:
+  ///     return null;
+  /// }
+  /// ```
+
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>(
+    TResult? Function(_PreferenceSet value)? $default,
+  ) {
+    final _that = this;
+    switch (_that) {
+      case _PreferenceSet() when $default != null:
+        return $default(_that);
+      case _:
+        return null;
+    }
+  }
+
+  /// A variant of `when` that fallback to an `orElse` callback.
+  ///
+  /// It is equivalent to doing:
+  /// ```dart
+  /// switch (sealedClass) {
+  ///   case Subclass(:final field):
+  ///     return ...;
+  ///   case _:
+  ///     return orElse();
+  /// }
+  /// ```
+
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>(
+    TResult Function(
+            String id,
+            @JsonKey(
+                name: 'channel_types',
+                toJson: _channelTypePreferencesToJson,
+                fromJson: _channelTypePreferencesFromJson)
+            ChannelTypePreferences? channelTypes,
+            @JsonKey(
+                toJson: _workflowPreferencesToJson,
+                fromJson: _workflowPreferencesFromJson)
+            WorkflowPreferences? workflows,
+            @JsonKey(
+                toJson: _workflowPreferencesToJson,
+                fromJson: _workflowPreferencesFromJson)
+            WorkflowPreferences? categories)?
+        $default, {
+    required TResult orElse(),
+  }) {
+    final _that = this;
+    switch (_that) {
+      case _PreferenceSet() when $default != null:
+        return $default(
+            _that.id, _that.channelTypes, _that.workflows, _that.categories);
+      case _:
+        return orElse();
+    }
+  }
+
+  /// A `switch`-like method, using callbacks.
+  ///
+  /// As opposed to `map`, this offers destructuring.
+  /// It is equivalent to doing:
+  /// ```dart
+  /// switch (sealedClass) {
+  ///   case Subclass(:final field):
+  ///     return ...;
+  ///   case Subclass2(:final field2):
+  ///     return ...;
+  /// }
+  /// ```
+
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>(
+    TResult Function(
+            String id,
+            @JsonKey(
+                name: 'channel_types',
+                toJson: _channelTypePreferencesToJson,
+                fromJson: _channelTypePreferencesFromJson)
+            ChannelTypePreferences? channelTypes,
+            @JsonKey(
+                toJson: _workflowPreferencesToJson,
+                fromJson: _workflowPreferencesFromJson)
+            WorkflowPreferences? workflows,
+            @JsonKey(
+                toJson: _workflowPreferencesToJson,
+                fromJson: _workflowPreferencesFromJson)
+            WorkflowPreferences? categories)
+        $default,
+  ) {
+    final _that = this;
+    switch (_that) {
+      case _PreferenceSet():
+        return $default(
+            _that.id, _that.channelTypes, _that.workflows, _that.categories);
+      case _:
+        throw StateError('Unexpected subclass');
+    }
+  }
+
+  /// A variant of `when` that fallback to returning `null`
+  ///
+  /// It is equivalent to doing:
+  /// ```dart
+  /// switch (sealedClass) {
+  ///   case Subclass(:final field):
+  ///     return ...;
+  ///   case _:
+  ///     return null;
+  /// }
+  /// ```
+
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>(
+    TResult? Function(
+            String id,
+            @JsonKey(
+                name: 'channel_types',
+                toJson: _channelTypePreferencesToJson,
+                fromJson: _channelTypePreferencesFromJson)
+            ChannelTypePreferences? channelTypes,
+            @JsonKey(
+                toJson: _workflowPreferencesToJson,
+                fromJson: _workflowPreferencesFromJson)
+            WorkflowPreferences? workflows,
+            @JsonKey(
+                toJson: _workflowPreferencesToJson,
+                fromJson: _workflowPreferencesFromJson)
+            WorkflowPreferences? categories)?
+        $default,
+  ) {
+    final _that = this;
+    switch (_that) {
+      case _PreferenceSet() when $default != null:
+        return $default(
+            _that.id, _that.channelTypes, _that.workflows, _that.categories);
+      case _:
+        return null;
+    }
   }
 }
 
 /// @nodoc
 
 @JsonSerializable(explicitToJson: true)
-class _$PreferenceSetImpl implements _PreferenceSet {
-  const _$PreferenceSetImpl(
+class _PreferenceSet implements PreferenceSet {
+  const _PreferenceSet(
       {required this.id,
       @JsonKey(
           name: 'channel_types',
           toJson: _channelTypePreferencesToJson,
           fromJson: _channelTypePreferencesFromJson)
-      required final Map<ChannelType, ChannelTypePreference>? channelTypes,
+      required final ChannelTypePreferences? channelTypes,
       @JsonKey(
           toJson: _workflowPreferencesToJson,
           fromJson: _workflowPreferencesFromJson)
-      required final Map<String, WorkflowPreferenceSetting>? workflows,
+      required final WorkflowPreferences? workflows,
       @JsonKey(
           toJson: _workflowPreferencesToJson,
           fromJson: _workflowPreferencesFromJson)
-      required final Map<String, WorkflowPreferenceSetting>? categories})
+      required final WorkflowPreferences? categories})
       : _channelTypes = channelTypes,
         _workflows = workflows,
         _categories = categories;
-
-  factory _$PreferenceSetImpl.fromJson(Map<String, dynamic> json) =>
-      _$$PreferenceSetImplFromJson(json);
+  factory _PreferenceSet.fromJson(Map<String, dynamic> json) =>
+      _$PreferenceSetFromJson(json);
 
   @override
   final String id;
-  final Map<ChannelType, ChannelTypePreference>? _channelTypes;
+  final ChannelTypePreferences? _channelTypes;
   @override
   @JsonKey(
       name: 'channel_types',
       toJson: _channelTypePreferencesToJson,
       fromJson: _channelTypePreferencesFromJson)
-  Map<ChannelType, ChannelTypePreference>? get channelTypes {
+  ChannelTypePreferences? get channelTypes {
     final value = _channelTypes;
     if (value == null) return null;
     if (_channelTypes is EqualUnmodifiableMapView) return _channelTypes;
@@ -1195,12 +2223,12 @@ class _$PreferenceSetImpl implements _PreferenceSet {
     return EqualUnmodifiableMapView(value);
   }
 
-  final Map<String, WorkflowPreferenceSetting>? _workflows;
+  final WorkflowPreferences? _workflows;
   @override
   @JsonKey(
       toJson: _workflowPreferencesToJson,
       fromJson: _workflowPreferencesFromJson)
-  Map<String, WorkflowPreferenceSetting>? get workflows {
+  WorkflowPreferences? get workflows {
     final value = _workflows;
     if (value == null) return null;
     if (_workflows is EqualUnmodifiableMapView) return _workflows;
@@ -1208,12 +2236,12 @@ class _$PreferenceSetImpl implements _PreferenceSet {
     return EqualUnmodifiableMapView(value);
   }
 
-  final Map<String, WorkflowPreferenceSetting>? _categories;
+  final WorkflowPreferences? _categories;
   @override
   @JsonKey(
       toJson: _workflowPreferencesToJson,
       fromJson: _workflowPreferencesFromJson)
-  Map<String, WorkflowPreferenceSetting>? get categories {
+  WorkflowPreferences? get categories {
     final value = _categories;
     if (value == null) return null;
     if (_categories is EqualUnmodifiableMapView) return _categories;
@@ -1221,16 +2249,26 @@ class _$PreferenceSetImpl implements _PreferenceSet {
     return EqualUnmodifiableMapView(value);
   }
 
+  /// Create a copy of PreferenceSet
+  /// with the given fields replaced by the non-null parameter values.
   @override
-  String toString() {
-    return 'PreferenceSet(id: $id, channelTypes: $channelTypes, workflows: $workflows, categories: $categories)';
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  @pragma('vm:prefer-inline')
+  _$PreferenceSetCopyWith<_PreferenceSet> get copyWith =>
+      __$PreferenceSetCopyWithImpl<_PreferenceSet>(this, _$identity);
+
+  @override
+  Map<String, dynamic> toJson() {
+    return _$PreferenceSetToJson(
+      this,
+    );
   }
 
   @override
   bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$PreferenceSetImpl &&
+            other is _PreferenceSet &&
             (identical(other.id, id) || other.id == id) &&
             const DeepCollectionEquality()
                 .equals(other._channelTypes, _channelTypes) &&
@@ -1240,7 +2278,7 @@ class _$PreferenceSetImpl implements _PreferenceSet {
                 .equals(other._categories, _categories));
   }
 
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   int get hashCode => Object.hash(
       runtimeType,
@@ -1249,194 +2287,98 @@ class _$PreferenceSetImpl implements _PreferenceSet {
       const DeepCollectionEquality().hash(_workflows),
       const DeepCollectionEquality().hash(_categories));
 
-  @JsonKey(ignore: true)
   @override
-  @pragma('vm:prefer-inline')
-  _$$PreferenceSetImplCopyWith<_$PreferenceSetImpl> get copyWith =>
-      __$$PreferenceSetImplCopyWithImpl<_$PreferenceSetImpl>(this, _$identity);
-
-  @override
-  Map<String, dynamic> toJson() {
-    return _$$PreferenceSetImplToJson(
-      this,
-    );
-  }
-}
-
-abstract class _PreferenceSet implements PreferenceSet {
-  const factory _PreferenceSet(
-          {required final String id,
-          @JsonKey(
-              name: 'channel_types',
-              toJson: _channelTypePreferencesToJson,
-              fromJson: _channelTypePreferencesFromJson)
-          required final Map<ChannelType, ChannelTypePreference>? channelTypes,
-          @JsonKey(
-              toJson: _workflowPreferencesToJson,
-              fromJson: _workflowPreferencesFromJson)
-          required final Map<String, WorkflowPreferenceSetting>? workflows,
-          @JsonKey(
-              toJson: _workflowPreferencesToJson,
-              fromJson: _workflowPreferencesFromJson)
-          required final Map<String, WorkflowPreferenceSetting>? categories}) =
-      _$PreferenceSetImpl;
-
-  factory _PreferenceSet.fromJson(Map<String, dynamic> json) =
-      _$PreferenceSetImpl.fromJson;
-
-  @override
-  String get id;
-  @override
-  @JsonKey(
-      name: 'channel_types',
-      toJson: _channelTypePreferencesToJson,
-      fromJson: _channelTypePreferencesFromJson)
-  Map<ChannelType, ChannelTypePreference>? get channelTypes;
-  @override
-  @JsonKey(
-      toJson: _workflowPreferencesToJson,
-      fromJson: _workflowPreferencesFromJson)
-  Map<String, WorkflowPreferenceSetting>? get workflows;
-  @override
-  @JsonKey(
-      toJson: _workflowPreferencesToJson,
-      fromJson: _workflowPreferencesFromJson)
-  Map<String, WorkflowPreferenceSetting>? get categories;
-  @override
-  @JsonKey(ignore: true)
-  _$$PreferenceSetImplCopyWith<_$PreferenceSetImpl> get copyWith =>
-      throw _privateConstructorUsedError;
-}
-
-PreferenceCondition _$PreferenceConditionFromJson(Map<String, dynamic> json) {
-  return _PreferenceCondition.fromJson(json);
-}
-
-/// @nodoc
-mixin _$PreferenceCondition {
-  String get variable => throw _privateConstructorUsedError;
-  String get operator => throw _privateConstructorUsedError;
-  String get argument => throw _privateConstructorUsedError;
-
-  Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
-  @JsonKey(ignore: true)
-  $PreferenceConditionCopyWith<PreferenceCondition> get copyWith =>
-      throw _privateConstructorUsedError;
-}
-
-/// @nodoc
-abstract class $PreferenceConditionCopyWith<$Res> {
-  factory $PreferenceConditionCopyWith(
-          PreferenceCondition value, $Res Function(PreferenceCondition) then) =
-      _$PreferenceConditionCopyWithImpl<$Res, PreferenceCondition>;
-  @useResult
-  $Res call({String variable, String operator, String argument});
-}
-
-/// @nodoc
-class _$PreferenceConditionCopyWithImpl<$Res, $Val extends PreferenceCondition>
-    implements $PreferenceConditionCopyWith<$Res> {
-  _$PreferenceConditionCopyWithImpl(this._value, this._then);
-
-  // ignore: unused_field
-  final $Val _value;
-  // ignore: unused_field
-  final $Res Function($Val) _then;
-
-  @pragma('vm:prefer-inline')
-  @override
-  $Res call({
-    Object? variable = null,
-    Object? operator = null,
-    Object? argument = null,
-  }) {
-    return _then(_value.copyWith(
-      variable: null == variable
-          ? _value.variable
-          : variable // ignore: cast_nullable_to_non_nullable
-              as String,
-      operator: null == operator
-          ? _value.operator
-          : operator // ignore: cast_nullable_to_non_nullable
-              as String,
-      argument: null == argument
-          ? _value.argument
-          : argument // ignore: cast_nullable_to_non_nullable
-              as String,
-    ) as $Val);
+  String toString() {
+    return 'PreferenceSet(id: $id, channelTypes: $channelTypes, workflows: $workflows, categories: $categories)';
   }
 }
 
 /// @nodoc
-abstract class _$$PreferenceConditionImplCopyWith<$Res>
-    implements $PreferenceConditionCopyWith<$Res> {
-  factory _$$PreferenceConditionImplCopyWith(_$PreferenceConditionImpl value,
-          $Res Function(_$PreferenceConditionImpl) then) =
-      __$$PreferenceConditionImplCopyWithImpl<$Res>;
+abstract mixin class _$PreferenceSetCopyWith<$Res>
+    implements $PreferenceSetCopyWith<$Res> {
+  factory _$PreferenceSetCopyWith(
+          _PreferenceSet value, $Res Function(_PreferenceSet) _then) =
+      __$PreferenceSetCopyWithImpl;
   @override
   @useResult
-  $Res call({String variable, String operator, String argument});
+  $Res call(
+      {String id,
+      @JsonKey(
+          name: 'channel_types',
+          toJson: _channelTypePreferencesToJson,
+          fromJson: _channelTypePreferencesFromJson)
+      ChannelTypePreferences? channelTypes,
+      @JsonKey(
+          toJson: _workflowPreferencesToJson,
+          fromJson: _workflowPreferencesFromJson)
+      WorkflowPreferences? workflows,
+      @JsonKey(
+          toJson: _workflowPreferencesToJson,
+          fromJson: _workflowPreferencesFromJson)
+      WorkflowPreferences? categories});
 }
 
 /// @nodoc
-class __$$PreferenceConditionImplCopyWithImpl<$Res>
-    extends _$PreferenceConditionCopyWithImpl<$Res, _$PreferenceConditionImpl>
-    implements _$$PreferenceConditionImplCopyWith<$Res> {
-  __$$PreferenceConditionImplCopyWithImpl(_$PreferenceConditionImpl _value,
-      $Res Function(_$PreferenceConditionImpl) _then)
-      : super(_value, _then);
+class __$PreferenceSetCopyWithImpl<$Res>
+    implements _$PreferenceSetCopyWith<$Res> {
+  __$PreferenceSetCopyWithImpl(this._self, this._then);
 
-  @pragma('vm:prefer-inline')
+  final _PreferenceSet _self;
+  final $Res Function(_PreferenceSet) _then;
+
+  /// Create a copy of PreferenceSet
+  /// with the given fields replaced by the non-null parameter values.
   @override
+  @pragma('vm:prefer-inline')
   $Res call({
-    Object? variable = null,
-    Object? operator = null,
-    Object? argument = null,
+    Object? id = null,
+    Object? channelTypes = freezed,
+    Object? workflows = freezed,
+    Object? categories = freezed,
   }) {
-    return _then(_$PreferenceConditionImpl(
-      variable: null == variable
-          ? _value.variable
-          : variable // ignore: cast_nullable_to_non_nullable
+    return _then(_PreferenceSet(
+      id: null == id
+          ? _self.id
+          : id // ignore: cast_nullable_to_non_nullable
               as String,
-      operator: null == operator
-          ? _value.operator
-          : operator // ignore: cast_nullable_to_non_nullable
-              as String,
-      argument: null == argument
-          ? _value.argument
-          : argument // ignore: cast_nullable_to_non_nullable
-              as String,
+      channelTypes: freezed == channelTypes
+          ? _self._channelTypes
+          : channelTypes // ignore: cast_nullable_to_non_nullable
+              as ChannelTypePreferences?,
+      workflows: freezed == workflows
+          ? _self._workflows
+          : workflows // ignore: cast_nullable_to_non_nullable
+              as WorkflowPreferences?,
+      categories: freezed == categories
+          ? _self._categories
+          : categories // ignore: cast_nullable_to_non_nullable
+              as WorkflowPreferences?,
     ));
   }
 }
 
 /// @nodoc
+mixin _$PreferenceCondition {
+  String get variable;
+  String get operator;
+  String get argument;
 
-@JsonSerializable(explicitToJson: true)
-class _$PreferenceConditionImpl implements _PreferenceCondition {
-  const _$PreferenceConditionImpl(
-      {required this.variable, required this.operator, required this.argument});
+  /// Create a copy of PreferenceCondition
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  @pragma('vm:prefer-inline')
+  $PreferenceConditionCopyWith<PreferenceCondition> get copyWith =>
+      _$PreferenceConditionCopyWithImpl<PreferenceCondition>(
+          this as PreferenceCondition, _$identity);
 
-  factory _$PreferenceConditionImpl.fromJson(Map<String, dynamic> json) =>
-      _$$PreferenceConditionImplFromJson(json);
-
-  @override
-  final String variable;
-  @override
-  final String operator;
-  @override
-  final String argument;
-
-  @override
-  String toString() {
-    return 'PreferenceCondition(variable: $variable, operator: $operator, argument: $argument)';
-  }
+  /// Serializes this PreferenceCondition to a JSON map.
+  Map<String, dynamic> toJson();
 
   @override
   bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$PreferenceConditionImpl &&
+            other is PreferenceCondition &&
             (identical(other.variable, variable) ||
                 other.variable == variable) &&
             (identical(other.operator, operator) ||
@@ -1445,42 +2387,317 @@ class _$PreferenceConditionImpl implements _PreferenceCondition {
                 other.argument == argument));
   }
 
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   int get hashCode => Object.hash(runtimeType, variable, operator, argument);
 
-  @JsonKey(ignore: true)
   @override
+  String toString() {
+    return 'PreferenceCondition(variable: $variable, operator: $operator, argument: $argument)';
+  }
+}
+
+/// @nodoc
+abstract mixin class $PreferenceConditionCopyWith<$Res> {
+  factory $PreferenceConditionCopyWith(
+          PreferenceCondition value, $Res Function(PreferenceCondition) _then) =
+      _$PreferenceConditionCopyWithImpl;
+  @useResult
+  $Res call({String variable, String operator, String argument});
+}
+
+/// @nodoc
+class _$PreferenceConditionCopyWithImpl<$Res>
+    implements $PreferenceConditionCopyWith<$Res> {
+  _$PreferenceConditionCopyWithImpl(this._self, this._then);
+
+  final PreferenceCondition _self;
+  final $Res Function(PreferenceCondition) _then;
+
+  /// Create a copy of PreferenceCondition
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
-  _$$PreferenceConditionImplCopyWith<_$PreferenceConditionImpl> get copyWith =>
-      __$$PreferenceConditionImplCopyWithImpl<_$PreferenceConditionImpl>(
+  @override
+  $Res call({
+    Object? variable = null,
+    Object? operator = null,
+    Object? argument = null,
+  }) {
+    return _then(_self.copyWith(
+      variable: null == variable
+          ? _self.variable
+          : variable // ignore: cast_nullable_to_non_nullable
+              as String,
+      operator: null == operator
+          ? _self.operator
+          : operator // ignore: cast_nullable_to_non_nullable
+              as String,
+      argument: null == argument
+          ? _self.argument
+          : argument // ignore: cast_nullable_to_non_nullable
+              as String,
+    ));
+  }
+}
+
+/// Adds pattern-matching-related methods to [PreferenceCondition].
+extension PreferenceConditionPatterns on PreferenceCondition {
+  /// A variant of `map` that fallback to returning `orElse`.
+  ///
+  /// It is equivalent to doing:
+  /// ```dart
+  /// switch (sealedClass) {
+  ///   case final Subclass value:
+  ///     return ...;
+  ///   case _:
+  ///     return orElse();
+  /// }
+  /// ```
+
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>(
+    TResult Function(_PreferenceCondition value)? $default, {
+    required TResult orElse(),
+  }) {
+    final _that = this;
+    switch (_that) {
+      case _PreferenceCondition() when $default != null:
+        return $default(_that);
+      case _:
+        return orElse();
+    }
+  }
+
+  /// A `switch`-like method, using callbacks.
+  ///
+  /// Callbacks receives the raw object, upcasted.
+  /// It is equivalent to doing:
+  /// ```dart
+  /// switch (sealedClass) {
+  ///   case final Subclass value:
+  ///     return ...;
+  ///   case final Subclass2 value:
+  ///     return ...;
+  /// }
+  /// ```
+
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>(
+    TResult Function(_PreferenceCondition value) $default,
+  ) {
+    final _that = this;
+    switch (_that) {
+      case _PreferenceCondition():
+        return $default(_that);
+      case _:
+        throw StateError('Unexpected subclass');
+    }
+  }
+
+  /// A variant of `map` that fallback to returning `null`.
+  ///
+  /// It is equivalent to doing:
+  /// ```dart
+  /// switch (sealedClass) {
+  ///   case final Subclass value:
+  ///     return ...;
+  ///   case _:
+  ///     return null;
+  /// }
+  /// ```
+
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>(
+    TResult? Function(_PreferenceCondition value)? $default,
+  ) {
+    final _that = this;
+    switch (_that) {
+      case _PreferenceCondition() when $default != null:
+        return $default(_that);
+      case _:
+        return null;
+    }
+  }
+
+  /// A variant of `when` that fallback to an `orElse` callback.
+  ///
+  /// It is equivalent to doing:
+  /// ```dart
+  /// switch (sealedClass) {
+  ///   case Subclass(:final field):
+  ///     return ...;
+  ///   case _:
+  ///     return orElse();
+  /// }
+  /// ```
+
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>(
+    TResult Function(String variable, String operator, String argument)?
+        $default, {
+    required TResult orElse(),
+  }) {
+    final _that = this;
+    switch (_that) {
+      case _PreferenceCondition() when $default != null:
+        return $default(_that.variable, _that.operator, _that.argument);
+      case _:
+        return orElse();
+    }
+  }
+
+  /// A `switch`-like method, using callbacks.
+  ///
+  /// As opposed to `map`, this offers destructuring.
+  /// It is equivalent to doing:
+  /// ```dart
+  /// switch (sealedClass) {
+  ///   case Subclass(:final field):
+  ///     return ...;
+  ///   case Subclass2(:final field2):
+  ///     return ...;
+  /// }
+  /// ```
+
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>(
+    TResult Function(String variable, String operator, String argument)
+        $default,
+  ) {
+    final _that = this;
+    switch (_that) {
+      case _PreferenceCondition():
+        return $default(_that.variable, _that.operator, _that.argument);
+      case _:
+        throw StateError('Unexpected subclass');
+    }
+  }
+
+  /// A variant of `when` that fallback to returning `null`
+  ///
+  /// It is equivalent to doing:
+  /// ```dart
+  /// switch (sealedClass) {
+  ///   case Subclass(:final field):
+  ///     return ...;
+  ///   case _:
+  ///     return null;
+  /// }
+  /// ```
+
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>(
+    TResult? Function(String variable, String operator, String argument)?
+        $default,
+  ) {
+    final _that = this;
+    switch (_that) {
+      case _PreferenceCondition() when $default != null:
+        return $default(_that.variable, _that.operator, _that.argument);
+      case _:
+        return null;
+    }
+  }
+}
+
+/// @nodoc
+
+@JsonSerializable(explicitToJson: true)
+class _PreferenceCondition implements PreferenceCondition {
+  const _PreferenceCondition(
+      {required this.variable, required this.operator, required this.argument});
+  factory _PreferenceCondition.fromJson(Map<String, dynamic> json) =>
+      _$PreferenceConditionFromJson(json);
+
+  @override
+  final String variable;
+  @override
+  final String operator;
+  @override
+  final String argument;
+
+  /// Create a copy of PreferenceCondition
+  /// with the given fields replaced by the non-null parameter values.
+  @override
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  @pragma('vm:prefer-inline')
+  _$PreferenceConditionCopyWith<_PreferenceCondition> get copyWith =>
+      __$PreferenceConditionCopyWithImpl<_PreferenceCondition>(
           this, _$identity);
 
   @override
   Map<String, dynamic> toJson() {
-    return _$$PreferenceConditionImplToJson(
+    return _$PreferenceConditionToJson(
       this,
     );
   }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _PreferenceCondition &&
+            (identical(other.variable, variable) ||
+                other.variable == variable) &&
+            (identical(other.operator, operator) ||
+                other.operator == operator) &&
+            (identical(other.argument, argument) ||
+                other.argument == argument));
+  }
+
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  @override
+  int get hashCode => Object.hash(runtimeType, variable, operator, argument);
+
+  @override
+  String toString() {
+    return 'PreferenceCondition(variable: $variable, operator: $operator, argument: $argument)';
+  }
 }
 
-abstract class _PreferenceCondition implements PreferenceCondition {
-  const factory _PreferenceCondition(
-      {required final String variable,
-      required final String operator,
-      required final String argument}) = _$PreferenceConditionImpl;
-
-  factory _PreferenceCondition.fromJson(Map<String, dynamic> json) =
-      _$PreferenceConditionImpl.fromJson;
-
+/// @nodoc
+abstract mixin class _$PreferenceConditionCopyWith<$Res>
+    implements $PreferenceConditionCopyWith<$Res> {
+  factory _$PreferenceConditionCopyWith(_PreferenceCondition value,
+          $Res Function(_PreferenceCondition) _then) =
+      __$PreferenceConditionCopyWithImpl;
   @override
-  String get variable;
-  @override
-  String get operator;
-  @override
-  String get argument;
-  @override
-  @JsonKey(ignore: true)
-  _$$PreferenceConditionImplCopyWith<_$PreferenceConditionImpl> get copyWith =>
-      throw _privateConstructorUsedError;
+  @useResult
+  $Res call({String variable, String operator, String argument});
 }
+
+/// @nodoc
+class __$PreferenceConditionCopyWithImpl<$Res>
+    implements _$PreferenceConditionCopyWith<$Res> {
+  __$PreferenceConditionCopyWithImpl(this._self, this._then);
+
+  final _PreferenceCondition _self;
+  final $Res Function(_PreferenceCondition) _then;
+
+  /// Create a copy of PreferenceCondition
+  /// with the given fields replaced by the non-null parameter values.
+  @override
+  @pragma('vm:prefer-inline')
+  $Res call({
+    Object? variable = null,
+    Object? operator = null,
+    Object? argument = null,
+  }) {
+    return _then(_PreferenceCondition(
+      variable: null == variable
+          ? _self.variable
+          : variable // ignore: cast_nullable_to_non_nullable
+              as String,
+      operator: null == operator
+          ? _self.operator
+          : operator // ignore: cast_nullable_to_non_nullable
+              as String,
+      argument: null == argument
+          ? _self.argument
+          : argument // ignore: cast_nullable_to_non_nullable
+              as String,
+    ));
+  }
+}
+
+// dart format on

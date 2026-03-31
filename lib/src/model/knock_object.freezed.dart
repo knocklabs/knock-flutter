@@ -1,5 +1,5 @@
-// coverage:ignore-file
 // GENERATED CODE - DO NOT MODIFY BY HAND
+// coverage:ignore-file
 // ignore_for_file: type=lint
 // ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target, unnecessary_question_mark
 
@@ -9,96 +9,61 @@ part of 'knock_object.dart';
 // FreezedGenerator
 // **************************************************************************
 
+// dart format off
 T _$identity<T>(T value) => value;
-
-final _privateConstructorUsedError = UnsupportedError(
-    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#adding-getters-and-methods-to-our-models');
-
-KnockObject _$KnockObjectFromJson(Map<String, dynamic> json) {
-  return _KnockObject.fromJson(json);
-}
 
 /// @nodoc
 mixin _$KnockObject {
-  String get id => throw _privateConstructorUsedError;
-  String get collection => throw _privateConstructorUsedError;
-  Map<String, dynamic> get properties => throw _privateConstructorUsedError;
+  String get id;
+  String get collection;
+  Map<String, dynamic> get properties;
   @JsonKey(name: 'updated_at')
-  String get updatedAt => throw _privateConstructorUsedError;
+  String get updatedAt;
   @JsonKey(name: 'created_at')
-  String? get createdAt => throw _privateConstructorUsedError;
+  String? get createdAt;
 
-  Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
-  @JsonKey(ignore: true)
-  $KnockObjectCopyWith<KnockObject> get copyWith =>
-      throw _privateConstructorUsedError;
-}
-
-/// @nodoc
-abstract class $KnockObjectCopyWith<$Res> {
-  factory $KnockObjectCopyWith(
-          KnockObject value, $Res Function(KnockObject) then) =
-      _$KnockObjectCopyWithImpl<$Res, KnockObject>;
-  @useResult
-  $Res call(
-      {String id,
-      String collection,
-      Map<String, dynamic> properties,
-      @JsonKey(name: 'updated_at') String updatedAt,
-      @JsonKey(name: 'created_at') String? createdAt});
-}
-
-/// @nodoc
-class _$KnockObjectCopyWithImpl<$Res, $Val extends KnockObject>
-    implements $KnockObjectCopyWith<$Res> {
-  _$KnockObjectCopyWithImpl(this._value, this._then);
-
-  // ignore: unused_field
-  final $Val _value;
-  // ignore: unused_field
-  final $Res Function($Val) _then;
-
+  /// Create a copy of KnockObject
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @pragma('vm:prefer-inline')
+  $KnockObjectCopyWith<KnockObject> get copyWith =>
+      _$KnockObjectCopyWithImpl<KnockObject>(this as KnockObject, _$identity);
+
+  /// Serializes this KnockObject to a JSON map.
+  Map<String, dynamic> toJson();
+
   @override
-  $Res call({
-    Object? id = null,
-    Object? collection = null,
-    Object? properties = null,
-    Object? updatedAt = null,
-    Object? createdAt = freezed,
-  }) {
-    return _then(_value.copyWith(
-      id: null == id
-          ? _value.id
-          : id // ignore: cast_nullable_to_non_nullable
-              as String,
-      collection: null == collection
-          ? _value.collection
-          : collection // ignore: cast_nullable_to_non_nullable
-              as String,
-      properties: null == properties
-          ? _value.properties
-          : properties // ignore: cast_nullable_to_non_nullable
-              as Map<String, dynamic>,
-      updatedAt: null == updatedAt
-          ? _value.updatedAt
-          : updatedAt // ignore: cast_nullable_to_non_nullable
-              as String,
-      createdAt: freezed == createdAt
-          ? _value.createdAt
-          : createdAt // ignore: cast_nullable_to_non_nullable
-              as String?,
-    ) as $Val);
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is KnockObject &&
+            (identical(other.id, id) || other.id == id) &&
+            (identical(other.collection, collection) ||
+                other.collection == collection) &&
+            const DeepCollectionEquality()
+                .equals(other.properties, properties) &&
+            (identical(other.updatedAt, updatedAt) ||
+                other.updatedAt == updatedAt) &&
+            (identical(other.createdAt, createdAt) ||
+                other.createdAt == createdAt));
+  }
+
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  @override
+  int get hashCode => Object.hash(runtimeType, id, collection,
+      const DeepCollectionEquality().hash(properties), updatedAt, createdAt);
+
+  @override
+  String toString() {
+    return 'KnockObject(id: $id, collection: $collection, properties: $properties, updatedAt: $updatedAt, createdAt: $createdAt)';
   }
 }
 
 /// @nodoc
-abstract class _$$KnockObjectImplCopyWith<$Res>
-    implements $KnockObjectCopyWith<$Res> {
-  factory _$$KnockObjectImplCopyWith(
-          _$KnockObjectImpl value, $Res Function(_$KnockObjectImpl) then) =
-      __$$KnockObjectImplCopyWithImpl<$Res>;
-  @override
+abstract mixin class $KnockObjectCopyWith<$Res> {
+  factory $KnockObjectCopyWith(
+          KnockObject value, $Res Function(KnockObject) _then) =
+      _$KnockObjectCopyWithImpl;
   @useResult
   $Res call(
       {String id,
@@ -109,13 +74,14 @@ abstract class _$$KnockObjectImplCopyWith<$Res>
 }
 
 /// @nodoc
-class __$$KnockObjectImplCopyWithImpl<$Res>
-    extends _$KnockObjectCopyWithImpl<$Res, _$KnockObjectImpl>
-    implements _$$KnockObjectImplCopyWith<$Res> {
-  __$$KnockObjectImplCopyWithImpl(
-      _$KnockObjectImpl _value, $Res Function(_$KnockObjectImpl) _then)
-      : super(_value, _then);
+class _$KnockObjectCopyWithImpl<$Res> implements $KnockObjectCopyWith<$Res> {
+  _$KnockObjectCopyWithImpl(this._self, this._then);
 
+  final KnockObject _self;
+  final $Res Function(KnockObject) _then;
+
+  /// Create a copy of KnockObject
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -125,45 +91,222 @@ class __$$KnockObjectImplCopyWithImpl<$Res>
     Object? updatedAt = null,
     Object? createdAt = freezed,
   }) {
-    return _then(_$KnockObjectImpl(
+    return _then(_self.copyWith(
       id: null == id
-          ? _value.id
+          ? _self.id
           : id // ignore: cast_nullable_to_non_nullable
               as String,
       collection: null == collection
-          ? _value.collection
+          ? _self.collection
           : collection // ignore: cast_nullable_to_non_nullable
               as String,
       properties: null == properties
-          ? _value._properties
+          ? _self.properties
           : properties // ignore: cast_nullable_to_non_nullable
               as Map<String, dynamic>,
       updatedAt: null == updatedAt
-          ? _value.updatedAt
+          ? _self.updatedAt
           : updatedAt // ignore: cast_nullable_to_non_nullable
               as String,
       createdAt: freezed == createdAt
-          ? _value.createdAt
+          ? _self.createdAt
           : createdAt // ignore: cast_nullable_to_non_nullable
               as String?,
     ));
   }
 }
 
+/// Adds pattern-matching-related methods to [KnockObject].
+extension KnockObjectPatterns on KnockObject {
+  /// A variant of `map` that fallback to returning `orElse`.
+  ///
+  /// It is equivalent to doing:
+  /// ```dart
+  /// switch (sealedClass) {
+  ///   case final Subclass value:
+  ///     return ...;
+  ///   case _:
+  ///     return orElse();
+  /// }
+  /// ```
+
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>(
+    TResult Function(_KnockObject value)? $default, {
+    required TResult orElse(),
+  }) {
+    final _that = this;
+    switch (_that) {
+      case _KnockObject() when $default != null:
+        return $default(_that);
+      case _:
+        return orElse();
+    }
+  }
+
+  /// A `switch`-like method, using callbacks.
+  ///
+  /// Callbacks receives the raw object, upcasted.
+  /// It is equivalent to doing:
+  /// ```dart
+  /// switch (sealedClass) {
+  ///   case final Subclass value:
+  ///     return ...;
+  ///   case final Subclass2 value:
+  ///     return ...;
+  /// }
+  /// ```
+
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>(
+    TResult Function(_KnockObject value) $default,
+  ) {
+    final _that = this;
+    switch (_that) {
+      case _KnockObject():
+        return $default(_that);
+      case _:
+        throw StateError('Unexpected subclass');
+    }
+  }
+
+  /// A variant of `map` that fallback to returning `null`.
+  ///
+  /// It is equivalent to doing:
+  /// ```dart
+  /// switch (sealedClass) {
+  ///   case final Subclass value:
+  ///     return ...;
+  ///   case _:
+  ///     return null;
+  /// }
+  /// ```
+
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>(
+    TResult? Function(_KnockObject value)? $default,
+  ) {
+    final _that = this;
+    switch (_that) {
+      case _KnockObject() when $default != null:
+        return $default(_that);
+      case _:
+        return null;
+    }
+  }
+
+  /// A variant of `when` that fallback to an `orElse` callback.
+  ///
+  /// It is equivalent to doing:
+  /// ```dart
+  /// switch (sealedClass) {
+  ///   case Subclass(:final field):
+  ///     return ...;
+  ///   case _:
+  ///     return orElse();
+  /// }
+  /// ```
+
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>(
+    TResult Function(
+            String id,
+            String collection,
+            Map<String, dynamic> properties,
+            @JsonKey(name: 'updated_at') String updatedAt,
+            @JsonKey(name: 'created_at') String? createdAt)?
+        $default, {
+    required TResult orElse(),
+  }) {
+    final _that = this;
+    switch (_that) {
+      case _KnockObject() when $default != null:
+        return $default(_that.id, _that.collection, _that.properties,
+            _that.updatedAt, _that.createdAt);
+      case _:
+        return orElse();
+    }
+  }
+
+  /// A `switch`-like method, using callbacks.
+  ///
+  /// As opposed to `map`, this offers destructuring.
+  /// It is equivalent to doing:
+  /// ```dart
+  /// switch (sealedClass) {
+  ///   case Subclass(:final field):
+  ///     return ...;
+  ///   case Subclass2(:final field2):
+  ///     return ...;
+  /// }
+  /// ```
+
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>(
+    TResult Function(
+            String id,
+            String collection,
+            Map<String, dynamic> properties,
+            @JsonKey(name: 'updated_at') String updatedAt,
+            @JsonKey(name: 'created_at') String? createdAt)
+        $default,
+  ) {
+    final _that = this;
+    switch (_that) {
+      case _KnockObject():
+        return $default(_that.id, _that.collection, _that.properties,
+            _that.updatedAt, _that.createdAt);
+      case _:
+        throw StateError('Unexpected subclass');
+    }
+  }
+
+  /// A variant of `when` that fallback to returning `null`
+  ///
+  /// It is equivalent to doing:
+  /// ```dart
+  /// switch (sealedClass) {
+  ///   case Subclass(:final field):
+  ///     return ...;
+  ///   case _:
+  ///     return null;
+  /// }
+  /// ```
+
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>(
+    TResult? Function(
+            String id,
+            String collection,
+            Map<String, dynamic> properties,
+            @JsonKey(name: 'updated_at') String updatedAt,
+            @JsonKey(name: 'created_at') String? createdAt)?
+        $default,
+  ) {
+    final _that = this;
+    switch (_that) {
+      case _KnockObject() when $default != null:
+        return $default(_that.id, _that.collection, _that.properties,
+            _that.updatedAt, _that.createdAt);
+      case _:
+        return null;
+    }
+  }
+}
+
 /// @nodoc
 
 @JsonSerializable(explicitToJson: true)
-class _$KnockObjectImpl implements _KnockObject {
-  const _$KnockObjectImpl(
+class _KnockObject implements KnockObject {
+  const _KnockObject(
       {required this.id,
       required this.collection,
       required final Map<String, dynamic> properties,
       @JsonKey(name: 'updated_at') required this.updatedAt,
       @JsonKey(name: 'created_at') this.createdAt})
       : _properties = properties;
-
-  factory _$KnockObjectImpl.fromJson(Map<String, dynamic> json) =>
-      _$$KnockObjectImplFromJson(json);
+  factory _KnockObject.fromJson(Map<String, dynamic> json) =>
+      _$KnockObjectFromJson(json);
 
   @override
   final String id;
@@ -184,16 +327,26 @@ class _$KnockObjectImpl implements _KnockObject {
   @JsonKey(name: 'created_at')
   final String? createdAt;
 
+  /// Create a copy of KnockObject
+  /// with the given fields replaced by the non-null parameter values.
   @override
-  String toString() {
-    return 'KnockObject(id: $id, collection: $collection, properties: $properties, updatedAt: $updatedAt, createdAt: $createdAt)';
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  @pragma('vm:prefer-inline')
+  _$KnockObjectCopyWith<_KnockObject> get copyWith =>
+      __$KnockObjectCopyWithImpl<_KnockObject>(this, _$identity);
+
+  @override
+  Map<String, dynamic> toJson() {
+    return _$KnockObjectToJson(
+      this,
+    );
   }
 
   @override
   bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$KnockObjectImpl &&
+            other is _KnockObject &&
             (identical(other.id, id) || other.id == id) &&
             (identical(other.collection, collection) ||
                 other.collection == collection) &&
@@ -205,51 +358,74 @@ class _$KnockObjectImpl implements _KnockObject {
                 other.createdAt == createdAt));
   }
 
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   int get hashCode => Object.hash(runtimeType, id, collection,
       const DeepCollectionEquality().hash(_properties), updatedAt, createdAt);
 
-  @JsonKey(ignore: true)
   @override
-  @pragma('vm:prefer-inline')
-  _$$KnockObjectImplCopyWith<_$KnockObjectImpl> get copyWith =>
-      __$$KnockObjectImplCopyWithImpl<_$KnockObjectImpl>(this, _$identity);
-
-  @override
-  Map<String, dynamic> toJson() {
-    return _$$KnockObjectImplToJson(
-      this,
-    );
+  String toString() {
+    return 'KnockObject(id: $id, collection: $collection, properties: $properties, updatedAt: $updatedAt, createdAt: $createdAt)';
   }
 }
 
-abstract class _KnockObject implements KnockObject {
-  const factory _KnockObject(
-          {required final String id,
-          required final String collection,
-          required final Map<String, dynamic> properties,
-          @JsonKey(name: 'updated_at') required final String updatedAt,
-          @JsonKey(name: 'created_at') final String? createdAt}) =
-      _$KnockObjectImpl;
-
-  factory _KnockObject.fromJson(Map<String, dynamic> json) =
-      _$KnockObjectImpl.fromJson;
-
+/// @nodoc
+abstract mixin class _$KnockObjectCopyWith<$Res>
+    implements $KnockObjectCopyWith<$Res> {
+  factory _$KnockObjectCopyWith(
+          _KnockObject value, $Res Function(_KnockObject) _then) =
+      __$KnockObjectCopyWithImpl;
   @override
-  String get id;
-  @override
-  String get collection;
-  @override
-  Map<String, dynamic> get properties;
-  @override
-  @JsonKey(name: 'updated_at')
-  String get updatedAt;
-  @override
-  @JsonKey(name: 'created_at')
-  String? get createdAt;
-  @override
-  @JsonKey(ignore: true)
-  _$$KnockObjectImplCopyWith<_$KnockObjectImpl> get copyWith =>
-      throw _privateConstructorUsedError;
+  @useResult
+  $Res call(
+      {String id,
+      String collection,
+      Map<String, dynamic> properties,
+      @JsonKey(name: 'updated_at') String updatedAt,
+      @JsonKey(name: 'created_at') String? createdAt});
 }
+
+/// @nodoc
+class __$KnockObjectCopyWithImpl<$Res> implements _$KnockObjectCopyWith<$Res> {
+  __$KnockObjectCopyWithImpl(this._self, this._then);
+
+  final _KnockObject _self;
+  final $Res Function(_KnockObject) _then;
+
+  /// Create a copy of KnockObject
+  /// with the given fields replaced by the non-null parameter values.
+  @override
+  @pragma('vm:prefer-inline')
+  $Res call({
+    Object? id = null,
+    Object? collection = null,
+    Object? properties = null,
+    Object? updatedAt = null,
+    Object? createdAt = freezed,
+  }) {
+    return _then(_KnockObject(
+      id: null == id
+          ? _self.id
+          : id // ignore: cast_nullable_to_non_nullable
+              as String,
+      collection: null == collection
+          ? _self.collection
+          : collection // ignore: cast_nullable_to_non_nullable
+              as String,
+      properties: null == properties
+          ? _self._properties
+          : properties // ignore: cast_nullable_to_non_nullable
+              as Map<String, dynamic>,
+      updatedAt: null == updatedAt
+          ? _self.updatedAt
+          : updatedAt // ignore: cast_nullable_to_non_nullable
+              as String,
+      createdAt: freezed == createdAt
+          ? _self.createdAt
+          : createdAt // ignore: cast_nullable_to_non_nullable
+              as String?,
+    ));
+  }
+}
+
+// dart format on
