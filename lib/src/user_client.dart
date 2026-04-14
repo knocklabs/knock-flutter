@@ -77,9 +77,14 @@ class UserClient {
 
   Future<ChannelData> registerTokenForChannel(
     String channelId,
-    String token,
-  ) async {
-    final locale = PlatformDispatcher.instance.locale.toLanguageTag();
+    String token, {
+
+    /// Optional language tag to associate with the app locale, not system one.
+    /// If not provided, the system locale will be used instead.
+    String? languageTag,
+  }) async {
+    final locale =
+        languageTag ?? PlatformDispatcher.instance.locale.toLanguageTag();
     String? timezone;
     try {
       final tzValue = await FlutterTimezone.getLocalTimezone();
