@@ -2,11 +2,11 @@ import 'dart:async';
 import 'dart:convert';
 
 import 'package:knock_flutter/knock_flutter.dart';
+import 'package:knock_flutter/src/feed_phoenix_detach.dart';
 import 'package:knock_flutter/src/model/api_response.dart';
 import 'package:knock_flutter/src/model/feed_extensions.dart';
 import 'package:knock_flutter/src/model/feed_response.dart';
 import 'package:knock_flutter/src/model/feed_update_request.dart';
-import 'package:knock_flutter/src/feed_phoenix_detach.dart';
 import 'package:phoenix_socket/phoenix_socket.dart';
 
 enum _FeedFetchSource { socket, http }
