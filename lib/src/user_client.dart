@@ -11,12 +11,10 @@ class UserClient {
 
   final Knock _knock;
 
-  ApiClient get _api => _knock.client();
+  KnockApiClient get _api => _knock.client();
 
   Future<User> get() async {
-    final response = await _api.doGet(
-      '/v1/users/${_knock.userId}',
-    );
+    final response = await _api.doGet('/v1/users/${_knock.userId}');
     final json = response.decodeResponse();
     return User.fromJson(json);
   }
@@ -51,10 +49,7 @@ class UserClient {
     }
 
     final body = jsonEncode(requestBody);
-    final response = await _api.doPut(
-      '/v1/users/${_knock.userId}',
-      body: body,
-    );
+    final response = await _api.doPut('/v1/users/${_knock.userId}', body: body);
     final json = response.decodeResponse();
     return User.fromJson(json);
   }
@@ -82,12 +77,18 @@ class UserClient {
 
   Future<ChannelData> registerTokenForChannel(
     String channelId,
-    String token,
-  ) async {
-    final locale = PlatformDispatcher.instance.locale.toLanguageTag();
+    String token, {
+
+    /// Optional language tag to associate with the app locale, not system one.
+    /// If not provided, the system locale will be used instead.
+    String? languageTag,
+  }) async {
+    final locale =
+        languageTag ?? PlatformDispatcher.instance.locale.toLanguageTag();
     String? timezone;
     try {
-      timezone = await FlutterTimezone.getLocalTimezone();
+      final tzValue = await FlutterTimezone.getLocalTimezone();
+      timezone = tzValue.identifier;
     } catch (error) {
       // Continue without timezone if we can't get it
       timezone = null;
@@ -97,7 +98,7 @@ class UserClient {
     try {
       channelData = await getChannelData(channelId);
     } catch (error) {
-      if (error is ApiError) {
+      if (error is KnockApiException) {
         final apiError = error;
         if (apiError.response.status == 404) {
           // First time adding to this channel (channels are lazily created)
@@ -112,11 +113,7 @@ class UserClient {
     if (channelData.hasDevice(token)) {
       return channelData;
     } else {
-      final device = Device(
-        token: token,
-        locale: locale,
-        timezone: timezone,
-      );
+      final device = Device(token: token, locale: locale, timezone: timezone);
       final modifiedChannelData = channelData.appendDevice(device);
       return setChannelData(channelId, modifiedChannelData);
     }
@@ -130,7 +127,7 @@ class UserClient {
     try {
       channelData = await getChannelData(channelId);
     } catch (error) {
-      if (error is ApiError) {
+      if (error is KnockApiException) {
         final apiError = error;
         if (apiError.response.status == 404) {
           return channelData;
@@ -159,16 +156,13 @@ extension _ChannelDataExtension on ChannelData {
 
   ChannelData appendDevice(Device device) {
     final devices = [...data.devices, device];
-    return copyWith(
-      data: data.copyWith(devices: devices),
-    );
+    return copyWith(data: data.copyWith(devices: devices));
   }
 
   ChannelData removeDevice(String token) {
-    final devices =
-        data.devices.where((device) => device.token != token).toList();
-    return copyWith(
-      data: data.copyWith(devices: devices),
-    );
+    final devices = data.devices
+        .where((device) => device.token != token)
+        .toList();
+    return copyWith(data: data.copyWith(devices: devices));
   }
 }

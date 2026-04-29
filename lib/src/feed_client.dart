@@ -8,10 +8,7 @@ import 'package:knock_flutter/src/model/feed_response.dart';
 import 'package:knock_flutter/src/model/feed_update_request.dart';
 import 'package:phoenix_socket/phoenix_socket.dart';
 
-enum _FeedFetchSource {
-  socket,
-  http,
-}
+enum _FeedFetchSource { socket, http }
 
 enum _FeedItemApiStatus {
   seen('seen'),
@@ -38,16 +35,12 @@ enum _BulkFeedItemApiStatus {
 }
 
 class FeedClient {
-  FeedClient(
-    this._knock,
-    this.feedChannelId,
-    FeedOptions? options,
-  ) {
+  FeedClient(this._knock, this.feedChannelId, FeedOptions? options) {
     this.options = FeedOptions.defaultOptions().merge(options);
     _currentFeed = this.options.buildInitialFeed();
 
     _apiStatusSubscription = _knock.client().status.listen((event) {
-      if (event == ApiClientStatus.disposed) {
+      if (event == KnockApiClientStatus.disposed) {
         _disposed = true;
 
         // Add an empty state back to the controller
@@ -56,6 +49,8 @@ class FeedClient {
         // Start closing out everything
         _feedController?.close();
         _feedController = null;
+
+        _eventController.close();
 
         _apiStatusSubscription?.cancel();
         _apiStatusSubscription = null;
@@ -67,7 +62,7 @@ class FeedClient {
   final String feedChannelId;
   late final FeedOptions options;
 
-  StreamSubscription<ApiClientStatus>? _apiStatusSubscription;
+  StreamSubscription<KnockApiClientStatus>? _apiStatusSubscription;
 
   late Feed _feedValue;
   StreamController<Feed>? _feedController;
@@ -83,7 +78,7 @@ class FeedClient {
 
   bool _disposed = false;
 
-  ApiClient get _api => _knock.client();
+  KnockApiClient get _api => _knock.client();
 
   Feed get _currentFeed => _feedValue;
 
@@ -141,6 +136,7 @@ class FeedClient {
             parameters: options.toJson(),
           );
 
+          _channelMessagesSubscription?.cancel();
           _channelMessagesSubscription = channel.messages.listen((message) {
             if (message.event.value == 'new-message') {
               _onNewMessageReceived(message);
@@ -154,10 +150,22 @@ class FeedClient {
             fetchSource: _FeedFetchSource.http,
           );
         });
+
+        // Always trigger an initial HTTP fetch immediately, without waiting
+        // for the socket openStream replay. This ensures data loads even when
+        // a new FeedClient is created while the socket is already connected.
+        // The requestInFlight guard in _fetch prevents duplicate requests.
+        _fetch(
+          fetchOptions: null,
+          loadingType: NetworkStatus.loading,
+          fetchSource: _FeedFetchSource.http,
+        );
       },
       onCancel: () {
-        // Leaving will also take care of closing the channel in the socket
-        _channel?.leave();
+        if (_channel != null) {
+          _channel!.leave();
+          _api.socket.removeChannel(_channel!);
+        }
         _channel = null;
 
         _channelMessagesSubscription?.cancel();
@@ -172,8 +180,6 @@ class FeedClient {
         _socketOpenSubscription?.cancel();
         _socketOpenSubscription = null;
 
-        _eventController.close();
-
         _feedController?.close();
         _feedController = null;
       },
@@ -183,11 +189,47 @@ class FeedClient {
   Stream<FeedEvent> on(BindableFeedEvent bindableFeedEvent) {
     _assertNotDisposed();
 
-    return _eventController.stream
-        .where((event) => bindableFeedEvent.includes(event.eventType));
+    return _eventController.stream.where(
+      (event) => bindableFeedEvent.includes(event.eventType),
+    );
+  }
+
+  void dispose() {
+    if (_disposed) return;
+    _disposed = true;
+
+    if (_channel != null) {
+      _channel!.leave();
+      _api.socket.removeChannel(_channel!);
+    }
+    _channel = null;
+
+    _channelMessagesSubscription?.cancel();
+    _channelMessagesSubscription = null;
+
+    _socketClosedSubscription?.cancel();
+    _socketClosedSubscription = null;
+
+    _socketErrorSubscription?.cancel();
+    _socketErrorSubscription = null;
+
+    _socketOpenSubscription?.cancel();
+    _socketOpenSubscription = null;
+
+    _apiStatusSubscription?.cancel();
+    _apiStatusSubscription = null;
+
+    if (!_eventController.isClosed) {
+      _eventController.close();
+    }
+
+    _feedController?.close();
+    _feedController = null;
   }
 
   void _onNewMessageReceived(Message message) {
+    if (_disposed) return;
+
     final payload = message.payload;
     if (payload != null) {
       final response = OnNewMessageResponse.fromJson(payload);
@@ -234,27 +276,24 @@ class FeedClient {
           shouldAppend: true,
         );
       } else if (fetchOptions?.after != null) {
-        mergedFeed = _currentFeed.merge(
-          updatedFeed,
-          shouldAppend: true,
-        );
+        mergedFeed = _currentFeed.merge(updatedFeed, shouldAppend: true);
       } else {
         mergedFeed = _currentFeed.merge(updatedFeed);
       }
 
-      _currentFeed = mergedFeed.copyWith(
-        networkStatus: NetworkStatus.ready,
-      );
+      _currentFeed = mergedFeed.copyWith(networkStatus: NetworkStatus.ready);
 
-      _eventController.add(
-        FeedEvent(
-          eventType: fetchSource == _FeedFetchSource.socket
-              ? FeedEventType.itemsReceivedRealtime
-              : FeedEventType.itemsReceivedPage,
-          items: updatedFeed.items,
-          metadata: updatedFeed.metadata,
-        ),
-      );
+      if (!_eventController.isClosed) {
+        _eventController.add(
+          FeedEvent(
+            eventType: fetchSource == _FeedFetchSource.socket
+                ? FeedEventType.itemsReceivedRealtime
+                : FeedEventType.itemsReceivedPage,
+            items: updatedFeed.items,
+            metadata: updatedFeed.metadata,
+          ),
+        );
+      }
     }
   }
 
@@ -283,13 +322,15 @@ class FeedClient {
       return response;
     });
 
-    _eventController.add(
-      FeedEvent(
-        eventType: FeedEventType.itemsSeen,
-        items: items,
-        metadata: _currentFeed.metadata,
-      ),
-    );
+    if (!_eventController.isClosed) {
+      _eventController.add(
+        FeedEvent(
+          eventType: FeedEventType.itemsSeen,
+          items: items,
+          metadata: _currentFeed.metadata,
+        ),
+      );
+    }
 
     await response.then((value) => value.checkResponse());
   }
@@ -303,13 +344,15 @@ class FeedClient {
       return response;
     });
 
-    _eventController.add(
-      FeedEvent(
-        eventType: FeedEventType.itemsUnseen,
-        items: items,
-        metadata: _currentFeed.metadata,
-      ),
-    );
+    if (!_eventController.isClosed) {
+      _eventController.add(
+        FeedEvent(
+          eventType: FeedEventType.itemsUnseen,
+          items: items,
+          metadata: _currentFeed.metadata,
+        ),
+      );
+    }
 
     await response.then((value) => value.checkResponse());
   }
@@ -323,13 +366,15 @@ class FeedClient {
       return response;
     });
 
-    _eventController.add(
-      FeedEvent(
-        eventType: FeedEventType.itemsRead,
-        items: items,
-        metadata: _currentFeed.metadata,
-      ),
-    );
+    if (!_eventController.isClosed) {
+      _eventController.add(
+        FeedEvent(
+          eventType: FeedEventType.itemsRead,
+          items: items,
+          metadata: _currentFeed.metadata,
+        ),
+      );
+    }
 
     await response.then((value) => value.checkResponse());
   }
@@ -343,13 +388,15 @@ class FeedClient {
       return response;
     });
 
-    _eventController.add(
-      FeedEvent(
-        eventType: FeedEventType.itemsUnread,
-        items: items,
-        metadata: _currentFeed.metadata,
-      ),
-    );
+    if (!_eventController.isClosed) {
+      _eventController.add(
+        FeedEvent(
+          eventType: FeedEventType.itemsUnread,
+          items: items,
+          metadata: _currentFeed.metadata,
+        ),
+      );
+    }
 
     await response.then((value) => value.checkResponse());
   }
@@ -367,13 +414,15 @@ class FeedClient {
       return response;
     });
 
-    _eventController.add(
-      FeedEvent(
-        eventType: FeedEventType.itemsArchived,
-        items: items,
-        metadata: _currentFeed.metadata,
-      ),
-    );
+    if (!_eventController.isClosed) {
+      _eventController.add(
+        FeedEvent(
+          eventType: FeedEventType.itemsArchived,
+          items: items,
+          metadata: _currentFeed.metadata,
+        ),
+      );
+    }
 
     await response.then((value) => value.checkResponse());
   }
@@ -387,13 +436,15 @@ class FeedClient {
       return response;
     });
 
-    _eventController.add(
-      FeedEvent(
-        eventType: FeedEventType.itemsUnarchived,
-        items: items,
-        metadata: _currentFeed.metadata,
-      ),
-    );
+    if (!_eventController.isClosed) {
+      _eventController.add(
+        FeedEvent(
+          eventType: FeedEventType.itemsUnarchived,
+          items: items,
+          metadata: _currentFeed.metadata,
+        ),
+      );
+    }
 
     await response.then((value) => value.checkResponse());
   }
@@ -420,13 +471,15 @@ class FeedClient {
       () => options.buildInitialFeed(),
     );
 
-    _eventController.add(
-      FeedEvent(
-        eventType: FeedEventType.itemsAllSeen,
-        items: _currentFeed.items,
-        metadata: _currentFeed.metadata,
-      ),
-    );
+    if (!_eventController.isClosed) {
+      _eventController.add(
+        FeedEvent(
+          eventType: FeedEventType.itemsAllSeen,
+          items: _currentFeed.items,
+          metadata: _currentFeed.metadata,
+        ),
+      );
+    }
 
     await response.then((value) => value.checkResponse());
   }
@@ -441,13 +494,15 @@ class FeedClient {
       () => options.buildInitialFeed(),
     );
 
-    _eventController.add(
-      FeedEvent(
-        eventType: FeedEventType.itemsAllRead,
-        items: _currentFeed.items,
-        metadata: _currentFeed.metadata,
-      ),
-    );
+    if (!_eventController.isClosed) {
+      _eventController.add(
+        FeedEvent(
+          eventType: FeedEventType.itemsAllRead,
+          items: _currentFeed.items,
+          metadata: _currentFeed.metadata,
+        ),
+      );
+    }
 
     await response.then((value) => value.checkResponse());
   }
@@ -462,18 +517,20 @@ class FeedClient {
       () => options.buildInitialFeed(),
     );
 
-    _eventController.add(
-      FeedEvent(
-        eventType: FeedEventType.itemsAllArchived,
-        items: _currentFeed.items,
-        metadata: _currentFeed.metadata,
-      ),
-    );
+    if (!_eventController.isClosed) {
+      _eventController.add(
+        FeedEvent(
+          eventType: FeedEventType.itemsAllArchived,
+          items: _currentFeed.items,
+          metadata: _currentFeed.metadata,
+        ),
+      );
+    }
 
     await response.then((value) => value.checkResponse());
   }
 
-  Future<ApiResponse> _makeStatusUpdates(
+  Future<KnockApiResponse> _makeStatusUpdates(
     _FeedItemApiStatus type,
     List<String> ids,
   ) async {
@@ -484,11 +541,14 @@ class FeedClient {
     return response;
   }
 
-  Future<ApiResponse> _makeBulkStatusUpdate(_BulkFeedItemApiStatus type) async {
+  Future<KnockApiResponse> _makeBulkStatusUpdate(
+    _BulkFeedItemApiStatus type,
+  ) async {
     final options = this.options;
 
-    final engagementStatus =
-        options.status != FeedOptionsStatus.all ? options.status : null;
+    final engagementStatus = options.status != FeedOptionsStatus.all
+        ? options.status
+        : null;
     final tenant = options.tenant;
     final tenants = tenant != null ? [tenant] : null;
 

@@ -9,7 +9,7 @@ void main() {
   group('ApiClient', () {
     late Knock knock;
     late Response Function() responseBuilder;
-    late ApiClient client;
+    late KnockApiClient client;
     Request? capturedRequest;
 
     setUp(() {
@@ -19,7 +19,7 @@ void main() {
         capturedRequest = request;
         return responseBuilder();
       });
-      client = ApiClient(knock, client: mockClient);
+      client = KnockApiClient(knock, client: mockClient);
     });
 
     tearDown(() {
@@ -34,7 +34,11 @@ void main() {
       final response = await client.doGet('/');
       expect(
         response,
-        ApiResponse(status: 500, statusCode: StatusCode.error, error: error),
+        KnockApiResponse(
+          status: 500,
+          statusCode: StatusCode.error,
+          error: error,
+        ),
       );
     });
 
@@ -74,7 +78,7 @@ void main() {
   group('ApiClient retries', () {
     late Knock knock;
     late Response Function() responseBuilder;
-    late ApiClient client;
+    late KnockApiClient client;
 
     setUp(() {
       knock = Knock('public_api_key');
@@ -82,12 +86,9 @@ void main() {
       final mockClient = MockClient((request) async {
         return responseBuilder();
       });
-      client = ApiClient(
+      client = KnockApiClient(
         knock,
-        client: buildRetryClient(
-          mockClient,
-          delayMs: 0,
-        ),
+        client: buildRetryClient(mockClient, delayMs: 0),
       );
     });
 
@@ -111,7 +112,7 @@ void main() {
       final response = await client.doGet('/');
       expect(
         response,
-        ApiResponse(
+        KnockApiResponse(
           status: 500,
           statusCode: StatusCode.error,
           error: error,
@@ -119,29 +120,31 @@ void main() {
       );
     });
 
-    test('correctly retries a failure and then gets a successful response',
-        () async {
-      final error = Error();
-      final responses = <dynamic>[error, ''];
-      responseBuilder = () {
-        final response = responses.removeAt(0);
-        if (response is Error) {
-          throw response;
-        } else {
-          return Response(response, 200);
-        }
-      };
+    test(
+      'correctly retries a failure and then gets a successful response',
+      () async {
+        final error = Error();
+        final responses = <dynamic>[error, ''];
+        responseBuilder = () {
+          final response = responses.removeAt(0);
+          if (response is Error) {
+            throw response;
+          } else {
+            return Response(response, 200);
+          }
+        };
 
-      final response = await client.doGet('/');
-      expect(
-        response,
-        const ApiResponse(
-          status: 200,
-          statusCode: StatusCode.ok,
-          body: '',
-          error: null,
-        ),
-      );
-    });
+        final response = await client.doGet('/');
+        expect(
+          response,
+          const KnockApiResponse(
+            status: 200,
+            statusCode: StatusCode.ok,
+            body: '',
+            error: null,
+          ),
+        );
+      },
+    );
   });
 }

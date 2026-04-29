@@ -16,11 +16,11 @@ void main() {
   setUp(() {
     TestDefaultBinaryMessengerBinding.instance.defaultBinaryMessenger
         .setMockMethodCallHandler(channel, (methodCall) async {
-      if (methodCall.method == 'getLocalTimezone') {
-        return 'America/New_York';
-      }
-      return null;
-    });
+          if (methodCall.method == 'getLocalTimezone') {
+            return 'America/New_York';
+          }
+          return null;
+        });
   });
 
   tearDown(() {
@@ -29,21 +29,21 @@ void main() {
   });
 
   group('UserClient', () {
-    final noDevicesResponse = ApiResponse(
+    final noDevicesResponse = KnockApiResponse(
       status: 200,
       statusCode: StatusCode.ok,
       body: jsonEncode(ChannelData.forDevices([]).toJson()),
     );
 
-    final testDeviceResponse = ApiResponse(
+    final testDeviceResponse = KnockApiResponse(
       status: 200,
       statusCode: StatusCode.ok,
       body: jsonEncode(
         ChannelData.forDevices([
           const Device(
-              token: 'testToken',
-              locale: 'en-US',
-              timezone: 'America/New_York',
+            token: 'testToken',
+            locale: 'en-US',
+            timezone: 'America/New_York',
           ),
         ]).toJson(),
       ),
@@ -65,8 +65,9 @@ void main() {
       test('to a channel', () async {
         when(apiClient.doGet(any)).thenAnswer((_) async => noDevicesResponse);
         // We don't actually care what the response is for this test
-        when(apiClient.doPut(any, body: anyNamed('body')))
-            .thenAnswer((_) async => noDevicesResponse);
+        when(
+          apiClient.doPut(any, body: anyNamed('body')),
+        ).thenAnswer((_) async => noDevicesResponse);
 
         await userClient.registerTokenForChannel('testChannelId', 'testToken');
 
@@ -81,8 +82,9 @@ void main() {
       test('skips appending existing devices', () async {
         when(apiClient.doGet(any)).thenAnswer((_) async => testDeviceResponse);
         // We don't actually care what the response is for this test
-        when(apiClient.doPut(any, body: anyNamed('body')))
-            .thenAnswer((_) async => testDeviceResponse);
+        when(
+          apiClient.doPut(any, body: anyNamed('body')),
+        ).thenAnswer((_) async => testDeviceResponse);
 
         await userClient.registerTokenForChannel('testChannelId', 'testToken');
         verifyNever(apiClient.doPut(any, body: anyNamed('body')));
@@ -90,13 +92,14 @@ void main() {
 
       test('handles when there is no channel data', () async {
         when(apiClient.doGet(any)).thenAnswer(
-          (_) async => throw ApiError(
-            const ApiResponse(status: 404, statusCode: StatusCode.error),
+          (_) async => throw KnockApiException(
+            const KnockApiResponse(status: 404, statusCode: StatusCode.error),
           ),
         );
         // We don't actually care what the response is for this test
-        when(apiClient.doPut(any, body: anyNamed('body')))
-            .thenAnswer((_) async => noDevicesResponse);
+        when(
+          apiClient.doPut(any, body: anyNamed('body')),
+        ).thenAnswer((_) async => noDevicesResponse);
 
         await userClient.registerTokenForChannel('testChannelId', 'testToken');
 
@@ -110,20 +113,18 @@ void main() {
 
       test('only rethrows other errors when registering tokens', () async {
         when(apiClient.doGet(any)).thenAnswer(
-          (_) async => throw ApiError(
-            const ApiResponse(status: 405, statusCode: StatusCode.error),
+          (_) async => throw KnockApiException(
+            const KnockApiResponse(status: 405, statusCode: StatusCode.error),
           ),
         );
         // We don't actually care what the response is for this test
-        when(apiClient.doPut(any, body: anyNamed('body')))
-            .thenAnswer((_) async => noDevicesResponse);
+        when(
+          apiClient.doPut(any, body: anyNamed('body')),
+        ).thenAnswer((_) async => noDevicesResponse);
 
         await expectLater(
-          userClient.registerTokenForChannel(
-            'testChannelId',
-            'testToken',
-          ),
-          throwsA(isA<ApiError>()),
+          userClient.registerTokenForChannel('testChannelId', 'testToken'),
+          throwsA(isA<KnockApiException>()),
         );
       });
     });
@@ -132,8 +133,9 @@ void main() {
       test('from a channel', () async {
         when(apiClient.doGet(any)).thenAnswer((_) async => testDeviceResponse);
         // We don't actually care what the response is for this test
-        when(apiClient.doPut(any, body: anyNamed('body')))
-            .thenAnswer((_) async => noDevicesResponse);
+        when(
+          apiClient.doPut(any, body: anyNamed('body')),
+        ).thenAnswer((_) async => noDevicesResponse);
 
         await userClient.deregisterTokenForChannel(
           'testChannelId',
@@ -148,8 +150,9 @@ void main() {
     test('skips removing non-existant devices', () async {
       when(apiClient.doGet(any)).thenAnswer((_) async => testDeviceResponse);
       // We don't actually care what the response is for this test
-      when(apiClient.doPut(any, body: anyNamed('body')))
-          .thenAnswer((_) async => testDeviceResponse);
+      when(
+        apiClient.doPut(any, body: anyNamed('body')),
+      ).thenAnswer((_) async => testDeviceResponse);
 
       await userClient.deregisterTokenForChannel('testChannelId', 'nope');
       verifyNever(apiClient.doPut(any, body: anyNamed('body')));
@@ -157,13 +160,14 @@ void main() {
 
     test('handles when there is no channel data', () async {
       when(apiClient.doGet(any)).thenAnswer(
-        (_) async => throw ApiError(
-          const ApiResponse(status: 404, statusCode: StatusCode.error),
+        (_) async => throw KnockApiException(
+          const KnockApiResponse(status: 404, statusCode: StatusCode.error),
         ),
       );
       // We don't actually care what the response is for this test
-      when(apiClient.doPut(any, body: anyNamed('body')))
-          .thenAnswer((_) async => noDevicesResponse);
+      when(
+        apiClient.doPut(any, body: anyNamed('body')),
+      ).thenAnswer((_) async => noDevicesResponse);
 
       await userClient.deregisterTokenForChannel('testChannelId', 'nope');
       verifyNever(apiClient.doPut(any, body: anyNamed('body')));
@@ -171,20 +175,18 @@ void main() {
 
     test('only rethrows other errors when registering tokens', () async {
       when(apiClient.doGet(any)).thenAnswer(
-        (_) async => throw ApiError(
-          const ApiResponse(status: 405, statusCode: StatusCode.error),
+        (_) async => throw KnockApiException(
+          const KnockApiResponse(status: 405, statusCode: StatusCode.error),
         ),
       );
       // We don't actually care what the response is for this test
-      when(apiClient.doPut(any, body: anyNamed('body')))
-          .thenAnswer((_) async => noDevicesResponse);
+      when(
+        apiClient.doPut(any, body: anyNamed('body')),
+      ).thenAnswer((_) async => noDevicesResponse);
 
       await expectLater(
-        userClient.deregisterTokenForChannel(
-          'testChannelId',
-          'testToken',
-        ),
-        throwsA(isA<ApiError>()),
+        userClient.deregisterTokenForChannel('testChannelId', 'testToken'),
+        throwsA(isA<KnockApiException>()),
       );
     });
   });

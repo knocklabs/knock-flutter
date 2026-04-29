@@ -1,11 +1,7 @@
 import 'package:knock_flutter/knock_flutter.dart';
 
-import 'package:knock_flutter/src/platform/messages.g.dart';
-
 // Default endpoint that the Knock SDK will use.
 const _defaultHost = 'https://api.knock.app';
-
-final _defaultHostApi = KnockHostApi();
 
 /// Configuration options for the [Knock] client SDK.
 class KnockOptions {
@@ -18,21 +14,16 @@ class KnockOptions {
 
 /// Knock client SDK.
 class Knock {
-  Knock(this.apiKey, {KnockOptions? options, KnockHostApi? hostApi})
-      : host = options?.host ?? _defaultHost,
-        _hostApi = hostApi ?? _defaultHostApi {
+  Knock(this.apiKey, {KnockOptions? options})
+    : host = options?.host ?? _defaultHost {
     // Fail loudly if we're using the wrong API key
     if (apiKey.startsWith('sk')) {
-      throw ArgumentError(
-        '''
+      throw ArgumentError('''
         [Knock] You are using your secret API key on the client. Please use the
         public key.
-        ''',
-      );
+        ''');
     }
   }
-
-  final KnockHostApi _hostApi;
 
   /// Your Knock public API key.
   final String apiKey;
@@ -42,7 +33,7 @@ class Knock {
 
   String? _userId;
   String? _userToken;
-  ApiClient? _apiClient;
+  KnockApiClient? _apiClient;
 
   MessagesClient? _messagesClient;
   PreferencesClient? _preferencesClient;
@@ -89,9 +80,9 @@ class Knock {
     }
   }
 
-  ApiClient client() {
+  KnockApiClient client() {
     _assertAuthenticated();
-    return _apiClient ??= ApiClient(this);
+    return _apiClient ??= KnockApiClient(this);
   }
 
   UserClient user() {
@@ -104,17 +95,12 @@ class Knock {
     return _messagesClient ??= MessagesClient(this);
   }
 
-  PreferencesClient preferences({
-    PreferencesOptions? options,
-  }) {
+  PreferencesClient preferences({PreferencesOptions? options}) {
     _assertAuthenticated();
     return _preferencesClient ??= PreferencesClient(this, options);
   }
 
-  FeedClient feed(
-    String feedChannelId, {
-    FeedOptions? options,
-  }) {
+  FeedClient feed(String feedChannelId, {FeedOptions? options}) {
     _assertAuthenticated();
     return FeedClient(this, feedChannelId, options);
   }
@@ -124,8 +110,4 @@ class Knock {
     _apiClient?.dispose();
     _apiClient = null;
   }
-
-  Future<String> getFcmToken() => _hostApi.getFcmToken();
-
-  Future<String> getApnsToken() => _hostApi.getApnsToken();
 }

@@ -6,6 +6,7 @@ part 'feed.freezed.dart';
 part 'feed.g.dart';
 
 enum NetworkStatus {
+  initial,
   loading,
   fetchMore,
   ready,
@@ -34,7 +35,7 @@ class Feed with _$Feed {
         unseenCount: 0,
       ),
       pageInfo: PageInfo(before: null, after: null, pageSize: 50),
-      networkStatus: NetworkStatus.ready,
+      networkStatus: NetworkStatus.initial,
     );
   }
 
