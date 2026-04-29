@@ -2,6 +2,7 @@ import 'dart:async';
 import 'dart:convert';
 
 import 'package:knock_flutter/knock_flutter.dart';
+import 'package:knock_flutter/src/feed_phoenix_detach.dart';
 import 'package:knock_flutter/src/model/api_response.dart';
 import 'package:knock_flutter/src/model/feed_extensions.dart';
 import 'package:knock_flutter/src/model/feed_response.dart';
@@ -144,6 +145,9 @@ class FeedClient {
           });
           channel.join();
 
+          // When the socket (re)opens, fetch the first page here as well. The
+          // unconditional _fetch above covers the already-connected case; this
+          // covers reconnect. requestInFlight dedupes if both run back-to-back.
           _fetch(
             fetchOptions: null,
             loadingType: NetworkStatus.loading,
@@ -162,9 +166,9 @@ class FeedClient {
         );
       },
       onCancel: () {
-        if (_channel != null) {
-          _channel!.leave();
-          _api.socket.removeChannel(_channel!);
+        final ch = _channel;
+        if (ch != null) {
+          detachFeedPhoenixChannel(_api.socket, ch);
         }
         _channel = null;
 
@@ -198,9 +202,9 @@ class FeedClient {
     if (_disposed) return;
     _disposed = true;
 
-    if (_channel != null) {
-      _channel!.leave();
-      _api.socket.removeChannel(_channel!);
+    final ch = _channel;
+    if (ch != null) {
+      detachFeedPhoenixChannel(_api.socket, ch);
     }
     _channel = null;
 

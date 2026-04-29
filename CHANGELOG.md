@@ -6,11 +6,22 @@
   Push token retrieval is now the consumer's responsibility via `firebase_messaging` or similar.
 - refactor: rename `ApiClient` to `KnockApiClient`, `ApiResponse` to `KnockApiResponse`,
   `ApiClientStatus` to `KnockApiClientStatus`, `ApiError` to `KnockApiException`
+- refactor: **`ApiError` extended `dart:core`'s [`Error`](https://api.dart.dev/dart-core/Error-class.html)**;
+  **`KnockApiException implements Exception`**. This is both a rename and a **semantic migration**:
+  `try/catch` / `rethrow` / `Future.onError` code that depended on **`Error`** / **`ApiError`**
+  will not behave the same unless updated to **`KnockApiException`** (or a broad **`Exception`** catch).
+- refactor: **`Feed.initialState()`** now starts with **`NetworkStatus.initial`** instead of `ready`,
+  so UIs must not infer “already loaded successfully” solely from **`NetworkStatus`** before the first HTTP
+  response. Prefer **`feed.requestInFlight`** / explicit handling for `initial`, `loading`, `fetchMore`, `error`,
+  and **`ready`**.
+- chore: Dart SDK **`>=3.8.0`**, Flutter **`>=3.32.0`** (see `pubspec.yaml`).
 
 ### Added
 
-- feat: add `NetworkStatus.initial` to distinguish pre-fetch state from ready
-- feat: add explicit `FeedClient.dispose()` for deterministic resource cleanup
+- feat: add `NetworkStatus.initial` and use it from `Feed.initialState()` before the first fetch
+- feat: add public **`FeedClient.dispose()`** for deterministic resource cleanup (subscriptions, Phoenix listeners,
+  event stream). Call when abandoning a feed (e.g. route dispose); **`knock.dispose()`** handles the **`Knock`**
+  instance broadly.
 
 ### Fixed
 
