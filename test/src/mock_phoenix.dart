@@ -5,3 +5,5 @@ import 'package:phoenix_socket/phoenix_socket.dart';
 class MockPhoenixSocket extends Mock implements PhoenixSocket {}
 
 class MockPhoenixChannel extends Mock implements PhoenixChannel {}
+
+class MockPush extends Mock implements Push {}

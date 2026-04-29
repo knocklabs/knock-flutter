@@ -12,6 +12,9 @@ void main() {
         final socket = MockPhoenixSocket();
         final channel = MockPhoenixChannel();
 
+        final leavePush = MockPush();
+        when(channel.leave()).thenReturn(leavePush);
+
         detachFeedPhoenixChannel(socket, channel);
 
         // Order is defined on [detachFeedPhoenixChannel] — both must occur.
