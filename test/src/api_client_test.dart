@@ -73,6 +73,13 @@ void main() {
       expect(headers['Authorization'], 'Bearer public_api_key');
       expect(headers['X-Knock-User-Token'], 'test_jwt_token');
     });
+
+    test('socket getter returns identical PhoenixSocket instances (regression)', () {
+      knock.authenticate('1');
+      final first = client.socket;
+      final second = client.socket;
+      expect(identical(first, second), isTrue);
+    });
   });
 
   group('ApiClient retries', () {

@@ -14,9 +14,29 @@ const _exampleFeedChannelId = '495a74d0-3ac1-43f6-9906-344f9e7d94d9';
 const _exampleApnsChannelId = 'c5c4fd65-20de-4ab5-bcda-8f8d077f528e';
 const _exampleFcmChannelId = '54268be3-1d12-416a-81a5-3dc7681f2408';
 
+String _firebaseUnavailableMessage() =>
+    'Firebase not configured (see example/README.md).';
+
+/// `true` after [Firebase.initializeApp] succeeds. When `false`, push-token
+/// demos in [_NotificationsWidget] should degrade gracefully.
+bool firebaseCoreReady = false;
+
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  await Firebase.initializeApp();
+
+  try {
+    await Firebase.initializeApp();
+    firebaseCoreReady = true;
+  } catch (error, stackTrace) {
+    developer.log(
+      'Firebase.initializeApp failed; push token demos will be limited. '
+      'Add Firebase config to the example app to enable them. '
+      'See example/README.md.',
+      error: error,
+      stackTrace: stackTrace,
+    );
+  }
+
   runApp(const _ExampleKnockApp());
 }
 
@@ -268,6 +288,13 @@ class _NotificationsWidgetState extends State<_NotificationsWidget> {
   }
 
   Future<void> _getFcmToken() async {
+    if (!firebaseCoreReady) {
+      setState(() {
+        _fcmToken = null;
+        _fcmError = _firebaseUnavailableMessage();
+      });
+      return;
+    }
     try {
       // Get FCM token directly from Firebase Messaging
       final token = await FirebaseMessaging.instance.getToken();
@@ -308,6 +335,13 @@ class _NotificationsWidgetState extends State<_NotificationsWidget> {
   }
 
   Future<void> _getApnsToken() async {
+    if (!firebaseCoreReady) {
+      setState(() {
+        _apnsToken = null;
+        _apnsError = _firebaseUnavailableMessage();
+      });
+      return;
+    }
     try {
       // Get APNS token directly from Firebase Messaging
       final token = await FirebaseMessaging.instance.getAPNSToken();
@@ -354,6 +388,17 @@ class _NotificationsWidgetState extends State<_NotificationsWidget> {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
+          if (!firebaseCoreReady)
+            Padding(
+              padding: const EdgeInsets.only(bottom: 16),
+              child: Text(
+                _firebaseUnavailableMessage(),
+                style: TextStyle(
+                  color: Theme.of(context).colorScheme.secondary,
+                  fontWeight: FontWeight.w600,
+                ),
+              ),
+            ),
           Text('FCM channel data: $_fcmChannelData'),
           Text('FCM token: ${_fcmToken ?? _fcmError}'),
           SingleChildScrollView(
@@ -666,10 +711,11 @@ class _FeedWidgetState extends State<_FeedWidget> {
 
   @override
   void dispose() {
-    super.dispose();
     // Knock: Make sure to cancel any event streams you are listening to!
     _subscription?.cancel();
+    _feedClient.dispose();
     _scrollController.dispose();
+    super.dispose();
   }
 
   @override

@@ -26,5 +26,3 @@ dev_dependencies:
   json_serializable: ^6.13.0
   mockito: ^5.4.3
   very_good_analysis: ^5.1.0
-
-flutter:
