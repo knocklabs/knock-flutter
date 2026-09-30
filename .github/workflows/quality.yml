@@ -2,40 +2,181 @@ name: Quality Checks
 
 on:
   workflow_dispatch:
+  push:
+    branches: [main]
   pull_request:
     branches: [main]
+  schedule:
+    # Weekly run against the latest stable Flutter to catch upstream breakage.
+    - cron: "0 6 * * 1"
 
-permissions: write-all
+permissions:
+  contents: read
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+env:
+  FLUTTER_VERSION: "3.47.5"
+  # Oldest Flutter allowed by pubspec.yaml (environment.flutter).
+  MINIMUM_FLUTTER_VERSION: "3.32.8"
 
 jobs:
   check:
+    name: Format, analyze, codegen, test
+    if: github.event_name != 'schedule'
     runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      checks: write
     steps:
-      - uses: actions/checkout@v4
-      - uses: subosito/flutter-action@v2
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+      - uses: subosito/flutter-action@1a449444c387b1966244ae4d4f8c696479add0b2 # v2.23.0
         with:
-          channel: "stable"
+          flutter-version: ${{ env.FLUTTER_VERSION }}
+          channel: stable
+          cache: true
       - name: Flutter configure
         run: flutter config --no-analytics
-      - name: Flutter doctor
-        run: flutter doctor
       - name: Get dependencies
         run: flutter pub get
-      - name: Lint
+      - name: Check formatting
+        run: dart format --output=none --set-exit-if-changed lib test
+      - name: Analyze
+        run: flutter analyze
+      - name: Check generated code is up to date
+        run: |
+          dart run build_runner build
+          if [ -n "$(git status --porcelain -- lib test)" ]; then
+            git status --porcelain -- lib test
+            git diff -- lib test
+            echo "::error::Generated code is out of date. Run 'dart run build_runner build' and commit the result."
+            exit 1
+          fi
+      - name: Tests
+        run: flutter test --coverage --file-reporter json:test_report.json
+      - name: Publish test results
+        uses: dorny/test-reporter@a43b3a5f7366b97d083190328d2c652e1a8b6aa2 # v3.0.0
+        # Fork pull requests get a read-only token and cannot create check runs.
+        if: >-
+          (success() || failure()) &&
+          (github.event_name != 'pull_request' ||
+           github.event.pull_request.head.repo.full_name == github.repository)
+        with:
+          name: Test Report
+          path: test_report.json
+          reporter: flutter-json
+          max-annotations: "50"
+      - name: Upload coverage
+        uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
+        if: success() || failure()
+        with:
+          name: coverage
+          path: coverage/lcov.info
+          if-no-files-found: ignore
+      - name: Publish dry run
+        run: dart pub publish --dry-run
+
+  minimum-flutter:
+    name: Minimum supported Flutter
+    if: github.event_name != 'schedule'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+      - uses: subosito/flutter-action@1a449444c387b1966244ae4d4f8c696479add0b2 # v2.23.0
+        with:
+          flutter-version: ${{ env.MINIMUM_FLUTTER_VERSION }}
+          channel: stable
+          cache: true
+      # The code generators and lints need a newer SDK than the package
+      # supports, so check what consumers get: the library and the tests that
+      # only need flutter_test, resolved at the lowest compatible versions.
+      - name: Drop tooling-only dev dependencies
+        run: |
+          python3 - <<'EOF'
+          import re
+          with open('pubspec.yaml') as f:
+              pubspec = f.read()
+          pubspec = re.sub(
+              r'\ndev_dependencies:\n(?:[ \t].*\n|\n)*',
+              '\ndev_dependencies:\n  flutter_test:\n    sdk: flutter\n',
+              pubspec,
+          )
+          with open('pubspec.yaml', 'w') as f:
+              f.write(pubspec)
+          EOF
+          : > analysis_options.yaml
+          rm -f pubspec.lock $(grep -l "package:mockito" -r test)
+      - name: Get lowest dependencies
+        run: flutter pub downgrade
+      - name: Analyze library
+        run: flutter analyze --no-fatal-infos --no-fatal-warnings lib
+      - name: Tests
+        run: flutter test
+
+  example-android:
+    name: Example app (Android)
+    if: github.event_name != 'schedule'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+      - uses: actions/setup-java@de7274f081f381c8f8158605e0321c36c376e2e6 # v6.0.1
+        with:
+          distribution: temurin
+          java-version: "17"
+      - uses: subosito/flutter-action@1a449444c387b1966244ae4d4f8c696479add0b2 # v2.23.0
+        with:
+          flutter-version: ${{ env.FLUTTER_VERSION }}
+          channel: stable
+          cache: true
+      - name: Get dependencies
+        working-directory: example
+        run: flutter pub get
+      - name: Analyze
+        working-directory: example
+        run: flutter analyze
+      - name: Build debug APK
+        working-directory: example
+        run: flutter build apk --debug
+
+  example-ios:
+    name: Example app (iOS)
+    if: github.event_name != 'schedule'
+    runs-on: macos-latest
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+      - uses: subosito/flutter-action@1a449444c387b1966244ae4d4f8c696479add0b2 # v2.23.0
+        with:
+          flutter-version: ${{ env.FLUTTER_VERSION }}
+          channel: stable
+          cache: true
+      - name: Get dependencies
+        working-directory: example
+        run: flutter pub get
+      - name: Build for iOS simulator
+        working-directory: example
+        run: flutter build ios --simulator --debug
+
+  latest-stable:
+    name: Latest stable Flutter
+    if: github.event_name == 'schedule' || github.event_name == 'workflow_dispatch'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+      - uses: actions/setup-java@de7274f081f381c8f8158605e0321c36c376e2e6 # v6.0.1
+        with:
+          distribution: temurin
+          java-version: "17"
+      - uses: subosito/flutter-action@1a449444c387b1966244ae4d4f8c696479add0b2 # v2.23.0
+        with:
+          channel: stable
+      - name: Upgrade dependencies
+        run: flutter pub upgrade
+      - name: Analyze
         run: flutter analyze
       - name: Tests
-        run: flutter test --no-pub --machine --coverage --coverage-path lcov.info >> test_report.json
-      - name: Publish test results
-        uses: dorny/test-reporter@v1.7.0
-        if: success() || failure()
-        with:
-          name: "Test Report"
-          path: test_report.json
-          reporter: "flutter-json"
-          max-annotations: "50"
-      - name: Publish coverage report
-        uses: romeovs/lcov-reporter-action@v0.3.1
-        if: success() || failure()
-        with:
-          lcov-file: lcov.info
-          title: "Coverage Report"
+        run: flutter test
+      - name: Build example (Android)
+        working-directory: example
+        run: flutter build apk --debug

@@ -5,23 +5,36 @@ on:
     tags:
       - "v[0-9]+.[0-9]+.[0-9]+*" # tag pattern on pub.dev: 'v{{version}'
 
+permissions:
+  contents: read
+
+env:
+  # Keep in sync with .github/workflows/quality.yml.
+  FLUTTER_VERSION: "3.47.5"
+
 jobs:
   publish:
     # Leveraged from https://github.com/dart-lang/setup-dart/blob/main/.github/workflows/publish.yml but made to support Flutter
     environment: pub.dev
     permissions:
+      contents: read
       id-token: write
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
       # Ensure a Dart/Flutter toolchain JWT is available for automated publishes to pub.dev
-      - uses: dart-lang/setup-dart@b64355ae6ca0b5d484f0106a033dd1388965d06d
+      - uses: dart-lang/setup-dart@6afc89df92d6eb3834022f73cd65adc8cdfcb92d # v1.8.1
       # Install the Flutter toolchain
-      - uses: subosito/flutter-action@v2
+      - uses: subosito/flutter-action@1a449444c387b1966244ae4d4f8c696479add0b2 # v2.23.0
         with:
-          channel: "stable"
+          flutter-version: ${{ env.FLUTTER_VERSION }}
+          channel: stable
       - name: Install dependencies
         run: flutter pub get
+      - name: Analyze
+        run: flutter analyze
+      - name: Tests
+        run: flutter test
       - name: Publish - dry run
         run: dart pub publish --dry-run
       - name: Publish to pub.dev
