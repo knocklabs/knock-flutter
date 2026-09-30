@@ -4,7 +4,7 @@ part 'knock_object.freezed.dart';
 part 'knock_object.g.dart';
 
 @freezed
-class KnockObject with _$KnockObject {
+abstract class KnockObject with _$KnockObject {
   @JsonSerializable(explicitToJson: true)
   const factory KnockObject({
     required String id,

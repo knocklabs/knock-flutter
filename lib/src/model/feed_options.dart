@@ -18,7 +18,7 @@ enum FeedOptionsArchivedScope {
 }
 
 @Freezed(toJson: true)
-class InsertedAtDateRange with _$InsertedAtDateRange {
+abstract class InsertedAtDateRange with _$InsertedAtDateRange {
   const factory InsertedAtDateRange({
     /// The start date in ISO 8601 format
     String? start,
@@ -35,7 +35,7 @@ class InsertedAtDateRange with _$InsertedAtDateRange {
 }
 
 @Freezed(toJson: true)
-class FeedOptions with _$FeedOptions {
+abstract class FeedOptions with _$FeedOptions {
   @JsonSerializable(explicitToJson: true)
   const factory FeedOptions({
     String? before,

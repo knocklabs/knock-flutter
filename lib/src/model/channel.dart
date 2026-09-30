@@ -4,7 +4,7 @@ part 'channel.freezed.dart';
 part 'channel.g.dart';
 
 @freezed
-class Device with _$Device {
+abstract class Device with _$Device {
   @JsonSerializable(explicitToJson: true)
   const factory Device({
     required String token,
@@ -17,7 +17,7 @@ class Device with _$Device {
 }
 
 @freezed
-class ChannelData with _$ChannelData {
+abstract class ChannelData with _$ChannelData {
   @JsonSerializable(explicitToJson: true)
   const factory ChannelData({
     required ChannelProviderData data,
@@ -44,7 +44,7 @@ class ChannelData with _$ChannelData {
 }
 
 @freezed
-class ChannelProviderData with _$ChannelProviderData {
+abstract class ChannelProviderData with _$ChannelProviderData {
   @JsonSerializable(explicitToJson: true)
   const factory ChannelProviderData({
     required List<Device> devices,

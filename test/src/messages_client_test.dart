@@ -11,7 +11,7 @@ void main() {
   TestWidgetsFlutterBinding.ensureInitialized();
 
   group('MessagesClient', () {
-    late MockApiClient apiClient;
+    late MockKnockApiClient apiClient;
     late MockKnock knock;
     late MessagesClient messagesClient;
 
@@ -68,7 +68,7 @@ void main() {
     );
 
     setUp(() {
-      apiClient = MockApiClient();
+      apiClient = MockKnockApiClient();
       knock = MockKnock()..authenticate('testUser');
 
       when(knock.client()).thenReturn(apiClient);

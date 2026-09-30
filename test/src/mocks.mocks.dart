@@ -3,6 +3,7 @@
 // Do not manually edit this file.
 
 // ignore_for_file: no_leading_underscores_for_library_prefixes
+
 import 'dart:async' as _i7;
 import 'dart:convert' as _i8;
 import 'dart:typed_data' as _i9;
@@ -29,8 +30,9 @@ import 'package:phoenix_socket/phoenix_socket.dart' as _i3;
 // ignore_for_file: subtype_of_sealed_class
 // ignore_for_file: invalid_use_of_internal_member
 
-class _FakeApiClient_0 extends _i1.SmartFake implements _i2.KnockApiClient {
-  _FakeApiClient_0(Object parent, Invocation parentInvocation)
+class _FakeKnockApiClient_0 extends _i1.SmartFake
+    implements _i2.KnockApiClient {
+  _FakeKnockApiClient_0(Object parent, Invocation parentInvocation)
     : super(parent, parentInvocation);
 }
 
@@ -141,8 +143,11 @@ class MockKnock extends _i1.Mock implements _i2.Knock {
   _i2.KnockApiClient client() =>
       (super.noSuchMethod(
             Invocation.method(#client, []),
-            returnValue: _FakeApiClient_0(this, Invocation.method(#client, [])),
-            returnValueForMissingStub: _FakeApiClient_0(
+            returnValue: _FakeKnockApiClient_0(
+              this,
+              Invocation.method(#client, []),
+            ),
+            returnValueForMissingStub: _FakeKnockApiClient_0(
               this,
               Invocation.method(#client, []),
             ),
@@ -213,10 +218,10 @@ class MockKnock extends _i1.Mock implements _i2.Knock {
   );
 }
 
-/// A class which mocks [ApiClient].
+/// A class which mocks [KnockApiClient].
 ///
 /// See the documentation for Mockito's code generation for more information.
-class MockApiClient extends _i1.Mock implements _i2.KnockApiClient {
+class MockKnockApiClient extends _i1.Mock implements _i2.KnockApiClient {
   @override
   _i2.Knock get knock =>
       (super.noSuchMethod(
