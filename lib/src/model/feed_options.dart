@@ -3,19 +3,9 @@ import 'package:freezed_annotation/freezed_annotation.dart';
 part 'feed_options.freezed.dart';
 part 'feed_options.g.dart';
 
-enum FeedOptionsStatus {
-  unread,
-  read,
-  unseen,
-  seen,
-  all;
-}
+enum FeedOptionsStatus { unread, read, unseen, seen, all }
 
-enum FeedOptionsArchivedScope {
-  include,
-  exclude,
-  only;
-}
+enum FeedOptionsArchivedScope { include, exclude, only }
 
 @Freezed(toJson: true)
 abstract class InsertedAtDateRange with _$InsertedAtDateRange {

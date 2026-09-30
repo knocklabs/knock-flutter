@@ -12,8 +12,7 @@ abstract class Device with _$Device {
     String? timezone,
   }) = _Device;
 
-  factory Device.fromJson(Map<String, dynamic> json) =>
-      _$DeviceFromJson(json);
+  factory Device.fromJson(Map<String, dynamic> json) => _$DeviceFromJson(json);
 }
 
 @freezed

@@ -8,23 +8,23 @@ void main() {
   Feed testFeed() => Feed.initialState();
 
   FeedItem testFeedItem(String id) => FeedItem(
-        knockInternalCursor: '',
-        id: id,
-        activities: [],
-        actors: [],
-        blocks: [],
-        insertedAt: DateTime.parse('2023-12-01T12:00:00.000Z'),
-        updatedAt: DateTime.parse('2023-12-01T12:00:00.000Z'),
-        seenAt: null,
-        readAt: null,
-        archivedAt: null,
-        interactedAt: null,
-        totalActivities: 0,
-        totalActors: 0,
-        data: null,
-        source: const NotificationSource(key: '', versionId: ''),
-        tenant: null,
-      );
+    knockInternalCursor: '',
+    id: id,
+    activities: [],
+    actors: [],
+    blocks: [],
+    insertedAt: DateTime.parse('2023-12-01T12:00:00.000Z'),
+    updatedAt: DateTime.parse('2023-12-01T12:00:00.000Z'),
+    seenAt: null,
+    readAt: null,
+    archivedAt: null,
+    interactedAt: null,
+    totalActivities: 0,
+    totalActors: 0,
+    data: null,
+    source: const NotificationSource(key: '', versionId: ''),
+    tenant: null,
+  );
 
   group('FeedItemsModifiers', () {
     test('actions on item ids', () {
@@ -62,12 +62,14 @@ void main() {
     });
 
     test('marks items as seen', () {
-      final feed = testFeed().copyWith(
-        items: [
-          testFeedItem('1'),
-          testFeedItem('2'),
-        ],
-      ).correctTestMetadata();
+      final feed = testFeed()
+          .copyWith(
+            items: [
+              testFeedItem('1'),
+              testFeedItem('2'),
+            ],
+          )
+          .correctTestMetadata();
       final updatedFeed = feed.markAsSeen(['2'], testNow());
 
       expect(
@@ -89,13 +91,16 @@ void main() {
     });
 
     test('marks items as unseen', () {
-      final feed = testFeed().copyWith(
-        items: [
-          testFeedItem('1'),
-          testFeedItem('2')
-              .copyWith(seenAt: DateTime.parse('2023-11-29T19:30:45.100Z')),
-        ],
-      ).correctTestMetadata();
+      final feed = testFeed()
+          .copyWith(
+            items: [
+              testFeedItem('1'),
+              testFeedItem(
+                '2',
+              ).copyWith(seenAt: DateTime.parse('2023-11-29T19:30:45.100Z')),
+            ],
+          )
+          .correctTestMetadata();
       final updatedFeed = feed.markAsUnseen(['2']);
 
       expect(
@@ -115,12 +120,14 @@ void main() {
     });
 
     test('marks items as read', () {
-      final feed = testFeed().copyWith(
-        items: [
-          testFeedItem('1'),
-          testFeedItem('2'),
-        ],
-      ).correctTestMetadata();
+      final feed = testFeed()
+          .copyWith(
+            items: [
+              testFeedItem('1'),
+              testFeedItem('2'),
+            ],
+          )
+          .correctTestMetadata();
       final updatedFeed = feed.markAsRead(['2'], testNow());
 
       expect(
@@ -142,14 +149,16 @@ void main() {
     });
 
     test('marks items as unread', () {
-      final feed = testFeed().copyWith(
-        items: [
-          testFeedItem('1'),
-          testFeedItem('2').copyWith(
-            readAt: DateTime.parse('2023-11-29T19:30:45.100Z'),
-          ),
-        ],
-      ).correctTestMetadata();
+      final feed = testFeed()
+          .copyWith(
+            items: [
+              testFeedItem('1'),
+              testFeedItem('2').copyWith(
+                readAt: DateTime.parse('2023-11-29T19:30:45.100Z'),
+              ),
+            ],
+          )
+          .correctTestMetadata();
       final updatedFeed = feed.markAsUnread(['2']);
 
       expect(
@@ -169,9 +178,11 @@ void main() {
     });
 
     test('marks items as interacted', () {
-      final feed = testFeed().copyWith(
-        items: [testFeedItem('1'), testFeedItem('2')],
-      ).correctTestMetadata();
+      final feed = testFeed()
+          .copyWith(
+            items: [testFeedItem('1'), testFeedItem('2')],
+          )
+          .correctTestMetadata();
       final updatedFeed = feed.markAsInteracted(['2'], testNow());
 
       expect(
@@ -194,12 +205,14 @@ void main() {
     });
 
     test('marks items as archived when filtering for unarchived', () {
-      final feed = testFeed().copyWith(
-        items: [
-          testFeedItem('1'),
-          testFeedItem('2'),
-        ],
-      ).correctTestMetadata();
+      final feed = testFeed()
+          .copyWith(
+            items: [
+              testFeedItem('1'),
+              testFeedItem('2'),
+            ],
+          )
+          .correctTestMetadata();
       final updatedFeed = feed.markAsArchived(['2'], testNow(), true);
 
       expect(
@@ -218,12 +231,14 @@ void main() {
     });
 
     test('marks items as archived when not filtering for unarchived', () {
-      final feed = testFeed().copyWith(
-        items: [
-          testFeedItem('1'),
-          testFeedItem('2'),
-        ],
-      ).correctTestMetadata();
+      final feed = testFeed()
+          .copyWith(
+            items: [
+              testFeedItem('1'),
+              testFeedItem('2'),
+            ],
+          )
+          .correctTestMetadata();
       final updatedFeed = feed.markAsArchived(['2'], testNow(), false);
 
       expect(
@@ -245,14 +260,16 @@ void main() {
     });
 
     test('marks items as unarchived', () {
-      final feed = testFeed().copyWith(
-        items: [
-          testFeedItem('1'),
-          testFeedItem('2').copyWith(
-            archivedAt: DateTime.parse('2023-11-29T19:30:45.100Z'),
-          ),
-        ],
-      ).correctTestMetadata();
+      final feed = testFeed()
+          .copyWith(
+            items: [
+              testFeedItem('1'),
+              testFeedItem('2').copyWith(
+                archivedAt: DateTime.parse('2023-11-29T19:30:45.100Z'),
+              ),
+            ],
+          )
+          .correctTestMetadata();
       final updatedFeed = feed.markAsUnarchived(['2']);
 
       expect(
@@ -272,12 +289,14 @@ void main() {
     });
 
     test('marks all items as seen when filtering for unseen', () {
-      final feed = testFeed().copyWith(
-        items: [
-          testFeedItem('1'),
-          testFeedItem('2'),
-        ],
-      ).correctTestMetadata();
+      final feed = testFeed()
+          .copyWith(
+            items: [
+              testFeedItem('1'),
+              testFeedItem('2'),
+            ],
+          )
+          .correctTestMetadata();
       final updatedFeed = feed.markAllAsSeen(
         testNow(),
         true,
@@ -291,12 +310,14 @@ void main() {
     });
 
     test('marks all items as seen when not filtering for unseen', () {
-      final feed = testFeed().copyWith(
-        items: [
-          testFeedItem('1'),
-          testFeedItem('2'),
-        ],
-      ).correctTestMetadata();
+      final feed = testFeed()
+          .copyWith(
+            items: [
+              testFeedItem('1'),
+              testFeedItem('2'),
+            ],
+          )
+          .correctTestMetadata();
       final updatedFeed = feed.markAllAsSeen(
         testNow(),
         false,
@@ -320,12 +341,14 @@ void main() {
     });
 
     test('marks all items as read when filtering for unread', () {
-      final feed = testFeed().copyWith(
-        items: [
-          testFeedItem('1'),
-          testFeedItem('2'),
-        ],
-      ).correctTestMetadata();
+      final feed = testFeed()
+          .copyWith(
+            items: [
+              testFeedItem('1'),
+              testFeedItem('2'),
+            ],
+          )
+          .correctTestMetadata();
       final updatedFeed = feed.markAllAsRead(
         testNow(),
         true,
@@ -339,12 +362,14 @@ void main() {
     });
 
     test('marks all items as read when not filtering for unread', () {
-      final feed = testFeed().copyWith(
-        items: [
-          testFeedItem('1'),
-          testFeedItem('2'),
-        ],
-      ).correctTestMetadata();
+      final feed = testFeed()
+          .copyWith(
+            items: [
+              testFeedItem('1'),
+              testFeedItem('2'),
+            ],
+          )
+          .correctTestMetadata();
       final updatedFeed = feed.markAllAsRead(
         testNow(),
         false,
@@ -368,12 +393,14 @@ void main() {
     });
 
     test('marks all items as archived when filtering for unarchived', () {
-      final feed = testFeed().copyWith(
-        items: [
-          testFeedItem('1'),
-          testFeedItem('2'),
-        ],
-      ).correctTestMetadata();
+      final feed = testFeed()
+          .copyWith(
+            items: [
+              testFeedItem('1'),
+              testFeedItem('2'),
+            ],
+          )
+          .correctTestMetadata();
       final updatedFeed = feed.markAllAsArchived(
         testNow(),
         true,
@@ -387,12 +414,14 @@ void main() {
     });
 
     test('marks all items as archived when not filtering for unarchived', () {
-      final feed = testFeed().copyWith(
-        items: [
-          testFeedItem('1'),
-          testFeedItem('2'),
-        ],
-      ).correctTestMetadata();
+      final feed = testFeed()
+          .copyWith(
+            items: [
+              testFeedItem('1'),
+              testFeedItem('2'),
+            ],
+          )
+          .correctTestMetadata();
       final updatedFeed = feed.markAllAsArchived(
         testNow(),
         false,
@@ -481,24 +510,26 @@ void main() {
         );
       });
 
-      test('default set page behavior is to replace the replace the page info',
-          () {
-        final feed = testFeed().copyWith(
-          pageInfo: const PageInfo(after: '1', before: '2', pageSize: 25),
-        );
+      test(
+        'default set page behavior is to replace the replace the page info',
+        () {
+          final feed = testFeed().copyWith(
+            pageInfo: const PageInfo(after: '1', before: '2', pageSize: 25),
+          );
 
-        final otherFeed = testFeed().copyWith(
-          pageInfo: const PageInfo(after: 'A', before: 'B', pageSize: 25),
-        );
-
-        final mergedFeed = feed.merge(otherFeed);
-        expect(
-          mergedFeed,
-          testFeed().copyWith(
+          final otherFeed = testFeed().copyWith(
             pageInfo: const PageInfo(after: 'A', before: 'B', pageSize: 25),
-          ),
-        );
-      });
+          );
+
+          final mergedFeed = feed.merge(otherFeed);
+          expect(
+            mergedFeed,
+            testFeed().copyWith(
+              pageInfo: const PageInfo(after: 'A', before: 'B', pageSize: 25),
+            ),
+          );
+        },
+      );
 
       test('does not set page info when requested', () {
         final feed = testFeed().copyWith(
