@@ -4,7 +4,6 @@ import 'dart:developer' as developer;
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_html/flutter_html.dart';
 import 'package:knock_flutter/knock_flutter.dart';
 
 // Knock: Example user and feed data
@@ -748,7 +747,7 @@ class _FeedWidgetState extends State<_FeedWidget> {
               child: ListView.separated(
                 controller: _scrollController,
                 padding: const EdgeInsets.symmetric(vertical: 8.0),
-                separatorBuilder: (_, __) => const Divider(),
+                separatorBuilder: (_, _) => const Divider(),
                 itemCount: items.length,
                 itemBuilder: (_, index) {
                   final item = items[index];
@@ -857,6 +856,9 @@ class _FeedActionsWidget extends StatelessWidget {
   }
 }
 
+String _stripHtmlTags(String html) =>
+    html.replaceAll(RegExp('<[^>]*>'), '').trim();
+
 class _FeedItemWidget extends StatelessWidget {
   final FeedItem item;
   final VoidCallback onSeen;
@@ -909,20 +911,11 @@ class _FeedItemWidget extends StatelessWidget {
             Text('Inserted at: ${item.insertedAt}'),
             for (var block in item.blocks)
               block.when(
-                markdown: (name, content, rendered) => Html(
-                  data: rendered,
-                  style: {
-                    'body': Style(margin: Margins.zero),
-                    'p': Style(padding: HtmlPaddings.zero, margin: Margins.zero)
-                  },
-                ),
-                text: (name, content, rendered) => Html(
-                  data: content,
-                  style: {
-                    'body': Style(margin: Margins.zero),
-                    'p': Style(padding: HtmlPaddings.zero, margin: Margins.zero)
-                  },
-                ),
+                // Knock: `rendered` holds the HTML rendered by Knock. Use an
+                // HTML or markdown renderer of your choice in your app.
+                markdown: (name, content, rendered) =>
+                    Text(_stripHtmlTags(rendered)),
+                text: (name, content, rendered) => Text(rendered),
                 buttonSet: (name, buttons) => Row(
                   children: [
                     for (var button in buttons)
