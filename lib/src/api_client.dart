@@ -21,7 +21,9 @@ class KnockApiClient extends http.BaseClient {
   PhoenixSocket? _socket;
 
   bool _disposed = false;
-  final _status = StreamController<KnockApiClientStatus>.broadcast();
+  // Synchronous so that anything bound to this client (e.g. FeedClient) sees
+  // the disposal before dispose() returns.
+  final _status = StreamController<KnockApiClientStatus>.broadcast(sync: true);
 
   String get _host => knock.host;
 
@@ -34,17 +36,20 @@ class KnockApiClient extends http.BaseClient {
   PhoenixSocket _buildSocket() {
     _assertNotDisposed();
 
-    final params = {'api_key': knock.apiKey};
-
-    final userToken = knock.userToken;
-    if (userToken != null) {
-      params['user_token'] = userToken;
-    }
-
-    return PhoenixSocket(
+    final socket = PhoenixSocket(
       _wsHost,
-      socketOptions: PhoenixSocketOptions(params: params),
-    )..connect();
+      // Read on every (re)connect so a refreshed user token is picked up.
+      socketOptions: PhoenixSocketOptions(dynamicParams: _socketParams),
+    );
+    unawaited(socket.connect());
+    return socket;
+  }
+
+  Future<Map<String, String>> _socketParams() async {
+    return {
+      'api_key': knock.apiKey,
+      'user_token': ?knock.userToken,
+    };
   }
 
   @override
@@ -66,7 +71,7 @@ class KnockApiClient extends http.BaseClient {
   Future<KnockApiResponse> doGet(
     String path, {
     Map<String, dynamic>? queryParams,
-  }) async {
+  }) {
     return _doRequest(() => get(_buildUri(path, queryParams)));
   }
 
@@ -74,7 +79,7 @@ class KnockApiClient extends http.BaseClient {
     String path, {
     Map<String, dynamic>? queryParams,
     Object? body,
-  }) async {
+  }) {
     return _doRequest(() => put(_buildUri(path, queryParams), body: body));
   }
 
@@ -82,14 +87,14 @@ class KnockApiClient extends http.BaseClient {
     String path, {
     Map<String, dynamic>? queryParams,
     Object? body,
-  }) async {
+  }) {
     return _doRequest(() => post(_buildUri(path, queryParams), body: body));
   }
 
   Future<KnockApiResponse> doDelete(
     String path, {
     Map<String, dynamic>? queryParams,
-  }) async {
+  }) {
     return _doRequest(() => delete(_buildUri(path, queryParams)));
   }
 
@@ -106,7 +111,7 @@ class KnockApiClient extends http.BaseClient {
         statusCode: statusCode,
         body: body,
       );
-    } catch (error) {
+    } on Object catch (error) {
       developer.log('Failed API request', error: error);
 
       return KnockApiResponse(
@@ -129,12 +134,13 @@ class KnockApiClient extends http.BaseClient {
       host: uri.host,
       port: uri.port == 0 ? null : uri.port,
       pathSegments: uri.pathSegments,
-      queryParameters: cleanParams,
-      fragment: uri.fragment,
+      queryParameters: cleanParams.isEmpty ? null : cleanParams,
+      fragment: uri.hasFragment ? uri.fragment : null,
     );
   }
 
   void dispose() {
+    if (_disposed) return;
     _disposed = true;
     _status.add(KnockApiClientStatus.disposed);
 
@@ -148,7 +154,7 @@ class KnockApiClient extends http.BaseClient {
       _socket = null;
     }
 
-    _status.close();
+    unawaited(_status.close());
   }
 
   void _assertNotDisposed() {

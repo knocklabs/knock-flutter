@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 // coverage:ignore-file
-// ignore_for_file: type=lint
+// ignore_for_file: type=lint, type=warning, deprecated_member_use, deprecated_member_use_from_same_package
 // ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target, unnecessary_question_mark
 
 part of 'api_response.dart';
@@ -9,6 +9,7 @@ part of 'api_response.dart';
 // FreezedGenerator
 // **************************************************************************
 
+// GENERATED CODE - DO NOT MODIFY BY HAND
 // dart format off
 T _$identity<T>(T value) => value;
 /// @nodoc
@@ -25,12 +26,16 @@ $KnockApiResponseCopyWith<KnockApiResponse> get copyWith => _$KnockApiResponseCo
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is KnockApiResponse&&(identical(other.status, status) || other.status == status)&&(identical(other.statusCode, statusCode) || other.statusCode == statusCode)&&(identical(other.body, body) || other.body == body)&&const DeepCollectionEquality().equals(other.error, error));
+  final _this = this as KnockApiResponse;
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is KnockApiResponse&&(identical(other.status, _this.status) || other.status == _this.status)&&(identical(other.statusCode, _this.statusCode) || other.statusCode == _this.statusCode)&&(identical(other.body, _this.body) || other.body == _this.body)&&const DeepCollectionEquality().equals(other.error, _this.error));
 }
 
 
 @override
-int get hashCode => Object.hash(runtimeType,status,statusCode,body,const DeepCollectionEquality().hash(error));
+int get hashCode {
+  final _this = this as KnockApiResponse;
+  return Object.hash(runtimeType,_this.status,_this.statusCode,_this.body,const DeepCollectionEquality().hash(_this.error));
+}
 
 
 
@@ -59,7 +64,7 @@ class _$KnockApiResponseCopyWithImpl<$Res>
 /// Create a copy of KnockApiResponse
 /// with the given fields replaced by the non-null parameter values.
 @pragma('vm:prefer-inline') @override $Res call({Object? status = null,Object? statusCode = null,Object? body = freezed,Object? error = freezed,}) {
-  return _then(_self.copyWith(
+  return _then(KnockApiResponse(
 status: null == status ? _self.status : status // ignore: cast_nullable_to_non_nullable
 as int,statusCode: null == statusCode ? _self.statusCode : statusCode // ignore: cast_nullable_to_non_nullable
 as StatusCode,body: freezed == body ? _self.body : body // ignore: cast_nullable_to_non_nullable
@@ -222,12 +227,14 @@ _$KnockApiResponseCopyWith<_KnockApiResponse> get copyWith => __$KnockApiRespons
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _KnockApiResponse&&(identical(other.status, status) || other.status == status)&&(identical(other.statusCode, statusCode) || other.statusCode == statusCode)&&(identical(other.body, body) || other.body == body)&&const DeepCollectionEquality().equals(other.error, error));
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is _KnockApiResponse&&(identical(other.status, status) || other.status == status)&&(identical(other.statusCode, statusCode) || other.statusCode == statusCode)&&(identical(other.body, body) || other.body == body)&&const DeepCollectionEquality().equals(other.error, error));
 }
 
 
 @override
-int get hashCode => Object.hash(runtimeType,status,statusCode,body,const DeepCollectionEquality().hash(error));
+int get hashCode {
+    return Object.hash(runtimeType,status,statusCode,body,const DeepCollectionEquality().hash(error));
+}
 
 
 

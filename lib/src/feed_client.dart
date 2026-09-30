@@ -1,12 +1,14 @@
 import 'dart:async';
 import 'dart:convert';
+import 'dart:developer' as developer;
 
 import 'package:knock_flutter/knock_flutter.dart';
-import 'package:knock_flutter/src/feed_phoenix_detach.dart';
+import 'package:knock_flutter/src/feed_channel_registry.dart';
 import 'package:knock_flutter/src/model/api_response.dart';
 import 'package:knock_flutter/src/model/feed_extensions.dart';
 import 'package:knock_flutter/src/model/feed_response.dart';
 import 'package:knock_flutter/src/model/feed_update_request.dart';
+import 'package:knock_flutter/src/util/path.dart';
 import 'package:phoenix_socket/phoenix_socket.dart';
 
 enum _FeedFetchSource { socket, http }
@@ -36,11 +38,12 @@ enum _BulkFeedItemApiStatus {
 }
 
 class FeedClient {
-  FeedClient(this._knock, this.feedChannelId, FeedOptions? options) {
+  FeedClient(this._knock, this.feedChannelId, FeedOptions? options)
+    : _api = _knock.client() {
     this.options = FeedOptions.defaultOptions().merge(options);
     _currentFeed = this.options.buildInitialFeed();
 
-    _apiStatusSubscription = _knock.client().status.listen((event) {
+    _apiStatusSubscription = _api.status.listen((event) {
       if (event == KnockApiClientStatus.disposed) {
         _disposed = true;
 
@@ -48,12 +51,12 @@ class FeedClient {
         _feedController?.add(this.options.buildInitialFeed());
 
         // Start closing out everything
-        _feedController?.close();
+        unawaited(_feedController?.close());
         _feedController = null;
 
-        _eventController.close();
+        unawaited(_eventController.close());
 
-        _apiStatusSubscription?.cancel();
+        unawaited(_apiStatusSubscription?.cancel());
         _apiStatusSubscription = null;
       }
     });
@@ -62,6 +65,12 @@ class FeedClient {
   final Knock _knock;
   final String feedChannelId;
   late final FeedOptions options;
+
+  // The API client (and socket) this feed was created with. Teardown must not
+  // go through Knock.client(), which would create a new client after
+  // Knock.dispose() and throws after Knock.logout().
+  final KnockApiClient _api;
+  PhoenixSocket? _socket;
 
   StreamSubscription<KnockApiClientStatus>? _apiStatusSubscription;
 
@@ -78,8 +87,7 @@ class FeedClient {
   final _eventController = StreamController<FeedEvent>.broadcast();
 
   bool _disposed = false;
-
-  KnockApiClient get _api => _knock.client();
+  bool _pendingRealtimeFetch = false;
 
   Feed get _currentFeed => _feedValue;
 
@@ -88,7 +96,10 @@ class FeedClient {
     _feedController?.add(feed);
   }
 
+  /// The feed state. Once this client is disposed it returns an empty stream.
   Stream<Feed> get feed {
+    if (_disposed) return const Stream<Feed>.empty();
+
     final controller = _feedController ??= _buildFeedController();
     return controller.stream;
   }
@@ -99,59 +110,48 @@ class FeedClient {
       onListen: () {
         controller.add(_currentFeed);
 
-        final socket = _api.socket;
+        final socket = _socket = _api.socket;
 
         // Note: closeStream will never terminate because it's backed by a
         // BehaviorSubject in phoenix_socket. This is called when the platform
         // websocket stream completes or the underlying socket is closed by
-        // APIClient.dispose().
-        _socketClosedSubscription = socket.closeStream.listen((event) {
-          _channelMessagesSubscription?.cancel();
-          _channelMessagesSubscription = null;
-
-          _channel?.close();
-          _channel = null;
-        });
+        // KnockApiClient.dispose().
+        _socketClosedSubscription = socket.closeStream.listen(
+          (_) => _releaseChannel(),
+        );
 
         // Note: errorStream will never terminate because it's backed by a
         // BehaviorSubject in phoenix_socket. This is called when the platform
         // websocket stream returns an error.
-        _socketErrorSubscription = socket.errorStream.listen((event) {
-          _channelMessagesSubscription?.cancel();
-          _channelMessagesSubscription = null;
-
-          _channel?.close();
-          _channel = null;
-        });
+        _socketErrorSubscription = socket.errorStream.listen(
+          (_) => _releaseChannel(),
+        );
 
         // Note: openStream will never terminate because it's backed by a
         // BehaviorSubject in phoenix_socket. This stream will get triggered
         // after the initial heartbeat exchange completes.
         _socketOpenSubscription = socket.openStream.listen((event) {
-          final userFeedId = 'feeds:$feedChannelId:${_knock.userId}';
-
-          // It is safe to call this repeatedly as the PhoenixChannel instances
-          // for a topic are cached until the underlying socket is closed.
-          final channel = _channel = socket.addChannel(
-            topic: userFeedId,
-            parameters: options.toJson(),
-          );
-
-          _channelMessagesSubscription?.cancel();
-          _channelMessagesSubscription = channel.messages.listen((message) {
-            if (message.event.value == 'new-message') {
-              _onNewMessageReceived(message);
-            }
-          });
-          channel.join();
+          if (_channel == null) {
+            final channel = _channel = FeedChannelRegistry.of(socket).acquire(
+              'feeds:$feedChannelId:${_knock.userId}',
+              options.toJson(),
+            );
+            _channelMessagesSubscription = channel.messages.listen((message) {
+              if (message.event.value == 'new-message') {
+                _onNewMessageReceived(message);
+              }
+            });
+          }
 
           // When the socket (re)opens, fetch the first page here as well. The
-          // unconditional _fetch above covers the already-connected case; this
+          // unconditional _fetch below covers the already-connected case; this
           // covers reconnect. requestInFlight dedupes if both run back-to-back.
-          _fetch(
-            fetchOptions: null,
-            loadingType: NetworkStatus.loading,
-            fetchSource: _FeedFetchSource.http,
+          unawaited(
+            _fetch(
+              fetchOptions: null,
+              loadingType: NetworkStatus.loading,
+              fetchSource: _FeedFetchSource.http,
+            ),
           );
         });
 
@@ -159,35 +159,48 @@ class FeedClient {
         // for the socket openStream replay. This ensures data loads even when
         // a new FeedClient is created while the socket is already connected.
         // The requestInFlight guard in _fetch prevents duplicate requests.
-        _fetch(
-          fetchOptions: null,
-          loadingType: NetworkStatus.loading,
-          fetchSource: _FeedFetchSource.http,
+        unawaited(
+          _fetch(
+            fetchOptions: null,
+            loadingType: NetworkStatus.loading,
+            fetchSource: _FeedFetchSource.http,
+          ),
         );
       },
       onCancel: () {
-        final ch = _channel;
-        if (ch != null) {
-          detachFeedPhoenixChannel(_api.socket, ch);
-        }
-        _channel = null;
+        _unsubscribeFromSocket();
 
-        _channelMessagesSubscription?.cancel();
-        _channelMessagesSubscription = null;
-
-        _socketClosedSubscription?.cancel();
-        _socketClosedSubscription = null;
-
-        _socketErrorSubscription?.cancel();
-        _socketErrorSubscription = null;
-
-        _socketOpenSubscription?.cancel();
-        _socketOpenSubscription = null;
-
-        _feedController?.close();
+        unawaited(_feedController?.close());
         _feedController = null;
       },
     );
+  }
+
+  void _releaseChannel() {
+    unawaited(_channelMessagesSubscription?.cancel());
+    _channelMessagesSubscription = null;
+
+    final channel = _channel;
+    final socket = _socket;
+    _channel = null;
+    if (channel != null && socket != null) {
+      FeedChannelRegistry.of(socket).release(channel);
+    }
+  }
+
+  void _unsubscribeFromSocket() {
+    _releaseChannel();
+
+    unawaited(_socketClosedSubscription?.cancel());
+    _socketClosedSubscription = null;
+
+    unawaited(_socketErrorSubscription?.cancel());
+    _socketErrorSubscription = null;
+
+    unawaited(_socketOpenSubscription?.cancel());
+    _socketOpenSubscription = null;
+
+    _socket = null;
   }
 
   Stream<FeedEvent> on(BindableFeedEvent bindableFeedEvent) {
@@ -202,32 +215,16 @@ class FeedClient {
     if (_disposed) return;
     _disposed = true;
 
-    final ch = _channel;
-    if (ch != null) {
-      detachFeedPhoenixChannel(_api.socket, ch);
-    }
-    _channel = null;
+    _unsubscribeFromSocket();
 
-    _channelMessagesSubscription?.cancel();
-    _channelMessagesSubscription = null;
-
-    _socketClosedSubscription?.cancel();
-    _socketClosedSubscription = null;
-
-    _socketErrorSubscription?.cancel();
-    _socketErrorSubscription = null;
-
-    _socketOpenSubscription?.cancel();
-    _socketOpenSubscription = null;
-
-    _apiStatusSubscription?.cancel();
+    unawaited(_apiStatusSubscription?.cancel());
     _apiStatusSubscription = null;
 
     if (!_eventController.isClosed) {
-      _eventController.close();
+      unawaited(_eventController.close());
     }
 
-    _feedController?.close();
+    unawaited(_feedController?.close());
     _feedController = null;
   }
 
@@ -235,18 +232,39 @@ class FeedClient {
     if (_disposed) return;
 
     final payload = message.payload;
-    if (payload != null) {
+    if (payload == null) return;
+
+    try {
       final response = OnNewMessageResponse.fromJson(payload);
-
       _currentFeed = _currentFeed.updateMetadata(response.metadata);
+    } on Object catch (error, stackTrace) {
+      developer.log(
+        '[Knock] Failed to decode realtime feed message',
+        error: error,
+        stackTrace: stackTrace,
+      );
+    }
 
-      final before = _currentFeed.items.firstOrNull?.knockInternalCursor;
+    _fetchRealtime();
+  }
+
+  void _fetchRealtime() {
+    // A realtime update that arrives while another request is in flight is
+    // replayed once that request completes, so it is never dropped.
+    if (_currentFeed.requestInFlight) {
+      _pendingRealtimeFetch = true;
+      return;
+    }
+    _pendingRealtimeFetch = false;
+
+    final before = _currentFeed.items.firstOrNull?.knockInternalCursor;
+    unawaited(
       _fetch(
         fetchOptions: FeedOptions(before: before),
         loadingType: NetworkStatus.loading,
         fetchSource: _FeedFetchSource.socket,
-      );
-    }
+      ),
+    );
   }
 
   Future<void> _fetch({
@@ -254,21 +272,23 @@ class FeedClient {
     required NetworkStatus loadingType,
     required _FeedFetchSource fetchSource,
   }) async {
+    if (_disposed) return;
+
     // Do nothing if there is an active request
-    final currentFeed = _currentFeed;
-    if (currentFeed.requestInFlight) {
+    if (_currentFeed.requestInFlight) {
       return;
     }
 
-    _currentFeed = currentFeed.copyWith(networkStatus: loadingType);
+    _currentFeed = _currentFeed.copyWith(networkStatus: loadingType);
 
-    final response = await _api.doGet(
-      '/v1/users/${_knock.userId}/feeds/$feedChannelId',
-      queryParams: options.merge(fetchOptions).toJson(),
-    );
-    if (response.statusCode == StatusCode.error) {
-      _currentFeed = currentFeed.copyWith(networkStatus: NetworkStatus.error);
-    } else {
+    try {
+      final response = await _api.doGet(
+        '/v1/users/${pathSegment(_knock.userId!)}'
+        '/feeds/${pathSegment(feedChannelId)}',
+        queryParams: options.merge(fetchOptions).toJson(),
+      );
+      if (_disposed) return;
+
       final json = response.decodeResponse();
       final updatedFeed = Feed.fromJson(json);
 
@@ -298,6 +318,20 @@ class FeedClient {
           ),
         );
       }
+    } on Object catch (error, stackTrace) {
+      if (_disposed) return;
+      developer.log(
+        '[Knock] Failed to fetch feed',
+        error: error,
+        stackTrace: stackTrace,
+      );
+      // Only flip the status so optimistic updates applied while the request
+      // was in flight are kept.
+      _currentFeed = _currentFeed.copyWith(networkStatus: NetworkStatus.error);
+    }
+
+    if (_pendingRealtimeFetch && !_disposed) {
+      _fetchRealtime();
     }
   }
 
@@ -310,10 +344,12 @@ class FeedClient {
       return;
     }
 
-    _fetch(
-      fetchOptions: FeedOptions(after: after),
-      loadingType: NetworkStatus.fetchMore,
-      fetchSource: _FeedFetchSource.http,
+    unawaited(
+      _fetch(
+        fetchOptions: FeedOptions(after: after),
+        loadingType: NetworkStatus.fetchMore,
+        fetchSource: _FeedFetchSource.http,
+      ),
     );
   }
 
@@ -557,7 +593,8 @@ class FeedClient {
     final tenants = tenant != null ? [tenant] : null;
 
     final response = await _api.doPost(
-      '/v1/channels/$feedChannelId/messages/bulk/${type.apiValue}',
+      '/v1/channels/${pathSegment(feedChannelId)}'
+      '/messages/bulk/${type.apiValue}',
       body: jsonEncode(
         BulkFeedStatusUpdateRequest(
           userIds: [_knock.userId!],

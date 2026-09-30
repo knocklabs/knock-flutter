@@ -85,6 +85,17 @@ void main() {
     );
   });
 
+  group('ApiClient dispose', () {
+    test('can be called more than once', () {
+      final client = KnockApiClient(
+        Knock('public_api_key'),
+        client: MockClient((request) async => Response('', 200)),
+      )..dispose();
+
+      expect(client.dispose, returnsNormally);
+    });
+  });
+
   group('ApiClient retries', () {
     late Knock knock;
     late Response Function() responseBuilder;

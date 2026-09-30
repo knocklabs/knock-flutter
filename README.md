@@ -4,6 +4,29 @@ A client-side Flutter library to interact with user-facing Knock features, such 
 
 **Note:** This is a lower-level library intended for building your own notification UIs on top of Knock’s APIs (feeds, preferences, channels, messages).
 
+## Installation
+
+```sh
+flutter pub add knock_flutter
+```
+
+or add it to your `pubspec.yaml`:
+
+```yaml
+dependencies:
+  knock_flutter: ^1.1.0
+```
+
+Requires Dart SDK `>=3.8.0` and Flutter `>=3.32.0`.
+
+## Upgrading from 1.0.x to 1.1.0
+
+1.1.0 is a stabilization release. Three behavior changes may need attention (details in [CHANGELOG.md](CHANGELOG.md)):
+
+- `KnockMessageDeliveryStatus.bounced` and `KnockMessageEngagementStatus.linkClicked` were added; exhaustive `switch` statements over these enums need the new cases.
+- `FeedClient`s for the same feed channel share one realtime subscription (see [Realtime feeds](#realtime-feeds)).
+- `knock.authenticate()` with a different user disposes the previous user's feeds (see [Lifecycle and cleanup](#lifecycle-and-cleanup)).
+
 ## Migrating from 0.1.x to 1.0.0
 
 Version **1.0.0** is a major release with breaking changes. Read [CHANGELOG.md](CHANGELOG.md) for the full list. Highlights:
@@ -23,12 +46,16 @@ Version **1.0.0** is a major release with breaking changes. Read [CHANGELOG.md](
 
 See the [documentation](https://docs.knock.app/notification-feeds/bring-your-own-ui) for usage examples.
 
-> **Knock docs follow-up:** The public Knock docs may still mention old names (`ApiClient`, `ApiResponse`, `ApiError`). See [`docs-follow-up.md`](docs-follow-up.md) for pointers when updating docs.
-
 ## Lifecycle and cleanup
 
 - Call **`knock.dispose()`** when you are finished with the `Knock` instance (your app teardown or logout flows).
-- For each **`FeedClient`** created via `knock.feed(...)`, call **`feedClient.dispose()`** when that feed is torn down (e.g. navigating away). This unsubscribes from the Phoenix socket and cleans listeners. Optionally cancel any subscriptions on `feedClient.feed`; `dispose()` clears the rest deterministically.
+- For each **`FeedClient`** created via `knock.feed(...)`, call **`feedClient.dispose()`** when that feed is torn down (e.g. navigating away). This unsubscribes from the Phoenix socket and cleans listeners. Optionally cancel any subscriptions on `feedClient.feed`; `dispose()` clears the rest deterministically. After `dispose()`, `feedClient.feed` is an empty stream.
+- `knock.dispose()` and `knock.logout()` also dispose every `FeedClient` created from that instance.
+- Calling **`knock.authenticate(...)`** with a **different user** disposes the current API client, its socket and its feeds; create new feeds for the new user. Calling it again for the **same user** only updates the user token (for example after a token refresh); the new token is used for subsequent requests and when the socket reconnects.
+
+## Realtime feeds
+
+Several `FeedClient`s for the same feed channel (for example a badge counter and a feed list) share one realtime channel. The channel is joined with the options of the first client that subscribes; every client still fetches its own items with its own options when a realtime update arrives.
 
 ## Feed loading state (`NetworkStatus.initial`)
 
@@ -69,7 +96,9 @@ Code generation is limited to supporting JSON serialization/deserialization of A
 dart run build_runner build
 ```
 
-Generated files are checked into version control because they ship with the published package.
+Generated files are checked into version control because they ship with the published package. CI fails if they are out of date. The code generators are pinned to exact versions in `pubspec.yaml`; bump them deliberately and regenerate.
+
+Development uses the Flutter version pinned in [`.github/workflows/quality.yml`](.github/workflows/quality.yml). CI also checks the library against the minimum supported Flutter version from `pubspec.yaml`.
 
 ### Release (internal)
 

@@ -14,7 +14,7 @@ enum NetworkStatus {
 }
 
 @freezed
-class Feed with _$Feed {
+abstract class Feed with _$Feed {
   @JsonSerializable(explicitToJson: true)
   const factory Feed({
     @JsonKey(name: 'entries') required List<FeedItem> items,
@@ -48,13 +48,14 @@ class Feed with _$Feed {
 }
 
 @freezed
-class FeedItem with _$FeedItem {
+abstract class FeedItem with _$FeedItem {
   @JsonSerializable(explicitToJson: true)
   const factory FeedItem({
     @JsonKey(name: '__cursor') required String knockInternalCursor,
     required String id,
     required List<Activity> activities,
     required List<Recipient> actors,
+    @JsonKey(fromJson: _contentBlocksFromJson)
     required List<ContentBlock> blocks,
     @ISO8601DateTimeConverter()
     @JsonKey(name: 'inserted_at')
@@ -86,7 +87,7 @@ class FeedItem with _$FeedItem {
 }
 
 @freezed
-class Activity with _$Activity {
+abstract class Activity with _$Activity {
   @JsonSerializable(explicitToJson: true)
   const factory Activity({
     required String id,
@@ -113,7 +114,7 @@ enum ContentBlockType {
 }
 
 @freezed
-class ContentBlock with _$ContentBlock {
+sealed class ContentBlock with _$ContentBlock {
   const ContentBlock._(); // Private constructor for the base class
 
   const factory ContentBlock.markdown({
@@ -139,14 +140,31 @@ class ContentBlock with _$ContentBlock {
 
 Map<String, dynamic> modifyJsonForContentBlock(Map<String, dynamic> json) {
   final type = json['type'] as String?;
-  json['runtimeType'] = type == 'button_set' ? 'buttonSet' : type;
+  if (type == null) return json;
 
-  // Now call the generated function
-  return json;
+  return {
+    ...json,
+    'runtimeType': type == 'button_set' ? 'buttonSet' : type,
+  };
+}
+
+const _supportedContentBlockTypes = {'markdown', 'text', 'buttonSet'};
+
+// Block types this SDK doesn't know yet are skipped so that new server-side
+// block types don't prevent the whole feed from loading.
+List<ContentBlock> _contentBlocksFromJson(List<dynamic> json) {
+  return json
+      .cast<Map<String, dynamic>>()
+      .map(modifyJsonForContentBlock)
+      .where(
+        (block) => _supportedContentBlockTypes.contains(block['runtimeType']),
+      )
+      .map(ContentBlock.fromJson)
+      .toList();
 }
 
 @freezed
-class BlockActionButton with _$BlockActionButton {
+abstract class BlockActionButton with _$BlockActionButton {
   @JsonSerializable(explicitToJson: true)
   const factory BlockActionButton({
     required String name,
@@ -159,7 +177,7 @@ class BlockActionButton with _$BlockActionButton {
 }
 
 @freezed
-class NotificationSource with _$NotificationSource {
+abstract class NotificationSource with _$NotificationSource {
   @JsonSerializable(explicitToJson: true)
   const factory NotificationSource({
     required String key,
@@ -171,7 +189,7 @@ class NotificationSource with _$NotificationSource {
 }
 
 @freezed
-class PageInfo with _$PageInfo {
+abstract class PageInfo with _$PageInfo {
   @JsonSerializable(explicitToJson: true)
   const factory PageInfo({
     required String? after,
@@ -184,7 +202,7 @@ class PageInfo with _$PageInfo {
 }
 
 @freezed
-class FeedMetadata with _$FeedMetadata {
+abstract class FeedMetadata with _$FeedMetadata {
   @JsonSerializable(explicitToJson: true)
   const factory FeedMetadata({
     @JsonKey(name: 'total_count') required int totalCount,

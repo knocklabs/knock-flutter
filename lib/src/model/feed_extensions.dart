@@ -149,7 +149,7 @@ extension FeedModifiersExtension on Feed {
     Feed Function() initialStateBuilder,
   ) {
     if (isFromUnseenOnly) {
-      return initialStateBuilder();
+      return initialStateBuilder().copyWith(networkStatus: networkStatus);
     } else {
       return copyWith(
         items: items.map((item) {
@@ -168,7 +168,7 @@ extension FeedModifiersExtension on Feed {
     Feed Function() initialStateBuilder,
   ) {
     if (isFromUnreadOnly) {
-      return initialStateBuilder();
+      return initialStateBuilder().copyWith(networkStatus: networkStatus);
     } else {
       return copyWith(
         items: items.map((item) {
@@ -187,7 +187,7 @@ extension FeedModifiersExtension on Feed {
     Feed Function() initialStateBuilder,
   ) {
     if (isFromUnarchivedOnly) {
-      return initialStateBuilder();
+      return initialStateBuilder().copyWith(networkStatus: networkStatus);
     } else {
       return copyWith(
         items: items.map((item) {

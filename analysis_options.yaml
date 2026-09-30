@@ -9,7 +9,10 @@ linter:
     public_member_api_docs: false
 
 analyzer:
-  exclude: ["**/**.g.dart", "**/**.freezed.dart"]
+  exclude:
+    - "**/**.g.dart"
+    - "**/**.freezed.dart"
+    - build/**
   errors:
     invalid_annotation_target: ignore
 

@@ -3,22 +3,12 @@ import 'package:freezed_annotation/freezed_annotation.dart';
 part 'feed_options.freezed.dart';
 part 'feed_options.g.dart';
 
-enum FeedOptionsStatus {
-  unread,
-  read,
-  unseen,
-  seen,
-  all;
-}
+enum FeedOptionsStatus { unread, read, unseen, seen, all }
 
-enum FeedOptionsArchivedScope {
-  include,
-  exclude,
-  only;
-}
+enum FeedOptionsArchivedScope { include, exclude, only }
 
 @Freezed(toJson: true)
-class InsertedAtDateRange with _$InsertedAtDateRange {
+abstract class InsertedAtDateRange with _$InsertedAtDateRange {
   const factory InsertedAtDateRange({
     /// The start date in ISO 8601 format
     String? start,
@@ -35,7 +25,7 @@ class InsertedAtDateRange with _$InsertedAtDateRange {
 }
 
 @Freezed(toJson: true)
-class FeedOptions with _$FeedOptions {
+abstract class FeedOptions with _$FeedOptions {
   @JsonSerializable(explicitToJson: true)
   const factory FeedOptions({
     String? before,

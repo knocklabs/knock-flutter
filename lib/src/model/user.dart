@@ -5,7 +5,7 @@ part 'user.freezed.dart';
 part 'user.g.dart';
 
 @freezed
-class User with _$User {
+abstract class User with _$User {
   @JsonSerializable(createFieldMap: true)
   factory User({
     required String id,
@@ -51,16 +51,16 @@ class UserConverter implements JsonConverter<User, Map<String, dynamic>> {
 
   @override
   User fromJson(Map<String, dynamic> json) {
-    final user = _$$UserImplFromJson(json);
-    final keys = _$$UserImplFieldMap.values;
+    final user = _$UserFromJson(json);
+    final keys = _$UserFieldMap.values;
     json.removeWhere((key, value) => keys.contains(key));
     return user.copyWith(properties: json.isEmpty ? null : json);
   }
 
   @override
   Map<String, dynamic> toJson(User object) {
-    if (object is _$UserImpl) {
-      final json = _$$UserImplToJson(object)..addAll(object.properties ?? {});
+    if (object is _User) {
+      final json = _$UserToJson(object)..addAll(object.properties ?? {});
       return json;
     } else {
       throw StateError(

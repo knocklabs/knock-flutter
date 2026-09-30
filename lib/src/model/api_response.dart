@@ -19,7 +19,12 @@ abstract class KnockApiResponse with _$KnockApiResponse {
 
   dynamic decodeResponse() {
     checkResponse();
-    return jsonDecode(body!);
+
+    final body = this.body;
+    if (body == null || body.trim().isEmpty) {
+      throw KnockApiException(this);
+    }
+    return jsonDecode(body);
   }
 
   void checkResponse() {
@@ -30,8 +35,8 @@ abstract class KnockApiResponse with _$KnockApiResponse {
 
   @override
   String toString() {
-    // ignore: lines_longer_than_80_chars
-    return 'KnockApiResponse(status: $status, statusCode: $statusCode, body: $body, error: $error)';
+    return 'KnockApiResponse(status: $status, statusCode: $statusCode, '
+        'body: $body, error: $error)';
   }
 }
 

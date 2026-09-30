@@ -125,13 +125,14 @@ void main() {
     });
 
     test('correctly when extra fields are present', () {
-      final json = User(
-        id: '123',
-        updatedAt: DateTime.parse('2023-11-28T15:00:00Z'),
-      )
-          .set('extra_number', 13)
-          .set('extra_string', 'some string')
-          .set('extra_object', {'some_key': 'some value'}).toJson();
+      final json =
+          User(
+            id: '123',
+            updatedAt: DateTime.parse('2023-11-28T15:00:00Z'),
+          ).set('extra_number', 13).set('extra_string', 'some string').set(
+            'extra_object',
+            {'some_key': 'some value'},
+          ).toJson();
 
       expect(
         json,

@@ -2,11 +2,13 @@ import 'dart:convert';
 
 import 'package:flutter/services.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:http/http.dart' as http;
 import 'package:knock_flutter/knock_flutter.dart';
 import 'package:knock_flutter/src/model/api_response.dart';
 import 'package:mockito/mockito.dart';
 
 import 'mocks.mocks.dart';
+import 'support/test_knock.dart';
 
 void main() {
   TestWidgetsFlutterBinding.ensureInitialized();
@@ -49,15 +51,16 @@ void main() {
       ),
     );
 
-    late MockApiClient apiClient;
+    late MockKnockApiClient apiClient;
     late MockKnock knock;
     late UserClient userClient;
 
     setUp(() {
-      apiClient = MockApiClient();
+      apiClient = MockKnockApiClient();
       knock = MockKnock()..authenticate('testUser');
 
       when(knock.client()).thenReturn(apiClient);
+      when(knock.userId).thenReturn('testUser');
       userClient = UserClient(knock);
     });
 
@@ -188,6 +191,33 @@ void main() {
         userClient.deregisterTokenForChannel('testChannelId', 'testToken'),
         throwsA(isA<KnockApiException>()),
       );
+    });
+  });
+
+  group('UserClient paths', () {
+    test('encode the user id and channel id', () async {
+      final knock = TestKnock((request) async {
+        return http.Response(
+          jsonEncode({
+            'data': {'devices': <dynamic>[]},
+          }),
+          200,
+        );
+      })..authenticate('team#1/alice?x');
+      addTearDown(knock.dispose);
+
+      await knock.user().getChannelData('channel/1');
+
+      final url = knock.requests.single.url;
+      expect(url.pathSegments, [
+        'v1',
+        'users',
+        'team#1/alice?x',
+        'channel_data',
+        'channel/1',
+      ]);
+      expect(url.hasQuery, isFalse);
+      expect(url.hasFragment, isFalse);
     });
   });
 }

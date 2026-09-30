@@ -13,8 +13,12 @@ enum ChannelType {
 
   const ChannelType(this.apiValue);
 
-  static ChannelType _valueOf(String apiValue) =>
-      ChannelType.values.firstWhere((element) => element.apiValue == apiValue);
+  static ChannelType? _valueOf(String apiValue) {
+    for (final channelType in ChannelType.values) {
+      if (channelType.apiValue == apiValue) return channelType;
+    }
+    return null;
+  }
 
   final String apiValue;
 }
@@ -23,7 +27,7 @@ typedef WorkflowPreferences = Map<String, WorkflowPreferenceSetting>;
 typedef ChannelTypePreferences = Map<ChannelType, ChannelTypePreference>;
 
 @freezed
-class ChannelTypePreference with _$ChannelTypePreference {
+abstract class ChannelTypePreference with _$ChannelTypePreference {
   /// Either set [value] or [conditions].
   factory ChannelTypePreference({
     /// If [value] is set then [conditions] should not be set.
@@ -35,7 +39,7 @@ class ChannelTypePreference with _$ChannelTypePreference {
 }
 
 @freezed
-class WorkflowPreferenceSetting with _$WorkflowPreferenceSetting {
+abstract class WorkflowPreferenceSetting with _$WorkflowPreferenceSetting {
   /// Either set [value] or [channelTypePreferences], [conditions].
   factory WorkflowPreferenceSetting({
     /// If [value] is set then [channelTypePreferences] and [conditions] should
@@ -51,7 +55,7 @@ class WorkflowPreferenceSetting with _$WorkflowPreferenceSetting {
 }
 
 @freezed
-class _ChannelTypesJson with _$ChannelTypesJson {
+abstract class _ChannelTypesJson with _$ChannelTypesJson {
   @JsonSerializable(explicitToJson: true)
   const factory _ChannelTypesJson({
     @JsonKey(
@@ -60,25 +64,25 @@ class _ChannelTypesJson with _$ChannelTypesJson {
       fromJson: _nonNullChannelTypePreferencesFromJson,
     )
     required dynamic channelTypes,
-  }) = __ChannelTypesJson;
+  }) = _ChannelTypesJsonImpl;
 
   factory _ChannelTypesJson.fromJson(Map<String, dynamic> json) =>
       _$ChannelTypesJsonFromJson(json);
 }
 
 @freezed
-class _ConditionsJson with _$ConditionsJson {
+abstract class _ConditionsJson with _$ConditionsJson {
   @JsonSerializable(explicitToJson: true)
   const factory _ConditionsJson({
     required List<PreferenceCondition>? conditions,
-  }) = __ConditionsJson;
+  }) = _ConditionsJsonImpl;
 
   factory _ConditionsJson.fromJson(Map<String, dynamic> json) =>
       _$ConditionsJsonFromJson(json);
 }
 
 @Freezed(toJson: true, fromJson: false)
-class SetPreferencesProperties with _$SetPreferencesProperties {
+abstract class SetPreferencesProperties with _$SetPreferencesProperties {
   @JsonSerializable(explicitToJson: true)
   const factory SetPreferencesProperties({
     @JsonKey(
@@ -101,7 +105,7 @@ class SetPreferencesProperties with _$SetPreferencesProperties {
 }
 
 @freezed
-class PreferenceSet with _$PreferenceSet {
+abstract class PreferenceSet with _$PreferenceSet {
   @JsonSerializable(explicitToJson: true)
   const factory PreferenceSet({
     required String id,
@@ -128,7 +132,7 @@ class PreferenceSet with _$PreferenceSet {
 }
 
 @freezed
-class PreferenceCondition with _$PreferenceCondition {
+abstract class PreferenceCondition with _$PreferenceCondition {
   @JsonSerializable(explicitToJson: true)
   const factory PreferenceCondition({
     required String variable,
@@ -201,22 +205,24 @@ dynamic _nonNullChannelTypePreferencesToJson(ChannelTypePreferences value) {
 ChannelTypePreferences? _nonNullChannelTypePreferencesFromJson(
   Map<String, dynamic>? json,
 ) {
-  if (json != null) {
-    return json.map((key, value) {
-      final ChannelTypePreference setting;
-      if (value is bool) {
-        setting = ChannelTypePreference(value: value);
-      } else {
-        final parsed = _ConditionsJson.fromJson(value);
-        final conditions = parsed.conditions ?? [];
-        setting = ChannelTypePreference(conditions: conditions);
-      }
+  if (json == null) return null;
 
-      return MapEntry(ChannelType._valueOf(key), setting);
-    });
-  } else {
-    return null;
+  final preferences = <ChannelType, ChannelTypePreference>{};
+  for (final MapEntry(:key, :value) in json.entries) {
+    // Channel types this SDK doesn't know yet are skipped.
+    final channelType = ChannelType._valueOf(key);
+    if (channelType == null) continue;
+
+    if (value is bool) {
+      preferences[channelType] = ChannelTypePreference(value: value);
+    } else {
+      final parsed = _ConditionsJson.fromJson(value as Map<String, dynamic>);
+      preferences[channelType] = ChannelTypePreference(
+        conditions: parsed.conditions ?? [],
+      );
+    }
   }
+  return preferences;
 }
 
 dynamic _channelTypePreferencesToJson(ChannelTypePreferences? value) {

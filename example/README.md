@@ -13,13 +13,15 @@ flutter run \
 
 Without a real API key many screens will error or show empty content; that is expected for ad-hoc hacking.
 
+Requirements: the Flutter version pinned in CI (see `.github/workflows/quality.yml`), JDK 17+, and for iOS Xcode with an iOS 15.0+ deployment target.
+
 ## Firebase (push token tab)
 
 Tab **Notifications** uses `firebase_core`, `firebase_messaging`, and **`Firebase.initializeApp()`** in [`lib/main.dart`](lib/main.dart). If you have not added Firebase to this example project, init is caught and the UI still runs; token buttons will surface a **“Firebase not configured”** style message until you:
 
 1. Create a Firebase project and add Flutter apps (Android + Apple) per [Add Firebase to Flutter](https://firebase.google.com/docs/flutter/setup).
 2. Run `flutterfire configure` (recommended) to generate `lib/firebase_options.dart`, or add equivalent options by hand.
-3. Add `google-services.json` under `android/app/` and `GoogleService-Info.plist` under `ios/Runner/` from the Firebase console.
+3. Add `google-services.json` under `android/app/` and `GoogleService-Info.plist` under `ios/Runner/` from the Firebase console. The Android build only applies the `com.google.gms.google-services` Gradle plugin when `android/app/google-services.json` exists, so the app builds without it.
 4. Uncomment or wire `Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform)` if you use FlutterFire’s generated defaults (see [FlutterFire overview](https://firebase.google.com/docs/flutter/setup)).
 
- Until then, feeds, user, preferences, and channel tabs work as long as Knock API credentials are valid; only FCM/APNs token retrieval needs Firebase.
+Until then, feeds, user, preferences, and channel tabs work as long as Knock API credentials are valid; only FCM/APNs token retrieval needs Firebase.

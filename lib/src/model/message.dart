@@ -15,6 +15,7 @@ enum KnockMessageDeliveryStatus {
   undelivered,
   @JsonValue('not_sent')
   notSent,
+  bounced,
 }
 
 /// The engagement status of a message.
@@ -22,12 +23,14 @@ enum KnockMessageEngagementStatus {
   seen,
   read,
   interacted,
+  @JsonValue('link_clicked')
+  linkClicked,
   archived,
 }
 
 /// A Knock message represents a notification sent to a user via a channel.
 @freezed
-class KnockMessage with _$KnockMessage {
+abstract class KnockMessage with _$KnockMessage {
   @JsonSerializable(explicitToJson: true)
   const factory KnockMessage({
     /// The unique identifier for this message.
@@ -62,7 +65,10 @@ class KnockMessage with _$KnockMessage {
     String? tenant,
 
     /// The engagement statuses of the message.
-    @JsonKey(name: 'engagement_statuses')
+    @JsonKey(
+      name: 'engagement_statuses',
+      fromJson: _engagementStatusesFromJson,
+    )
     @Default([])
     List<KnockMessageEngagementStatus> engagementStatuses,
 
@@ -119,7 +125,7 @@ class KnockMessage with _$KnockMessage {
 
 /// Information about the source workflow that triggered a message.
 @freezed
-class KnockMessageSource with _$KnockMessageSource {
+abstract class KnockMessageSource with _$KnockMessageSource {
   @JsonSerializable(explicitToJson: true)
   const factory KnockMessageSource({
     /// The workflow key.
@@ -137,4 +143,19 @@ class KnockMessageSource with _$KnockMessageSource {
 
   factory KnockMessageSource.fromJson(Map<String, dynamic> json) =>
       _$KnockMessageSourceFromJson(json);
+}
+
+// Engagement statuses this SDK doesn't know yet are ignored instead of failing
+// to decode the whole message.
+List<KnockMessageEngagementStatus> _engagementStatusesFromJson(
+  List<dynamic> json,
+) {
+  return [
+    for (final value in json)
+      ?$enumDecodeNullable(
+        _$KnockMessageEngagementStatusEnumMap,
+        value,
+        unknownValue: JsonKey.nullForUndefinedEnumValue,
+      ),
+  ];
 }

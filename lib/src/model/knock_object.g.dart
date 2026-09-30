@@ -8,16 +8,15 @@ part of 'knock_object.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-_$KnockObjectImpl _$$KnockObjectImplFromJson(Map<String, dynamic> json) =>
-    _$KnockObjectImpl(
-      id: json['id'] as String,
-      collection: json['collection'] as String,
-      properties: json['properties'] as Map<String, dynamic>,
-      updatedAt: json['updated_at'] as String,
-      createdAt: json['created_at'] as String?,
-    );
+_KnockObject _$KnockObjectFromJson(Map<String, dynamic> json) => _KnockObject(
+  id: json['id'] as String,
+  collection: json['collection'] as String,
+  properties: json['properties'] as Map<String, dynamic>,
+  updatedAt: json['updated_at'] as String,
+  createdAt: json['created_at'] as String?,
+);
 
-Map<String, dynamic> _$$KnockObjectImplToJson(_$KnockObjectImpl instance) =>
+Map<String, dynamic> _$KnockObjectToJson(_KnockObject instance) =>
     <String, dynamic>{
       'id': instance.id,
       'collection': instance.collection,

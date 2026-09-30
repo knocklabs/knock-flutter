@@ -21,9 +21,9 @@ void main() {
 
     test('can be created with an overridden host', () {
       Knock testCreate() => Knock(
-            'api_key',
-            options: KnockOptions(host: 'https://somehost.com'),
-          );
+        'api_key',
+        options: KnockOptions(host: 'https://somehost.com'),
+      );
 
       expect(testCreate, returnsNormally);
       expect(testCreate().apiKey, 'api_key');
