@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 // coverage:ignore-file
-// ignore_for_file: type=lint
+// ignore_for_file: type=lint, type=warning, deprecated_member_use, deprecated_member_use_from_same_package
 // ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target, unnecessary_question_mark
 
 part of 'message.dart';
@@ -9,6 +9,7 @@ part of 'message.dart';
 // FreezedGenerator
 // **************************************************************************
 
+// GENERATED CODE - DO NOT MODIFY BY HAND
 // dart format off
 T _$identity<T>(T value) => value;
 
@@ -46,16 +47,21 @@ $KnockMessageCopyWith<KnockMessage> get copyWith => _$KnockMessageCopyWithImpl<K
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is KnockMessage&&(identical(other.id, id) || other.id == id)&&(identical(other.channelId, channelId) || other.channelId == channelId)&&(identical(other.recipient, recipient) || other.recipient == recipient)&&(identical(other.source, source) || other.source == source)&&(identical(other.status, status) || other.status == status)&&(identical(other.insertedAt, insertedAt) || other.insertedAt == insertedAt)&&(identical(other.updatedAt, updatedAt) || other.updatedAt == updatedAt)&&const DeepCollectionEquality().equals(other.actors, actors)&&(identical(other.tenant, tenant) || other.tenant == tenant)&&const DeepCollectionEquality().equals(other.engagementStatuses, engagementStatuses)&&(identical(other.seenAt, seenAt) || other.seenAt == seenAt)&&(identical(other.readAt, readAt) || other.readAt == readAt)&&(identical(other.archivedAt, archivedAt) || other.archivedAt == archivedAt)&&(identical(other.clickedAt, clickedAt) || other.clickedAt == clickedAt)&&(identical(other.interactedAt, interactedAt) || other.interactedAt == interactedAt)&&(identical(other.linkClickedAt, linkClickedAt) || other.linkClickedAt == linkClickedAt)&&const DeepCollectionEquality().equals(other.data, data)&&const DeepCollectionEquality().equals(other.metadata, metadata));
+  final _this = this as KnockMessage;
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is KnockMessage&&(identical(other.id, _this.id) || other.id == _this.id)&&(identical(other.channelId, _this.channelId) || other.channelId == _this.channelId)&&(identical(other.recipient, _this.recipient) || other.recipient == _this.recipient)&&(identical(other.source, _this.source) || other.source == _this.source)&&(identical(other.status, _this.status) || other.status == _this.status)&&(identical(other.insertedAt, _this.insertedAt) || other.insertedAt == _this.insertedAt)&&(identical(other.updatedAt, _this.updatedAt) || other.updatedAt == _this.updatedAt)&&const DeepCollectionEquality().equals(other.actors, _this.actors)&&(identical(other.tenant, _this.tenant) || other.tenant == _this.tenant)&&const DeepCollectionEquality().equals(other.engagementStatuses, _this.engagementStatuses)&&(identical(other.seenAt, _this.seenAt) || other.seenAt == _this.seenAt)&&(identical(other.readAt, _this.readAt) || other.readAt == _this.readAt)&&(identical(other.archivedAt, _this.archivedAt) || other.archivedAt == _this.archivedAt)&&(identical(other.clickedAt, _this.clickedAt) || other.clickedAt == _this.clickedAt)&&(identical(other.interactedAt, _this.interactedAt) || other.interactedAt == _this.interactedAt)&&(identical(other.linkClickedAt, _this.linkClickedAt) || other.linkClickedAt == _this.linkClickedAt)&&const DeepCollectionEquality().equals(other.data, _this.data)&&const DeepCollectionEquality().equals(other.metadata, _this.metadata));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,id,channelId,recipient,source,status,insertedAt,updatedAt,const DeepCollectionEquality().hash(actors),tenant,const DeepCollectionEquality().hash(engagementStatuses),seenAt,readAt,archivedAt,clickedAt,interactedAt,linkClickedAt,const DeepCollectionEquality().hash(data),const DeepCollectionEquality().hash(metadata));
+int get hashCode {
+  final _this = this as KnockMessage;
+  return Object.hash(runtimeType,_this.id,_this.channelId,_this.recipient,_this.source,_this.status,_this.insertedAt,_this.updatedAt,const DeepCollectionEquality().hash(_this.actors),_this.tenant,const DeepCollectionEquality().hash(_this.engagementStatuses),_this.seenAt,_this.readAt,_this.archivedAt,_this.clickedAt,_this.interactedAt,_this.linkClickedAt,const DeepCollectionEquality().hash(_this.data),const DeepCollectionEquality().hash(_this.metadata));
+}
 
 @override
 String toString() {
-  return 'KnockMessage(id: $id, channelId: $channelId, recipient: $recipient, source: $source, status: $status, insertedAt: $insertedAt, updatedAt: $updatedAt, actors: $actors, tenant: $tenant, engagementStatuses: $engagementStatuses, seenAt: $seenAt, readAt: $readAt, archivedAt: $archivedAt, clickedAt: $clickedAt, interactedAt: $interactedAt, linkClickedAt: $linkClickedAt, data: $data, metadata: $metadata)';
+  final _this = this as KnockMessage;
+  return 'KnockMessage(id: ${_this.id}, channelId: ${_this.channelId}, recipient: ${_this.recipient}, source: ${_this.source}, status: ${_this.status}, insertedAt: ${_this.insertedAt}, updatedAt: ${_this.updatedAt}, actors: ${_this.actors}, tenant: ${_this.tenant}, engagementStatuses: ${_this.engagementStatuses}, seenAt: ${_this.seenAt}, readAt: ${_this.readAt}, archivedAt: ${_this.archivedAt}, clickedAt: ${_this.clickedAt}, interactedAt: ${_this.interactedAt}, linkClickedAt: ${_this.linkClickedAt}, data: ${_this.data}, metadata: ${_this.metadata})';
 }
 
 
@@ -84,7 +90,7 @@ class _$KnockMessageCopyWithImpl<$Res>
 /// Create a copy of KnockMessage
 /// with the given fields replaced by the non-null parameter values.
 @pragma('vm:prefer-inline') @override $Res call({Object? id = null,Object? channelId = null,Object? recipient = null,Object? source = null,Object? status = null,Object? insertedAt = null,Object? updatedAt = null,Object? actors = null,Object? tenant = freezed,Object? engagementStatuses = null,Object? seenAt = freezed,Object? readAt = freezed,Object? archivedAt = freezed,Object? clickedAt = freezed,Object? interactedAt = freezed,Object? linkClickedAt = freezed,Object? data = freezed,Object? metadata = null,}) {
-  return _then(_self.copyWith(
+  return _then(KnockMessage(
 id: null == id ? _self.id : id // ignore: cast_nullable_to_non_nullable
 as String,channelId: null == channelId ? _self.channelId : channelId // ignore: cast_nullable_to_non_nullable
 as String,recipient: null == recipient ? _self.recipient : recipient // ignore: cast_nullable_to_non_nullable
@@ -262,7 +268,7 @@ return $default(_that.id,_that.channelId,_that.recipient,_that.source,_that.stat
 
 @JsonSerializable(explicitToJson: true)
 class _KnockMessage extends KnockMessage {
-  const _KnockMessage({required this.id, @JsonKey(name: 'channel_id') required this.channelId, required this.recipient, required this.source, required this.status, @ISO8601DateTimeConverter()@JsonKey(name: 'inserted_at') required this.insertedAt, @ISO8601DateTimeConverter()@JsonKey(name: 'updated_at') required this.updatedAt, final  List<Recipient> actors = const [], this.tenant, @JsonKey(name: 'engagement_statuses') final  List<KnockMessageEngagementStatus> engagementStatuses = const [], @ISO8601DateTimeConverter()@JsonKey(name: 'seen_at') this.seenAt, @ISO8601DateTimeConverter()@JsonKey(name: 'read_at') this.readAt, @ISO8601DateTimeConverter()@JsonKey(name: 'archived_at') this.archivedAt, @ISO8601DateTimeConverter()@JsonKey(name: 'clicked_at') this.clickedAt, @ISO8601DateTimeConverter()@JsonKey(name: 'interacted_at') this.interactedAt, @ISO8601DateTimeConverter()@JsonKey(name: 'link_clicked_at') this.linkClickedAt, final  Map<String, dynamic>? data, final  Map<String, dynamic> metadata = const {}}): _actors = actors,_engagementStatuses = engagementStatuses,_data = data,_metadata = metadata,super._();
+  const _KnockMessage({required this.id, @JsonKey(name: 'channel_id') required this.channelId, required this.recipient, required this.source, required this.status, @ISO8601DateTimeConverter()@JsonKey(name: 'inserted_at') required this.insertedAt, @ISO8601DateTimeConverter()@JsonKey(name: 'updated_at') required this.updatedAt,  List<Recipient> actors = const [], this.tenant, @JsonKey(name: 'engagement_statuses')  List<KnockMessageEngagementStatus> engagementStatuses = const [], @ISO8601DateTimeConverter()@JsonKey(name: 'seen_at') this.seenAt, @ISO8601DateTimeConverter()@JsonKey(name: 'read_at') this.readAt, @ISO8601DateTimeConverter()@JsonKey(name: 'archived_at') this.archivedAt, @ISO8601DateTimeConverter()@JsonKey(name: 'clicked_at') this.clickedAt, @ISO8601DateTimeConverter()@JsonKey(name: 'interacted_at') this.interactedAt, @ISO8601DateTimeConverter()@JsonKey(name: 'link_clicked_at') this.linkClickedAt,  Map<String, dynamic>? data,  Map<String, dynamic> metadata = const {}}): _actors = actors,_engagementStatuses = engagementStatuses,_data = data,_metadata = metadata,super._();
   factory _KnockMessage.fromJson(Map<String, dynamic> json) => _$KnockMessageFromJson(json);
 
 /// The unique identifier for this message.
@@ -345,16 +351,18 @@ Map<String, dynamic> toJson() {
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _KnockMessage&&(identical(other.id, id) || other.id == id)&&(identical(other.channelId, channelId) || other.channelId == channelId)&&(identical(other.recipient, recipient) || other.recipient == recipient)&&(identical(other.source, source) || other.source == source)&&(identical(other.status, status) || other.status == status)&&(identical(other.insertedAt, insertedAt) || other.insertedAt == insertedAt)&&(identical(other.updatedAt, updatedAt) || other.updatedAt == updatedAt)&&const DeepCollectionEquality().equals(other._actors, _actors)&&(identical(other.tenant, tenant) || other.tenant == tenant)&&const DeepCollectionEquality().equals(other._engagementStatuses, _engagementStatuses)&&(identical(other.seenAt, seenAt) || other.seenAt == seenAt)&&(identical(other.readAt, readAt) || other.readAt == readAt)&&(identical(other.archivedAt, archivedAt) || other.archivedAt == archivedAt)&&(identical(other.clickedAt, clickedAt) || other.clickedAt == clickedAt)&&(identical(other.interactedAt, interactedAt) || other.interactedAt == interactedAt)&&(identical(other.linkClickedAt, linkClickedAt) || other.linkClickedAt == linkClickedAt)&&const DeepCollectionEquality().equals(other._data, _data)&&const DeepCollectionEquality().equals(other._metadata, _metadata));
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is _KnockMessage&&(identical(other.id, id) || other.id == id)&&(identical(other.channelId, channelId) || other.channelId == channelId)&&(identical(other.recipient, recipient) || other.recipient == recipient)&&(identical(other.source, source) || other.source == source)&&(identical(other.status, status) || other.status == status)&&(identical(other.insertedAt, insertedAt) || other.insertedAt == insertedAt)&&(identical(other.updatedAt, updatedAt) || other.updatedAt == updatedAt)&&const DeepCollectionEquality().equals(other.actors, _actors)&&(identical(other.tenant, tenant) || other.tenant == tenant)&&const DeepCollectionEquality().equals(other.engagementStatuses, _engagementStatuses)&&(identical(other.seenAt, seenAt) || other.seenAt == seenAt)&&(identical(other.readAt, readAt) || other.readAt == readAt)&&(identical(other.archivedAt, archivedAt) || other.archivedAt == archivedAt)&&(identical(other.clickedAt, clickedAt) || other.clickedAt == clickedAt)&&(identical(other.interactedAt, interactedAt) || other.interactedAt == interactedAt)&&(identical(other.linkClickedAt, linkClickedAt) || other.linkClickedAt == linkClickedAt)&&const DeepCollectionEquality().equals(other.data, _data)&&const DeepCollectionEquality().equals(other.metadata, _metadata));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,id,channelId,recipient,source,status,insertedAt,updatedAt,const DeepCollectionEquality().hash(_actors),tenant,const DeepCollectionEquality().hash(_engagementStatuses),seenAt,readAt,archivedAt,clickedAt,interactedAt,linkClickedAt,const DeepCollectionEquality().hash(_data),const DeepCollectionEquality().hash(_metadata));
+int get hashCode {
+    return Object.hash(runtimeType,id,channelId,recipient,source,status,insertedAt,updatedAt,const DeepCollectionEquality().hash(_actors),tenant,const DeepCollectionEquality().hash(_engagementStatuses),seenAt,readAt,archivedAt,clickedAt,interactedAt,linkClickedAt,const DeepCollectionEquality().hash(_data),const DeepCollectionEquality().hash(_metadata));
+}
 
 @override
 String toString() {
-  return 'KnockMessage(id: $id, channelId: $channelId, recipient: $recipient, source: $source, status: $status, insertedAt: $insertedAt, updatedAt: $updatedAt, actors: $actors, tenant: $tenant, engagementStatuses: $engagementStatuses, seenAt: $seenAt, readAt: $readAt, archivedAt: $archivedAt, clickedAt: $clickedAt, interactedAt: $interactedAt, linkClickedAt: $linkClickedAt, data: $data, metadata: $metadata)';
+    return 'KnockMessage(id: $id, channelId: $channelId, recipient: $recipient, source: $source, status: $status, insertedAt: $insertedAt, updatedAt: $updatedAt, actors: $actors, tenant: $tenant, engagementStatuses: $engagementStatuses, seenAt: $seenAt, readAt: $readAt, archivedAt: $archivedAt, clickedAt: $clickedAt, interactedAt: $interactedAt, linkClickedAt: $linkClickedAt, data: $data, metadata: $metadata)';
 }
 
 
@@ -448,16 +456,21 @@ $KnockMessageSourceCopyWith<KnockMessageSource> get copyWith => _$KnockMessageSo
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is KnockMessageSource&&(identical(other.key, key) || other.key == key)&&(identical(other.versionId, versionId) || other.versionId == versionId)&&const DeepCollectionEquality().equals(other.categories, categories)&&(identical(other.stepRef, stepRef) || other.stepRef == stepRef));
+  final _this = this as KnockMessageSource;
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is KnockMessageSource&&(identical(other.key, _this.key) || other.key == _this.key)&&(identical(other.versionId, _this.versionId) || other.versionId == _this.versionId)&&const DeepCollectionEquality().equals(other.categories, _this.categories)&&(identical(other.stepRef, _this.stepRef) || other.stepRef == _this.stepRef));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,key,versionId,const DeepCollectionEquality().hash(categories),stepRef);
+int get hashCode {
+  final _this = this as KnockMessageSource;
+  return Object.hash(runtimeType,_this.key,_this.versionId,const DeepCollectionEquality().hash(_this.categories),_this.stepRef);
+}
 
 @override
 String toString() {
-  return 'KnockMessageSource(key: $key, versionId: $versionId, categories: $categories, stepRef: $stepRef)';
+  final _this = this as KnockMessageSource;
+  return 'KnockMessageSource(key: ${_this.key}, versionId: ${_this.versionId}, categories: ${_this.categories}, stepRef: ${_this.stepRef})';
 }
 
 
@@ -486,7 +499,7 @@ class _$KnockMessageSourceCopyWithImpl<$Res>
 /// Create a copy of KnockMessageSource
 /// with the given fields replaced by the non-null parameter values.
 @pragma('vm:prefer-inline') @override $Res call({Object? key = null,Object? versionId = null,Object? categories = null,Object? stepRef = freezed,}) {
-  return _then(_self.copyWith(
+  return _then(KnockMessageSource(
 key: null == key ? _self.key : key // ignore: cast_nullable_to_non_nullable
 as String,versionId: null == versionId ? _self.versionId : versionId // ignore: cast_nullable_to_non_nullable
 as String,categories: null == categories ? _self.categories : categories // ignore: cast_nullable_to_non_nullable
@@ -632,7 +645,7 @@ return $default(_that.key,_that.versionId,_that.categories,_that.stepRef);case _
 
 @JsonSerializable(explicitToJson: true)
 class _KnockMessageSource implements KnockMessageSource {
-  const _KnockMessageSource({required this.key, @JsonKey(name: 'version_id') required this.versionId, final  List<String> categories = const [], @JsonKey(name: 'step_ref') this.stepRef}): _categories = categories;
+  const _KnockMessageSource({required this.key, @JsonKey(name: 'version_id') required this.versionId,  List<String> categories = const [], @JsonKey(name: 'step_ref') this.stepRef}): _categories = categories;
   factory _KnockMessageSource.fromJson(Map<String, dynamic> json) => _$KnockMessageSourceFromJson(json);
 
 /// The workflow key.
@@ -664,16 +677,18 @@ Map<String, dynamic> toJson() {
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _KnockMessageSource&&(identical(other.key, key) || other.key == key)&&(identical(other.versionId, versionId) || other.versionId == versionId)&&const DeepCollectionEquality().equals(other._categories, _categories)&&(identical(other.stepRef, stepRef) || other.stepRef == stepRef));
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is _KnockMessageSource&&(identical(other.key, key) || other.key == key)&&(identical(other.versionId, versionId) || other.versionId == versionId)&&const DeepCollectionEquality().equals(other.categories, _categories)&&(identical(other.stepRef, stepRef) || other.stepRef == stepRef));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,key,versionId,const DeepCollectionEquality().hash(_categories),stepRef);
+int get hashCode {
+    return Object.hash(runtimeType,key,versionId,const DeepCollectionEquality().hash(_categories),stepRef);
+}
 
 @override
 String toString() {
-  return 'KnockMessageSource(key: $key, versionId: $versionId, categories: $categories, stepRef: $stepRef)';
+    return 'KnockMessageSource(key: $key, versionId: $versionId, categories: $categories, stepRef: $stepRef)';
 }
 
 

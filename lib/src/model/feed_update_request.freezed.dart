@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 // coverage:ignore-file
-// ignore_for_file: type=lint
+// ignore_for_file: type=lint, type=warning, deprecated_member_use, deprecated_member_use_from_same_package
 // ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target, unnecessary_question_mark
 
 part of 'feed_update_request.dart';
@@ -9,6 +9,7 @@ part of 'feed_update_request.dart';
 // FreezedGenerator
 // **************************************************************************
 
+// GENERATED CODE - DO NOT MODIFY BY HAND
 // dart format off
 T _$identity<T>(T value) => value;
 /// @nodoc
@@ -27,16 +28,21 @@ $FeedStatusUpdateRequestCopyWith<FeedStatusUpdateRequest> get copyWith => _$Feed
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is FeedStatusUpdateRequest&&const DeepCollectionEquality().equals(other.ids, ids));
+  final _this = this as FeedStatusUpdateRequest;
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is FeedStatusUpdateRequest&&const DeepCollectionEquality().equals(other.ids, _this.ids));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,const DeepCollectionEquality().hash(ids));
+int get hashCode {
+  final _this = this as FeedStatusUpdateRequest;
+  return Object.hash(runtimeType,const DeepCollectionEquality().hash(_this.ids));
+}
 
 @override
 String toString() {
-  return 'FeedStatusUpdateRequest(ids: $ids)';
+  final _this = this as FeedStatusUpdateRequest;
+  return 'FeedStatusUpdateRequest(ids: ${_this.ids})';
 }
 
 
@@ -65,7 +71,7 @@ class _$FeedStatusUpdateRequestCopyWithImpl<$Res>
 /// Create a copy of FeedStatusUpdateRequest
 /// with the given fields replaced by the non-null parameter values.
 @pragma('vm:prefer-inline') @override $Res call({Object? ids = null,}) {
-  return _then(_self.copyWith(
+  return _then(FeedStatusUpdateRequest(
 ids: null == ids ? _self.ids : ids // ignore: cast_nullable_to_non_nullable
 as List<String>,
   ));
@@ -208,7 +214,7 @@ return $default(_that.ids);case _:
 
 @JsonSerializable(explicitToJson: true)
 class _FeedStatusUpdateRequest implements FeedStatusUpdateRequest {
-  const _FeedStatusUpdateRequest({@JsonKey(name: 'message_ids') required final  List<String> ids}): _ids = ids;
+  const _FeedStatusUpdateRequest({@JsonKey(name: 'message_ids') required  List<String> ids}): _ids = ids;
   
 
  final  List<String> _ids;
@@ -232,16 +238,18 @@ Map<String, dynamic> toJson() {
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _FeedStatusUpdateRequest&&const DeepCollectionEquality().equals(other._ids, _ids));
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is _FeedStatusUpdateRequest&&const DeepCollectionEquality().equals(other.ids, _ids));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,const DeepCollectionEquality().hash(_ids));
+int get hashCode {
+    return Object.hash(runtimeType,const DeepCollectionEquality().hash(_ids));
+}
 
 @override
 String toString() {
-  return 'FeedStatusUpdateRequest(ids: $ids)';
+    return 'FeedStatusUpdateRequest(ids: $ids)';
 }
 
 
@@ -295,16 +303,21 @@ $BulkFeedStatusUpdateRequestCopyWith<BulkFeedStatusUpdateRequest> get copyWith =
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is BulkFeedStatusUpdateRequest&&const DeepCollectionEquality().equals(other.userIds, userIds)&&(identical(other.engagementStatus, engagementStatus) || other.engagementStatus == engagementStatus)&&(identical(other.archived, archived) || other.archived == archived)&&(identical(other.hasTenant, hasTenant) || other.hasTenant == hasTenant)&&const DeepCollectionEquality().equals(other.tenants, tenants));
+  final _this = this as BulkFeedStatusUpdateRequest;
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is BulkFeedStatusUpdateRequest&&const DeepCollectionEquality().equals(other.userIds, _this.userIds)&&(identical(other.engagementStatus, _this.engagementStatus) || other.engagementStatus == _this.engagementStatus)&&(identical(other.archived, _this.archived) || other.archived == _this.archived)&&(identical(other.hasTenant, _this.hasTenant) || other.hasTenant == _this.hasTenant)&&const DeepCollectionEquality().equals(other.tenants, _this.tenants));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,const DeepCollectionEquality().hash(userIds),engagementStatus,archived,hasTenant,const DeepCollectionEquality().hash(tenants));
+int get hashCode {
+  final _this = this as BulkFeedStatusUpdateRequest;
+  return Object.hash(runtimeType,const DeepCollectionEquality().hash(_this.userIds),_this.engagementStatus,_this.archived,_this.hasTenant,const DeepCollectionEquality().hash(_this.tenants));
+}
 
 @override
 String toString() {
-  return 'BulkFeedStatusUpdateRequest(userIds: $userIds, engagementStatus: $engagementStatus, archived: $archived, hasTenant: $hasTenant, tenants: $tenants)';
+  final _this = this as BulkFeedStatusUpdateRequest;
+  return 'BulkFeedStatusUpdateRequest(userIds: ${_this.userIds}, engagementStatus: ${_this.engagementStatus}, archived: ${_this.archived}, hasTenant: ${_this.hasTenant}, tenants: ${_this.tenants})';
 }
 
 
@@ -333,7 +346,7 @@ class _$BulkFeedStatusUpdateRequestCopyWithImpl<$Res>
 /// Create a copy of BulkFeedStatusUpdateRequest
 /// with the given fields replaced by the non-null parameter values.
 @pragma('vm:prefer-inline') @override $Res call({Object? userIds = null,Object? engagementStatus = freezed,Object? archived = freezed,Object? hasTenant = freezed,Object? tenants = freezed,}) {
-  return _then(_self.copyWith(
+  return _then(BulkFeedStatusUpdateRequest(
 userIds: null == userIds ? _self.userIds : userIds // ignore: cast_nullable_to_non_nullable
 as List<String>,engagementStatus: freezed == engagementStatus ? _self.engagementStatus : engagementStatus // ignore: cast_nullable_to_non_nullable
 as FeedOptionsStatus?,archived: freezed == archived ? _self.archived : archived // ignore: cast_nullable_to_non_nullable
@@ -480,7 +493,7 @@ return $default(_that.userIds,_that.engagementStatus,_that.archived,_that.hasTen
 
 @JsonSerializable(explicitToJson: true)
 class _BulkFeedStatusUpdateRequest implements BulkFeedStatusUpdateRequest {
-  const _BulkFeedStatusUpdateRequest({@JsonKey(name: 'user_ids') required final  List<String> userIds, @JsonKey(name: 'engagement_status') this.engagementStatus, this.archived, @JsonKey(name: 'has_tenant') this.hasTenant, final  List<String>? tenants}): _userIds = userIds,_tenants = tenants;
+  const _BulkFeedStatusUpdateRequest({@JsonKey(name: 'user_ids') required  List<String> userIds, @JsonKey(name: 'engagement_status') this.engagementStatus, this.archived, @JsonKey(name: 'has_tenant') this.hasTenant,  List<String>? tenants}): _userIds = userIds,_tenants = tenants;
   
 
  final  List<String> _userIds;
@@ -516,16 +529,18 @@ Map<String, dynamic> toJson() {
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _BulkFeedStatusUpdateRequest&&const DeepCollectionEquality().equals(other._userIds, _userIds)&&(identical(other.engagementStatus, engagementStatus) || other.engagementStatus == engagementStatus)&&(identical(other.archived, archived) || other.archived == archived)&&(identical(other.hasTenant, hasTenant) || other.hasTenant == hasTenant)&&const DeepCollectionEquality().equals(other._tenants, _tenants));
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is _BulkFeedStatusUpdateRequest&&const DeepCollectionEquality().equals(other.userIds, _userIds)&&(identical(other.engagementStatus, engagementStatus) || other.engagementStatus == engagementStatus)&&(identical(other.archived, archived) || other.archived == archived)&&(identical(other.hasTenant, hasTenant) || other.hasTenant == hasTenant)&&const DeepCollectionEquality().equals(other.tenants, _tenants));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,const DeepCollectionEquality().hash(_userIds),engagementStatus,archived,hasTenant,const DeepCollectionEquality().hash(_tenants));
+int get hashCode {
+    return Object.hash(runtimeType,const DeepCollectionEquality().hash(_userIds),engagementStatus,archived,hasTenant,const DeepCollectionEquality().hash(_tenants));
+}
 
 @override
 String toString() {
-  return 'BulkFeedStatusUpdateRequest(userIds: $userIds, engagementStatus: $engagementStatus, archived: $archived, hasTenant: $hasTenant, tenants: $tenants)';
+    return 'BulkFeedStatusUpdateRequest(userIds: $userIds, engagementStatus: $engagementStatus, archived: $archived, hasTenant: $hasTenant, tenants: $tenants)';
 }
 
 

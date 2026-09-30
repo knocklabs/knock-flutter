@@ -25,6 +25,6 @@ RetryClient buildRetryClient(http.Client client, {int delayMs = 200}) {
     client,
     delay: (retryCount) => exponentialBackoff(retryCount, delayMs),
     when: isRetryable,
-    whenError: (_, __) => true,
+    whenError: (_, _) => true,
   );
 }

@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 // coverage:ignore-file
-// ignore_for_file: type=lint
+// ignore_for_file: type=lint, type=warning, deprecated_member_use, deprecated_member_use_from_same_package
 // ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target, unnecessary_question_mark
 
 part of 'feed_options.dart';
@@ -9,6 +9,7 @@ part of 'feed_options.dart';
 // FreezedGenerator
 // **************************************************************************
 
+// GENERATED CODE - DO NOT MODIFY BY HAND
 // dart format off
 T _$identity<T>(T value) => value;
 
@@ -31,16 +32,21 @@ $InsertedAtDateRangeCopyWith<InsertedAtDateRange> get copyWith => _$InsertedAtDa
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is InsertedAtDateRange&&(identical(other.start, start) || other.start == start)&&(identical(other.end, end) || other.end == end)&&(identical(other.inclusive, inclusive) || other.inclusive == inclusive));
+  final _this = this as InsertedAtDateRange;
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is InsertedAtDateRange&&(identical(other.start, _this.start) || other.start == _this.start)&&(identical(other.end, _this.end) || other.end == _this.end)&&(identical(other.inclusive, _this.inclusive) || other.inclusive == _this.inclusive));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,start,end,inclusive);
+int get hashCode {
+  final _this = this as InsertedAtDateRange;
+  return Object.hash(runtimeType,_this.start,_this.end,_this.inclusive);
+}
 
 @override
 String toString() {
-  return 'InsertedAtDateRange(start: $start, end: $end, inclusive: $inclusive)';
+  final _this = this as InsertedAtDateRange;
+  return 'InsertedAtDateRange(start: ${_this.start}, end: ${_this.end}, inclusive: ${_this.inclusive})';
 }
 
 
@@ -69,7 +75,7 @@ class _$InsertedAtDateRangeCopyWithImpl<$Res>
 /// Create a copy of InsertedAtDateRange
 /// with the given fields replaced by the non-null parameter values.
 @pragma('vm:prefer-inline') @override $Res call({Object? start = freezed,Object? end = freezed,Object? inclusive = freezed,}) {
-  return _then(_self.copyWith(
+  return _then(InsertedAtDateRange(
 start: freezed == start ? _self.start : start // ignore: cast_nullable_to_non_nullable
 as String?,end: freezed == end ? _self.end : end // ignore: cast_nullable_to_non_nullable
 as String?,inclusive: freezed == inclusive ? _self.inclusive : inclusive // ignore: cast_nullable_to_non_nullable
@@ -237,16 +243,18 @@ Map<String, dynamic> toJson() {
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _InsertedAtDateRange&&(identical(other.start, start) || other.start == start)&&(identical(other.end, end) || other.end == end)&&(identical(other.inclusive, inclusive) || other.inclusive == inclusive));
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is _InsertedAtDateRange&&(identical(other.start, start) || other.start == start)&&(identical(other.end, end) || other.end == end)&&(identical(other.inclusive, inclusive) || other.inclusive == inclusive));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,start,end,inclusive);
+int get hashCode {
+    return Object.hash(runtimeType,start,end,inclusive);
+}
 
 @override
 String toString() {
-  return 'InsertedAtDateRange(start: $start, end: $end, inclusive: $inclusive)';
+    return 'InsertedAtDateRange(start: $start, end: $end, inclusive: $inclusive)';
 }
 
 
@@ -302,16 +310,21 @@ $FeedOptionsCopyWith<FeedOptions> get copyWith => _$FeedOptionsCopyWithImpl<Feed
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is FeedOptions&&(identical(other.before, before) || other.before == before)&&(identical(other.after, after) || other.after == after)&&(identical(other.pageSize, pageSize) || other.pageSize == pageSize)&&(identical(other.status, status) || other.status == status)&&(identical(other.source, source) || other.source == source)&&(identical(other.tenant, tenant) || other.tenant == tenant)&&(identical(other.hasTenant, hasTenant) || other.hasTenant == hasTenant)&&const DeepCollectionEquality().equals(other.workflowCategories, workflowCategories)&&(identical(other.archived, archived) || other.archived == archived)&&const DeepCollectionEquality().equals(other.triggerData, triggerData)&&(identical(other.insertedAtDateRange, insertedAtDateRange) || other.insertedAtDateRange == insertedAtDateRange));
+  final _this = this as FeedOptions;
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is FeedOptions&&(identical(other.before, _this.before) || other.before == _this.before)&&(identical(other.after, _this.after) || other.after == _this.after)&&(identical(other.pageSize, _this.pageSize) || other.pageSize == _this.pageSize)&&(identical(other.status, _this.status) || other.status == _this.status)&&(identical(other.source, _this.source) || other.source == _this.source)&&(identical(other.tenant, _this.tenant) || other.tenant == _this.tenant)&&(identical(other.hasTenant, _this.hasTenant) || other.hasTenant == _this.hasTenant)&&const DeepCollectionEquality().equals(other.workflowCategories, _this.workflowCategories)&&(identical(other.archived, _this.archived) || other.archived == _this.archived)&&const DeepCollectionEquality().equals(other.triggerData, _this.triggerData)&&(identical(other.insertedAtDateRange, _this.insertedAtDateRange) || other.insertedAtDateRange == _this.insertedAtDateRange));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,before,after,pageSize,status,source,tenant,hasTenant,const DeepCollectionEquality().hash(workflowCategories),archived,const DeepCollectionEquality().hash(triggerData),insertedAtDateRange);
+int get hashCode {
+  final _this = this as FeedOptions;
+  return Object.hash(runtimeType,_this.before,_this.after,_this.pageSize,_this.status,_this.source,_this.tenant,_this.hasTenant,const DeepCollectionEquality().hash(_this.workflowCategories),_this.archived,const DeepCollectionEquality().hash(_this.triggerData),_this.insertedAtDateRange);
+}
 
 @override
 String toString() {
-  return 'FeedOptions(before: $before, after: $after, pageSize: $pageSize, status: $status, source: $source, tenant: $tenant, hasTenant: $hasTenant, workflowCategories: $workflowCategories, archived: $archived, triggerData: $triggerData, insertedAtDateRange: $insertedAtDateRange)';
+  final _this = this as FeedOptions;
+  return 'FeedOptions(before: ${_this.before}, after: ${_this.after}, pageSize: ${_this.pageSize}, status: ${_this.status}, source: ${_this.source}, tenant: ${_this.tenant}, hasTenant: ${_this.hasTenant}, workflowCategories: ${_this.workflowCategories}, archived: ${_this.archived}, triggerData: ${_this.triggerData}, insertedAtDateRange: ${_this.insertedAtDateRange})';
 }
 
 
@@ -340,7 +353,7 @@ class _$FeedOptionsCopyWithImpl<$Res>
 /// Create a copy of FeedOptions
 /// with the given fields replaced by the non-null parameter values.
 @pragma('vm:prefer-inline') @override $Res call({Object? before = freezed,Object? after = freezed,Object? pageSize = freezed,Object? status = freezed,Object? source = freezed,Object? tenant = freezed,Object? hasTenant = freezed,Object? workflowCategories = freezed,Object? archived = null,Object? triggerData = freezed,Object? insertedAtDateRange = freezed,}) {
-  return _then(_self.copyWith(
+  return _then(FeedOptions(
 before: freezed == before ? _self.before : before // ignore: cast_nullable_to_non_nullable
 as String?,after: freezed == after ? _self.after : after // ignore: cast_nullable_to_non_nullable
 as String?,pageSize: freezed == pageSize ? _self.pageSize : pageSize // ignore: cast_nullable_to_non_nullable
@@ -505,7 +518,7 @@ return $default(_that.before,_that.after,_that.pageSize,_that.status,_that.sourc
 
 @JsonSerializable(explicitToJson: true)
 class _FeedOptions implements FeedOptions {
-  const _FeedOptions({this.before, this.after, @JsonKey(name: 'page_size') this.pageSize, this.status, this.source, this.tenant, @JsonKey(name: 'has_tenant') this.hasTenant, @JsonKey(name: 'workflow_categories') final  List<String>? workflowCategories, this.archived = FeedOptionsArchivedScope.exclude, @JsonKey(name: 'trigger_data') final  Map<String, dynamic>? triggerData, @JsonKey(name: 'inserted_at_date_range') this.insertedAtDateRange}): _workflowCategories = workflowCategories,_triggerData = triggerData;
+  const _FeedOptions({this.before, this.after, @JsonKey(name: 'page_size') this.pageSize, this.status, this.source, this.tenant, @JsonKey(name: 'has_tenant') this.hasTenant, @JsonKey(name: 'workflow_categories')  List<String>? workflowCategories, this.archived = FeedOptionsArchivedScope.exclude, @JsonKey(name: 'trigger_data')  Map<String, dynamic>? triggerData, @JsonKey(name: 'inserted_at_date_range') this.insertedAtDateRange}): _workflowCategories = workflowCategories,_triggerData = triggerData;
   
 
 @override final  String? before;
@@ -549,16 +562,18 @@ Map<String, dynamic> toJson() {
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _FeedOptions&&(identical(other.before, before) || other.before == before)&&(identical(other.after, after) || other.after == after)&&(identical(other.pageSize, pageSize) || other.pageSize == pageSize)&&(identical(other.status, status) || other.status == status)&&(identical(other.source, source) || other.source == source)&&(identical(other.tenant, tenant) || other.tenant == tenant)&&(identical(other.hasTenant, hasTenant) || other.hasTenant == hasTenant)&&const DeepCollectionEquality().equals(other._workflowCategories, _workflowCategories)&&(identical(other.archived, archived) || other.archived == archived)&&const DeepCollectionEquality().equals(other._triggerData, _triggerData)&&(identical(other.insertedAtDateRange, insertedAtDateRange) || other.insertedAtDateRange == insertedAtDateRange));
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is _FeedOptions&&(identical(other.before, before) || other.before == before)&&(identical(other.after, after) || other.after == after)&&(identical(other.pageSize, pageSize) || other.pageSize == pageSize)&&(identical(other.status, status) || other.status == status)&&(identical(other.source, source) || other.source == source)&&(identical(other.tenant, tenant) || other.tenant == tenant)&&(identical(other.hasTenant, hasTenant) || other.hasTenant == hasTenant)&&const DeepCollectionEquality().equals(other.workflowCategories, _workflowCategories)&&(identical(other.archived, archived) || other.archived == archived)&&const DeepCollectionEquality().equals(other.triggerData, _triggerData)&&(identical(other.insertedAtDateRange, insertedAtDateRange) || other.insertedAtDateRange == insertedAtDateRange));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,before,after,pageSize,status,source,tenant,hasTenant,const DeepCollectionEquality().hash(_workflowCategories),archived,const DeepCollectionEquality().hash(_triggerData),insertedAtDateRange);
+int get hashCode {
+    return Object.hash(runtimeType,before,after,pageSize,status,source,tenant,hasTenant,const DeepCollectionEquality().hash(_workflowCategories),archived,const DeepCollectionEquality().hash(_triggerData),insertedAtDateRange);
+}
 
 @override
 String toString() {
-  return 'FeedOptions(before: $before, after: $after, pageSize: $pageSize, status: $status, source: $source, tenant: $tenant, hasTenant: $hasTenant, workflowCategories: $workflowCategories, archived: $archived, triggerData: $triggerData, insertedAtDateRange: $insertedAtDateRange)';
+    return 'FeedOptions(before: $before, after: $after, pageSize: $pageSize, status: $status, source: $source, tenant: $tenant, hasTenant: $hasTenant, workflowCategories: $workflowCategories, archived: $archived, triggerData: $triggerData, insertedAtDateRange: $insertedAtDateRange)';
 }
 
 

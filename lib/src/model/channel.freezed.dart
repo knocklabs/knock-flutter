@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 // coverage:ignore-file
-// ignore_for_file: type=lint
+// ignore_for_file: type=lint, type=warning, deprecated_member_use, deprecated_member_use_from_same_package
 // ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target, unnecessary_question_mark
 
 part of 'channel.dart';
@@ -9,6 +9,7 @@ part of 'channel.dart';
 // FreezedGenerator
 // **************************************************************************
 
+// GENERATED CODE - DO NOT MODIFY BY HAND
 // dart format off
 T _$identity<T>(T value) => value;
 
@@ -28,16 +29,21 @@ $DeviceCopyWith<Device> get copyWith => _$DeviceCopyWithImpl<Device>(this as Dev
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is Device&&(identical(other.token, token) || other.token == token)&&(identical(other.locale, locale) || other.locale == locale)&&(identical(other.timezone, timezone) || other.timezone == timezone));
+  final _this = this as Device;
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is Device&&(identical(other.token, _this.token) || other.token == _this.token)&&(identical(other.locale, _this.locale) || other.locale == _this.locale)&&(identical(other.timezone, _this.timezone) || other.timezone == _this.timezone));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,token,locale,timezone);
+int get hashCode {
+  final _this = this as Device;
+  return Object.hash(runtimeType,_this.token,_this.locale,_this.timezone);
+}
 
 @override
 String toString() {
-  return 'Device(token: $token, locale: $locale, timezone: $timezone)';
+  final _this = this as Device;
+  return 'Device(token: ${_this.token}, locale: ${_this.locale}, timezone: ${_this.timezone})';
 }
 
 
@@ -66,7 +72,7 @@ class _$DeviceCopyWithImpl<$Res>
 /// Create a copy of Device
 /// with the given fields replaced by the non-null parameter values.
 @pragma('vm:prefer-inline') @override $Res call({Object? token = null,Object? locale = freezed,Object? timezone = freezed,}) {
-  return _then(_self.copyWith(
+  return _then(Device(
 token: null == token ? _self.token : token // ignore: cast_nullable_to_non_nullable
 as String,locale: freezed == locale ? _self.locale : locale // ignore: cast_nullable_to_non_nullable
 as String?,timezone: freezed == timezone ? _self.timezone : timezone // ignore: cast_nullable_to_non_nullable
@@ -231,16 +237,18 @@ Map<String, dynamic> toJson() {
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _Device&&(identical(other.token, token) || other.token == token)&&(identical(other.locale, locale) || other.locale == locale)&&(identical(other.timezone, timezone) || other.timezone == timezone));
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is _Device&&(identical(other.token, token) || other.token == token)&&(identical(other.locale, locale) || other.locale == locale)&&(identical(other.timezone, timezone) || other.timezone == timezone));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,token,locale,timezone);
+int get hashCode {
+    return Object.hash(runtimeType,token,locale,timezone);
+}
 
 @override
 String toString() {
-  return 'Device(token: $token, locale: $locale, timezone: $timezone)';
+    return 'Device(token: $token, locale: $locale, timezone: $timezone)';
 }
 
 
@@ -297,16 +305,21 @@ $ChannelDataCopyWith<ChannelData> get copyWith => _$ChannelDataCopyWithImpl<Chan
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is ChannelData&&(identical(other.data, data) || other.data == data));
+  final _this = this as ChannelData;
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is ChannelData&&(identical(other.data, _this.data) || other.data == _this.data));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,data);
+int get hashCode {
+  final _this = this as ChannelData;
+  return Object.hash(runtimeType,_this.data);
+}
 
 @override
 String toString() {
-  return 'ChannelData(data: $data)';
+  final _this = this as ChannelData;
+  return 'ChannelData(data: ${_this.data})';
 }
 
 
@@ -335,7 +348,7 @@ class _$ChannelDataCopyWithImpl<$Res>
 /// Create a copy of ChannelData
 /// with the given fields replaced by the non-null parameter values.
 @pragma('vm:prefer-inline') @override $Res call({Object? data = null,}) {
-  return _then(_self.copyWith(
+  return _then(ChannelData(
 data: null == data ? _self.data : data // ignore: cast_nullable_to_non_nullable
 as ChannelProviderData,
   ));
@@ -505,16 +518,18 @@ Map<String, dynamic> toJson() {
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _ChannelData&&(identical(other.data, data) || other.data == data));
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is _ChannelData&&(identical(other.data, data) || other.data == data));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,data);
+int get hashCode {
+    return Object.hash(runtimeType,data);
+}
 
 @override
 String toString() {
-  return 'ChannelData(data: $data)';
+    return 'ChannelData(data: $data)';
 }
 
 
@@ -578,16 +593,21 @@ $ChannelProviderDataCopyWith<ChannelProviderData> get copyWith => _$ChannelProvi
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is ChannelProviderData&&const DeepCollectionEquality().equals(other.devices, devices));
+  final _this = this as ChannelProviderData;
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is ChannelProviderData&&const DeepCollectionEquality().equals(other.devices, _this.devices));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,const DeepCollectionEquality().hash(devices));
+int get hashCode {
+  final _this = this as ChannelProviderData;
+  return Object.hash(runtimeType,const DeepCollectionEquality().hash(_this.devices));
+}
 
 @override
 String toString() {
-  return 'ChannelProviderData(devices: $devices)';
+  final _this = this as ChannelProviderData;
+  return 'ChannelProviderData(devices: ${_this.devices})';
 }
 
 
@@ -616,7 +636,7 @@ class _$ChannelProviderDataCopyWithImpl<$Res>
 /// Create a copy of ChannelProviderData
 /// with the given fields replaced by the non-null parameter values.
 @pragma('vm:prefer-inline') @override $Res call({Object? devices = null,}) {
-  return _then(_self.copyWith(
+  return _then(ChannelProviderData(
 devices: null == devices ? _self.devices : devices // ignore: cast_nullable_to_non_nullable
 as List<Device>,
   ));
@@ -759,7 +779,7 @@ return $default(_that.devices);case _:
 
 @JsonSerializable(explicitToJson: true)
 class _ChannelProviderData implements ChannelProviderData {
-  const _ChannelProviderData({required final  List<Device> devices}): _devices = devices;
+  const _ChannelProviderData({required  List<Device> devices}): _devices = devices;
   factory _ChannelProviderData.fromJson(Map<String, dynamic> json) => _$ChannelProviderDataFromJson(json);
 
  final  List<Device> _devices;
@@ -783,16 +803,18 @@ Map<String, dynamic> toJson() {
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _ChannelProviderData&&const DeepCollectionEquality().equals(other._devices, _devices));
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is _ChannelProviderData&&const DeepCollectionEquality().equals(other.devices, _devices));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,const DeepCollectionEquality().hash(_devices));
+int get hashCode {
+    return Object.hash(runtimeType,const DeepCollectionEquality().hash(_devices));
+}
 
 @override
 String toString() {
-  return 'ChannelProviderData(devices: $devices)';
+    return 'ChannelProviderData(devices: $devices)';
 }
 
 

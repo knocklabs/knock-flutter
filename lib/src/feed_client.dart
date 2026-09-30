@@ -48,12 +48,12 @@ class FeedClient {
         _feedController?.add(this.options.buildInitialFeed());
 
         // Start closing out everything
-        _feedController?.close();
+        unawaited(_feedController?.close());
         _feedController = null;
 
-        _eventController.close();
+        unawaited(_eventController.close());
 
-        _apiStatusSubscription?.cancel();
+        unawaited(_apiStatusSubscription?.cancel());
         _apiStatusSubscription = null;
       }
     });
@@ -106,7 +106,7 @@ class FeedClient {
         // websocket stream completes or the underlying socket is closed by
         // APIClient.dispose().
         _socketClosedSubscription = socket.closeStream.listen((event) {
-          _channelMessagesSubscription?.cancel();
+          unawaited(_channelMessagesSubscription?.cancel());
           _channelMessagesSubscription = null;
 
           _channel?.close();
@@ -117,7 +117,7 @@ class FeedClient {
         // BehaviorSubject in phoenix_socket. This is called when the platform
         // websocket stream returns an error.
         _socketErrorSubscription = socket.errorStream.listen((event) {
-          _channelMessagesSubscription?.cancel();
+          unawaited(_channelMessagesSubscription?.cancel());
           _channelMessagesSubscription = null;
 
           _channel?.close();
@@ -137,7 +137,7 @@ class FeedClient {
             parameters: options.toJson(),
           );
 
-          _channelMessagesSubscription?.cancel();
+          unawaited(_channelMessagesSubscription?.cancel());
           _channelMessagesSubscription = channel.messages.listen((message) {
             if (message.event.value == 'new-message') {
               _onNewMessageReceived(message);
@@ -148,10 +148,12 @@ class FeedClient {
           // When the socket (re)opens, fetch the first page here as well. The
           // unconditional _fetch above covers the already-connected case; this
           // covers reconnect. requestInFlight dedupes if both run back-to-back.
-          _fetch(
-            fetchOptions: null,
-            loadingType: NetworkStatus.loading,
-            fetchSource: _FeedFetchSource.http,
+          unawaited(
+            _fetch(
+              fetchOptions: null,
+              loadingType: NetworkStatus.loading,
+              fetchSource: _FeedFetchSource.http,
+            ),
           );
         });
 
@@ -159,10 +161,12 @@ class FeedClient {
         // for the socket openStream replay. This ensures data loads even when
         // a new FeedClient is created while the socket is already connected.
         // The requestInFlight guard in _fetch prevents duplicate requests.
-        _fetch(
-          fetchOptions: null,
-          loadingType: NetworkStatus.loading,
-          fetchSource: _FeedFetchSource.http,
+        unawaited(
+          _fetch(
+            fetchOptions: null,
+            loadingType: NetworkStatus.loading,
+            fetchSource: _FeedFetchSource.http,
+          ),
         );
       },
       onCancel: () {
@@ -172,19 +176,19 @@ class FeedClient {
         }
         _channel = null;
 
-        _channelMessagesSubscription?.cancel();
+        unawaited(_channelMessagesSubscription?.cancel());
         _channelMessagesSubscription = null;
 
-        _socketClosedSubscription?.cancel();
+        unawaited(_socketClosedSubscription?.cancel());
         _socketClosedSubscription = null;
 
-        _socketErrorSubscription?.cancel();
+        unawaited(_socketErrorSubscription?.cancel());
         _socketErrorSubscription = null;
 
-        _socketOpenSubscription?.cancel();
+        unawaited(_socketOpenSubscription?.cancel());
         _socketOpenSubscription = null;
 
-        _feedController?.close();
+        unawaited(_feedController?.close());
         _feedController = null;
       },
     );
@@ -208,26 +212,26 @@ class FeedClient {
     }
     _channel = null;
 
-    _channelMessagesSubscription?.cancel();
+    unawaited(_channelMessagesSubscription?.cancel());
     _channelMessagesSubscription = null;
 
-    _socketClosedSubscription?.cancel();
+    unawaited(_socketClosedSubscription?.cancel());
     _socketClosedSubscription = null;
 
-    _socketErrorSubscription?.cancel();
+    unawaited(_socketErrorSubscription?.cancel());
     _socketErrorSubscription = null;
 
-    _socketOpenSubscription?.cancel();
+    unawaited(_socketOpenSubscription?.cancel());
     _socketOpenSubscription = null;
 
-    _apiStatusSubscription?.cancel();
+    unawaited(_apiStatusSubscription?.cancel());
     _apiStatusSubscription = null;
 
     if (!_eventController.isClosed) {
-      _eventController.close();
+      unawaited(_eventController.close());
     }
 
-    _feedController?.close();
+    unawaited(_feedController?.close());
     _feedController = null;
   }
 
@@ -241,10 +245,12 @@ class FeedClient {
       _currentFeed = _currentFeed.updateMetadata(response.metadata);
 
       final before = _currentFeed.items.firstOrNull?.knockInternalCursor;
-      _fetch(
-        fetchOptions: FeedOptions(before: before),
-        loadingType: NetworkStatus.loading,
-        fetchSource: _FeedFetchSource.socket,
+      unawaited(
+        _fetch(
+          fetchOptions: FeedOptions(before: before),
+          loadingType: NetworkStatus.loading,
+          fetchSource: _FeedFetchSource.socket,
+        ),
       );
     }
   }
@@ -310,10 +316,12 @@ class FeedClient {
       return;
     }
 
-    _fetch(
-      fetchOptions: FeedOptions(after: after),
-      loadingType: NetworkStatus.fetchMore,
-      fetchSource: _FeedFetchSource.http,
+    unawaited(
+      _fetch(
+        fetchOptions: FeedOptions(after: after),
+        loadingType: NetworkStatus.fetchMore,
+        fetchSource: _FeedFetchSource.http,
+      ),
     );
   }
 

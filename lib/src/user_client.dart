@@ -89,7 +89,7 @@ class UserClient {
     try {
       final tzValue = await FlutterTimezone.getLocalTimezone();
       timezone = tzValue.identifier;
-    } catch (error) {
+    } on Object catch (_) {
       // Continue without timezone if we can't get it
       timezone = null;
     }
@@ -115,7 +115,7 @@ class UserClient {
     } else {
       final device = Device(token: token, locale: locale, timezone: timezone);
       final modifiedChannelData = channelData.appendDevice(device);
-      return setChannelData(channelId, modifiedChannelData);
+      return await setChannelData(channelId, modifiedChannelData);
     }
   }
 
@@ -141,7 +141,7 @@ class UserClient {
 
     if (channelData.hasDevice(token)) {
       final modifiedChannelData = channelData.removeDevice(token);
-      return setChannelData(channelId, modifiedChannelData);
+      return await setChannelData(channelId, modifiedChannelData);
     } else {
       return channelData;
     }

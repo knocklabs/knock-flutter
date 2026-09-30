@@ -41,10 +41,12 @@ class KnockApiClient extends http.BaseClient {
       params['user_token'] = userToken;
     }
 
-    return PhoenixSocket(
+    final socket = PhoenixSocket(
       _wsHost,
       socketOptions: PhoenixSocketOptions(params: params),
-    )..connect();
+    );
+    unawaited(socket.connect());
+    return socket;
   }
 
   @override
@@ -66,7 +68,7 @@ class KnockApiClient extends http.BaseClient {
   Future<KnockApiResponse> doGet(
     String path, {
     Map<String, dynamic>? queryParams,
-  }) async {
+  }) {
     return _doRequest(() => get(_buildUri(path, queryParams)));
   }
 
@@ -74,7 +76,7 @@ class KnockApiClient extends http.BaseClient {
     String path, {
     Map<String, dynamic>? queryParams,
     Object? body,
-  }) async {
+  }) {
     return _doRequest(() => put(_buildUri(path, queryParams), body: body));
   }
 
@@ -82,14 +84,14 @@ class KnockApiClient extends http.BaseClient {
     String path, {
     Map<String, dynamic>? queryParams,
     Object? body,
-  }) async {
+  }) {
     return _doRequest(() => post(_buildUri(path, queryParams), body: body));
   }
 
   Future<KnockApiResponse> doDelete(
     String path, {
     Map<String, dynamic>? queryParams,
-  }) async {
+  }) {
     return _doRequest(() => delete(_buildUri(path, queryParams)));
   }
 
@@ -106,7 +108,7 @@ class KnockApiClient extends http.BaseClient {
         statusCode: statusCode,
         body: body,
       );
-    } catch (error) {
+    } on Object catch (error) {
       developer.log('Failed API request', error: error);
 
       return KnockApiResponse(
@@ -148,7 +150,7 @@ class KnockApiClient extends http.BaseClient {
       _socket = null;
     }
 
-    _status.close();
+    unawaited(_status.close());
   }
 
   void _assertNotDisposed() {

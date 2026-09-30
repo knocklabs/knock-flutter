@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 // coverage:ignore-file
-// ignore_for_file: type=lint
+// ignore_for_file: type=lint, type=warning, deprecated_member_use, deprecated_member_use_from_same_package
 // ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target, unnecessary_question_mark
 
 part of 'preferences.dart';
@@ -9,6 +9,7 @@ part of 'preferences.dart';
 // FreezedGenerator
 // **************************************************************************
 
+// GENERATED CODE - DO NOT MODIFY BY HAND
 // dart format off
 T _$identity<T>(T value) => value;
 /// @nodoc
@@ -27,16 +28,21 @@ $ChannelTypePreferenceCopyWith<ChannelTypePreference> get copyWith => _$ChannelT
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is ChannelTypePreference&&(identical(other.value, value) || other.value == value)&&const DeepCollectionEquality().equals(other.conditions, conditions));
+  final _this = this as ChannelTypePreference;
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is ChannelTypePreference&&(identical(other.value, _this.value) || other.value == _this.value)&&const DeepCollectionEquality().equals(other.conditions, _this.conditions));
 }
 
 
 @override
-int get hashCode => Object.hash(runtimeType,value,const DeepCollectionEquality().hash(conditions));
+int get hashCode {
+  final _this = this as ChannelTypePreference;
+  return Object.hash(runtimeType,_this.value,const DeepCollectionEquality().hash(_this.conditions));
+}
 
 @override
 String toString() {
-  return 'ChannelTypePreference(value: $value, conditions: $conditions)';
+  final _this = this as ChannelTypePreference;
+  return 'ChannelTypePreference(value: ${_this.value}, conditions: ${_this.conditions})';
 }
 
 
@@ -65,7 +71,7 @@ class _$ChannelTypePreferenceCopyWithImpl<$Res>
 /// Create a copy of ChannelTypePreference
 /// with the given fields replaced by the non-null parameter values.
 @pragma('vm:prefer-inline') @override $Res call({Object? value = freezed,Object? conditions = freezed,}) {
-  return _then(_self.copyWith(
+  return _then(ChannelTypePreference(
 value: freezed == value ? _self.value : value // ignore: cast_nullable_to_non_nullable
 as bool?,conditions: freezed == conditions ? _self.conditions : conditions // ignore: cast_nullable_to_non_nullable
 as List<PreferenceCondition>?,
@@ -209,7 +215,7 @@ return $default(_that.value,_that.conditions);case _:
 
 
 class _ChannelTypePreference implements ChannelTypePreference {
-   _ChannelTypePreference({this.value, final  List<PreferenceCondition>? conditions}): _conditions = conditions;
+   _ChannelTypePreference({this.value,  List<PreferenceCondition>? conditions}): _conditions = conditions;
   
 
 /// If [value] is set then [conditions] should not be set.
@@ -236,16 +242,18 @@ _$ChannelTypePreferenceCopyWith<_ChannelTypePreference> get copyWith => __$Chann
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _ChannelTypePreference&&(identical(other.value, value) || other.value == value)&&const DeepCollectionEquality().equals(other._conditions, _conditions));
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is _ChannelTypePreference&&(identical(other.value, value) || other.value == value)&&const DeepCollectionEquality().equals(other.conditions, _conditions));
 }
 
 
 @override
-int get hashCode => Object.hash(runtimeType,value,const DeepCollectionEquality().hash(_conditions));
+int get hashCode {
+    return Object.hash(runtimeType,value,const DeepCollectionEquality().hash(_conditions));
+}
 
 @override
 String toString() {
-  return 'ChannelTypePreference(value: $value, conditions: $conditions)';
+    return 'ChannelTypePreference(value: $value, conditions: $conditions)';
 }
 
 
@@ -302,16 +310,21 @@ $WorkflowPreferenceSettingCopyWith<WorkflowPreferenceSetting> get copyWith => _$
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is WorkflowPreferenceSetting&&(identical(other.value, value) || other.value == value)&&const DeepCollectionEquality().equals(other.channelTypePreferences, channelTypePreferences)&&const DeepCollectionEquality().equals(other.conditions, conditions));
+  final _this = this as WorkflowPreferenceSetting;
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is WorkflowPreferenceSetting&&(identical(other.value, _this.value) || other.value == _this.value)&&const DeepCollectionEquality().equals(other.channelTypePreferences, _this.channelTypePreferences)&&const DeepCollectionEquality().equals(other.conditions, _this.conditions));
 }
 
 
 @override
-int get hashCode => Object.hash(runtimeType,value,const DeepCollectionEquality().hash(channelTypePreferences),const DeepCollectionEquality().hash(conditions));
+int get hashCode {
+  final _this = this as WorkflowPreferenceSetting;
+  return Object.hash(runtimeType,_this.value,const DeepCollectionEquality().hash(_this.channelTypePreferences),const DeepCollectionEquality().hash(_this.conditions));
+}
 
 @override
 String toString() {
-  return 'WorkflowPreferenceSetting(value: $value, channelTypePreferences: $channelTypePreferences, conditions: $conditions)';
+  final _this = this as WorkflowPreferenceSetting;
+  return 'WorkflowPreferenceSetting(value: ${_this.value}, channelTypePreferences: ${_this.channelTypePreferences}, conditions: ${_this.conditions})';
 }
 
 
@@ -340,7 +353,7 @@ class _$WorkflowPreferenceSettingCopyWithImpl<$Res>
 /// Create a copy of WorkflowPreferenceSetting
 /// with the given fields replaced by the non-null parameter values.
 @pragma('vm:prefer-inline') @override $Res call({Object? value = freezed,Object? channelTypePreferences = freezed,Object? conditions = freezed,}) {
-  return _then(_self.copyWith(
+  return _then(WorkflowPreferenceSetting(
 value: freezed == value ? _self.value : value // ignore: cast_nullable_to_non_nullable
 as bool?,channelTypePreferences: freezed == channelTypePreferences ? _self.channelTypePreferences : channelTypePreferences // ignore: cast_nullable_to_non_nullable
 as ChannelTypePreferences?,conditions: freezed == conditions ? _self.conditions : conditions // ignore: cast_nullable_to_non_nullable
@@ -485,7 +498,7 @@ return $default(_that.value,_that.channelTypePreferences,_that.conditions);case 
 
 
 class _WorkflowPreferenceSetting implements WorkflowPreferenceSetting {
-   _WorkflowPreferenceSetting({this.value, final  ChannelTypePreferences? channelTypePreferences, final  List<PreferenceCondition>? conditions}): _channelTypePreferences = channelTypePreferences,_conditions = conditions;
+   _WorkflowPreferenceSetting({this.value,  ChannelTypePreferences? channelTypePreferences,  List<PreferenceCondition>? conditions}): _channelTypePreferences = channelTypePreferences,_conditions = conditions;
   
 
 /// If [value] is set then [channelTypePreferences] and [conditions] should
@@ -524,16 +537,18 @@ _$WorkflowPreferenceSettingCopyWith<_WorkflowPreferenceSetting> get copyWith => 
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _WorkflowPreferenceSetting&&(identical(other.value, value) || other.value == value)&&const DeepCollectionEquality().equals(other._channelTypePreferences, _channelTypePreferences)&&const DeepCollectionEquality().equals(other._conditions, _conditions));
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is _WorkflowPreferenceSetting&&(identical(other.value, value) || other.value == value)&&const DeepCollectionEquality().equals(other.channelTypePreferences, _channelTypePreferences)&&const DeepCollectionEquality().equals(other.conditions, _conditions));
 }
 
 
 @override
-int get hashCode => Object.hash(runtimeType,value,const DeepCollectionEquality().hash(_channelTypePreferences),const DeepCollectionEquality().hash(_conditions));
+int get hashCode {
+    return Object.hash(runtimeType,value,const DeepCollectionEquality().hash(_channelTypePreferences),const DeepCollectionEquality().hash(_conditions));
+}
 
 @override
 String toString() {
-  return 'WorkflowPreferenceSetting(value: $value, channelTypePreferences: $channelTypePreferences, conditions: $conditions)';
+    return 'WorkflowPreferenceSetting(value: $value, channelTypePreferences: $channelTypePreferences, conditions: $conditions)';
 }
 
 
@@ -597,16 +612,21 @@ _$ChannelTypesJsonCopyWith<_ChannelTypesJson> get copyWith => __$ChannelTypesJso
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _ChannelTypesJson&&const DeepCollectionEquality().equals(other.channelTypes, channelTypes));
+  final _this = this as _ChannelTypesJson;
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is _ChannelTypesJson&&const DeepCollectionEquality().equals(other.channelTypes, _this.channelTypes));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,const DeepCollectionEquality().hash(channelTypes));
+int get hashCode {
+  final _this = this as _ChannelTypesJson;
+  return Object.hash(runtimeType,const DeepCollectionEquality().hash(_this.channelTypes));
+}
 
 @override
 String toString() {
-  return '_ChannelTypesJson(channelTypes: $channelTypes)';
+  final _this = this as _ChannelTypesJson;
+  return '_ChannelTypesJson(channelTypes: ${_this.channelTypes})';
 }
 
 
@@ -635,7 +655,7 @@ class __$ChannelTypesJsonCopyWithImpl<$Res>
 /// Create a copy of _ChannelTypesJson
 /// with the given fields replaced by the non-null parameter values.
 @pragma('vm:prefer-inline') @override $Res call({Object? channelTypes = freezed,}) {
-  return _then(_self.copyWith(
+  return _then(_ChannelTypesJson(
 channelTypes: freezed == channelTypes ? _self.channelTypes : channelTypes // ignore: cast_nullable_to_non_nullable
 as dynamic,
   ));
@@ -796,16 +816,18 @@ Map<String, dynamic> toJson() {
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _ChannelTypesJsonImpl&&const DeepCollectionEquality().equals(other.channelTypes, channelTypes));
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is _ChannelTypesJsonImpl&&const DeepCollectionEquality().equals(other.channelTypes, channelTypes));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,const DeepCollectionEquality().hash(channelTypes));
+int get hashCode {
+    return Object.hash(runtimeType,const DeepCollectionEquality().hash(channelTypes));
+}
 
 @override
 String toString() {
-  return '_ChannelTypesJson(channelTypes: $channelTypes)';
+    return '_ChannelTypesJson(channelTypes: $channelTypes)';
 }
 
 
@@ -867,16 +889,21 @@ _$ConditionsJsonCopyWith<_ConditionsJson> get copyWith => __$ConditionsJsonCopyW
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _ConditionsJson&&const DeepCollectionEquality().equals(other.conditions, conditions));
+  final _this = this as _ConditionsJson;
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is _ConditionsJson&&const DeepCollectionEquality().equals(other.conditions, _this.conditions));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,const DeepCollectionEquality().hash(conditions));
+int get hashCode {
+  final _this = this as _ConditionsJson;
+  return Object.hash(runtimeType,const DeepCollectionEquality().hash(_this.conditions));
+}
 
 @override
 String toString() {
-  return '_ConditionsJson(conditions: $conditions)';
+  final _this = this as _ConditionsJson;
+  return '_ConditionsJson(conditions: ${_this.conditions})';
 }
 
 
@@ -905,7 +932,7 @@ class __$ConditionsJsonCopyWithImpl<$Res>
 /// Create a copy of _ConditionsJson
 /// with the given fields replaced by the non-null parameter values.
 @pragma('vm:prefer-inline') @override $Res call({Object? conditions = freezed,}) {
-  return _then(_self.copyWith(
+  return _then(_ConditionsJson(
 conditions: freezed == conditions ? _self.conditions : conditions // ignore: cast_nullable_to_non_nullable
 as List<PreferenceCondition>?,
   ));
@@ -1048,7 +1075,7 @@ return $default(_that.conditions);case _:
 
 @JsonSerializable(explicitToJson: true)
 class _ConditionsJsonImpl implements _ConditionsJson {
-  const _ConditionsJsonImpl({required final  List<PreferenceCondition>? conditions}): _conditions = conditions;
+  const _ConditionsJsonImpl({required  List<PreferenceCondition>? conditions}): _conditions = conditions;
   factory _ConditionsJsonImpl.fromJson(Map<String, dynamic> json) => _$ConditionsJsonImplFromJson(json);
 
  final  List<PreferenceCondition>? _conditions;
@@ -1074,16 +1101,18 @@ Map<String, dynamic> toJson() {
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _ConditionsJsonImpl&&const DeepCollectionEquality().equals(other._conditions, _conditions));
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is _ConditionsJsonImpl&&const DeepCollectionEquality().equals(other.conditions, _conditions));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,const DeepCollectionEquality().hash(_conditions));
+int get hashCode {
+    return Object.hash(runtimeType,const DeepCollectionEquality().hash(_conditions));
+}
 
 @override
 String toString() {
-  return '_ConditionsJson(conditions: $conditions)';
+    return '_ConditionsJson(conditions: $conditions)';
 }
 
 
@@ -1137,16 +1166,21 @@ $SetPreferencesPropertiesCopyWith<SetPreferencesProperties> get copyWith => _$Se
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is SetPreferencesProperties&&const DeepCollectionEquality().equals(other.channelTypes, channelTypes)&&const DeepCollectionEquality().equals(other.workflows, workflows)&&const DeepCollectionEquality().equals(other.categories, categories));
+  final _this = this as SetPreferencesProperties;
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is SetPreferencesProperties&&const DeepCollectionEquality().equals(other.channelTypes, _this.channelTypes)&&const DeepCollectionEquality().equals(other.workflows, _this.workflows)&&const DeepCollectionEquality().equals(other.categories, _this.categories));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,const DeepCollectionEquality().hash(channelTypes),const DeepCollectionEquality().hash(workflows),const DeepCollectionEquality().hash(categories));
+int get hashCode {
+  final _this = this as SetPreferencesProperties;
+  return Object.hash(runtimeType,const DeepCollectionEquality().hash(_this.channelTypes),const DeepCollectionEquality().hash(_this.workflows),const DeepCollectionEquality().hash(_this.categories));
+}
 
 @override
 String toString() {
-  return 'SetPreferencesProperties(channelTypes: $channelTypes, workflows: $workflows, categories: $categories)';
+  final _this = this as SetPreferencesProperties;
+  return 'SetPreferencesProperties(channelTypes: ${_this.channelTypes}, workflows: ${_this.workflows}, categories: ${_this.categories})';
 }
 
 
@@ -1175,7 +1209,7 @@ class _$SetPreferencesPropertiesCopyWithImpl<$Res>
 /// Create a copy of SetPreferencesProperties
 /// with the given fields replaced by the non-null parameter values.
 @pragma('vm:prefer-inline') @override $Res call({Object? channelTypes = freezed,Object? workflows = freezed,Object? categories = freezed,}) {
-  return _then(_self.copyWith(
+  return _then(SetPreferencesProperties(
 channelTypes: freezed == channelTypes ? _self.channelTypes : channelTypes // ignore: cast_nullable_to_non_nullable
 as ChannelTypePreferences?,workflows: freezed == workflows ? _self.workflows : workflows // ignore: cast_nullable_to_non_nullable
 as WorkflowPreferences?,categories: freezed == categories ? _self.categories : categories // ignore: cast_nullable_to_non_nullable
@@ -1320,7 +1354,7 @@ return $default(_that.channelTypes,_that.workflows,_that.categories);case _:
 
 @JsonSerializable(explicitToJson: true)
 class _SetPreferencesProperties implements SetPreferencesProperties {
-  const _SetPreferencesProperties({@JsonKey(name: 'channel_types', toJson: _channelTypePreferencesToJson, fromJson: _channelTypePreferencesFromJson) required final  ChannelTypePreferences? channelTypes, @JsonKey(toJson: _workflowPreferencesToJson, fromJson: _workflowPreferencesFromJson) required final  WorkflowPreferences? workflows, @JsonKey(toJson: _workflowPreferencesToJson, fromJson: _workflowPreferencesFromJson) required final  WorkflowPreferences? categories}): _channelTypes = channelTypes,_workflows = workflows,_categories = categories;
+  const _SetPreferencesProperties({@JsonKey(name: 'channel_types', toJson: _channelTypePreferencesToJson, fromJson: _channelTypePreferencesFromJson) required  ChannelTypePreferences? channelTypes, @JsonKey(toJson: _workflowPreferencesToJson, fromJson: _workflowPreferencesFromJson) required  WorkflowPreferences? workflows, @JsonKey(toJson: _workflowPreferencesToJson, fromJson: _workflowPreferencesFromJson) required  WorkflowPreferences? categories}): _channelTypes = channelTypes,_workflows = workflows,_categories = categories;
   
 
  final  ChannelTypePreferences? _channelTypes;
@@ -1364,16 +1398,18 @@ Map<String, dynamic> toJson() {
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _SetPreferencesProperties&&const DeepCollectionEquality().equals(other._channelTypes, _channelTypes)&&const DeepCollectionEquality().equals(other._workflows, _workflows)&&const DeepCollectionEquality().equals(other._categories, _categories));
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is _SetPreferencesProperties&&const DeepCollectionEquality().equals(other.channelTypes, _channelTypes)&&const DeepCollectionEquality().equals(other.workflows, _workflows)&&const DeepCollectionEquality().equals(other.categories, _categories));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,const DeepCollectionEquality().hash(_channelTypes),const DeepCollectionEquality().hash(_workflows),const DeepCollectionEquality().hash(_categories));
+int get hashCode {
+    return Object.hash(runtimeType,const DeepCollectionEquality().hash(_channelTypes),const DeepCollectionEquality().hash(_workflows),const DeepCollectionEquality().hash(_categories));
+}
 
 @override
 String toString() {
-  return 'SetPreferencesProperties(channelTypes: $channelTypes, workflows: $workflows, categories: $categories)';
+    return 'SetPreferencesProperties(channelTypes: $channelTypes, workflows: $workflows, categories: $categories)';
 }
 
 
@@ -1430,16 +1466,21 @@ $PreferenceSetCopyWith<PreferenceSet> get copyWith => _$PreferenceSetCopyWithImp
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is PreferenceSet&&(identical(other.id, id) || other.id == id)&&const DeepCollectionEquality().equals(other.channelTypes, channelTypes)&&const DeepCollectionEquality().equals(other.workflows, workflows)&&const DeepCollectionEquality().equals(other.categories, categories));
+  final _this = this as PreferenceSet;
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is PreferenceSet&&(identical(other.id, _this.id) || other.id == _this.id)&&const DeepCollectionEquality().equals(other.channelTypes, _this.channelTypes)&&const DeepCollectionEquality().equals(other.workflows, _this.workflows)&&const DeepCollectionEquality().equals(other.categories, _this.categories));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,id,const DeepCollectionEquality().hash(channelTypes),const DeepCollectionEquality().hash(workflows),const DeepCollectionEquality().hash(categories));
+int get hashCode {
+  final _this = this as PreferenceSet;
+  return Object.hash(runtimeType,_this.id,const DeepCollectionEquality().hash(_this.channelTypes),const DeepCollectionEquality().hash(_this.workflows),const DeepCollectionEquality().hash(_this.categories));
+}
 
 @override
 String toString() {
-  return 'PreferenceSet(id: $id, channelTypes: $channelTypes, workflows: $workflows, categories: $categories)';
+  final _this = this as PreferenceSet;
+  return 'PreferenceSet(id: ${_this.id}, channelTypes: ${_this.channelTypes}, workflows: ${_this.workflows}, categories: ${_this.categories})';
 }
 
 
@@ -1468,7 +1509,7 @@ class _$PreferenceSetCopyWithImpl<$Res>
 /// Create a copy of PreferenceSet
 /// with the given fields replaced by the non-null parameter values.
 @pragma('vm:prefer-inline') @override $Res call({Object? id = null,Object? channelTypes = freezed,Object? workflows = freezed,Object? categories = freezed,}) {
-  return _then(_self.copyWith(
+  return _then(PreferenceSet(
 id: null == id ? _self.id : id // ignore: cast_nullable_to_non_nullable
 as String,channelTypes: freezed == channelTypes ? _self.channelTypes : channelTypes // ignore: cast_nullable_to_non_nullable
 as ChannelTypePreferences?,workflows: freezed == workflows ? _self.workflows : workflows // ignore: cast_nullable_to_non_nullable
@@ -1614,7 +1655,7 @@ return $default(_that.id,_that.channelTypes,_that.workflows,_that.categories);ca
 
 @JsonSerializable(explicitToJson: true)
 class _PreferenceSet implements PreferenceSet {
-  const _PreferenceSet({required this.id, @JsonKey(name: 'channel_types', toJson: _channelTypePreferencesToJson, fromJson: _channelTypePreferencesFromJson) required final  ChannelTypePreferences? channelTypes, @JsonKey(toJson: _workflowPreferencesToJson, fromJson: _workflowPreferencesFromJson) required final  WorkflowPreferences? workflows, @JsonKey(toJson: _workflowPreferencesToJson, fromJson: _workflowPreferencesFromJson) required final  WorkflowPreferences? categories}): _channelTypes = channelTypes,_workflows = workflows,_categories = categories;
+  const _PreferenceSet({required this.id, @JsonKey(name: 'channel_types', toJson: _channelTypePreferencesToJson, fromJson: _channelTypePreferencesFromJson) required  ChannelTypePreferences? channelTypes, @JsonKey(toJson: _workflowPreferencesToJson, fromJson: _workflowPreferencesFromJson) required  WorkflowPreferences? workflows, @JsonKey(toJson: _workflowPreferencesToJson, fromJson: _workflowPreferencesFromJson) required  WorkflowPreferences? categories}): _channelTypes = channelTypes,_workflows = workflows,_categories = categories;
   factory _PreferenceSet.fromJson(Map<String, dynamic> json) => _$PreferenceSetFromJson(json);
 
 @override final  String id;
@@ -1659,16 +1700,18 @@ Map<String, dynamic> toJson() {
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _PreferenceSet&&(identical(other.id, id) || other.id == id)&&const DeepCollectionEquality().equals(other._channelTypes, _channelTypes)&&const DeepCollectionEquality().equals(other._workflows, _workflows)&&const DeepCollectionEquality().equals(other._categories, _categories));
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is _PreferenceSet&&(identical(other.id, id) || other.id == id)&&const DeepCollectionEquality().equals(other.channelTypes, _channelTypes)&&const DeepCollectionEquality().equals(other.workflows, _workflows)&&const DeepCollectionEquality().equals(other.categories, _categories));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,id,const DeepCollectionEquality().hash(_channelTypes),const DeepCollectionEquality().hash(_workflows),const DeepCollectionEquality().hash(_categories));
+int get hashCode {
+    return Object.hash(runtimeType,id,const DeepCollectionEquality().hash(_channelTypes),const DeepCollectionEquality().hash(_workflows),const DeepCollectionEquality().hash(_categories));
+}
 
 @override
 String toString() {
-  return 'PreferenceSet(id: $id, channelTypes: $channelTypes, workflows: $workflows, categories: $categories)';
+    return 'PreferenceSet(id: $id, channelTypes: $channelTypes, workflows: $workflows, categories: $categories)';
 }
 
 
@@ -1726,16 +1769,21 @@ $PreferenceConditionCopyWith<PreferenceCondition> get copyWith => _$PreferenceCo
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is PreferenceCondition&&(identical(other.variable, variable) || other.variable == variable)&&(identical(other.operator, operator) || other.operator == operator)&&(identical(other.argument, argument) || other.argument == argument));
+  final _this = this as PreferenceCondition;
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is PreferenceCondition&&(identical(other.variable, _this.variable) || other.variable == _this.variable)&&(identical(other.operator, _this.operator) || other.operator == _this.operator)&&(identical(other.argument, _this.argument) || other.argument == _this.argument));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,variable,operator,argument);
+int get hashCode {
+  final _this = this as PreferenceCondition;
+  return Object.hash(runtimeType,_this.variable,_this.operator,_this.argument);
+}
 
 @override
 String toString() {
-  return 'PreferenceCondition(variable: $variable, operator: $operator, argument: $argument)';
+  final _this = this as PreferenceCondition;
+  return 'PreferenceCondition(variable: ${_this.variable}, operator: ${_this.operator}, argument: ${_this.argument})';
 }
 
 
@@ -1764,7 +1812,7 @@ class _$PreferenceConditionCopyWithImpl<$Res>
 /// Create a copy of PreferenceCondition
 /// with the given fields replaced by the non-null parameter values.
 @pragma('vm:prefer-inline') @override $Res call({Object? variable = null,Object? operator = null,Object? argument = null,}) {
-  return _then(_self.copyWith(
+  return _then(PreferenceCondition(
 variable: null == variable ? _self.variable : variable // ignore: cast_nullable_to_non_nullable
 as String,operator: null == operator ? _self.operator : operator // ignore: cast_nullable_to_non_nullable
 as String,argument: null == argument ? _self.argument : argument // ignore: cast_nullable_to_non_nullable
@@ -1929,16 +1977,18 @@ Map<String, dynamic> toJson() {
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _PreferenceCondition&&(identical(other.variable, variable) || other.variable == variable)&&(identical(other.operator, operator) || other.operator == operator)&&(identical(other.argument, argument) || other.argument == argument));
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is _PreferenceCondition&&(identical(other.variable, variable) || other.variable == variable)&&(identical(other.operator, operator) || other.operator == operator)&&(identical(other.argument, argument) || other.argument == argument));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,variable,operator,argument);
+int get hashCode {
+    return Object.hash(runtimeType,variable,operator,argument);
+}
 
 @override
 String toString() {
-  return 'PreferenceCondition(variable: $variable, operator: $operator, argument: $argument)';
+    return 'PreferenceCondition(variable: $variable, operator: $operator, argument: $argument)';
 }
 
 

@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 // coverage:ignore-file
-// ignore_for_file: type=lint
+// ignore_for_file: type=lint, type=warning, deprecated_member_use, deprecated_member_use_from_same_package
 // ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target, unnecessary_question_mark
 
 part of 'knock_object.dart';
@@ -9,6 +9,7 @@ part of 'knock_object.dart';
 // FreezedGenerator
 // **************************************************************************
 
+// GENERATED CODE - DO NOT MODIFY BY HAND
 // dart format off
 T _$identity<T>(T value) => value;
 
@@ -28,16 +29,21 @@ $KnockObjectCopyWith<KnockObject> get copyWith => _$KnockObjectCopyWithImpl<Knoc
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is KnockObject&&(identical(other.id, id) || other.id == id)&&(identical(other.collection, collection) || other.collection == collection)&&const DeepCollectionEquality().equals(other.properties, properties)&&(identical(other.updatedAt, updatedAt) || other.updatedAt == updatedAt)&&(identical(other.createdAt, createdAt) || other.createdAt == createdAt));
+  final _this = this as KnockObject;
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is KnockObject&&(identical(other.id, _this.id) || other.id == _this.id)&&(identical(other.collection, _this.collection) || other.collection == _this.collection)&&const DeepCollectionEquality().equals(other.properties, _this.properties)&&(identical(other.updatedAt, _this.updatedAt) || other.updatedAt == _this.updatedAt)&&(identical(other.createdAt, _this.createdAt) || other.createdAt == _this.createdAt));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,id,collection,const DeepCollectionEquality().hash(properties),updatedAt,createdAt);
+int get hashCode {
+  final _this = this as KnockObject;
+  return Object.hash(runtimeType,_this.id,_this.collection,const DeepCollectionEquality().hash(_this.properties),_this.updatedAt,_this.createdAt);
+}
 
 @override
 String toString() {
-  return 'KnockObject(id: $id, collection: $collection, properties: $properties, updatedAt: $updatedAt, createdAt: $createdAt)';
+  final _this = this as KnockObject;
+  return 'KnockObject(id: ${_this.id}, collection: ${_this.collection}, properties: ${_this.properties}, updatedAt: ${_this.updatedAt}, createdAt: ${_this.createdAt})';
 }
 
 
@@ -66,7 +72,7 @@ class _$KnockObjectCopyWithImpl<$Res>
 /// Create a copy of KnockObject
 /// with the given fields replaced by the non-null parameter values.
 @pragma('vm:prefer-inline') @override $Res call({Object? id = null,Object? collection = null,Object? properties = null,Object? updatedAt = null,Object? createdAt = freezed,}) {
-  return _then(_self.copyWith(
+  return _then(KnockObject(
 id: null == id ? _self.id : id // ignore: cast_nullable_to_non_nullable
 as String,collection: null == collection ? _self.collection : collection // ignore: cast_nullable_to_non_nullable
 as String,properties: null == properties ? _self.properties : properties // ignore: cast_nullable_to_non_nullable
@@ -213,7 +219,7 @@ return $default(_that.id,_that.collection,_that.properties,_that.updatedAt,_that
 
 @JsonSerializable(explicitToJson: true)
 class _KnockObject implements KnockObject {
-  const _KnockObject({required this.id, required this.collection, required final  Map<String, dynamic> properties, @JsonKey(name: 'updated_at') required this.updatedAt, @JsonKey(name: 'created_at') this.createdAt}): _properties = properties;
+  const _KnockObject({required this.id, required this.collection, required  Map<String, dynamic> properties, @JsonKey(name: 'updated_at') required this.updatedAt, @JsonKey(name: 'created_at') this.createdAt}): _properties = properties;
   factory _KnockObject.fromJson(Map<String, dynamic> json) => _$KnockObjectFromJson(json);
 
 @override final  String id;
@@ -241,16 +247,18 @@ Map<String, dynamic> toJson() {
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _KnockObject&&(identical(other.id, id) || other.id == id)&&(identical(other.collection, collection) || other.collection == collection)&&const DeepCollectionEquality().equals(other._properties, _properties)&&(identical(other.updatedAt, updatedAt) || other.updatedAt == updatedAt)&&(identical(other.createdAt, createdAt) || other.createdAt == createdAt));
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is _KnockObject&&(identical(other.id, id) || other.id == id)&&(identical(other.collection, collection) || other.collection == collection)&&const DeepCollectionEquality().equals(other.properties, _properties)&&(identical(other.updatedAt, updatedAt) || other.updatedAt == updatedAt)&&(identical(other.createdAt, createdAt) || other.createdAt == createdAt));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,id,collection,const DeepCollectionEquality().hash(_properties),updatedAt,createdAt);
+int get hashCode {
+    return Object.hash(runtimeType,id,collection,const DeepCollectionEquality().hash(_properties),updatedAt,createdAt);
+}
 
 @override
 String toString() {
-  return 'KnockObject(id: $id, collection: $collection, properties: $properties, updatedAt: $updatedAt, createdAt: $createdAt)';
+    return 'KnockObject(id: $id, collection: $collection, properties: $properties, updatedAt: $updatedAt, createdAt: $createdAt)';
 }
 
 

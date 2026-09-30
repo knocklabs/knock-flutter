@@ -1,5 +1,5 @@
 /// Knock Flutter SDK
-library knock_flutter;
+library;
 
 export 'src/api_client.dart';
 export 'src/feed_client.dart';

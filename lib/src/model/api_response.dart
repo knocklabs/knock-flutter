@@ -30,8 +30,8 @@ abstract class KnockApiResponse with _$KnockApiResponse {
 
   @override
   String toString() {
-    // ignore: lines_longer_than_80_chars
-    return 'KnockApiResponse(status: $status, statusCode: $statusCode, body: $body, error: $error)';
+    return 'KnockApiResponse(status: $status, statusCode: $statusCode, '
+        'body: $body, error: $error)';
   }
 }
 

@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 // coverage:ignore-file
-// ignore_for_file: type=lint
+// ignore_for_file: type=lint, type=warning, deprecated_member_use, deprecated_member_use_from_same_package
 // ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target, unnecessary_question_mark
 
 part of 'feed.dart';
@@ -9,6 +9,7 @@ part of 'feed.dart';
 // FreezedGenerator
 // **************************************************************************
 
+// GENERATED CODE - DO NOT MODIFY BY HAND
 // dart format off
 T _$identity<T>(T value) => value;
 
@@ -28,16 +29,21 @@ $FeedCopyWith<Feed> get copyWith => _$FeedCopyWithImpl<Feed>(this as Feed, _$ide
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is Feed&&const DeepCollectionEquality().equals(other.items, items)&&(identical(other.pageInfo, pageInfo) || other.pageInfo == pageInfo)&&(identical(other.metadata, metadata) || other.metadata == metadata)&&(identical(other.networkStatus, networkStatus) || other.networkStatus == networkStatus));
+  final _this = this as Feed;
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is Feed&&const DeepCollectionEquality().equals(other.items, _this.items)&&(identical(other.pageInfo, _this.pageInfo) || other.pageInfo == _this.pageInfo)&&(identical(other.metadata, _this.metadata) || other.metadata == _this.metadata)&&(identical(other.networkStatus, _this.networkStatus) || other.networkStatus == _this.networkStatus));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,const DeepCollectionEquality().hash(items),pageInfo,metadata,networkStatus);
+int get hashCode {
+  final _this = this as Feed;
+  return Object.hash(runtimeType,const DeepCollectionEquality().hash(_this.items),_this.pageInfo,_this.metadata,_this.networkStatus);
+}
 
 @override
 String toString() {
-  return 'Feed(items: $items, pageInfo: $pageInfo, metadata: $metadata, networkStatus: $networkStatus)';
+  final _this = this as Feed;
+  return 'Feed(items: ${_this.items}, pageInfo: ${_this.pageInfo}, metadata: ${_this.metadata}, networkStatus: ${_this.networkStatus})';
 }
 
 
@@ -66,7 +72,7 @@ class _$FeedCopyWithImpl<$Res>
 /// Create a copy of Feed
 /// with the given fields replaced by the non-null parameter values.
 @pragma('vm:prefer-inline') @override $Res call({Object? items = null,Object? pageInfo = null,Object? metadata = null,Object? networkStatus = null,}) {
-  return _then(_self.copyWith(
+  return _then(Feed(
 items: null == items ? _self.items : items // ignore: cast_nullable_to_non_nullable
 as List<FeedItem>,pageInfo: null == pageInfo ? _self.pageInfo : pageInfo // ignore: cast_nullable_to_non_nullable
 as PageInfo,metadata: null == metadata ? _self.metadata : metadata // ignore: cast_nullable_to_non_nullable
@@ -230,7 +236,7 @@ return $default(_that.items,_that.pageInfo,_that.metadata,_that.networkStatus);c
 
 @JsonSerializable(explicitToJson: true)
 class _Feed extends Feed {
-  const _Feed({@JsonKey(name: 'entries') required final  List<FeedItem> items, @JsonKey(name: 'page_info') required this.pageInfo, @JsonKey(name: 'meta') required this.metadata, @JsonKey(includeFromJson: true, defaultValue: NetworkStatus.ready) required this.networkStatus}): _items = items,super._();
+  const _Feed({@JsonKey(name: 'entries') required  List<FeedItem> items, @JsonKey(name: 'page_info') required this.pageInfo, @JsonKey(name: 'meta') required this.metadata, @JsonKey(includeFromJson: true, defaultValue: NetworkStatus.ready) required this.networkStatus}): _items = items,super._();
   factory _Feed.fromJson(Map<String, dynamic> json) => _$FeedFromJson(json);
 
  final  List<FeedItem> _items;
@@ -257,16 +263,18 @@ Map<String, dynamic> toJson() {
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _Feed&&const DeepCollectionEquality().equals(other._items, _items)&&(identical(other.pageInfo, pageInfo) || other.pageInfo == pageInfo)&&(identical(other.metadata, metadata) || other.metadata == metadata)&&(identical(other.networkStatus, networkStatus) || other.networkStatus == networkStatus));
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is _Feed&&const DeepCollectionEquality().equals(other.items, _items)&&(identical(other.pageInfo, pageInfo) || other.pageInfo == pageInfo)&&(identical(other.metadata, metadata) || other.metadata == metadata)&&(identical(other.networkStatus, networkStatus) || other.networkStatus == networkStatus));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,const DeepCollectionEquality().hash(_items),pageInfo,metadata,networkStatus);
+int get hashCode {
+    return Object.hash(runtimeType,const DeepCollectionEquality().hash(_items),pageInfo,metadata,networkStatus);
+}
 
 @override
 String toString() {
-  return 'Feed(items: $items, pageInfo: $pageInfo, metadata: $metadata, networkStatus: $networkStatus)';
+    return 'Feed(items: $items, pageInfo: $pageInfo, metadata: $metadata, networkStatus: $networkStatus)';
 }
 
 
@@ -342,16 +350,21 @@ $FeedItemCopyWith<FeedItem> get copyWith => _$FeedItemCopyWithImpl<FeedItem>(thi
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is FeedItem&&(identical(other.knockInternalCursor, knockInternalCursor) || other.knockInternalCursor == knockInternalCursor)&&(identical(other.id, id) || other.id == id)&&const DeepCollectionEquality().equals(other.activities, activities)&&const DeepCollectionEquality().equals(other.actors, actors)&&const DeepCollectionEquality().equals(other.blocks, blocks)&&(identical(other.insertedAt, insertedAt) || other.insertedAt == insertedAt)&&(identical(other.updatedAt, updatedAt) || other.updatedAt == updatedAt)&&(identical(other.seenAt, seenAt) || other.seenAt == seenAt)&&(identical(other.readAt, readAt) || other.readAt == readAt)&&(identical(other.archivedAt, archivedAt) || other.archivedAt == archivedAt)&&(identical(other.interactedAt, interactedAt) || other.interactedAt == interactedAt)&&(identical(other.totalActivities, totalActivities) || other.totalActivities == totalActivities)&&(identical(other.totalActors, totalActors) || other.totalActors == totalActors)&&const DeepCollectionEquality().equals(other.data, data)&&(identical(other.source, source) || other.source == source)&&(identical(other.tenant, tenant) || other.tenant == tenant));
+  final _this = this as FeedItem;
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is FeedItem&&(identical(other.knockInternalCursor, _this.knockInternalCursor) || other.knockInternalCursor == _this.knockInternalCursor)&&(identical(other.id, _this.id) || other.id == _this.id)&&const DeepCollectionEquality().equals(other.activities, _this.activities)&&const DeepCollectionEquality().equals(other.actors, _this.actors)&&const DeepCollectionEquality().equals(other.blocks, _this.blocks)&&(identical(other.insertedAt, _this.insertedAt) || other.insertedAt == _this.insertedAt)&&(identical(other.updatedAt, _this.updatedAt) || other.updatedAt == _this.updatedAt)&&(identical(other.seenAt, _this.seenAt) || other.seenAt == _this.seenAt)&&(identical(other.readAt, _this.readAt) || other.readAt == _this.readAt)&&(identical(other.archivedAt, _this.archivedAt) || other.archivedAt == _this.archivedAt)&&(identical(other.interactedAt, _this.interactedAt) || other.interactedAt == _this.interactedAt)&&(identical(other.totalActivities, _this.totalActivities) || other.totalActivities == _this.totalActivities)&&(identical(other.totalActors, _this.totalActors) || other.totalActors == _this.totalActors)&&const DeepCollectionEquality().equals(other.data, _this.data)&&(identical(other.source, _this.source) || other.source == _this.source)&&(identical(other.tenant, _this.tenant) || other.tenant == _this.tenant));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,knockInternalCursor,id,const DeepCollectionEquality().hash(activities),const DeepCollectionEquality().hash(actors),const DeepCollectionEquality().hash(blocks),insertedAt,updatedAt,seenAt,readAt,archivedAt,interactedAt,totalActivities,totalActors,const DeepCollectionEquality().hash(data),source,tenant);
+int get hashCode {
+  final _this = this as FeedItem;
+  return Object.hash(runtimeType,_this.knockInternalCursor,_this.id,const DeepCollectionEquality().hash(_this.activities),const DeepCollectionEquality().hash(_this.actors),const DeepCollectionEquality().hash(_this.blocks),_this.insertedAt,_this.updatedAt,_this.seenAt,_this.readAt,_this.archivedAt,_this.interactedAt,_this.totalActivities,_this.totalActors,const DeepCollectionEquality().hash(_this.data),_this.source,_this.tenant);
+}
 
 @override
 String toString() {
-  return 'FeedItem(knockInternalCursor: $knockInternalCursor, id: $id, activities: $activities, actors: $actors, blocks: $blocks, insertedAt: $insertedAt, updatedAt: $updatedAt, seenAt: $seenAt, readAt: $readAt, archivedAt: $archivedAt, interactedAt: $interactedAt, totalActivities: $totalActivities, totalActors: $totalActors, data: $data, source: $source, tenant: $tenant)';
+  final _this = this as FeedItem;
+  return 'FeedItem(knockInternalCursor: ${_this.knockInternalCursor}, id: ${_this.id}, activities: ${_this.activities}, actors: ${_this.actors}, blocks: ${_this.blocks}, insertedAt: ${_this.insertedAt}, updatedAt: ${_this.updatedAt}, seenAt: ${_this.seenAt}, readAt: ${_this.readAt}, archivedAt: ${_this.archivedAt}, interactedAt: ${_this.interactedAt}, totalActivities: ${_this.totalActivities}, totalActors: ${_this.totalActors}, data: ${_this.data}, source: ${_this.source}, tenant: ${_this.tenant})';
 }
 
 
@@ -380,7 +393,7 @@ class _$FeedItemCopyWithImpl<$Res>
 /// Create a copy of FeedItem
 /// with the given fields replaced by the non-null parameter values.
 @pragma('vm:prefer-inline') @override $Res call({Object? knockInternalCursor = null,Object? id = null,Object? activities = null,Object? actors = null,Object? blocks = null,Object? insertedAt = null,Object? updatedAt = null,Object? seenAt = freezed,Object? readAt = freezed,Object? archivedAt = freezed,Object? interactedAt = freezed,Object? totalActivities = null,Object? totalActors = null,Object? data = freezed,Object? source = null,Object? tenant = freezed,}) {
-  return _then(_self.copyWith(
+  return _then(FeedItem(
 knockInternalCursor: null == knockInternalCursor ? _self.knockInternalCursor : knockInternalCursor // ignore: cast_nullable_to_non_nullable
 as String,id: null == id ? _self.id : id // ignore: cast_nullable_to_non_nullable
 as String,activities: null == activities ? _self.activities : activities // ignore: cast_nullable_to_non_nullable
@@ -547,7 +560,7 @@ return $default(_that.knockInternalCursor,_that.id,_that.activities,_that.actors
 
 @JsonSerializable(explicitToJson: true)
 class _FeedItem implements FeedItem {
-  const _FeedItem({@JsonKey(name: '__cursor') required this.knockInternalCursor, required this.id, required final  List<Activity> activities, required final  List<Recipient> actors, required final  List<ContentBlock> blocks, @ISO8601DateTimeConverter()@JsonKey(name: 'inserted_at') required this.insertedAt, @ISO8601DateTimeConverter()@JsonKey(name: 'updated_at') required this.updatedAt, @ISO8601DateTimeConverter()@JsonKey(name: 'seen_at') required this.seenAt, @ISO8601DateTimeConverter()@JsonKey(name: 'read_at') required this.readAt, @ISO8601DateTimeConverter()@JsonKey(name: 'archived_at') required this.archivedAt, @ISO8601DateTimeConverter()@JsonKey(name: 'interacted_at') required this.interactedAt, @JsonKey(name: 'total_activities') required this.totalActivities, @JsonKey(name: 'total_actors') required this.totalActors, required final  Map<String, dynamic>? data, required this.source, required this.tenant}): _activities = activities,_actors = actors,_blocks = blocks,_data = data;
+  const _FeedItem({@JsonKey(name: '__cursor') required this.knockInternalCursor, required this.id, required  List<Activity> activities, required  List<Recipient> actors, required  List<ContentBlock> blocks, @ISO8601DateTimeConverter()@JsonKey(name: 'inserted_at') required this.insertedAt, @ISO8601DateTimeConverter()@JsonKey(name: 'updated_at') required this.updatedAt, @ISO8601DateTimeConverter()@JsonKey(name: 'seen_at') required this.seenAt, @ISO8601DateTimeConverter()@JsonKey(name: 'read_at') required this.readAt, @ISO8601DateTimeConverter()@JsonKey(name: 'archived_at') required this.archivedAt, @ISO8601DateTimeConverter()@JsonKey(name: 'interacted_at') required this.interactedAt, @JsonKey(name: 'total_activities') required this.totalActivities, @JsonKey(name: 'total_actors') required this.totalActors, required  Map<String, dynamic>? data, required this.source, required this.tenant}): _activities = activities,_actors = actors,_blocks = blocks,_data = data;
   factory _FeedItem.fromJson(Map<String, dynamic> json) => _$FeedItemFromJson(json);
 
 @override@JsonKey(name: '__cursor') final  String knockInternalCursor;
@@ -606,16 +619,18 @@ Map<String, dynamic> toJson() {
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _FeedItem&&(identical(other.knockInternalCursor, knockInternalCursor) || other.knockInternalCursor == knockInternalCursor)&&(identical(other.id, id) || other.id == id)&&const DeepCollectionEquality().equals(other._activities, _activities)&&const DeepCollectionEquality().equals(other._actors, _actors)&&const DeepCollectionEquality().equals(other._blocks, _blocks)&&(identical(other.insertedAt, insertedAt) || other.insertedAt == insertedAt)&&(identical(other.updatedAt, updatedAt) || other.updatedAt == updatedAt)&&(identical(other.seenAt, seenAt) || other.seenAt == seenAt)&&(identical(other.readAt, readAt) || other.readAt == readAt)&&(identical(other.archivedAt, archivedAt) || other.archivedAt == archivedAt)&&(identical(other.interactedAt, interactedAt) || other.interactedAt == interactedAt)&&(identical(other.totalActivities, totalActivities) || other.totalActivities == totalActivities)&&(identical(other.totalActors, totalActors) || other.totalActors == totalActors)&&const DeepCollectionEquality().equals(other._data, _data)&&(identical(other.source, source) || other.source == source)&&(identical(other.tenant, tenant) || other.tenant == tenant));
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is _FeedItem&&(identical(other.knockInternalCursor, knockInternalCursor) || other.knockInternalCursor == knockInternalCursor)&&(identical(other.id, id) || other.id == id)&&const DeepCollectionEquality().equals(other.activities, _activities)&&const DeepCollectionEquality().equals(other.actors, _actors)&&const DeepCollectionEquality().equals(other.blocks, _blocks)&&(identical(other.insertedAt, insertedAt) || other.insertedAt == insertedAt)&&(identical(other.updatedAt, updatedAt) || other.updatedAt == updatedAt)&&(identical(other.seenAt, seenAt) || other.seenAt == seenAt)&&(identical(other.readAt, readAt) || other.readAt == readAt)&&(identical(other.archivedAt, archivedAt) || other.archivedAt == archivedAt)&&(identical(other.interactedAt, interactedAt) || other.interactedAt == interactedAt)&&(identical(other.totalActivities, totalActivities) || other.totalActivities == totalActivities)&&(identical(other.totalActors, totalActors) || other.totalActors == totalActors)&&const DeepCollectionEquality().equals(other.data, _data)&&(identical(other.source, source) || other.source == source)&&(identical(other.tenant, tenant) || other.tenant == tenant));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,knockInternalCursor,id,const DeepCollectionEquality().hash(_activities),const DeepCollectionEquality().hash(_actors),const DeepCollectionEquality().hash(_blocks),insertedAt,updatedAt,seenAt,readAt,archivedAt,interactedAt,totalActivities,totalActors,const DeepCollectionEquality().hash(_data),source,tenant);
+int get hashCode {
+    return Object.hash(runtimeType,knockInternalCursor,id,const DeepCollectionEquality().hash(_activities),const DeepCollectionEquality().hash(_actors),const DeepCollectionEquality().hash(_blocks),insertedAt,updatedAt,seenAt,readAt,archivedAt,interactedAt,totalActivities,totalActors,const DeepCollectionEquality().hash(_data),source,tenant);
+}
 
 @override
 String toString() {
-  return 'FeedItem(knockInternalCursor: $knockInternalCursor, id: $id, activities: $activities, actors: $actors, blocks: $blocks, insertedAt: $insertedAt, updatedAt: $updatedAt, seenAt: $seenAt, readAt: $readAt, archivedAt: $archivedAt, interactedAt: $interactedAt, totalActivities: $totalActivities, totalActors: $totalActors, data: $data, source: $source, tenant: $tenant)';
+    return 'FeedItem(knockInternalCursor: $knockInternalCursor, id: $id, activities: $activities, actors: $actors, blocks: $blocks, insertedAt: $insertedAt, updatedAt: $updatedAt, seenAt: $seenAt, readAt: $readAt, archivedAt: $archivedAt, interactedAt: $interactedAt, totalActivities: $totalActivities, totalActors: $totalActors, data: $data, source: $source, tenant: $tenant)';
 }
 
 
@@ -694,16 +709,21 @@ $ActivityCopyWith<Activity> get copyWith => _$ActivityCopyWithImpl<Activity>(thi
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is Activity&&(identical(other.id, id) || other.id == id)&&(identical(other.insertedAt, insertedAt) || other.insertedAt == insertedAt)&&(identical(other.updatedAt, updatedAt) || other.updatedAt == updatedAt)&&(identical(other.recipient, recipient) || other.recipient == recipient)&&(identical(other.actor, actor) || other.actor == actor)&&const DeepCollectionEquality().equals(other.data, data));
+  final _this = this as Activity;
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is Activity&&(identical(other.id, _this.id) || other.id == _this.id)&&(identical(other.insertedAt, _this.insertedAt) || other.insertedAt == _this.insertedAt)&&(identical(other.updatedAt, _this.updatedAt) || other.updatedAt == _this.updatedAt)&&(identical(other.recipient, _this.recipient) || other.recipient == _this.recipient)&&(identical(other.actor, _this.actor) || other.actor == _this.actor)&&const DeepCollectionEquality().equals(other.data, _this.data));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,id,insertedAt,updatedAt,recipient,actor,const DeepCollectionEquality().hash(data));
+int get hashCode {
+  final _this = this as Activity;
+  return Object.hash(runtimeType,_this.id,_this.insertedAt,_this.updatedAt,_this.recipient,_this.actor,const DeepCollectionEquality().hash(_this.data));
+}
 
 @override
 String toString() {
-  return 'Activity(id: $id, insertedAt: $insertedAt, updatedAt: $updatedAt, recipient: $recipient, actor: $actor, data: $data)';
+  final _this = this as Activity;
+  return 'Activity(id: ${_this.id}, insertedAt: ${_this.insertedAt}, updatedAt: ${_this.updatedAt}, recipient: ${_this.recipient}, actor: ${_this.actor}, data: ${_this.data})';
 }
 
 
@@ -732,7 +752,7 @@ class _$ActivityCopyWithImpl<$Res>
 /// Create a copy of Activity
 /// with the given fields replaced by the non-null parameter values.
 @pragma('vm:prefer-inline') @override $Res call({Object? id = null,Object? insertedAt = null,Object? updatedAt = null,Object? recipient = null,Object? actor = freezed,Object? data = freezed,}) {
-  return _then(_self.copyWith(
+  return _then(Activity(
 id: null == id ? _self.id : id // ignore: cast_nullable_to_non_nullable
 as String,insertedAt: null == insertedAt ? _self.insertedAt : insertedAt // ignore: cast_nullable_to_non_nullable
 as DateTime,updatedAt: null == updatedAt ? _self.updatedAt : updatedAt // ignore: cast_nullable_to_non_nullable
@@ -901,7 +921,7 @@ return $default(_that.id,_that.insertedAt,_that.updatedAt,_that.recipient,_that.
 
 @JsonSerializable(explicitToJson: true)
 class _Activity implements Activity {
-  const _Activity({required this.id, @ISO8601DateTimeConverter()@JsonKey(name: 'inserted_at') required this.insertedAt, @ISO8601DateTimeConverter()@JsonKey(name: 'updated_at') required this.updatedAt, required this.recipient, required this.actor, required final  Map<String, dynamic>? data}): _data = data;
+  const _Activity({required this.id, @ISO8601DateTimeConverter()@JsonKey(name: 'inserted_at') required this.insertedAt, @ISO8601DateTimeConverter()@JsonKey(name: 'updated_at') required this.updatedAt, required this.recipient, required this.actor, required  Map<String, dynamic>? data}): _data = data;
   factory _Activity.fromJson(Map<String, dynamic> json) => _$ActivityFromJson(json);
 
 @override final  String id;
@@ -932,16 +952,18 @@ Map<String, dynamic> toJson() {
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _Activity&&(identical(other.id, id) || other.id == id)&&(identical(other.insertedAt, insertedAt) || other.insertedAt == insertedAt)&&(identical(other.updatedAt, updatedAt) || other.updatedAt == updatedAt)&&(identical(other.recipient, recipient) || other.recipient == recipient)&&(identical(other.actor, actor) || other.actor == actor)&&const DeepCollectionEquality().equals(other._data, _data));
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is _Activity&&(identical(other.id, id) || other.id == id)&&(identical(other.insertedAt, insertedAt) || other.insertedAt == insertedAt)&&(identical(other.updatedAt, updatedAt) || other.updatedAt == updatedAt)&&(identical(other.recipient, recipient) || other.recipient == recipient)&&(identical(other.actor, actor) || other.actor == actor)&&const DeepCollectionEquality().equals(other.data, _data));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,id,insertedAt,updatedAt,recipient,actor,const DeepCollectionEquality().hash(_data));
+int get hashCode {
+    return Object.hash(runtimeType,id,insertedAt,updatedAt,recipient,actor,const DeepCollectionEquality().hash(_data));
+}
 
 @override
 String toString() {
-  return 'Activity(id: $id, insertedAt: $insertedAt, updatedAt: $updatedAt, recipient: $recipient, actor: $actor, data: $data)';
+    return 'Activity(id: $id, insertedAt: $insertedAt, updatedAt: $updatedAt, recipient: $recipient, actor: $actor, data: $data)';
 }
 
 
@@ -1049,16 +1071,21 @@ $ContentBlockCopyWith<ContentBlock> get copyWith => _$ContentBlockCopyWithImpl<C
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is ContentBlock&&(identical(other.name, name) || other.name == name));
+  final _this = this as ContentBlock;
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is ContentBlock&&(identical(other.name, _this.name) || other.name == _this.name));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,name);
+int get hashCode {
+  final _this = this as ContentBlock;
+  return Object.hash(runtimeType,_this.name);
+}
 
 @override
 String toString() {
-  return 'ContentBlock(name: $name)';
+  final _this = this as ContentBlock;
+  return 'ContentBlock(name: ${_this.name})';
 }
 
 
@@ -1236,7 +1263,7 @@ return buttonSet(_that.name,_that.buttons);case _:
 @JsonSerializable()
 
 class MarkdownContentBlock extends ContentBlock {
-  const MarkdownContentBlock({required this.name, required this.content, required this.rendered, final  String? $type}): $type = $type ?? 'markdown',super._();
+  const MarkdownContentBlock({required this.name, required this.content, required this.rendered,  String? $type}): $type = $type ?? 'markdown',super._();
   factory MarkdownContentBlock.fromJson(Map<String, dynamic> json) => _$MarkdownContentBlockFromJson(json);
 
 @override final  String name;
@@ -1260,16 +1287,18 @@ Map<String, dynamic> toJson() {
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is MarkdownContentBlock&&(identical(other.name, name) || other.name == name)&&(identical(other.content, content) || other.content == content)&&(identical(other.rendered, rendered) || other.rendered == rendered));
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is MarkdownContentBlock&&(identical(other.name, name) || other.name == name)&&(identical(other.content, content) || other.content == content)&&(identical(other.rendered, rendered) || other.rendered == rendered));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,name,content,rendered);
+int get hashCode {
+    return Object.hash(runtimeType,name,content,rendered);
+}
 
 @override
 String toString() {
-  return 'ContentBlock.markdown(name: $name, content: $content, rendered: $rendered)';
+    return 'ContentBlock.markdown(name: $name, content: $content, rendered: $rendered)';
 }
 
 
@@ -1313,7 +1342,7 @@ as String,
 @JsonSerializable()
 
 class TextContentBlock extends ContentBlock {
-  const TextContentBlock({required this.name, required this.content, required this.rendered, final  String? $type}): $type = $type ?? 'text',super._();
+  const TextContentBlock({required this.name, required this.content, required this.rendered,  String? $type}): $type = $type ?? 'text',super._();
   factory TextContentBlock.fromJson(Map<String, dynamic> json) => _$TextContentBlockFromJson(json);
 
 @override final  String name;
@@ -1337,16 +1366,18 @@ Map<String, dynamic> toJson() {
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is TextContentBlock&&(identical(other.name, name) || other.name == name)&&(identical(other.content, content) || other.content == content)&&(identical(other.rendered, rendered) || other.rendered == rendered));
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is TextContentBlock&&(identical(other.name, name) || other.name == name)&&(identical(other.content, content) || other.content == content)&&(identical(other.rendered, rendered) || other.rendered == rendered));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,name,content,rendered);
+int get hashCode {
+    return Object.hash(runtimeType,name,content,rendered);
+}
 
 @override
 String toString() {
-  return 'ContentBlock.text(name: $name, content: $content, rendered: $rendered)';
+    return 'ContentBlock.text(name: $name, content: $content, rendered: $rendered)';
 }
 
 
@@ -1390,7 +1421,7 @@ as String,
 @JsonSerializable()
 
 class ButtonSetContentBlock extends ContentBlock {
-  const ButtonSetContentBlock({required this.name, required final  List<BlockActionButton> buttons, final  String? $type}): _buttons = buttons,$type = $type ?? 'buttonSet',super._();
+  const ButtonSetContentBlock({required this.name, required  List<BlockActionButton> buttons,  String? $type}): _buttons = buttons,$type = $type ?? 'buttonSet',super._();
   factory ButtonSetContentBlock.fromJson(Map<String, dynamic> json) => _$ButtonSetContentBlockFromJson(json);
 
 @override final  String name;
@@ -1419,16 +1450,18 @@ Map<String, dynamic> toJson() {
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is ButtonSetContentBlock&&(identical(other.name, name) || other.name == name)&&const DeepCollectionEquality().equals(other._buttons, _buttons));
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is ButtonSetContentBlock&&(identical(other.name, name) || other.name == name)&&const DeepCollectionEquality().equals(other.buttons, _buttons));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,name,const DeepCollectionEquality().hash(_buttons));
+int get hashCode {
+    return Object.hash(runtimeType,name,const DeepCollectionEquality().hash(_buttons));
+}
 
 @override
 String toString() {
-  return 'ContentBlock.buttonSet(name: $name, buttons: $buttons)';
+    return 'ContentBlock.buttonSet(name: $name, buttons: $buttons)';
 }
 
 
@@ -1484,16 +1517,21 @@ $BlockActionButtonCopyWith<BlockActionButton> get copyWith => _$BlockActionButto
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is BlockActionButton&&(identical(other.name, name) || other.name == name)&&(identical(other.label, label) || other.label == label)&&(identical(other.action, action) || other.action == action));
+  final _this = this as BlockActionButton;
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is BlockActionButton&&(identical(other.name, _this.name) || other.name == _this.name)&&(identical(other.label, _this.label) || other.label == _this.label)&&(identical(other.action, _this.action) || other.action == _this.action));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,name,label,action);
+int get hashCode {
+  final _this = this as BlockActionButton;
+  return Object.hash(runtimeType,_this.name,_this.label,_this.action);
+}
 
 @override
 String toString() {
-  return 'BlockActionButton(name: $name, label: $label, action: $action)';
+  final _this = this as BlockActionButton;
+  return 'BlockActionButton(name: ${_this.name}, label: ${_this.label}, action: ${_this.action})';
 }
 
 
@@ -1522,7 +1560,7 @@ class _$BlockActionButtonCopyWithImpl<$Res>
 /// Create a copy of BlockActionButton
 /// with the given fields replaced by the non-null parameter values.
 @pragma('vm:prefer-inline') @override $Res call({Object? name = null,Object? label = null,Object? action = null,}) {
-  return _then(_self.copyWith(
+  return _then(BlockActionButton(
 name: null == name ? _self.name : name // ignore: cast_nullable_to_non_nullable
 as String,label: null == label ? _self.label : label // ignore: cast_nullable_to_non_nullable
 as String,action: null == action ? _self.action : action // ignore: cast_nullable_to_non_nullable
@@ -1687,16 +1725,18 @@ Map<String, dynamic> toJson() {
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _BlockActionButton&&(identical(other.name, name) || other.name == name)&&(identical(other.label, label) || other.label == label)&&(identical(other.action, action) || other.action == action));
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is _BlockActionButton&&(identical(other.name, name) || other.name == name)&&(identical(other.label, label) || other.label == label)&&(identical(other.action, action) || other.action == action));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,name,label,action);
+int get hashCode {
+    return Object.hash(runtimeType,name,label,action);
+}
 
 @override
 String toString() {
-  return 'BlockActionButton(name: $name, label: $label, action: $action)';
+    return 'BlockActionButton(name: $name, label: $label, action: $action)';
 }
 
 
@@ -1753,16 +1793,21 @@ $NotificationSourceCopyWith<NotificationSource> get copyWith => _$NotificationSo
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is NotificationSource&&(identical(other.key, key) || other.key == key)&&(identical(other.versionId, versionId) || other.versionId == versionId));
+  final _this = this as NotificationSource;
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is NotificationSource&&(identical(other.key, _this.key) || other.key == _this.key)&&(identical(other.versionId, _this.versionId) || other.versionId == _this.versionId));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,key,versionId);
+int get hashCode {
+  final _this = this as NotificationSource;
+  return Object.hash(runtimeType,_this.key,_this.versionId);
+}
 
 @override
 String toString() {
-  return 'NotificationSource(key: $key, versionId: $versionId)';
+  final _this = this as NotificationSource;
+  return 'NotificationSource(key: ${_this.key}, versionId: ${_this.versionId})';
 }
 
 
@@ -1791,7 +1836,7 @@ class _$NotificationSourceCopyWithImpl<$Res>
 /// Create a copy of NotificationSource
 /// with the given fields replaced by the non-null parameter values.
 @pragma('vm:prefer-inline') @override $Res call({Object? key = null,Object? versionId = null,}) {
-  return _then(_self.copyWith(
+  return _then(NotificationSource(
 key: null == key ? _self.key : key // ignore: cast_nullable_to_non_nullable
 as String,versionId: null == versionId ? _self.versionId : versionId // ignore: cast_nullable_to_non_nullable
 as String,
@@ -1954,16 +1999,18 @@ Map<String, dynamic> toJson() {
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _NotificationSource&&(identical(other.key, key) || other.key == key)&&(identical(other.versionId, versionId) || other.versionId == versionId));
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is _NotificationSource&&(identical(other.key, key) || other.key == key)&&(identical(other.versionId, versionId) || other.versionId == versionId));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,key,versionId);
+int get hashCode {
+    return Object.hash(runtimeType,key,versionId);
+}
 
 @override
 String toString() {
-  return 'NotificationSource(key: $key, versionId: $versionId)';
+    return 'NotificationSource(key: $key, versionId: $versionId)';
 }
 
 
@@ -2019,16 +2066,21 @@ $PageInfoCopyWith<PageInfo> get copyWith => _$PageInfoCopyWithImpl<PageInfo>(thi
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is PageInfo&&(identical(other.after, after) || other.after == after)&&(identical(other.before, before) || other.before == before)&&(identical(other.pageSize, pageSize) || other.pageSize == pageSize));
+  final _this = this as PageInfo;
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is PageInfo&&(identical(other.after, _this.after) || other.after == _this.after)&&(identical(other.before, _this.before) || other.before == _this.before)&&(identical(other.pageSize, _this.pageSize) || other.pageSize == _this.pageSize));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,after,before,pageSize);
+int get hashCode {
+  final _this = this as PageInfo;
+  return Object.hash(runtimeType,_this.after,_this.before,_this.pageSize);
+}
 
 @override
 String toString() {
-  return 'PageInfo(after: $after, before: $before, pageSize: $pageSize)';
+  final _this = this as PageInfo;
+  return 'PageInfo(after: ${_this.after}, before: ${_this.before}, pageSize: ${_this.pageSize})';
 }
 
 
@@ -2057,7 +2109,7 @@ class _$PageInfoCopyWithImpl<$Res>
 /// Create a copy of PageInfo
 /// with the given fields replaced by the non-null parameter values.
 @pragma('vm:prefer-inline') @override $Res call({Object? after = freezed,Object? before = freezed,Object? pageSize = null,}) {
-  return _then(_self.copyWith(
+  return _then(PageInfo(
 after: freezed == after ? _self.after : after // ignore: cast_nullable_to_non_nullable
 as String?,before: freezed == before ? _self.before : before // ignore: cast_nullable_to_non_nullable
 as String?,pageSize: null == pageSize ? _self.pageSize : pageSize // ignore: cast_nullable_to_non_nullable
@@ -2222,16 +2274,18 @@ Map<String, dynamic> toJson() {
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _PageInfo&&(identical(other.after, after) || other.after == after)&&(identical(other.before, before) || other.before == before)&&(identical(other.pageSize, pageSize) || other.pageSize == pageSize));
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is _PageInfo&&(identical(other.after, after) || other.after == after)&&(identical(other.before, before) || other.before == before)&&(identical(other.pageSize, pageSize) || other.pageSize == pageSize));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,after,before,pageSize);
+int get hashCode {
+    return Object.hash(runtimeType,after,before,pageSize);
+}
 
 @override
 String toString() {
-  return 'PageInfo(after: $after, before: $before, pageSize: $pageSize)';
+    return 'PageInfo(after: $after, before: $before, pageSize: $pageSize)';
 }
 
 
@@ -2288,16 +2342,21 @@ $FeedMetadataCopyWith<FeedMetadata> get copyWith => _$FeedMetadataCopyWithImpl<F
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is FeedMetadata&&(identical(other.totalCount, totalCount) || other.totalCount == totalCount)&&(identical(other.unreadCount, unreadCount) || other.unreadCount == unreadCount)&&(identical(other.unseenCount, unseenCount) || other.unseenCount == unseenCount));
+  final _this = this as FeedMetadata;
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is FeedMetadata&&(identical(other.totalCount, _this.totalCount) || other.totalCount == _this.totalCount)&&(identical(other.unreadCount, _this.unreadCount) || other.unreadCount == _this.unreadCount)&&(identical(other.unseenCount, _this.unseenCount) || other.unseenCount == _this.unseenCount));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,totalCount,unreadCount,unseenCount);
+int get hashCode {
+  final _this = this as FeedMetadata;
+  return Object.hash(runtimeType,_this.totalCount,_this.unreadCount,_this.unseenCount);
+}
 
 @override
 String toString() {
-  return 'FeedMetadata(totalCount: $totalCount, unreadCount: $unreadCount, unseenCount: $unseenCount)';
+  final _this = this as FeedMetadata;
+  return 'FeedMetadata(totalCount: ${_this.totalCount}, unreadCount: ${_this.unreadCount}, unseenCount: ${_this.unseenCount})';
 }
 
 
@@ -2326,7 +2385,7 @@ class _$FeedMetadataCopyWithImpl<$Res>
 /// Create a copy of FeedMetadata
 /// with the given fields replaced by the non-null parameter values.
 @pragma('vm:prefer-inline') @override $Res call({Object? totalCount = null,Object? unreadCount = null,Object? unseenCount = null,}) {
-  return _then(_self.copyWith(
+  return _then(FeedMetadata(
 totalCount: null == totalCount ? _self.totalCount : totalCount // ignore: cast_nullable_to_non_nullable
 as int,unreadCount: null == unreadCount ? _self.unreadCount : unreadCount // ignore: cast_nullable_to_non_nullable
 as int,unseenCount: null == unseenCount ? _self.unseenCount : unseenCount // ignore: cast_nullable_to_non_nullable
@@ -2491,16 +2550,18 @@ Map<String, dynamic> toJson() {
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _FeedMetadata&&(identical(other.totalCount, totalCount) || other.totalCount == totalCount)&&(identical(other.unreadCount, unreadCount) || other.unreadCount == unreadCount)&&(identical(other.unseenCount, unseenCount) || other.unseenCount == unseenCount));
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is _FeedMetadata&&(identical(other.totalCount, totalCount) || other.totalCount == totalCount)&&(identical(other.unreadCount, unreadCount) || other.unreadCount == unreadCount)&&(identical(other.unseenCount, unseenCount) || other.unseenCount == unseenCount));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,totalCount,unreadCount,unseenCount);
+int get hashCode {
+    return Object.hash(runtimeType,totalCount,unreadCount,unseenCount);
+}
 
 @override
 String toString() {
-  return 'FeedMetadata(totalCount: $totalCount, unreadCount: $unreadCount, unseenCount: $unseenCount)';
+    return 'FeedMetadata(totalCount: $totalCount, unreadCount: $unreadCount, unseenCount: $unseenCount)';
 }
 
 

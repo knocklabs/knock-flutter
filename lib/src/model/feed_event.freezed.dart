@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 // coverage:ignore-file
-// ignore_for_file: type=lint
+// ignore_for_file: type=lint, type=warning, deprecated_member_use, deprecated_member_use_from_same_package
 // ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target, unnecessary_question_mark
 
 part of 'feed_event.dart';
@@ -9,6 +9,7 @@ part of 'feed_event.dart';
 // FreezedGenerator
 // **************************************************************************
 
+// GENERATED CODE - DO NOT MODIFY BY HAND
 // dart format off
 T _$identity<T>(T value) => value;
 /// @nodoc
@@ -25,16 +26,21 @@ $FeedEventCopyWith<FeedEvent> get copyWith => _$FeedEventCopyWithImpl<FeedEvent>
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is FeedEvent&&(identical(other.eventType, eventType) || other.eventType == eventType)&&const DeepCollectionEquality().equals(other.items, items)&&(identical(other.metadata, metadata) || other.metadata == metadata));
+  final _this = this as FeedEvent;
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is FeedEvent&&(identical(other.eventType, _this.eventType) || other.eventType == _this.eventType)&&const DeepCollectionEquality().equals(other.items, _this.items)&&(identical(other.metadata, _this.metadata) || other.metadata == _this.metadata));
 }
 
 
 @override
-int get hashCode => Object.hash(runtimeType,eventType,const DeepCollectionEquality().hash(items),metadata);
+int get hashCode {
+  final _this = this as FeedEvent;
+  return Object.hash(runtimeType,_this.eventType,const DeepCollectionEquality().hash(_this.items),_this.metadata);
+}
 
 @override
 String toString() {
-  return 'FeedEvent(eventType: $eventType, items: $items, metadata: $metadata)';
+  final _this = this as FeedEvent;
+  return 'FeedEvent(eventType: ${_this.eventType}, items: ${_this.items}, metadata: ${_this.metadata})';
 }
 
 
@@ -63,7 +69,7 @@ class _$FeedEventCopyWithImpl<$Res>
 /// Create a copy of FeedEvent
 /// with the given fields replaced by the non-null parameter values.
 @pragma('vm:prefer-inline') @override $Res call({Object? eventType = null,Object? items = null,Object? metadata = null,}) {
-  return _then(_self.copyWith(
+  return _then(FeedEvent(
 eventType: null == eventType ? _self.eventType : eventType // ignore: cast_nullable_to_non_nullable
 as FeedEventType,items: null == items ? _self.items : items // ignore: cast_nullable_to_non_nullable
 as List<FeedItem>,metadata: null == metadata ? _self.metadata : metadata // ignore: cast_nullable_to_non_nullable
@@ -217,7 +223,7 @@ return $default(_that.eventType,_that.items,_that.metadata);case _:
 
 
 class _FeedEvent implements FeedEvent {
-  const _FeedEvent({required this.eventType, required final  List<FeedItem> items, required this.metadata}): _items = items;
+  const _FeedEvent({required this.eventType, required  List<FeedItem> items, required this.metadata}): _items = items;
   
 
 @override final  FeedEventType eventType;
@@ -240,16 +246,18 @@ _$FeedEventCopyWith<_FeedEvent> get copyWith => __$FeedEventCopyWithImpl<_FeedEv
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _FeedEvent&&(identical(other.eventType, eventType) || other.eventType == eventType)&&const DeepCollectionEquality().equals(other._items, _items)&&(identical(other.metadata, metadata) || other.metadata == metadata));
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is _FeedEvent&&(identical(other.eventType, eventType) || other.eventType == eventType)&&const DeepCollectionEquality().equals(other.items, _items)&&(identical(other.metadata, metadata) || other.metadata == metadata));
 }
 
 
 @override
-int get hashCode => Object.hash(runtimeType,eventType,const DeepCollectionEquality().hash(_items),metadata);
+int get hashCode {
+    return Object.hash(runtimeType,eventType,const DeepCollectionEquality().hash(_items),metadata);
+}
 
 @override
 String toString() {
-  return 'FeedEvent(eventType: $eventType, items: $items, metadata: $metadata)';
+    return 'FeedEvent(eventType: $eventType, items: $items, metadata: $metadata)';
 }
 
 

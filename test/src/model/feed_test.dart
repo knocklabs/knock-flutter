@@ -306,6 +306,7 @@ void main() {
           ContentBlock.markdown(
             name: 'body',
             content:
+                // The template string is kept on one line to match the API.
                 // ignore: lines_longer_than_80_chars
                 "Hey **{{ recipient.name | split: ' ' | first }}** - {{ actor.name }} added a new comment.",
             rendered:
