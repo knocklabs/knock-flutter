@@ -8,6 +8,7 @@ import 'package:knock_flutter/src/model/api_response.dart';
 import 'package:knock_flutter/src/model/feed_extensions.dart';
 import 'package:knock_flutter/src/model/feed_response.dart';
 import 'package:knock_flutter/src/model/feed_update_request.dart';
+import 'package:knock_flutter/src/util/path.dart';
 import 'package:phoenix_socket/phoenix_socket.dart';
 
 enum _FeedFetchSource { socket, http }
@@ -295,7 +296,8 @@ class FeedClient {
 
     try {
       final response = await _api.doGet(
-        '/v1/users/${_knock.userId}/feeds/$feedChannelId',
+        '/v1/users/${pathSegment(_knock.userId!)}'
+        '/feeds/${pathSegment(feedChannelId)}',
         queryParams: options.merge(fetchOptions).toJson(),
       );
       if (_disposed) return;
@@ -604,7 +606,8 @@ class FeedClient {
     final tenants = tenant != null ? [tenant] : null;
 
     final response = await _api.doPost(
-      '/v1/channels/$feedChannelId/messages/bulk/${type.apiValue}',
+      '/v1/channels/${pathSegment(feedChannelId)}'
+      '/messages/bulk/${type.apiValue}',
       body: jsonEncode(
         BulkFeedStatusUpdateRequest(
           userIds: [_knock.userId!],

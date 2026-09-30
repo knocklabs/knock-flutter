@@ -5,6 +5,7 @@ import 'package:flutter_timezone/flutter_timezone.dart';
 import 'package:knock_flutter/knock_flutter.dart';
 import 'package:knock_flutter/src/model/api_response.dart';
 import 'package:knock_flutter/src/util/arguments.dart';
+import 'package:knock_flutter/src/util/path.dart';
 
 class UserClient {
   UserClient(this._knock);
@@ -14,7 +15,9 @@ class UserClient {
   KnockApiClient get _api => _knock.client();
 
   Future<User> get() async {
-    final response = await _api.doGet('/v1/users/${_knock.userId}');
+    final response = await _api.doGet(
+      '/v1/users/${pathSegment(_knock.userId!)}',
+    );
     final json = response.decodeResponse();
     return User.fromJson(json);
   }
@@ -49,14 +52,18 @@ class UserClient {
     }
 
     final body = jsonEncode(requestBody);
-    final response = await _api.doPut('/v1/users/${_knock.userId}', body: body);
+    final response = await _api.doPut(
+      '/v1/users/${pathSegment(_knock.userId!)}',
+      body: body,
+    );
     final json = response.decodeResponse();
     return User.fromJson(json);
   }
 
   Future<ChannelData> getChannelData(String channelId) async {
     final response = await _api.doGet(
-      '/v1/users/${_knock.userId}/channel_data/$channelId',
+      '/v1/users/${pathSegment(_knock.userId!)}'
+      '/channel_data/${pathSegment(channelId)}',
     );
     final json = response.decodeResponse();
     return ChannelData.fromJson(json);
@@ -68,7 +75,8 @@ class UserClient {
   ) async {
     final body = jsonEncode(channelData.toJson());
     final response = await _api.doPut(
-      '/v1/users/${_knock.userId}/channel_data/$channelId',
+      '/v1/users/${pathSegment(_knock.userId!)}'
+      '/channel_data/${pathSegment(channelId)}',
       body: body,
     );
     final json = response.decodeResponse();

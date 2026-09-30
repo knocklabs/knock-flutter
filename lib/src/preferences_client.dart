@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:knock_flutter/knock_flutter.dart';
+import 'package:knock_flutter/src/util/path.dart';
 
 class PreferencesOptions {
   const PreferencesOptions({this.preferenceSetId = _defaultPreferenceSetId});
@@ -20,15 +21,20 @@ class PreferencesClient {
   KnockApiClient get _api => _knock.client();
 
   Future<List<PreferenceSet>> getAll() async {
-    final response = await _api.doGet('/v1/users/${_knock.userId}/preferences');
+    final response = await _api.doGet(
+      '/v1/users/${pathSegment(_knock.userId!)}/preferences',
+    );
     final json = response.decodeResponse();
-    final jsonList = json as List<Map<String, dynamic>>;
-    return jsonList.map(PreferenceSet.fromJson).toList();
+    return (json as List<dynamic>)
+        .cast<Map<String, dynamic>>()
+        .map(PreferenceSet.fromJson)
+        .toList();
   }
 
   Future<PreferenceSet> get() async {
     final response = await _api.doGet(
-      '/v1/users/${_knock.userId}/preferences/${options.preferenceSetId}',
+      '/v1/users/${pathSegment(_knock.userId!)}'
+      '/preferences/${pathSegment(options.preferenceSetId)}',
     );
     final json = response.decodeResponse();
     return PreferenceSet.fromJson(json);
@@ -37,7 +43,8 @@ class PreferencesClient {
   Future<PreferenceSet> set(SetPreferencesProperties properties) async {
     final body = jsonEncode(properties.toJson());
     final response = await _api.doPut(
-      '/v1/users/${_knock.userId}/preferences/${options.preferenceSetId}',
+      '/v1/users/${pathSegment(_knock.userId!)}'
+      '/preferences/${pathSegment(options.preferenceSetId)}',
       body: body,
     );
     final json = response.decodeResponse();

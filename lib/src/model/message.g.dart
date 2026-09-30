@@ -8,58 +8,57 @@ part of 'message.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-_KnockMessage _$KnockMessageFromJson(
-  Map<String, dynamic> json,
-) => _KnockMessage(
-  id: json['id'] as String,
-  channelId: json['channel_id'] as String,
-  recipient: Recipient.fromJson(json['recipient'] as Map<String, dynamic>),
-  source: KnockMessageSource.fromJson(json['source'] as Map<String, dynamic>),
-  status: $enumDecode(_$KnockMessageDeliveryStatusEnumMap, json['status']),
-  insertedAt: const ISO8601DateTimeConverter().fromJson(
-    json['inserted_at'] as String,
-  ),
-  updatedAt: const ISO8601DateTimeConverter().fromJson(
-    json['updated_at'] as String,
-  ),
-  actors:
-      (json['actors'] as List<dynamic>?)
-          ?.map((e) => Recipient.fromJson(e as Map<String, dynamic>))
-          .toList() ??
-      const [],
-  tenant: json['tenant'] as String?,
-  engagementStatuses:
-      (json['engagement_statuses'] as List<dynamic>?)
-          ?.map((e) => $enumDecode(_$KnockMessageEngagementStatusEnumMap, e))
-          .toList() ??
-      const [],
-  seenAt: _$JsonConverterFromJson<String, DateTime>(
-    json['seen_at'],
-    const ISO8601DateTimeConverter().fromJson,
-  ),
-  readAt: _$JsonConverterFromJson<String, DateTime>(
-    json['read_at'],
-    const ISO8601DateTimeConverter().fromJson,
-  ),
-  archivedAt: _$JsonConverterFromJson<String, DateTime>(
-    json['archived_at'],
-    const ISO8601DateTimeConverter().fromJson,
-  ),
-  clickedAt: _$JsonConverterFromJson<String, DateTime>(
-    json['clicked_at'],
-    const ISO8601DateTimeConverter().fromJson,
-  ),
-  interactedAt: _$JsonConverterFromJson<String, DateTime>(
-    json['interacted_at'],
-    const ISO8601DateTimeConverter().fromJson,
-  ),
-  linkClickedAt: _$JsonConverterFromJson<String, DateTime>(
-    json['link_clicked_at'],
-    const ISO8601DateTimeConverter().fromJson,
-  ),
-  data: json['data'] as Map<String, dynamic>?,
-  metadata: json['metadata'] as Map<String, dynamic>? ?? const {},
-);
+_KnockMessage _$KnockMessageFromJson(Map<String, dynamic> json) =>
+    _KnockMessage(
+      id: json['id'] as String,
+      channelId: json['channel_id'] as String,
+      recipient: Recipient.fromJson(json['recipient'] as Map<String, dynamic>),
+      source: KnockMessageSource.fromJson(
+        json['source'] as Map<String, dynamic>,
+      ),
+      status: $enumDecode(_$KnockMessageDeliveryStatusEnumMap, json['status']),
+      insertedAt: const ISO8601DateTimeConverter().fromJson(
+        json['inserted_at'] as String,
+      ),
+      updatedAt: const ISO8601DateTimeConverter().fromJson(
+        json['updated_at'] as String,
+      ),
+      actors:
+          (json['actors'] as List<dynamic>?)
+              ?.map((e) => Recipient.fromJson(e as Map<String, dynamic>))
+              .toList() ??
+          const [],
+      tenant: json['tenant'] as String?,
+      engagementStatuses: json['engagement_statuses'] == null
+          ? const []
+          : _engagementStatusesFromJson(json['engagement_statuses'] as List),
+      seenAt: _$JsonConverterFromJson<String, DateTime>(
+        json['seen_at'],
+        const ISO8601DateTimeConverter().fromJson,
+      ),
+      readAt: _$JsonConverterFromJson<String, DateTime>(
+        json['read_at'],
+        const ISO8601DateTimeConverter().fromJson,
+      ),
+      archivedAt: _$JsonConverterFromJson<String, DateTime>(
+        json['archived_at'],
+        const ISO8601DateTimeConverter().fromJson,
+      ),
+      clickedAt: _$JsonConverterFromJson<String, DateTime>(
+        json['clicked_at'],
+        const ISO8601DateTimeConverter().fromJson,
+      ),
+      interactedAt: _$JsonConverterFromJson<String, DateTime>(
+        json['interacted_at'],
+        const ISO8601DateTimeConverter().fromJson,
+      ),
+      linkClickedAt: _$JsonConverterFromJson<String, DateTime>(
+        json['link_clicked_at'],
+        const ISO8601DateTimeConverter().fromJson,
+      ),
+      data: json['data'] as Map<String, dynamic>?,
+      metadata: json['metadata'] as Map<String, dynamic>? ?? const {},
+    );
 
 Map<String, dynamic> _$KnockMessageToJson(
   _KnockMessage instance,
@@ -111,19 +110,21 @@ const _$KnockMessageDeliveryStatusEnumMap = {
   KnockMessageDeliveryStatus.deliveryAttempted: 'delivery_attempted',
   KnockMessageDeliveryStatus.undelivered: 'undelivered',
   KnockMessageDeliveryStatus.notSent: 'not_sent',
-};
-
-const _$KnockMessageEngagementStatusEnumMap = {
-  KnockMessageEngagementStatus.seen: 'seen',
-  KnockMessageEngagementStatus.read: 'read',
-  KnockMessageEngagementStatus.interacted: 'interacted',
-  KnockMessageEngagementStatus.archived: 'archived',
+  KnockMessageDeliveryStatus.bounced: 'bounced',
 };
 
 Value? _$JsonConverterFromJson<Json, Value>(
   Object? json,
   Value? Function(Json json) fromJson,
 ) => json == null ? null : fromJson(json as Json);
+
+const _$KnockMessageEngagementStatusEnumMap = {
+  KnockMessageEngagementStatus.seen: 'seen',
+  KnockMessageEngagementStatus.read: 'read',
+  KnockMessageEngagementStatus.interacted: 'interacted',
+  KnockMessageEngagementStatus.linkClicked: 'link_clicked',
+  KnockMessageEngagementStatus.archived: 'archived',
+};
 
 Json? _$JsonConverterToJson<Json, Value>(
   Value? value,

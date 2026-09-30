@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:knock_flutter/knock_flutter.dart';
+import 'package:knock_flutter/src/util/path.dart';
 
 /// The engagement status for updating a message.
 enum MessageEngagementStatus {
@@ -142,7 +143,7 @@ class MessagesClient {
   ///
   /// Returns a [KnockMessage] object containing the message details.
   Future<KnockMessage> get(String messageId) async {
-    final response = await _api.doGet('/v1/messages/$messageId');
+    final response = await _api.doGet('/v1/messages/${pathSegment(messageId)}');
     final json = response.decodeResponse();
     return KnockMessage.fromJson(json);
   }
@@ -182,7 +183,7 @@ class MessagesClient {
     }
 
     final response = await _api.doPut(
-      '/v1/messages/$messageId/${status.apiValue}',
+      '/v1/messages/${pathSegment(messageId)}/${status.apiValue}',
       body: body,
     );
     final json = response.decodeResponse();
@@ -206,7 +207,7 @@ class MessagesClient {
     RemovableMessageStatus status,
   ) async {
     final response = await _api.doDelete(
-      '/v1/messages/$messageId/${status.apiValue}',
+      '/v1/messages/${pathSegment(messageId)}/${status.apiValue}',
     );
     final json = response.decodeResponse();
     return KnockMessage.fromJson(json);
@@ -265,7 +266,8 @@ class MessagesClient {
     BulkUpdateMessagesInChannelOptions? options,
   }) async {
     final response = await _api.doPost(
-      '/v1/channels/$channelId/messages/bulk/${status.apiValue}',
+      '/v1/channels/${pathSegment(channelId)}'
+      '/messages/bulk/${status.apiValue}',
       body: options != null ? jsonEncode(options.toJson()) : null,
     );
     final json = response.decodeResponse();

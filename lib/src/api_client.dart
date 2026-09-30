@@ -131,12 +131,13 @@ class KnockApiClient extends http.BaseClient {
       host: uri.host,
       port: uri.port == 0 ? null : uri.port,
       pathSegments: uri.pathSegments,
-      queryParameters: cleanParams,
-      fragment: uri.fragment,
+      queryParameters: cleanParams.isEmpty ? null : cleanParams,
+      fragment: uri.hasFragment ? uri.fragment : null,
     );
   }
 
   void dispose() {
+    if (_disposed) return;
     _disposed = true;
     _status.add(KnockApiClientStatus.disposed);
 

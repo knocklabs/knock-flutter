@@ -19,7 +19,12 @@ abstract class KnockApiResponse with _$KnockApiResponse {
 
   dynamic decodeResponse() {
     checkResponse();
-    return jsonDecode(body!);
+
+    final body = this.body;
+    if (body == null || body.trim().isEmpty) {
+      throw KnockApiException(this);
+    }
+    return jsonDecode(body);
   }
 
   void checkResponse() {

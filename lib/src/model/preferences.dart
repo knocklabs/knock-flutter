@@ -13,8 +13,12 @@ enum ChannelType {
 
   const ChannelType(this.apiValue);
 
-  static ChannelType _valueOf(String apiValue) =>
-      ChannelType.values.firstWhere((element) => element.apiValue == apiValue);
+  static ChannelType? _valueOf(String apiValue) {
+    for (final channelType in ChannelType.values) {
+      if (channelType.apiValue == apiValue) return channelType;
+    }
+    return null;
+  }
 
   final String apiValue;
 }
@@ -201,22 +205,24 @@ dynamic _nonNullChannelTypePreferencesToJson(ChannelTypePreferences value) {
 ChannelTypePreferences? _nonNullChannelTypePreferencesFromJson(
   Map<String, dynamic>? json,
 ) {
-  if (json != null) {
-    return json.map((key, value) {
-      final ChannelTypePreference setting;
-      if (value is bool) {
-        setting = ChannelTypePreference(value: value);
-      } else {
-        final parsed = _ConditionsJson.fromJson(value);
-        final conditions = parsed.conditions ?? [];
-        setting = ChannelTypePreference(conditions: conditions);
-      }
+  if (json == null) return null;
 
-      return MapEntry(ChannelType._valueOf(key), setting);
-    });
-  } else {
-    return null;
+  final preferences = <ChannelType, ChannelTypePreference>{};
+  for (final MapEntry(:key, :value) in json.entries) {
+    // Channel types this SDK doesn't know yet are skipped.
+    final channelType = ChannelType._valueOf(key);
+    if (channelType == null) continue;
+
+    if (value is bool) {
+      preferences[channelType] = ChannelTypePreference(value: value);
+    } else {
+      final parsed = _ConditionsJson.fromJson(value as Map<String, dynamic>);
+      preferences[channelType] = ChannelTypePreference(
+        conditions: parsed.conditions ?? [],
+      );
+    }
   }
+  return preferences;
 }
 
 dynamic _channelTypePreferencesToJson(ChannelTypePreferences? value) {
