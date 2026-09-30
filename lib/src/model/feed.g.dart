@@ -43,9 +43,7 @@ _FeedItem _$FeedItemFromJson(Map<String, dynamic> json) => _FeedItem(
   actors: (json['actors'] as List<dynamic>)
       .map((e) => Recipient.fromJson(e as Map<String, dynamic>))
       .toList(),
-  blocks: (json['blocks'] as List<dynamic>)
-      .map((e) => ContentBlock.fromJson(e as Map<String, dynamic>))
-      .toList(),
+  blocks: _contentBlocksFromJson(json['blocks'] as List),
   insertedAt: const ISO8601DateTimeConverter().fromJson(
     json['inserted_at'] as String,
   ),

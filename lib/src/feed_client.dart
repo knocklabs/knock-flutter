@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'dart:convert';
+import 'dart:developer' as developer;
 
 import 'package:knock_flutter/knock_flutter.dart';
 import 'package:knock_flutter/src/feed_phoenix_detach.dart';
@@ -78,6 +79,7 @@ class FeedClient {
   final _eventController = StreamController<FeedEvent>.broadcast();
 
   bool _disposed = false;
+  bool _pendingRealtimeFetch = false;
 
   KnockApiClient get _api => _knock.client();
 
@@ -88,7 +90,10 @@ class FeedClient {
     _feedController?.add(feed);
   }
 
+  /// The feed state. Once this client is disposed it returns an empty stream.
   Stream<Feed> get feed {
+    if (_disposed) return const Stream<Feed>.empty();
+
     final controller = _feedController ??= _buildFeedController();
     return controller.stream;
   }
@@ -239,20 +244,39 @@ class FeedClient {
     if (_disposed) return;
 
     final payload = message.payload;
-    if (payload != null) {
+    if (payload == null) return;
+
+    try {
       final response = OnNewMessageResponse.fromJson(payload);
-
       _currentFeed = _currentFeed.updateMetadata(response.metadata);
-
-      final before = _currentFeed.items.firstOrNull?.knockInternalCursor;
-      unawaited(
-        _fetch(
-          fetchOptions: FeedOptions(before: before),
-          loadingType: NetworkStatus.loading,
-          fetchSource: _FeedFetchSource.socket,
-        ),
+    } on Object catch (error, stackTrace) {
+      developer.log(
+        '[Knock] Failed to decode realtime feed message',
+        error: error,
+        stackTrace: stackTrace,
       );
     }
+
+    _fetchRealtime();
+  }
+
+  void _fetchRealtime() {
+    // A realtime update that arrives while another request is in flight is
+    // replayed once that request completes, so it is never dropped.
+    if (_currentFeed.requestInFlight) {
+      _pendingRealtimeFetch = true;
+      return;
+    }
+    _pendingRealtimeFetch = false;
+
+    final before = _currentFeed.items.firstOrNull?.knockInternalCursor;
+    unawaited(
+      _fetch(
+        fetchOptions: FeedOptions(before: before),
+        loadingType: NetworkStatus.loading,
+        fetchSource: _FeedFetchSource.socket,
+      ),
+    );
   }
 
   Future<void> _fetch({
@@ -260,21 +284,22 @@ class FeedClient {
     required NetworkStatus loadingType,
     required _FeedFetchSource fetchSource,
   }) async {
+    if (_disposed) return;
+
     // Do nothing if there is an active request
-    final currentFeed = _currentFeed;
-    if (currentFeed.requestInFlight) {
+    if (_currentFeed.requestInFlight) {
       return;
     }
 
-    _currentFeed = currentFeed.copyWith(networkStatus: loadingType);
+    _currentFeed = _currentFeed.copyWith(networkStatus: loadingType);
 
-    final response = await _api.doGet(
-      '/v1/users/${_knock.userId}/feeds/$feedChannelId',
-      queryParams: options.merge(fetchOptions).toJson(),
-    );
-    if (response.statusCode == StatusCode.error) {
-      _currentFeed = currentFeed.copyWith(networkStatus: NetworkStatus.error);
-    } else {
+    try {
+      final response = await _api.doGet(
+        '/v1/users/${_knock.userId}/feeds/$feedChannelId',
+        queryParams: options.merge(fetchOptions).toJson(),
+      );
+      if (_disposed) return;
+
       final json = response.decodeResponse();
       final updatedFeed = Feed.fromJson(json);
 
@@ -304,6 +329,20 @@ class FeedClient {
           ),
         );
       }
+    } on Object catch (error, stackTrace) {
+      if (_disposed) return;
+      developer.log(
+        '[Knock] Failed to fetch feed',
+        error: error,
+        stackTrace: stackTrace,
+      );
+      // Only flip the status so optimistic updates applied while the request
+      // was in flight are kept.
+      _currentFeed = _currentFeed.copyWith(networkStatus: NetworkStatus.error);
+    }
+
+    if (_pendingRealtimeFetch && !_disposed) {
+      _fetchRealtime();
     }
   }
 

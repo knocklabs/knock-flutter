@@ -55,6 +55,7 @@ abstract class FeedItem with _$FeedItem {
     required String id,
     required List<Activity> activities,
     required List<Recipient> actors,
+    @JsonKey(fromJson: _contentBlocksFromJson)
     required List<ContentBlock> blocks,
     @ISO8601DateTimeConverter()
     @JsonKey(name: 'inserted_at')
@@ -139,10 +140,27 @@ sealed class ContentBlock with _$ContentBlock {
 
 Map<String, dynamic> modifyJsonForContentBlock(Map<String, dynamic> json) {
   final type = json['type'] as String?;
-  json['runtimeType'] = type == 'button_set' ? 'buttonSet' : type;
+  if (type == null) return json;
 
-  // Now call the generated function
-  return json;
+  return {
+    ...json,
+    'runtimeType': type == 'button_set' ? 'buttonSet' : type,
+  };
+}
+
+const _supportedContentBlockTypes = {'markdown', 'text', 'buttonSet'};
+
+// Block types this SDK doesn't know yet are skipped so that new server-side
+// block types don't prevent the whole feed from loading.
+List<ContentBlock> _contentBlocksFromJson(List<dynamic> json) {
+  return json
+      .cast<Map<String, dynamic>>()
+      .map(modifyJsonForContentBlock)
+      .where(
+        (block) => _supportedContentBlockTypes.contains(block['runtimeType']),
+      )
+      .map(ContentBlock.fromJson)
+      .toList();
 }
 
 @freezed
