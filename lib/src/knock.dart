@@ -45,9 +45,20 @@ class Knock {
 
   /// Authenticates the current user. In non-sandbox environments the userToken
   /// must be specified.
+  ///
+  /// Authenticating as a different user disposes the current API client and
+  /// its socket, which also disposes any [FeedClient]s created for the
+  /// previous user. Calling this again for the same user only updates the
+  /// token; it is sent with every request and when the socket reconnects.
   void authenticate(String userId, [String? userToken]) {
+    final userChanged = _userId != null && _userId != userId;
+
     _userId = userId;
     _userToken = userToken;
+
+    if (userChanged) {
+      dispose();
+    }
   }
 
   /// Clears any user authentication and disposes of any created clients.

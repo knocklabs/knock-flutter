@@ -14,7 +14,10 @@ class FakePhoenixServer {
   /// `[joinRef, ref, topic, event, payload]`.
   final received = <List<dynamic>>[];
 
-  int connections = 0;
+  /// Query parameters of every websocket connection, in order.
+  final connectionParams = <Map<String, String>>[];
+
+  int get connections => connectionParams.length;
 
   int get port => _server.port;
 
@@ -31,8 +34,8 @@ class FakePhoenixServer {
         await request.response.close();
         return;
       }
+      connectionParams.add(request.uri.queryParameters);
       final socket = await WebSocketTransformer.upgrade(request);
-      connections++;
       _sockets.add(socket);
       socket.listen((data) {
         final message = jsonDecode(data as String) as List<dynamic>;

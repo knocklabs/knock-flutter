@@ -21,7 +21,9 @@ class KnockApiClient extends http.BaseClient {
   PhoenixSocket? _socket;
 
   bool _disposed = false;
-  final _status = StreamController<KnockApiClientStatus>.broadcast();
+  // Synchronous so that anything bound to this client (e.g. FeedClient) sees
+  // the disposal before dispose() returns.
+  final _status = StreamController<KnockApiClientStatus>.broadcast(sync: true);
 
   String get _host => knock.host;
 
@@ -34,19 +36,20 @@ class KnockApiClient extends http.BaseClient {
   PhoenixSocket _buildSocket() {
     _assertNotDisposed();
 
-    final params = {'api_key': knock.apiKey};
-
-    final userToken = knock.userToken;
-    if (userToken != null) {
-      params['user_token'] = userToken;
-    }
-
     final socket = PhoenixSocket(
       _wsHost,
-      socketOptions: PhoenixSocketOptions(params: params),
+      // Read on every (re)connect so a refreshed user token is picked up.
+      socketOptions: PhoenixSocketOptions(dynamicParams: _socketParams),
     );
     unawaited(socket.connect());
     return socket;
+  }
+
+  Future<Map<String, String>> _socketParams() async {
+    return {
+      'api_key': knock.apiKey,
+      'user_token': ?knock.userToken,
+    };
   }
 
   @override
