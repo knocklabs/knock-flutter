@@ -4,6 +4,29 @@ A client-side Flutter library to interact with user-facing Knock features, such 
 
 **Note:** This is a lower-level library intended for building your own notification UIs on top of Knock’s APIs (feeds, preferences, channels, messages).
 
+## Installation
+
+```sh
+flutter pub add knock_flutter
+```
+
+or add it to your `pubspec.yaml`:
+
+```yaml
+dependencies:
+  knock_flutter: ^1.1.0
+```
+
+Requires Dart SDK `>=3.8.0` and Flutter `>=3.32.0`.
+
+## Upgrading from 1.0.x to 1.1.0
+
+1.1.0 is a stabilization release. Three behavior changes may need attention (details in [CHANGELOG.md](CHANGELOG.md)):
+
+- `KnockMessageDeliveryStatus.bounced` and `KnockMessageEngagementStatus.linkClicked` were added; exhaustive `switch` statements over these enums need the new cases.
+- `FeedClient`s for the same feed channel share one realtime subscription (see [Realtime feeds](#realtime-feeds)).
+- `knock.authenticate()` with a different user disposes the previous user's feeds (see [Lifecycle and cleanup](#lifecycle-and-cleanup)).
+
 ## Migrating from 0.1.x to 1.0.0
 
 Version **1.0.0** is a major release with breaking changes. Read [CHANGELOG.md](CHANGELOG.md) for the full list. Highlights:

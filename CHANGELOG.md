@@ -1,4 +1,14 @@
-## Unreleased
+## 1.1.0
+
+A stabilization release: bug fixes, current Flutter stable tooling, and a working example app. No new features.
+
+### Behavior changes
+
+- **New enum values:** `KnockMessageDeliveryStatus.bounced` and `KnockMessageEngagementStatus.linkClicked` were added so messages with these API values decode. Exhaustive `switch` statements over these enums need the new cases.
+- **Shared realtime subscriptions:** `FeedClient`s for the same feed channel and user now share one realtime channel. It is joined with the options of the first client that subscribes; each client still fetches its own items with its own options when a realtime update arrives.
+- **Feeds are disposed on user switch:** calling `knock.authenticate()` with a different user disposes the current API client, its socket and every `FeedClient` created for the previous user. Create new feeds after switching users. Re-authenticating the same user only updates the token, which is used for subsequent requests and on socket reconnect.
+- `FeedClient.feed` returns an empty stream after `dispose()` (previously it reconnected and refetched).
+- `KnockApiClient.status` events are delivered synchronously.
 
 ### Fixed
 
@@ -8,11 +18,10 @@
 - fix: `markAllAsSeen` / `markAllAsRead` / `markAllAsArchived` on a filtered feed no longer reset the feed to `NetworkStatus.initial`
 - fix: a failed feed fetch no longer reverts optimistic updates made while it was in flight
 - fix: a realtime update that arrives while another feed request is in flight is replayed instead of dropped
-- fix: several `FeedClient`s for the same feed channel share one realtime channel; previously the second client hit a Phoenix `!_joinedOnce` assertion and disposing either client stopped realtime updates for both
+- fix: a second `FeedClient` for the same feed channel hit a Phoenix `!_joinedOnce` assertion, and disposing either client stopped realtime updates for both (see shared realtime subscriptions above)
 - fix: `FeedClient.dispose()` right after `knock.logout()` threw, and right after `knock.dispose()` opened a new websocket
-- fix: `FeedClient.feed` returns an empty stream after `dispose()` instead of reconnecting and refetching
-- fix: the socket used a stale user token after `authenticate()` was called again; the token is now read on every reconnect, and authenticating as a different user disposes the previous user's API client, socket and feeds
-- fix: `KnockMessage` failed to decode the `bounced` delivery status and the `link_clicked` engagement status. Added `KnockMessageDeliveryStatus.bounced` and `KnockMessageEngagementStatus.linkClicked`; exhaustive `switch` statements over these enums need the new cases. Unknown engagement statuses are ignored
+- fix: the socket kept using a stale user token after `authenticate()` was called again; the token is now read on every reconnect
+- fix: `KnockMessage` failed to decode the `bounced` delivery status and the `link_clicked` engagement status (see new enum values above); unknown engagement statuses are now ignored
 - fix: ids used in request paths (user, channel, message, preference set) are URL-encoded, and request URLs no longer end with an empty `?#`
 - fix: `KnockApiResponse.decodeResponse()` throws `KnockApiException` for an empty body instead of a `FormatException`
 - fix: unknown preference channel types are skipped instead of throwing `StateError`
