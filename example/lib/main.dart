@@ -6,12 +6,32 @@ import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:knock_flutter/knock_flutter.dart';
 
+// Knock: API host
+const _knockHost = String.fromEnvironment(
+  'KNOCK_HOST',
+  defaultValue: 'https://api.knock.app',
+);
+
 // Knock: Example user and feed data
-const _exampleUserId = '1';
-const _exampleUserToken = null;
-const _exampleFeedChannelId = '495a74d0-3ac1-43f6-9906-344f9e7d94d9';
-const _exampleApnsChannelId = 'c5c4fd65-20de-4ab5-bcda-8f8d077f528e';
-const _exampleFcmChannelId = '54268be3-1d12-416a-81a5-3dc7681f2408';
+const _exampleUserId = String.fromEnvironment(
+  'KNOCK_USER_ID',
+  defaultValue: '1',
+);
+const String? _exampleUserToken = bool.hasEnvironment('KNOCK_USER_TOKEN')
+    ? String.fromEnvironment('KNOCK_USER_TOKEN')
+    : null;
+const _exampleFeedChannelId = String.fromEnvironment(
+  'KNOCK_FEED_CHANNEL_ID',
+  defaultValue: '495a74d0-3ac1-43f6-9906-344f9e7d94d9',
+);
+const _exampleApnsChannelId = String.fromEnvironment(
+  'KNOCK_APNS_CHANNEL_ID',
+  defaultValue: 'c5c4fd65-20de-4ab5-bcda-8f8d077f528e',
+);
+const _exampleFcmChannelId = String.fromEnvironment(
+  'KNOCK_FCM_CHANNEL_ID',
+  defaultValue: '54268be3-1d12-416a-81a5-3dc7681f2408',
+);
 
 String _firebaseUnavailableMessage() =>
     'Firebase not configured (see example/README.md).';
@@ -86,7 +106,10 @@ class _KnockPageState extends State<_KnockPage> {
     /// See https://dart.dev/guides/environment-declarations#flutter and
     /// https://codewithandrea.com/articles/flutter-api-keys-dart-define-env-files/#new-in-flutter-37-use---dart-define-from-file
     /// to learn more about this approach.
-    knock = Knock(const String.fromEnvironment("KNOCK_API_KEY"));
+    knock = Knock(
+      const String.fromEnvironment("KNOCK_API_KEY"),
+      options: KnockOptions(host: _knockHost),
+    );
     knock.authenticate(_exampleUserId, _exampleUserToken);
   }
 
