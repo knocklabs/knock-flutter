@@ -1,9 +1,11 @@
 import 'dart:async';
+import 'dart:convert';
 import 'dart:developer' as developer;
 
 import 'package:http/http.dart' as http;
 import 'package:knock_flutter/knock_flutter.dart';
 import 'package:knock_flutter/src/model/api_response.dart';
+import 'package:knock_flutter/src/socket_gateway.dart';
 import 'package:knock_flutter/src/util/retry.dart';
 import 'package:phoenix_socket/phoenix_socket.dart';
 
@@ -11,14 +13,29 @@ enum KnockApiClientStatus { disposed }
 
 class KnockApiClient extends http.BaseClient {
   KnockApiClient(
-    this.knock, {
+    Knock knock, {
     http.Client? client,
-  }) : _client = client ?? buildRetryClient(http.Client());
+  }) : this._(knock, client ?? http.Client(), retry: client == null);
+
+  KnockApiClient._(
+    this.knock,
+    http.Client inner, {
+    required bool retry,
+  }) : _rawClient = inner,
+       _client = retry ? buildRetryClient(inner) : inner;
 
   final Knock knock;
   final http.Client _client;
 
+  /// Same transport as [_client] but without retries; used for the socket
+  /// gateway fetch, where the socket's reconnect backoff is the retry.
+  final http.Client _rawClient;
+
   PhoenixSocket? _socket;
+
+  late final _socketGatewayCache = SocketGatewayConnectionCache(
+    fetch: _fetchSocketGatewayConnection,
+  );
 
   bool _disposed = false;
   // Synchronous so that anything bound to this client (e.g. FeedClient) sees
@@ -36,13 +53,55 @@ class KnockApiClient extends http.BaseClient {
   PhoenixSocket _buildSocket() {
     _assertNotDisposed();
 
-    final socket = PhoenixSocket(
+    late final PhoenixSocket socket;
+    socket = PhoenixSocket(
       _wsHost,
       // Read on every (re)connect so a refreshed user token is picked up.
       socketOptions: PhoenixSocketOptions(dynamicParams: _socketParams),
+      webSocketChannelFactory: (uri) => connectViaSocketGateway(
+        uri,
+        cache: _socketGatewayCache,
+        onUnsupportedMode: () => _abandonSocket(socket),
+      ),
     );
     unawaited(socket.connect());
     return socket;
+  }
+
+  /// Stops reconnecting after the gateway returned a mode this SDK can't use.
+  /// The next [socket] access builds a fresh one.
+  void _abandonSocket(PhoenixSocket socket) {
+    developer.log(
+      'Unsupported socket gateway mode; realtime updates are disabled',
+    );
+    socket.dispose();
+    if (identical(_socket, socket)) {
+      _socket = null;
+    }
+  }
+
+  Future<SocketGatewayConnection> _fetchSocketGatewayConnection() async {
+    _assertNotDisposed();
+
+    final request = http.Request('POST', _buildUri('/v1/sockets/connect', null))
+      ..body = '{}';
+    _applyHeaders(request);
+    final response = await http.Response.fromStream(
+      await _rawClient.send(request),
+    );
+    if (response.statusCode >= 300) {
+      throw http.ClientException(
+        'Socket gateway request failed with status ${response.statusCode}',
+        request.url,
+      );
+    }
+
+    final json = jsonDecode(response.body) as Map<String, dynamic>;
+    final connection = SocketGatewayConnection.fromJson(json);
+    if (connection.mode != supportedSocketMode) {
+      throw UnsupportedSocketModeException(connection.mode);
+    }
+    return connection;
   }
 
   Future<Map<String, String>> _socketParams() async {
@@ -55,7 +114,11 @@ class KnockApiClient extends http.BaseClient {
   @override
   Future<http.StreamedResponse> send(http.BaseRequest request) {
     _assertNotDisposed();
+    _applyHeaders(request);
+    return _client.send(request);
+  }
 
+  void _applyHeaders(http.BaseRequest request) {
     request.headers['Accept'] = 'application/json';
     request.headers['Content-Type'] = 'application/json';
     request.headers['Authorization'] = 'Bearer ${knock.apiKey}';
@@ -64,8 +127,6 @@ class KnockApiClient extends http.BaseClient {
     if (userToken != null) {
       request.headers['X-Knock-User-Token'] = userToken;
     }
-
-    return _client.send(request);
   }
 
   Future<KnockApiResponse> doGet(

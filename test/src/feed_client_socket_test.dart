@@ -181,4 +181,108 @@ void main() {
     expect(knock.createdClients, hasLength(1));
     expect(server.connections, 1);
   });
+
+  int gatewayPosts() => knock
+      .requestsWhere('POST')
+      .where((request) => request.url.path == '/v1/sockets/connect')
+      .length;
+
+  test('connects to the gateway URL with merged params', () async {
+    await guarded(() async {
+      createKnock(userToken: 'tok');
+      knock.feed(_feedChannelId).feed.listen((_) {});
+      await pump(300);
+    });
+
+    expect(uncaughtErrors, isEmpty);
+    expect(server.connectionPaths, ['/gateway/websocket']);
+    expect(server.connectionParams.single, {
+      'auth_token': 'test',
+      'vsn': '2.0.0',
+      'api_key': 'pk_test',
+      'user_token': 'tok',
+    });
+  });
+
+  test('reconnect reuses the cached gateway connection', () async {
+    await guarded(() async {
+      createKnock();
+      knock.feed(_feedChannelId).feed.listen((_) {});
+      await pump(300);
+      await server.dropConnections();
+      await pump(2500);
+    });
+
+    // Dropping the connection reports "socket closed" to the zone, as in the
+    // other reconnect tests.
+    expect(server.connections, greaterThan(1));
+    expect(gatewayPosts(), 1);
+  });
+
+  test('a failing gateway fetch is retried by the socket, un-retried over '
+      'HTTP', () async {
+    await guarded(() async {
+      createKnock();
+      knock.gatewayHandler = (_) async => http.Response('nope', 500);
+      knock.feed(_feedChannelId).feed.listen((_) {});
+      await pump(300);
+      expect(gatewayPosts(), 1);
+      expect(server.connections, 0);
+
+      knock.gatewayHandler = null;
+      await pump(3500);
+      expect(server.connections, 1);
+    });
+
+    expect(uncaughtErrors, isEmpty);
+  });
+
+  test('unsupported mode stops reconnects until a new subscription', () async {
+    await guarded(() async {
+      createKnock();
+      knock.gatewayHandler = (_) async => http.Response(
+        '{"mode":"other","url":"wss://x/websocket",'
+        '"expires_at":"2999-01-01T00:00:00Z"}',
+        200,
+      );
+      final feedClient = knock.feed(_feedChannelId);
+      feedClient.feed.listen((_) {});
+      await pump(300);
+      expect(gatewayPosts(), 1);
+
+      await pump(3500);
+      expect(gatewayPosts(), 1);
+      expect(feedClient.dispose, returnsNormally);
+
+      knock.feed('other-channel').feed.listen((_) {});
+      await pump(300);
+      expect(gatewayPosts(), 2);
+    });
+
+    expect(uncaughtErrors, isEmpty);
+  });
+
+  test('disposing while the fetch is in flight leaves no connection', () async {
+    await guarded(() async {
+      createKnock();
+      final release = Completer<void>();
+      knock.gatewayHandler = (request) async {
+        await release.future;
+        return http.Response(
+          '{"mode":"websocket","url":"ws://127.0.0.1:${server.port}/g",'
+          '"expires_at":"2999-01-01T00:00:00Z"}',
+          200,
+        );
+      };
+      knock.feed(_feedChannelId).feed.listen((_) {});
+      await pump(100);
+      knock.dispose();
+      release.complete();
+      await pump(500);
+      await server.dropConnections();
+      await pump(200);
+    });
+
+    expect(uncaughtErrors, isEmpty);
+  });
 }

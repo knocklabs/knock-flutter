@@ -1,3 +1,9 @@
+## Unreleased
+
+### Changed
+
+- Realtime sockets now connect through the socket gateway: the SDK calls `POST /v1/sockets/connect` and connects to the returned signed URL. The gateway connection is cached until shortly before it expires.
+
 ## 1.1.0
 
 A stabilization release: bug fixes, current Flutter stable tooling, and a working example app. No new features.
