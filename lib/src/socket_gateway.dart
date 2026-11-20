@@ -9,9 +9,10 @@ const supportedSocketMode = 'websocket';
 /// Connections are treated as expired this long before `expires_at`.
 const _expiryPadding = Duration(seconds: 5);
 
-/// Matches `phoenix_socket`'s default connect timeout, so a hung fetch is
-/// dropped by the time the socket retries instead of being shared with it.
-const _defaultFetchTimeout = Duration(seconds: 10);
+/// Shorter than `phoenix_socket`'s 10s connect timeout, which also covers the
+/// WebSocket handshake, so a hung fetch fails the attempt instead of being
+/// shared with the next one.
+const _defaultFetchTimeout = Duration(seconds: 8);
 
 /// The response of `POST /v1/sockets/connect`.
 class SocketGatewayConnection {
