@@ -12,9 +12,13 @@ class TestKnock extends Knock {
   TestKnock(
     this.handler, {
     String host = 'http://127.0.0.1:1',
+    this.gatewayHandler,
   }) : super('pk_test', options: KnockOptions(host: host));
 
   final RequestHandler handler;
+
+  /// Overrides the default `POST /v1/sockets/connect` answer.
+  RequestHandler? gatewayHandler;
   final requests = <http.Request>[];
   final createdClients = <KnockApiClient>[];
 
@@ -33,11 +37,26 @@ class TestKnock extends Knock {
       this,
       client: MockClient((request) {
         requests.add(request);
+        if (request.url.path == '/v1/sockets/connect') {
+          return (gatewayHandler ?? _defaultGateway)(request);
+        }
         return handler(request);
       }),
     );
     createdClients.add(client);
     return client;
+  }
+
+  Future<http.Response> _defaultGateway(http.Request request) async {
+    final wsHost = host.replaceFirst('http', 'ws');
+    return http.Response(
+      jsonEncode({
+        'mode': 'websocket',
+        'url': '$wsHost/gateway/websocket?auth_token=test',
+        'expires_at': '2999-01-01T00:00:00Z',
+      }),
+      200,
+    );
   }
 
   @override

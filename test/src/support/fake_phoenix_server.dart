@@ -17,6 +17,9 @@ class FakePhoenixServer {
   /// Query parameters of every websocket connection, in order.
   final connectionParams = <Map<String, String>>[];
 
+  /// Request path of every websocket connection, in order.
+  final connectionPaths = <String>[];
+
   int get connections => connectionParams.length;
 
   int get port => _server.port;
@@ -34,6 +37,7 @@ class FakePhoenixServer {
         await request.response.close();
         return;
       }
+      connectionPaths.add(request.uri.path);
       connectionParams.add(request.uri.queryParameters);
       final socket = await WebSocketTransformer.upgrade(request);
       _sockets.add(socket);
