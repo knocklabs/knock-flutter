@@ -14,7 +14,7 @@ void main() {
 
   SocketGatewayConnection connection() => SocketGatewayConnection(
     mode: 'websocket',
-    url: 'wss://gateway.example.com/websocket?auth_token=abc',
+    url: 'wss://ws1.knock.app/ws/v1/websocket?auth_token=abc',
     expiresAt: expiry(),
   );
 
@@ -131,7 +131,7 @@ void main() {
         cache: SocketGatewayConnectionCache(
           fetch: () async => SocketGatewayConnection(
             mode: 'websocket',
-            url: 'wss://gateway.example.com/websocket?auth_token=abc&vsn=9',
+            url: 'wss://ws1.knock.app/ws/v1/websocket?auth_token=abc&vsn=9',
             expiresAt: DateTime.utc(2999),
           ),
         ),
@@ -143,8 +143,8 @@ void main() {
       );
       await expectLater(channel.ready, throwsA(anything));
 
-      expect(connected.single.host, 'gateway.example.com');
-      expect(connected.single.path, '/websocket');
+      expect(connected.single.host, 'ws1.knock.app');
+      expect(connected.single.path, '/ws/v1/websocket');
       expect(connected.single.queryParameters, {
         'vsn': '9',
         'api_key': 'pk',
