@@ -2,7 +2,7 @@
 
 ### Changed
 
-- Realtime sockets now connect through the socket gateway: the SDK calls `POST /v1/sockets/connect` and connects to the returned signed URL. The gateway connection is cached until shortly before it expires.
+- The SDK now makes a request to the `POST /v1/sockets/connect` endpoint of the Knock API before establishing the WebSocket connection used for real-time feed updates.
 
 ## 1.1.0
 
