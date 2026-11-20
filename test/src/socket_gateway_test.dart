@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:flutter_test/flutter_test.dart';
 import 'package:knock_flutter/src/socket_gateway.dart';
+import 'package:web_socket/testing.dart';
 import 'package:web_socket/web_socket.dart';
 import 'package:web_socket_channel/web_socket_channel.dart';
 
@@ -152,24 +153,31 @@ void main() {
       });
     });
 
-    test('two connects share one fetch', () async {
-      for (var i = 0; i < 2; i++) {
-        final channel = connectViaSocketGateway(
-          original,
-          cache: cache,
-          onUnsupportedMode: () {},
-          connect: (_) => Future<WebSocket>.error(StateError('stop')),
-        );
-        // Failure invalidates the cache, so reconnect to a cached value
-        // by using a connect that succeeds is not needed; just count below.
-        await expectLater(channel.ready, throwsA(anything));
-        // Re-prime the cache as a successful connect would have left it.
-        await cache.get();
-      }
-      // First connect: fetch (1), invalidated, re-primed (2). Second connect
-      // reuses (2), invalidated, re-primed (3).
-      expect(fetches, 3);
-    });
+    test(
+      'connects after a successful connect reuse the cached fetch',
+      () async {
+        final connected = <Uri>[];
+
+        for (var i = 0; i < 2; i++) {
+          final channel = connectViaSocketGateway(
+            original,
+            cache: cache,
+            onUnsupportedMode: () {},
+            connect: (url) async {
+              connected.add(url);
+              final (client, _) = fakes();
+              return client;
+            },
+          );
+          await channel.ready;
+          await channel.sink.close();
+        }
+
+        expect(fetches, 1);
+        expect(connected, hasLength(2));
+        expect(connected[1], connected[0]);
+      },
+    );
 
     test('a failed connect invalidates the cache', () async {
       final channel = connectViaSocketGateway(
