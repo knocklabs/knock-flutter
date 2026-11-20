@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter_test/flutter_test.dart';
 import 'package:knock_flutter/src/socket_gateway.dart';
 import 'package:web_socket/web_socket.dart';
@@ -76,6 +78,23 @@ void main() {
     test('concurrent gets share one fetch', () async {
       await Future.wait([cache.get(), cache.get(), cache.get()]);
       expect(fetches, 1);
+    });
+
+    test('a hung fetch times out and the next get refetches', () async {
+      var hang = true;
+      final hanging = SocketGatewayConnectionCache(
+        fetch: () {
+          fetches++;
+          if (hang) return Completer<SocketGatewayConnection>().future;
+          return Future.value(connection());
+        },
+        now: () => now,
+        fetchTimeout: const Duration(milliseconds: 10),
+      );
+      await expectLater(hanging.get(), throwsA(isA<TimeoutException>()));
+      hang = false;
+      await hanging.get();
+      expect(fetches, 2);
     });
   });
 

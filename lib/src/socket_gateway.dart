@@ -9,6 +9,10 @@ const supportedSocketMode = 'websocket';
 /// Connections are treated as expired this long before `expires_at`.
 const _expiryPadding = Duration(seconds: 5);
 
+/// Matches `phoenix_socket`'s default connect timeout, so a hung fetch is
+/// dropped by the time the socket retries instead of being shared with it.
+const _defaultFetchTimeout = Duration(seconds: 10);
+
 /// The response of `POST /v1/sockets/connect`.
 class SocketGatewayConnection {
   const SocketGatewayConnection({
@@ -57,11 +61,14 @@ class SocketGatewayConnectionCache {
   SocketGatewayConnectionCache({
     required Future<SocketGatewayConnection> Function() fetch,
     DateTime Function() now = DateTime.now,
+    Duration fetchTimeout = _defaultFetchTimeout,
   }) : _fetch = fetch,
-       _now = now;
+       _now = now,
+       _fetchTimeout = fetchTimeout;
 
   final Future<SocketGatewayConnection> Function() _fetch;
   final DateTime Function() _now;
+  final Duration _fetchTimeout;
 
   SocketGatewayConnection? _cached;
   Future<SocketGatewayConnection>? _inFlight;
@@ -77,7 +84,7 @@ class SocketGatewayConnectionCache {
 
   Future<SocketGatewayConnection> _load() async {
     try {
-      final connection = await _fetch();
+      final connection = await _fetch().timeout(_fetchTimeout);
       _cached = connection;
       return connection;
     } finally {
