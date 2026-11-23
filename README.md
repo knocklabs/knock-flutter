@@ -14,7 +14,7 @@ or add it to your `pubspec.yaml`:
 
 ```yaml
 dependencies:
-  knock_flutter: ^1.1.0
+  knock_flutter: ^1.2.0
 ```
 
 Requires Dart SDK `>=3.8.0` and Flutter `>=3.32.0`.
