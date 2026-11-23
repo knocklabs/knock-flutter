@@ -16,6 +16,8 @@ dependencies:
   http: ^1.1.0
   json_annotation: ^4.9.0
   phoenix_socket: ^0.8.0
+  web_socket: ^1.0.1
+  web_socket_channel: ^3.0.1
 
 # Code generators are pinned so that CI's generated-code check is
 # deterministic. Bump them deliberately and regenerate.

@@ -1,3 +1,9 @@
+## Unreleased
+
+### Changed
+
+- The SDK now makes a request to the `POST /v1/sockets/connect` endpoint of the Knock API before establishing the WebSocket connection used for real-time feed updates.
+
 ## 1.1.0
 
 A stabilization release: bug fixes, current Flutter stable tooling, and a working example app. No new features.
